@@ -1,11 +1,12 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-import type { components } from '#/api/schema'
+import { setAuthTokenGetter } from '#/shared/api'
+import type { components } from '#/shared/api'
 
 export type User = components['schemas']['UserRead']
 
-interface AuthState {
+interface SessionState {
   token: string | null
   user: User | null
   setAuth: (token: string, user: User) => void
@@ -13,7 +14,7 @@ interface AuthState {
   logout: () => void
 }
 
-export const useAuthStore = create<AuthState>()(
+export const useSessionStore = create<SessionState>()(
   persist(
     (set) => ({
       token: null,
@@ -25,3 +26,7 @@ export const useAuthStore = create<AuthState>()(
     { name: 'ai-academy-auth' },
   ),
 )
+
+// Bridge the API client's auth header to the persisted session token.
+// Dependency injection keeps `shared/api` decoupled from this entity.
+setAuthTokenGetter(() => useSessionStore.getState().token)
