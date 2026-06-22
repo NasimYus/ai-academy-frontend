@@ -214,18 +214,19 @@ export interface components {
         UserRead: {
             /** Id */
             id: number;
-            /**
-             * Email
-             * Format: email
-             */
-            email: string;
+            /** Email */
+            email: string | null;
+            /** Mobile */
+            mobile: string | null;
             /** Full Name */
             full_name: string | null;
-            role: components["schemas"]["UserRole"];
-            /** Is Active */
-            is_active: boolean;
-            /** Is Verified */
-            is_verified: boolean;
+            /** Role Name */
+            role_name: string;
+            status: components["schemas"]["UserStatus"];
+            /** Verified */
+            verified: boolean;
+            /** Avatar */
+            avatar: string | null;
             /**
              * Created At
              * Format: date-time
@@ -233,10 +234,10 @@ export interface components {
             created_at: string;
         };
         /**
-         * UserRole
+         * UserStatus
          * @enum {string}
          */
-        UserRole: "student" | "teacher" | "admin";
+        UserStatus: "active" | "pending" | "inactive";
         /** ValidationError */
         ValidationError: {
             /** Location */
