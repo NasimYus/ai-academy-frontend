@@ -4,7 +4,7 @@
  */
 
 export interface paths {
-    "/api/v1/auth/register": {
+    "/api/v1/auth/register/step/1": {
         parameters: {
             query?: never;
             header?: never;
@@ -13,15 +13,15 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Register */
-        post: operations["register_api_v1_auth_register_post"];
+        /** Register Step One */
+        post: operations["register_step_one_api_v1_auth_register_step_1_post"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/v1/auth/verify": {
+    "/api/v1/auth/register/step/2": {
         parameters: {
             query?: never;
             header?: never;
@@ -30,8 +30,42 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Verify Email */
-        post: operations["verify_email_api_v1_auth_verify_post"];
+        /** Register Step Two */
+        post: operations["register_step_two_api_v1_auth_register_step_2_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/register/step/3": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Register Step Three */
+        post: operations["register_step_three_api_v1_auth_register_step_3_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/verification": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Verification */
+        post: operations["verification_api_v1_auth_verification_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -127,6 +161,21 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /**
+         * AuthToken
+         * @description Token plus the authenticated user id (returned after register step 3).
+         */
+        AuthToken: {
+            /** Access Token */
+            access_token: string;
+            /**
+             * Token Type
+             * @default bearer
+             */
+            token_type: string;
+            /** User Id */
+            user_id: number;
+        };
         /** CourseRead */
         CourseRead: {
             /** Id */
@@ -181,12 +230,43 @@ export interface components {
             /** Password */
             password: string;
         };
-        /** RegisterResponse */
-        RegisterResponse: {
+        /** RegisterStep1 */
+        RegisterStep1: {
+            /** Email */
+            email?: string | null;
+            /** Mobile */
+            mobile?: string | null;
+            /** Country Code */
+            country_code?: string | null;
+            /** Password */
+            password: string;
+            /** Password Confirmation */
+            password_confirmation: string;
+        };
+        /** RegisterStep1Response */
+        RegisterStep1Response: {
+            /** Status */
+            status: string;
             /** User Id */
             user_id: number;
-            /** Verification Token */
-            verification_token?: string | null;
+            /** Code */
+            code?: string | null;
+        };
+        /** RegisterStep2 */
+        RegisterStep2: {
+            /** User Id */
+            user_id: number;
+            /** Code */
+            code: string;
+        };
+        /** RegisterStep3 */
+        RegisterStep3: {
+            /** User Id */
+            user_id: number;
+            /** Full Name */
+            full_name: string;
+            /** Referral Code */
+            referral_code?: string | null;
         };
         /** Token */
         Token: {
@@ -197,18 +277,6 @@ export interface components {
              * @default bearer
              */
             token_type: string;
-        };
-        /** UserCreate */
-        UserCreate: {
-            /**
-             * Email
-             * Format: email
-             */
-            email: string;
-            /** Password */
-            password: string;
-            /** Full Name */
-            full_name?: string | null;
         };
         /** UserRead */
         UserRead: {
@@ -251,6 +319,23 @@ export interface components {
             /** Context */
             ctx?: Record<string, never>;
         };
+        /** VerificationConfirm */
+        VerificationConfirm: {
+            /** Username */
+            username: string;
+            /** Code */
+            code: string;
+            /** Referral Code */
+            referral_code?: string | null;
+        };
+        /** VerificationResult */
+        VerificationResult: {
+            /**
+             * Status
+             * @default verified
+             */
+            status: string;
+        };
     };
     responses: never;
     parameters: never;
@@ -260,7 +345,7 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    register_api_v1_auth_register_post: {
+    register_step_one_api_v1_auth_register_step_1_post: {
         parameters: {
             query?: never;
             header?: never;
@@ -269,17 +354,17 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["UserCreate"];
+                "application/json": components["schemas"]["RegisterStep1"];
             };
         };
         responses: {
             /** @description Successful Response */
-            201: {
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["RegisterResponse"];
+                    "application/json": components["schemas"]["RegisterStep1Response"];
                 };
             };
             /** @description Conflict */
@@ -291,27 +376,29 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Validation Error */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };
     };
-    verify_email_api_v1_auth_verify_post: {
+    register_step_two_api_v1_auth_register_step_2_post: {
         parameters: {
-            query: {
-                token: string;
-            };
+            query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RegisterStep2"];
+            };
+        };
         responses: {
             /** @description Successful Response */
             200: {
@@ -319,18 +406,49 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        [key: string]: string;
-                    };
+                    "application/json": components["schemas"]["VerificationResult"];
                 };
             };
-            /** @description Bad Request */
-            400: {
+            /** @description Not Found */
+            404: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
                     "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    register_step_three_api_v1_auth_register_step_3_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RegisterStep3"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AuthToken"];
                 };
             };
             /** @description Not Found */
@@ -349,6 +467,39 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    verification_api_v1_auth_verification_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["VerificationConfirm"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VerificationResult"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };

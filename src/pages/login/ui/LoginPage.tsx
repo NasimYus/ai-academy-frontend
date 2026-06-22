@@ -1,3 +1,5 @@
+import { Link } from '@tanstack/react-router'
+
 import { LoginForm } from '#/features/auth/login'
 
 export function LoginPage() {
@@ -8,6 +10,13 @@ export function LoginPage() {
         <p className="mb-6 text-sm text-ink/60">Войдите в свой аккаунт AI Academy</p>
 
         <LoginForm />
+
+        <p className="mt-6 text-center text-sm text-ink/60">
+          Нет аккаунта?{' '}
+          <Link to="/register" className="font-medium text-brand-600 hover:underline">
+            Зарегистрироваться
+          </Link>
+        </p>
       </div>
     </div>
   )
