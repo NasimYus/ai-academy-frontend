@@ -6,10 +6,10 @@ import {
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 
-import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
-import { Header } from '../components/Header'
+import TanStackQueryDevtools from '#/app/providers/query-devtools'
+import { Header } from '#/widgets/header'
 
-import appCss from '../styles.css?url'
+import appCss from '#/app/styles.css?url'
 
 import type { QueryClient } from '@tanstack/react-query'
 
