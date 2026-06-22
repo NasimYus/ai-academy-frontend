@@ -113,22 +113,30 @@ src/
 
 ---
 
-## 5. Известные предупреждения (НЕ регресс)
+## 5. Lint — чисто (исторически было 6 ошибок, исправлено)
 
-`bun run lint` выдаёт 6 ошибок `@typescript-eslint/no-unnecessary-condition` /
-`no-unnecessary-type-assertion` в `entities/course/api/courses.ts`,
-`features/auth/login/api/login.ts`, `LoginForm.tsx`, `CoursesPage.tsx`.
+`bun run lint` → **0 ошибок**.
 
-Это **унаследовано дословно** из исходного кода (проверено: на `main` тот же
-набор из 6 ошибок в `routes/courses.tsx` и `routes/login.tsx`). Причина:
-OpenAPI-контракт не описывает error-ответы, поэтому type-aware ESLint считает
-`error`/`!data` «всегда ложными». Гварды (`if (error || !data)`) оставлены
-намеренно — openapi-fetch **реально** заполняет `error` на не-2xx в рантайме,
-и их удаление было бы регрессом обработки ошибок под видом рефактора.
+Раньше было 6 ошибок `no-unnecessary-condition` / `no-unnecessary-type-assertion`
+(унаследованы с исходного `main`). Причина: OpenAPI-контракт не описывал
+error-ответы, поэтому type-aware ESLint считал `error`/`!data` «всегда ложными».
 
-Если нужно убрать из линта — варианты: добавить error-схемы в OpenAPI на
-бэкенде (тогда типы станут честными), либо точечно `// eslint-disable-next-line`,
-либо отключить правило для `**/api/*.ts`. Решать отдельно, вне FSD-задачи.
+Исправлено честно, без подавления правил:
+- **Backend** (`ai-academy-backend`, коммит «Document error responses…»):
+  во все роуты добавлены `responses=` с моделью `ErrorResponse {detail}`
+  (`app/schemas/common.py`) — 401/403/404/409/400 там, где они реально
+  кидаются. Контракт стал честным.
+- **Frontend**: схема перегенерирована (`src/shared/api/schema.d.ts`); гварды
+  переписаны на идиоматичный openapi-fetch паттерн `if (error) throw …`
+  (после этого `data` сужается к defined автоматически — `!data` был лишним
+  по дизайну union'а openapi-fetch, а не из-за контракта); убраны ненужные
+  `as Error` / `?.` на `error` из TanStack Query.
+- **`eslint.config.js`**: в ignore добавлены `steiger.config.js`, `.output/**`,
+  `dist/**` (build-артефакты и конфиги не должны линтиться type-aware парсером).
+
+> Важно: при изменении бэкенда нужно регенерировать схему —
+> `bun run gen:api` (нужен запущенный backend на :8000) либо дамп
+> `app.openapi()` → `openapi-typescript`.
 
 ---
 
