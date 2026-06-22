@@ -11,12 +11,17 @@ export function LoginPage() {
 
         <LoginForm />
 
-        <p className="mt-6 text-center text-sm text-ink/60">
-          Нет аккаунта?{' '}
-          <Link to="/register" className="font-medium text-brand-600 hover:underline">
-            Зарегистрироваться
+        <div className="mt-6 flex flex-col items-center gap-2 text-sm text-ink/60">
+          <Link to="/forgot-password" className="font-medium text-brand-600 hover:underline">
+            Забыли пароль?
           </Link>
-        </p>
+          <span>
+            Нет аккаунта?{' '}
+            <Link to="/register" className="font-medium text-brand-600 hover:underline">
+              Зарегистрироваться
+            </Link>
+          </span>
+        </div>
       </div>
     </div>
   )
