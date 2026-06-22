@@ -1,12 +1,12 @@
 import { Link, useNavigate } from '@tanstack/react-router'
 
-import { useAuthStore } from '#/stores/auth'
+import { useSessionStore } from '#/entities/session'
 
 export function Header() {
   const navigate = useNavigate()
-  const token = useAuthStore((s) => s.token)
-  const user = useAuthStore((s) => s.user)
-  const logout = useAuthStore((s) => s.logout)
+  const token = useSessionStore((s) => s.token)
+  const user = useSessionStore((s) => s.user)
+  const logout = useSessionStore((s) => s.logout)
 
   return (
     <header className="border-b border-brand-100 bg-white">

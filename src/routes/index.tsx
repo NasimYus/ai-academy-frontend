@@ -1,9 +1,9 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
 
-import { useAuthStore } from '#/stores/auth'
+import { useSessionStore } from '#/entities/session'
 
 export const Route = createFileRoute('/')({
   beforeLoad: () => {
-    throw redirect({ to: useAuthStore.getState().token ? '/courses' : '/login' })
+    throw redirect({ to: useSessionStore.getState().token ? '/courses' : '/login' })
   },
 })
