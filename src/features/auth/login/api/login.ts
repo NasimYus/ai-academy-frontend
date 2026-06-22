@@ -9,7 +9,10 @@ export interface LoginResult {
 
 // Exchanges credentials for a JWT, then loads the profile in one flow.
 export async function login(input: LoginInput): Promise<LoginResult> {
-  const { data, error } = await api.POST('/api/v1/auth/login', { body: input })
+  // The login identifier is `username` (e-mail or mobile) in the API.
+  const { data, error } = await api.POST('/api/v1/auth/login', {
+    body: { username: input.email, password: input.password },
+  })
   if (error) throw new Error('Неверный e-mail или пароль')
 
   const me = await api.GET('/api/v1/auth/me', {
