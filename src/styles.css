@@ -1,17 +1,55 @@
-
 @import "tailwindcss";
 
-* {
-  box-sizing: border-box;
+/* ───────────────────────────────────────────────────────────
+   AI Academy — base design tokens (from the official brandbook)
+   Brand colors:  #2B50F0 (primary), #102355 (navy), #3228A3 (indigo)
+   Brand font:    Tektur (display) + Inter (UI/body)
+   ─────────────────────────────────────────────────────────── */
+@theme {
+  --color-brand-50: #eef1fe;
+  --color-brand-100: #dde3fd;
+  --color-brand-200: #bac7fb;
+  --color-brand-300: #8fa3f8;
+  --color-brand-400: #5e78f4;
+  --color-brand-500: #2b50f0; /* primary — from logo */
+  --color-brand-600: #1f3ad6;
+  --color-brand-700: #3228a3; /* deep indigo — brandbook swatch */
+  --color-brand-800: #15235c;
+  --color-brand-900: #102355; /* navy — brandbook swatch */
+  --color-brand-950: #0a1538;
+
+  /* semantic aliases */
+  --color-ink: #102355; /* primary text / dark surfaces */
+  --color-accent: #3228a3;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Tektur", var(--font-sans);
+
+  --radius-card: 0.875rem;
 }
 
-html,
-body,
-#app {
-  min-height: 100%;
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  html,
+  body,
+  #app {
+    min-height: 100%;
+  }
+  body {
+    margin: 0;
+    background-color: #ffffff;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
 }
-
-body {
-  margin: 0;
-}
-
