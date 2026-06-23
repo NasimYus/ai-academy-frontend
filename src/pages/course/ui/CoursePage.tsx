@@ -2,10 +2,12 @@ import { useQuery } from '@tanstack/react-query'
 import { Link, useParams } from '@tanstack/react-router'
 
 import { courseQueryOptions } from '#/entities/course'
+import { useEnrollFree } from '#/features/course-enroll'
 
 export function CoursePage() {
   const { slug } = useParams({ from: '/course/$slug' })
   const course = useQuery(courseQueryOptions(slug))
+  const enroll = useEnrollFree(slug)
 
   if (course.isPending) return <p className="mx-auto max-w-5xl px-6 py-8 text-ink/60">Загрузка…</p>
   if (course.isError)
@@ -139,14 +141,41 @@ export function CoursePage() {
             )}
           </dl>
 
-          <button
-            type="button"
-            disabled
-            className="mt-6 w-full cursor-not-allowed rounded-full bg-brand-500 px-4 py-2 font-semibold text-white opacity-60"
-            title="Оплата появится в Phase 4"
-          >
-            В корзину
-          </button>
+          {data.auth_has_bought ? (
+            <div className="mt-6 rounded-full bg-green-50 px-4 py-2 text-center font-semibold text-green-700">
+              Вы записаны
+            </div>
+          ) : Number(data.price) === 0 ? (
+            data.auth ? (
+              <button
+                type="button"
+                onClick={() => enroll.mutate(data.id)}
+                disabled={enroll.isPending}
+                className="mt-6 w-full rounded-full bg-brand-500 px-4 py-2 font-semibold text-white transition hover:bg-brand-600 disabled:opacity-50"
+              >
+                {enroll.isPending ? 'Записываем…' : 'Записаться бесплатно'}
+              </button>
+            ) : (
+              <Link
+                to="/login"
+                className="mt-6 block rounded-full bg-brand-500 px-4 py-2 text-center font-semibold text-white transition hover:bg-brand-600"
+              >
+                Войдите, чтобы записаться
+              </Link>
+            )
+          ) : (
+            <button
+              type="button"
+              disabled
+              className="mt-6 w-full cursor-not-allowed rounded-full bg-brand-500 px-4 py-2 font-semibold text-white opacity-60"
+              title="Оплата появится в Phase 4"
+            >
+              В корзину
+            </button>
+          )}
+          {enroll.isError && (
+            <p className="mt-2 text-sm text-red-600">{enroll.error.message}</p>
+          )}
         </aside>
       </div>
     </div>

@@ -42,7 +42,8 @@
 
 ## Phase 3 — Обучение
 
-- ⬜ **3.1** Гейтинг доступа к контенту · **3.2** `entities/lesson` + `pages/learn`
+- ✅ **3.1** Enrollment: `features/course-enroll` (free-enroll) + состояния на детали курса (Записаться/Вы записаны/Войдите); access-флаги из API
+- ⬜ **3.2** `entities/lesson` + `pages/learn`
 - ⬜ **3.3** Прогресс · **3.4** `features/take-quiz` · **3.5** `features/submit-assignment`
 - ⬜ **3.6** Сертификаты · **3.7** Заметки · **3.8** Noticeboards · **3.9** Форумы
 
