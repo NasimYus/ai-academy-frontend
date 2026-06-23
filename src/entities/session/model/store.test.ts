@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import { useSessionStore, type User } from '#/entities/session'
+import { useSessionStore } from '#/entities/session'
+import type { User } from '#/entities/session'
 
 const user: User = {
   id: 1,

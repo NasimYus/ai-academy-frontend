@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it } from 'vitest'
 
-import { requireAuth, requireRole, useSessionStore, type User } from '#/entities/session'
+import { requireAuth, requireRole, useSessionStore } from '#/entities/session'
+import type { User } from '#/entities/session'
 
 const user: User = {
   id: 1,
