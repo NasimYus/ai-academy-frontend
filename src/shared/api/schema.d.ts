@@ -242,6 +242,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/courses/{course_id}/learning": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Toggle Learning
+         * @description Legacy WebinarController@learningStatus: mark/unmark a content item learned.
+         */
+        post: operations["toggle_learning_api_v1_courses__course_id__learning_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/categories": {
         parameters: {
             query?: never;
@@ -573,6 +593,11 @@ export interface components {
             order: number;
             /** Locked */
             locked: boolean;
+            /**
+             * Completed
+             * @default false
+             */
+            completed: boolean;
             /** File */
             file?: string | null;
             /** File Type */
@@ -598,6 +623,8 @@ export interface components {
         };
         /** CourseContent */
         CourseContent: {
+            /** Course Id */
+            course_id: number;
             /**
              * Chapters
              * @default []
@@ -1068,6 +1095,18 @@ export interface components {
             identity_scan?: string | null;
             /** Certificate */
             certificate?: string | null;
+        };
+        /** LearningToggle */
+        LearningToggle: {
+            /**
+             * Item Type
+             * @enum {string}
+             */
+            item_type: "file" | "text_lesson" | "session";
+            /** Item Id */
+            item_id: number;
+            /** Learned */
+            learned: boolean;
         };
         /** LocationInput */
         LocationInput: {
@@ -2110,6 +2149,70 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["CourseContent"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    toggle_learning_api_v1_courses__course_id__learning_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                course_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LearningToggle"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: boolean | string;
+                    };
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
             /** @description Not Found */

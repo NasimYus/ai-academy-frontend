@@ -2,6 +2,8 @@ import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
 
 import { courseContentQueryOptions } from '#/entities/course'
+import { useToggleLearning } from '#/features/lesson-progress'
+import type { LearningItemType } from '#/features/lesson-progress'
 import type { components } from '#/shared/api'
 
 type ContentItem = components['schemas']['ContentItem']
@@ -14,11 +16,31 @@ const TYPE_LABEL: Record<string, string> = {
   session: 'Сессия',
 }
 
-function Item({ item }: { item: ContentItem }) {
+function Item({
+  item,
+  onToggle,
+  toggling,
+}: {
+  item: ContentItem
+  onToggle: (itemType: LearningItemType, itemId: number, learned: boolean) => void
+  toggling: boolean
+}) {
   return (
     <div className="rounded-lg border border-brand-100 bg-white p-4">
       <div className="flex items-center justify-between">
-        <span className="font-medium text-ink">
+        <span className="flex items-center gap-2 font-medium text-ink">
+          {!item.locked && (
+            <input
+              type="checkbox"
+              checked={item.completed}
+              disabled={toggling}
+              onChange={(e) =>
+                onToggle(item.type as LearningItemType, item.id, e.target.checked)
+              }
+              className="size-4 rounded border-brand-300 text-brand-600 focus:ring-brand-500"
+              aria-label="Отметить как пройдено"
+            />
+          )}
           {item.locked && <span className="mr-1">🔒</span>}
           {item.title}
         </span>
@@ -55,6 +77,8 @@ function Item({ item }: { item: ContentItem }) {
 
 export function LearnPage({ slug }: { slug: string }) {
   const content = useQuery(courseContentQueryOptions(slug))
+  const courseId = content.data?.course_id ?? 0
+  const toggle = useToggleLearning(courseId, slug)
 
   if (content.isPending) return <p className="mx-auto max-w-3xl px-6 py-8 text-ink/60">Загрузка…</p>
   if (content.isError)
@@ -62,6 +86,9 @@ export function LearnPage({ slug }: { slug: string }) {
 
   const data = content.data
   const empty = data.chapters.length === 0 && data.items.length === 0
+
+  const handleToggle = (itemType: LearningItemType, itemId: number, learned: boolean) =>
+    toggle.mutate({ itemType, itemId, learned })
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-8">
@@ -77,7 +104,12 @@ export function LearnPage({ slug }: { slug: string }) {
       {data.items.length > 0 && (
         <div className="mb-6 space-y-2">
           {data.items.map((item) => (
-            <Item key={`${item.type}-${item.id}`} item={item} />
+            <Item
+              key={`${item.type}-${item.id}`}
+              item={item}
+              onToggle={handleToggle}
+              toggling={toggle.isPending}
+            />
           ))}
         </div>
       )}
@@ -87,7 +119,12 @@ export function LearnPage({ slug }: { slug: string }) {
           <h2 className="mb-2 font-display text-lg font-bold text-ink">{chapter.title}</h2>
           <div className="space-y-2">
             {chapter.items.map((item) => (
-              <Item key={`${item.type}-${item.id}`} item={item} />
+              <Item
+                key={`${item.type}-${item.id}`}
+                item={item}
+                onToggle={handleToggle}
+                toggling={toggle.isPending}
+              />
             ))}
           </div>
         </section>
