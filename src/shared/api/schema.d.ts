@@ -225,6 +225,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/categories": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Categories */
+        get: operations["list_categories_api_v1_categories_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/trend-categories": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Trend Categories */
+        get: operations["list_trend_categories_api_v1_trend_categories_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/panel/profile-setting": {
         parameters: {
             query?: never;
@@ -321,6 +355,34 @@ export interface components {
             identity_scan?: string | null;
             /** Certificate */
             certificate?: string | null;
+        };
+        /** CategoryList */
+        CategoryList: {
+            /** Count */
+            count: number;
+            /** Categories */
+            categories: components["schemas"]["CategoryRead"][];
+        };
+        /** CategoryRead */
+        CategoryRead: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Color */
+            color?: string | null;
+            /** Icon */
+            icon?: string | null;
+            /**
+             * Sub Categories
+             * @default []
+             */
+            sub_categories: components["schemas"]["SubCategoryRead"][];
+            /**
+             * Webinars Count
+             * @default 0
+             */
+            webinars_count: number;
         };
         /** CourseRead */
         CourseRead: {
@@ -643,11 +705,43 @@ export interface components {
             /** Status */
             status: string;
         };
+        /** SubCategoryRead */
+        SubCategoryRead: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Icon */
+            icon?: string | null;
+            /**
+             * Webinars Count
+             * @default 0
+             */
+            webinars_count: number;
+        };
         /**
          * ThemeColorMode
          * @enum {string}
          */
         ThemeColorMode: "dark" | "light";
+        /** TrendCategoryList */
+        TrendCategoryList: {
+            /** Count */
+            count: number;
+            /** Categories */
+            categories: components["schemas"]["TrendCategoryRead"][];
+        };
+        /** TrendCategoryRead */
+        TrendCategoryRead: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Color */
+            color?: string | null;
+            /** Icon */
+            icon?: string | null;
+        };
         /** UserRead */
         UserRead: {
             /** Id */
@@ -1194,6 +1288,46 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_categories_api_v1_categories_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CategoryList"];
+                };
+            };
+        };
+    };
+    list_trend_categories_api_v1_trend_categories_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TrendCategoryList"];
                 };
             };
         };

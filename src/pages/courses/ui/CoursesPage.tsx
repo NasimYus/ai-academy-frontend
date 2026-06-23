@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
+import { CategoryNav } from '#/entities/category'
 import { CourseCard, coursesQueryOptions } from '#/entities/course'
 
 export function CoursesPage() {
@@ -8,6 +9,8 @@ export function CoursesPage() {
   return (
     <div className="mx-auto max-w-5xl px-6 py-8">
       <h1 className="mb-6 text-2xl font-bold text-ink">Курсы</h1>
+
+      <CategoryNav />
 
       {courses.isPending && <p className="text-ink/60">Загрузка…</p>}
       {courses.isError && <p className="text-red-600">{courses.error.message}</p>}
