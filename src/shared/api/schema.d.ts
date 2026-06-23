@@ -4,7 +4,7 @@
  */
 
 export interface paths {
-    "/api/v1/auth/register": {
+    "/api/v1/auth/register/step/1": {
         parameters: {
             query?: never;
             header?: never;
@@ -13,15 +13,15 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Register */
-        post: operations["register_api_v1_auth_register_post"];
+        /** Register Step One */
+        post: operations["register_step_one_api_v1_auth_register_step_1_post"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/v1/auth/verify": {
+    "/api/v1/auth/register/step/2": {
         parameters: {
             query?: never;
             header?: never;
@@ -30,8 +30,110 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Verify Email */
-        post: operations["verify_email_api_v1_auth_verify_post"];
+        /** Register Step Two */
+        post: operations["register_step_two_api_v1_auth_register_step_2_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/register/step/3": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Register Step Three */
+        post: operations["register_step_three_api_v1_auth_register_step_3_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/verification": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Verification */
+        post: operations["verification_api_v1_auth_verification_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/forget-password": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Forget Password */
+        post: operations["forget_password_api_v1_auth_forget_password_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/reset-password/{token}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Reset Password */
+        post: operations["reset_password_api_v1_auth_reset_password__token__post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/google/callback": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Google Callback */
+        post: operations["google_callback_api_v1_auth_google_callback_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/facebook/callback": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Facebook Callback */
+        post: operations["facebook_callback_api_v1_auth_facebook_callback_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -49,6 +151,23 @@ export interface paths {
         put?: never;
         /** Login */
         post: operations["login_api_v1_auth_login_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/logout": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Logout */
+        post: operations["logout_api_v1_auth_logout_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -106,6 +225,92 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/categories": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Categories */
+        get: operations["list_categories_api_v1_categories_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/trend-categories": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Trend Categories */
+        get: operations["list_trend_categories_api_v1_trend_categories_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/profile-setting": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Profile */
+        get: operations["get_profile_api_v1_panel_profile_setting_get"];
+        /** Update Profile */
+        put: operations["update_profile_api_v1_panel_profile_setting_put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/profile-setting/password": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Update Password */
+        put: operations["update_password_api_v1_panel_profile_setting_password_put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/profile-setting/images": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Update Images */
+        post: operations["update_images_api_v1_panel_profile_setting_images_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/health": {
         parameters: {
             query?: never;
@@ -127,6 +332,58 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /**
+         * AuthToken
+         * @description Token plus the authenticated user id (returned after register step 3).
+         */
+        AuthToken: {
+            /** Access Token */
+            access_token: string;
+            /**
+             * Token Type
+             * @default bearer
+             */
+            token_type: string;
+            /** User Id */
+            user_id: number;
+        };
+        /** Body_update_images_api_v1_panel_profile_setting_images_post */
+        Body_update_images_api_v1_panel_profile_setting_images_post: {
+            /** Profile Image */
+            profile_image?: string | null;
+            /** Identity Scan */
+            identity_scan?: string | null;
+            /** Certificate */
+            certificate?: string | null;
+        };
+        /** CategoryList */
+        CategoryList: {
+            /** Count */
+            count: number;
+            /** Categories */
+            categories: components["schemas"]["CategoryRead"][];
+        };
+        /** CategoryRead */
+        CategoryRead: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Color */
+            color?: string | null;
+            /** Icon */
+            icon?: string | null;
+            /**
+             * Sub Categories
+             * @default []
+             */
+            sub_categories: components["schemas"]["SubCategoryRead"][];
+            /**
+             * Webinars Count
+             * @default 0
+             */
+            webinars_count: number;
+        };
         /** CourseRead */
         CourseRead: {
             /** Id */
@@ -155,30 +412,72 @@ export interface components {
          * @enum {string}
          */
         CourseStatus: "draft" | "published" | "archived";
+        /**
+         * ErrorResponse
+         * @description Shape of FastAPI's default HTTPException body (`{"detail": "..."}`).
+         *
+         *     Declared on routes via `responses=` so the error contract is part of the
+         *     OpenAPI schema and the generated frontend client types `error` honestly.
+         */
+        ErrorResponse: {
+            /** Detail */
+            detail: string;
+        };
+        /** ForgotPasswordRequest */
+        ForgotPasswordRequest: {
+            /** Type */
+            type?: string | null;
+            /** Email */
+            email?: string | null;
+            /** Mobile */
+            mobile?: string | null;
+            /** Country Code */
+            country_code?: string | null;
+        };
+        /** ForgotPasswordResult */
+        ForgotPasswordResult: {
+            /** Status */
+            status: string;
+            /** Token */
+            token?: string | null;
+            /** New Password */
+            new_password?: string | null;
+        };
         /** HTTPValidationError */
         HTTPValidationError: {
             /** Detail */
             detail?: components["schemas"]["ValidationError"][];
         };
+        /** ImagesResult */
+        ImagesResult: {
+            /**
+             * Status
+             * @default updated
+             */
+            status: string;
+            /** Avatar */
+            avatar?: string | null;
+            /** Identity Scan */
+            identity_scan?: string | null;
+            /** Certificate */
+            certificate?: string | null;
+        };
+        /** LocationInput */
+        LocationInput: {
+            /** Latitude */
+            latitude: number;
+            /** Longitude */
+            longitude: number;
+        };
         /** LoginRequest */
         LoginRequest: {
-            /**
-             * Email
-             * Format: email
-             */
-            email: string;
+            /** Username */
+            username: string;
             /** Password */
             password: string;
         };
-        /** RegisterResponse */
-        RegisterResponse: {
-            /** User Id */
-            user_id: number;
-            /** Verification Token */
-            verification_token?: string | null;
-        };
-        /** Token */
-        Token: {
+        /** LoginResponse */
+        LoginResponse: {
             /** Access Token */
             access_token: string;
             /**
@@ -186,9 +485,211 @@ export interface components {
              * @default bearer
              */
             token_type: string;
+            /** User Id */
+            user_id: number;
+            /**
+             * Profile Completion
+             * @default []
+             */
+            profile_completion: string[];
         };
-        /** UserCreate */
-        UserCreate: {
+        /** LogoutResult */
+        LogoutResult: {
+            /**
+             * Status
+             * @default logout
+             */
+            status: string;
+        };
+        /**
+         * MeetingType
+         * @enum {string}
+         */
+        MeetingType: "all" | "in_person" | "online";
+        /** OAuthCallback */
+        OAuthCallback: {
+            /**
+             * Email
+             * Format: email
+             */
+            email: string;
+            /** Name */
+            name: string;
+            /** Id */
+            id: string;
+        };
+        /** OAuthResult */
+        OAuthResult: {
+            /** Status */
+            status: string;
+            /** User Id */
+            user_id: number;
+            /** Already Registered */
+            already_registered: boolean;
+            /** Token */
+            token?: string | null;
+        };
+        /** PasswordUpdate */
+        PasswordUpdate: {
+            /** Current Password */
+            current_password: string;
+            /** New Password */
+            new_password: string;
+        };
+        /** PasswordUpdateResult */
+        PasswordUpdateResult: {
+            /**
+             * Status
+             * @default updated
+             */
+            status: string;
+            /** Token */
+            token: string;
+        };
+        /** ProfileRead */
+        ProfileRead: {
+            /** Id */
+            id: number;
+            /** Email */
+            email: string | null;
+            /** Mobile */
+            mobile: string | null;
+            /** Full Name */
+            full_name: string | null;
+            /** Role Name */
+            role_name: string;
+            status: components["schemas"]["UserStatus"];
+            /** Verified */
+            verified: boolean;
+            /** Avatar */
+            avatar: string | null;
+            /** Cover Img */
+            cover_img: string | null;
+            /** Bio */
+            bio: string | null;
+            /** Headline */
+            headline: string | null;
+            /** About */
+            about: string | null;
+            /** Address */
+            address: string | null;
+            /** Language */
+            language: string | null;
+            /** Timezone */
+            timezone: string | null;
+            /** Currency */
+            currency: string | null;
+            theme_color_mode: components["schemas"]["ThemeColorMode"] | null;
+            /** Newsletter */
+            newsletter: boolean;
+            /** Public Message */
+            public_message: boolean;
+            /** Account Type */
+            account_type: string | null;
+            /** Iban */
+            iban: string | null;
+            /** Account Id */
+            account_id: string | null;
+            meeting_type: components["schemas"]["MeetingType"];
+            /** Level Of Training */
+            level_of_training: number | null;
+            /** Country Id */
+            country_id: number | null;
+            /** Province Id */
+            province_id: number | null;
+            /** City Id */
+            city_id: number | null;
+            /** District Id */
+            district_id: number | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** ProfileUpdate */
+        ProfileUpdate: {
+            /** Full Name */
+            full_name?: string | null;
+            /** Language */
+            language?: string | null;
+            /** Email */
+            email?: string | null;
+            /** Mobile */
+            mobile?: string | null;
+            /** Newsletter */
+            newsletter?: boolean | null;
+            /** Public Message */
+            public_message?: boolean | null;
+            /** Timezone */
+            timezone?: string | null;
+            /** Password */
+            password?: string | null;
+            /** About */
+            about?: string | null;
+            /** Bio */
+            bio?: string | null;
+            /** Address */
+            address?: string | null;
+            /** Account Type */
+            account_type?: string | null;
+            /** Iban */
+            iban?: string | null;
+            /** Account Id */
+            account_id?: string | null;
+            meeting_type?: components["schemas"]["MeetingType"] | null;
+            /** Level Of Training */
+            level_of_training?: string[] | null;
+            location?: components["schemas"]["LocationInput"] | null;
+            /** Country Id */
+            country_id?: number | null;
+            /** Province Id */
+            province_id?: number | null;
+            /** City Id */
+            city_id?: number | null;
+            /** District Id */
+            district_id?: number | null;
+        };
+        /** RegisterStep1 */
+        RegisterStep1: {
+            /** Email */
+            email?: string | null;
+            /** Mobile */
+            mobile?: string | null;
+            /** Country Code */
+            country_code?: string | null;
+            /** Password */
+            password: string;
+            /** Password Confirmation */
+            password_confirmation: string;
+        };
+        /** RegisterStep1Response */
+        RegisterStep1Response: {
+            /** Status */
+            status: string;
+            /** User Id */
+            user_id: number;
+            /** Code */
+            code?: string | null;
+        };
+        /** RegisterStep2 */
+        RegisterStep2: {
+            /** User Id */
+            user_id: number;
+            /** Code */
+            code: string;
+        };
+        /** RegisterStep3 */
+        RegisterStep3: {
+            /** User Id */
+            user_id: number;
+            /** Full Name */
+            full_name: string;
+            /** Referral Code */
+            referral_code?: string | null;
+        };
+        /** ResetPasswordRequest */
+        ResetPasswordRequest: {
             /**
              * Email
              * Format: email
@@ -196,25 +697,68 @@ export interface components {
             email: string;
             /** Password */
             password: string;
-            /** Full Name */
-            full_name?: string | null;
+            /** Password Confirmation */
+            password_confirmation: string;
+        };
+        /** ResetPasswordResult */
+        ResetPasswordResult: {
+            /** Status */
+            status: string;
+        };
+        /** SubCategoryRead */
+        SubCategoryRead: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Icon */
+            icon?: string | null;
+            /**
+             * Webinars Count
+             * @default 0
+             */
+            webinars_count: number;
+        };
+        /**
+         * ThemeColorMode
+         * @enum {string}
+         */
+        ThemeColorMode: "dark" | "light";
+        /** TrendCategoryList */
+        TrendCategoryList: {
+            /** Count */
+            count: number;
+            /** Categories */
+            categories: components["schemas"]["TrendCategoryRead"][];
+        };
+        /** TrendCategoryRead */
+        TrendCategoryRead: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Color */
+            color?: string | null;
+            /** Icon */
+            icon?: string | null;
         };
         /** UserRead */
         UserRead: {
             /** Id */
             id: number;
-            /**
-             * Email
-             * Format: email
-             */
-            email: string;
+            /** Email */
+            email: string | null;
+            /** Mobile */
+            mobile: string | null;
             /** Full Name */
             full_name: string | null;
-            role: components["schemas"]["UserRole"];
-            /** Is Active */
-            is_active: boolean;
-            /** Is Verified */
-            is_verified: boolean;
+            /** Role Name */
+            role_name: string;
+            status: components["schemas"]["UserStatus"];
+            /** Verified */
+            verified: boolean;
+            /** Avatar */
+            avatar: string | null;
             /**
              * Created At
              * Format: date-time
@@ -222,10 +766,10 @@ export interface components {
             created_at: string;
         };
         /**
-         * UserRole
+         * UserStatus
          * @enum {string}
          */
-        UserRole: "student" | "teacher" | "admin";
+        UserStatus: "active" | "pending" | "inactive";
         /** ValidationError */
         ValidationError: {
             /** Location */
@@ -239,6 +783,23 @@ export interface components {
             /** Context */
             ctx?: Record<string, never>;
         };
+        /** VerificationConfirm */
+        VerificationConfirm: {
+            /** Username */
+            username: string;
+            /** Code */
+            code: string;
+            /** Referral Code */
+            referral_code?: string | null;
+        };
+        /** VerificationResult */
+        VerificationResult: {
+            /**
+             * Status
+             * @default verified
+             */
+            status: string;
+        };
     };
     responses: never;
     parameters: never;
@@ -248,7 +809,7 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    register_api_v1_auth_register_post: {
+    register_step_one_api_v1_auth_register_step_1_post: {
         parameters: {
             query?: never;
             header?: never;
@@ -257,17 +818,110 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["UserCreate"];
+                "application/json": components["schemas"]["RegisterStep1"];
             };
         };
         responses: {
             /** @description Successful Response */
-            201: {
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["RegisterResponse"];
+                    "application/json": components["schemas"]["RegisterStep1Response"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    register_step_two_api_v1_auth_register_step_2_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RegisterStep2"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VerificationResult"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    register_step_three_api_v1_auth_register_step_3_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RegisterStep3"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AuthToken"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
             /** @description Validation Error */
@@ -281,16 +935,18 @@ export interface operations {
             };
         };
     };
-    verify_email_api_v1_auth_verify_post: {
+    verification_api_v1_auth_verification_post: {
         parameters: {
-            query: {
-                token: string;
-            };
+            query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["VerificationConfirm"];
+            };
+        };
         responses: {
             /** @description Successful Response */
             200: {
@@ -298,9 +954,150 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        [key: string]: string;
-                    };
+                    "application/json": components["schemas"]["VerificationResult"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    forget_password_api_v1_auth_forget_password_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ForgotPasswordRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ForgotPasswordResult"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    reset_password_api_v1_auth_reset_password__token__post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                token: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ResetPasswordRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ResetPasswordResult"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    google_callback_api_v1_auth_google_callback_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OAuthCallback"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OAuthResult"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    facebook_callback_api_v1_auth_facebook_callback_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OAuthCallback"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OAuthResult"];
                 };
             };
             /** @description Validation Error */
@@ -333,7 +1130,25 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Token"];
+                    "application/json": components["schemas"]["LoginResponse"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
             /** @description Validation Error */
@@ -343,6 +1158,35 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    logout_api_v1_auth_logout_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LogoutResult"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };
@@ -363,6 +1207,15 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["UserRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };
@@ -417,6 +1270,228 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["CourseRead"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_categories_api_v1_categories_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CategoryList"];
+                };
+            };
+        };
+    };
+    list_trend_categories_api_v1_trend_categories_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TrendCategoryList"];
+                };
+            };
+        };
+    };
+    get_profile_api_v1_panel_profile_setting_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProfileRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    update_profile_api_v1_panel_profile_setting_put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ProfileUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProfileRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_password_api_v1_panel_profile_setting_password_put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PasswordUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PasswordUpdateResult"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_images_api_v1_panel_profile_setting_images_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body_update_images_api_v1_panel_profile_setting_images_post"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ImagesResult"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
             /** @description Validation Error */

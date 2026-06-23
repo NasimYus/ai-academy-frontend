@@ -8,7 +8,7 @@ export const coursesQueryOptions = queryOptions({
   queryKey: ['courses'],
   queryFn: async () => {
     const { data, error } = await api.GET('/api/v1/courses', {})
-    if (error || !data) throw new Error('Не удалось загрузить курсы')
+    if (error) throw new Error('Не удалось загрузить курсы')
     return data
   },
 })

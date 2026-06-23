@@ -1,4 +1,7 @@
+import { Link } from '@tanstack/react-router'
+
 import { LoginForm } from '#/features/auth/login'
+import { OAuthButtons } from '#/features/auth/oauth'
 
 export function LoginPage() {
   return (
@@ -8,6 +11,20 @@ export function LoginPage() {
         <p className="mb-6 text-sm text-ink/60">Войдите в свой аккаунт AI Academy</p>
 
         <LoginForm />
+
+        <OAuthButtons />
+
+        <div className="mt-6 flex flex-col items-center gap-2 text-sm text-ink/60">
+          <Link to="/forgot-password" className="font-medium text-brand-600 hover:underline">
+            Забыли пароль?
+          </Link>
+          <span>
+            Нет аккаунта?{' '}
+            <Link to="/register" className="font-medium text-brand-600 hover:underline">
+              Зарегистрироваться
+            </Link>
+          </span>
+        </div>
       </div>
     </div>
   )

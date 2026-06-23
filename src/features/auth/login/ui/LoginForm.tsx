@@ -56,7 +56,7 @@ export function LoginForm() {
 
       {(fieldError || loginMutation.isError) && (
         <p className="text-sm text-red-600">
-          {fieldError ?? (loginMutation.error as Error)?.message}
+          {fieldError ?? loginMutation.error?.message}
         </p>
       )}
 
