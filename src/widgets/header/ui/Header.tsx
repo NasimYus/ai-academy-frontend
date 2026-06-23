@@ -17,7 +17,9 @@ export function Header() {
 
         {token && (
           <div className="flex items-center gap-3 text-sm">
-            <span className="hidden text-ink/60 sm:inline">{user?.email}</span>
+            <Link to="/profile" className="hidden text-ink/60 hover:text-brand-600 sm:inline">
+              {user?.email}
+            </Link>
             <button
               onClick={() => void logout()}
               className="rounded-lg border border-brand-200 px-3 py-1.5 font-medium text-brand-700 transition hover:bg-brand-50"

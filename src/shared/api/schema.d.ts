@@ -191,6 +191,58 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/panel/profile-setting": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Profile */
+        get: operations["get_profile_api_v1_panel_profile_setting_get"];
+        /** Update Profile */
+        put: operations["update_profile_api_v1_panel_profile_setting_put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/profile-setting/password": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Update Password */
+        put: operations["update_password_api_v1_panel_profile_setting_password_put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/profile-setting/images": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Update Images */
+        post: operations["update_images_api_v1_panel_profile_setting_images_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/health": {
         parameters: {
             query?: never;
@@ -226,6 +278,15 @@ export interface components {
             token_type: string;
             /** User Id */
             user_id: number;
+        };
+        /** Body_update_images_api_v1_panel_profile_setting_images_post */
+        Body_update_images_api_v1_panel_profile_setting_images_post: {
+            /** Profile Image */
+            profile_image?: string | null;
+            /** Identity Scan */
+            identity_scan?: string | null;
+            /** Certificate */
+            certificate?: string | null;
         };
         /** CourseRead */
         CourseRead: {
@@ -291,6 +352,27 @@ export interface components {
             /** Detail */
             detail?: components["schemas"]["ValidationError"][];
         };
+        /** ImagesResult */
+        ImagesResult: {
+            /**
+             * Status
+             * @default updated
+             */
+            status: string;
+            /** Avatar */
+            avatar?: string | null;
+            /** Identity Scan */
+            identity_scan?: string | null;
+            /** Certificate */
+            certificate?: string | null;
+        };
+        /** LocationInput */
+        LocationInput: {
+            /** Latitude */
+            latitude: number;
+            /** Longitude */
+            longitude: number;
+        };
         /** LoginRequest */
         LoginRequest: {
             /** Username */
@@ -322,6 +404,132 @@ export interface components {
              * @default logout
              */
             status: string;
+        };
+        /**
+         * MeetingType
+         * @enum {string}
+         */
+        MeetingType: "all" | "in_person" | "online";
+        /** PasswordUpdate */
+        PasswordUpdate: {
+            /** Current Password */
+            current_password: string;
+            /** New Password */
+            new_password: string;
+        };
+        /** PasswordUpdateResult */
+        PasswordUpdateResult: {
+            /**
+             * Status
+             * @default updated
+             */
+            status: string;
+            /** Token */
+            token: string;
+        };
+        /** ProfileRead */
+        ProfileRead: {
+            /** Id */
+            id: number;
+            /** Email */
+            email: string | null;
+            /** Mobile */
+            mobile: string | null;
+            /** Full Name */
+            full_name: string | null;
+            /** Role Name */
+            role_name: string;
+            status: components["schemas"]["UserStatus"];
+            /** Verified */
+            verified: boolean;
+            /** Avatar */
+            avatar: string | null;
+            /** Cover Img */
+            cover_img: string | null;
+            /** Bio */
+            bio: string | null;
+            /** Headline */
+            headline: string | null;
+            /** About */
+            about: string | null;
+            /** Address */
+            address: string | null;
+            /** Language */
+            language: string | null;
+            /** Timezone */
+            timezone: string | null;
+            /** Currency */
+            currency: string | null;
+            theme_color_mode: components["schemas"]["ThemeColorMode"] | null;
+            /** Newsletter */
+            newsletter: boolean;
+            /** Public Message */
+            public_message: boolean;
+            /** Account Type */
+            account_type: string | null;
+            /** Iban */
+            iban: string | null;
+            /** Account Id */
+            account_id: string | null;
+            meeting_type: components["schemas"]["MeetingType"];
+            /** Level Of Training */
+            level_of_training: number | null;
+            /** Country Id */
+            country_id: number | null;
+            /** Province Id */
+            province_id: number | null;
+            /** City Id */
+            city_id: number | null;
+            /** District Id */
+            district_id: number | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** ProfileUpdate */
+        ProfileUpdate: {
+            /** Full Name */
+            full_name?: string | null;
+            /** Language */
+            language?: string | null;
+            /** Email */
+            email?: string | null;
+            /** Mobile */
+            mobile?: string | null;
+            /** Newsletter */
+            newsletter?: boolean | null;
+            /** Public Message */
+            public_message?: boolean | null;
+            /** Timezone */
+            timezone?: string | null;
+            /** Password */
+            password?: string | null;
+            /** About */
+            about?: string | null;
+            /** Bio */
+            bio?: string | null;
+            /** Address */
+            address?: string | null;
+            /** Account Type */
+            account_type?: string | null;
+            /** Iban */
+            iban?: string | null;
+            /** Account Id */
+            account_id?: string | null;
+            meeting_type?: components["schemas"]["MeetingType"] | null;
+            /** Level Of Training */
+            level_of_training?: string[] | null;
+            location?: components["schemas"]["LocationInput"] | null;
+            /** Country Id */
+            country_id?: number | null;
+            /** Province Id */
+            province_id?: number | null;
+            /** City Id */
+            city_id?: number | null;
+            /** District Id */
+            district_id?: number | null;
         };
         /** RegisterStep1 */
         RegisterStep1: {
@@ -378,6 +586,11 @@ export interface components {
             /** Status */
             status: string;
         };
+        /**
+         * ThemeColorMode
+         * @enum {string}
+         */
+        ThemeColorMode: "dark" | "light";
         /** UserRead */
         UserRead: {
             /** Id */
@@ -844,6 +1057,179 @@ export interface operations {
             };
             /** @description Not Found */
             404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_profile_api_v1_panel_profile_setting_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProfileRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    update_profile_api_v1_panel_profile_setting_put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ProfileUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProfileRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_password_api_v1_panel_profile_setting_password_put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PasswordUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PasswordUpdateResult"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_images_api_v1_panel_profile_setting_images_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body_update_images_api_v1_panel_profile_setting_images_post"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ImagesResult"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
                 headers: {
                     [name: string]: unknown;
                 };
