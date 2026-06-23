@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
 
 import { courseContentQueryOptions } from '#/entities/course'
+import { courseQuizzesQueryOptions } from '#/entities/quiz'
 import { useToggleLearning } from '#/features/lesson-progress'
 import type { LearningItemType } from '#/features/lesson-progress'
 import type { components } from '#/shared/api'
@@ -79,6 +80,7 @@ export function LearnPage({ slug }: { slug: string }) {
   const content = useQuery(courseContentQueryOptions(slug))
   const courseId = content.data?.course_id ?? 0
   const toggle = useToggleLearning(courseId, slug)
+  const quizzes = useQuery(courseQuizzesQueryOptions(courseId))
 
   if (content.isPending) return <p className="mx-auto max-w-3xl px-6 py-8 text-ink/60">Загрузка…</p>
   if (content.isError)
@@ -129,6 +131,28 @@ export function LearnPage({ slug }: { slug: string }) {
           </div>
         </section>
       ))}
+
+      {quizzes.data && quizzes.data.length > 0 && (
+        <section className="mb-6">
+          <h2 className="mb-2 font-display text-lg font-bold text-ink">Тесты курса</h2>
+          <div className="space-y-2">
+            {quizzes.data.map((quiz) => (
+              <Link
+                key={quiz.id}
+                to="/quiz/$quizId"
+                params={{ quizId: String(quiz.id) }}
+                search={{ slug }}
+                className="flex items-center justify-between rounded-lg border border-brand-100 bg-white p-4 hover:border-brand-300"
+              >
+                <span className="font-medium text-ink">{quiz.title}</span>
+                <span className="text-xs text-ink/50">
+                  {quiz.question_count} вопр. · проходной {quiz.pass_mark}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   )
 }

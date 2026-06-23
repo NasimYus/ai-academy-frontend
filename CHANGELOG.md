@@ -45,7 +45,8 @@
 - ✅ **3.1** Enrollment: `features/course-enroll` (free-enroll) + состояния на детали курса (Записаться/Вы записаны/Войдите); access-флаги из API
 - ✅ **3.2** `pages/learn` (/learn/$slug): главы + items (file/text/session) с 🔒 для закрытых; `courseContentQueryOptions`; «Перейти к обучению» на детали курса
 - ✅ **3.3** `features/lesson-progress` (`useToggleLearning` → инвалидирует `course-content`); чекбоксы «пройдено» на доступных items в `pages/learn`
-- ⬜ **3.4** `features/take-quiz` · **3.5** `features/submit-assignment`
+- ✅ 🧪 **3.4** `entities/quiz` (queryOptions/типы) + `features/take-quiz` (`QuizRunner`: старт→ответы→грейдинг→результат, гейт попыток) + `pages/quiz` + route `/quiz/$quizId`; список тестов в `pages/learn` _(unit: answer_sheet + gate-messages)_
+- ⬜ **3.5** `features/submit-assignment`
 - ⬜ **3.6** Сертификаты · **3.7** Заметки · **3.8** Noticeboards · **3.9** Форумы
 
 ## Phase 4 — Коммерция

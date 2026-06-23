@@ -18,6 +18,7 @@ import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as CoursesRouteImport } from './routes/courses'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UsersUserIdRouteImport } from './routes/users.$userId'
+import { Route as QuizQuizIdRouteImport } from './routes/quiz.$quizId'
 import { Route as LearnSlugRouteImport } from './routes/learn.$slug'
 import { Route as CourseSlugRouteImport } from './routes/course.$slug'
 
@@ -66,6 +67,11 @@ const UsersUserIdRoute = UsersUserIdRouteImport.update({
   path: '/users/$userId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QuizQuizIdRoute = QuizQuizIdRouteImport.update({
+  id: '/quiz/$quizId',
+  path: '/quiz/$quizId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LearnSlugRoute = LearnSlugRouteImport.update({
   id: '/learn/$slug',
   path: '/learn/$slug',
@@ -88,6 +94,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/course/$slug': typeof CourseSlugRoute
   '/learn/$slug': typeof LearnSlugRoute
+  '/quiz/$quizId': typeof QuizQuizIdRoute
   '/users/$userId': typeof UsersUserIdRoute
 }
 export interface FileRoutesByTo {
@@ -101,6 +108,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/course/$slug': typeof CourseSlugRoute
   '/learn/$slug': typeof LearnSlugRoute
+  '/quiz/$quizId': typeof QuizQuizIdRoute
   '/users/$userId': typeof UsersUserIdRoute
 }
 export interface FileRoutesById {
@@ -115,6 +123,7 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/course/$slug': typeof CourseSlugRoute
   '/learn/$slug': typeof LearnSlugRoute
+  '/quiz/$quizId': typeof QuizQuizIdRoute
   '/users/$userId': typeof UsersUserIdRoute
 }
 export interface FileRouteTypes {
@@ -130,6 +139,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/course/$slug'
     | '/learn/$slug'
+    | '/quiz/$quizId'
     | '/users/$userId'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -143,6 +153,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/course/$slug'
     | '/learn/$slug'
+    | '/quiz/$quizId'
     | '/users/$userId'
   id:
     | '__root__'
@@ -156,6 +167,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/course/$slug'
     | '/learn/$slug'
+    | '/quiz/$quizId'
     | '/users/$userId'
   fileRoutesById: FileRoutesById
 }
@@ -170,6 +182,7 @@ export interface RootRouteChildren {
   ResetPasswordRoute: typeof ResetPasswordRoute
   CourseSlugRoute: typeof CourseSlugRoute
   LearnSlugRoute: typeof LearnSlugRoute
+  QuizQuizIdRoute: typeof QuizQuizIdRoute
   UsersUserIdRoute: typeof UsersUserIdRoute
 }
 
@@ -238,6 +251,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UsersUserIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/quiz/$quizId': {
+      id: '/quiz/$quizId'
+      path: '/quiz/$quizId'
+      fullPath: '/quiz/$quizId'
+      preLoaderRoute: typeof QuizQuizIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/learn/$slug': {
       id: '/learn/$slug'
       path: '/learn/$slug'
@@ -266,6 +286,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResetPasswordRoute: ResetPasswordRoute,
   CourseSlugRoute: CourseSlugRoute,
   LearnSlugRoute: LearnSlugRoute,
+  QuizQuizIdRoute: QuizQuizIdRoute,
   UsersUserIdRoute: UsersUserIdRoute,
 }
 export const routeTree = rootRouteImport
