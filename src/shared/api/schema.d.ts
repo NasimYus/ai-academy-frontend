@@ -590,6 +590,104 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/courses/{course_id}/assignments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Course Assignments
+         * @description Active assignments of a course (discovery, like course quizzes).
+         */
+        get: operations["list_course_assignments_api_v1_courses__course_id__assignments_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/my_assignments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * My Assignments
+         * @description The auth user's submission threads across enrolled courses (legacy index).
+         */
+        get: operations["my_assignments_api_v1_panel_my_assignments_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/my_assignments/{assignment_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** My Assignment */
+        get: operations["my_assignment_api_v1_panel_my_assignments__assignment_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/assignments/{assignment_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Show Assignment
+         * @description Assignment definition (legacy WebinarAssignmentController@show).
+         */
+        get: operations["show_assignment_api_v1_assignments__assignment_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/assignments/{assignment_id}/messages": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Messages */
+        get: operations["list_messages_api_v1_assignments__assignment_id__messages_get"];
+        put?: never;
+        /**
+         * Submit Message
+         * @description Post a submission/message (legacy AssignmentHistoryMessageController@store).
+         */
+        post: operations["submit_message_api_v1_assignments__assignment_id__messages_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/health": {
         parameters: {
             query?: never;
@@ -630,6 +728,122 @@ export interface components {
             answer?: number | string | null;
         };
         /**
+         * AssignmentHistoryRead
+         * @description Legacy WebinarAssignmentHistoryResource (the student's submission state).
+         */
+        AssignmentHistoryRead: {
+            /** Id */
+            id: number;
+            /** Assignment Id */
+            assignment_id: number;
+            /** Title */
+            title: string;
+            /** Description */
+            description?: string | null;
+            /** Course Id */
+            course_id: number;
+            /** Course Title */
+            course_title?: string | null;
+            /** Course Image */
+            course_image?: string | null;
+            student: components["schemas"]["MessageUser"];
+            /** Deadline */
+            deadline?: number | boolean | null;
+            /**
+             * Can Send Message
+             * @default true
+             */
+            can_send_message: boolean;
+            /** Attempts */
+            attempts?: number | null;
+            /**
+             * Used Attempts Count
+             * @default 0
+             */
+            used_attempts_count: number;
+            /** Grade */
+            grade?: number | null;
+            /** Total Grade */
+            total_grade?: number | null;
+            /** Pass Grade */
+            pass_grade?: number | null;
+            /** User Status */
+            user_status: string;
+            /**
+             * Attachments
+             * @default []
+             */
+            attachments: {
+                [key: string]: unknown;
+            }[];
+        };
+        /**
+         * AssignmentMessageRead
+         * @description Legacy WebinarAssignmentHistoryMessageResource (sender/supporter split).
+         */
+        AssignmentMessageRead: {
+            /** Id */
+            id: number;
+            sender?: components["schemas"]["MessageUser"] | null;
+            supporter?: components["schemas"]["MessageUser"] | null;
+            /** Message */
+            message: string;
+            /** File Title */
+            file_title?: string | null;
+            /** File Path */
+            file_path?: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /**
+         * AssignmentRead
+         * @description Legacy WebinarAssignmentResource (student view).
+         */
+        AssignmentRead: {
+            /** Id */
+            id: number;
+            /**
+             * Content Type
+             * @default assignment
+             */
+            content_type: string;
+            /** Title */
+            title: string;
+            /** Description */
+            description?: string | null;
+            /** Course Id */
+            course_id: number;
+            /** Course Title */
+            course_title?: string | null;
+            /** Course Image */
+            course_image?: string | null;
+            /** Attempts */
+            attempts?: number | null;
+            /** Pass Grade */
+            pass_grade?: number | null;
+            /** Total Grade */
+            total_grade?: number | null;
+            /** Status */
+            status: string;
+            /** Access After Day */
+            access_after_day?: number | null;
+            /**
+             * Check Previous Parts
+             * @default false
+             */
+            check_previous_parts: boolean;
+            /**
+             * Attachments
+             * @default []
+             */
+            attachments: {
+                [key: string]: unknown;
+            }[];
+        };
+        /**
          * AuthToken
          * @description Token plus the authenticated user id (returned after register step 3).
          */
@@ -643,6 +857,15 @@ export interface components {
             token_type: string;
             /** User Id */
             user_id: number;
+        };
+        /** Body_submit_message_api_v1_assignments__assignment_id__messages_post */
+        Body_submit_message_api_v1_assignments__assignment_id__messages_post: {
+            /** Message */
+            message: string;
+            /** File Title */
+            file_title?: string | null;
+            /** Attachment */
+            attachment?: string | null;
         };
         /** Body_update_images_api_v1_panel_profile_setting_images_post */
         Body_update_images_api_v1_panel_profile_setting_images_post: {
@@ -1290,6 +1513,15 @@ export interface components {
          * @enum {string}
          */
         MeetingType: "all" | "in_person" | "online";
+        /** MessageUser */
+        MessageUser: {
+            /** Id */
+            id: number;
+            /** Full Name */
+            full_name?: string | null;
+            /** Avatar */
+            avatar?: string | null;
+        };
         /** OAuthCallback */
         OAuthCallback: {
             /**
@@ -3186,6 +3418,248 @@ export interface operations {
             };
             /** @description Unauthorized */
             401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_course_assignments_api_v1_courses__course_id__assignments_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                course_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AssignmentRead"][];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    my_assignments_api_v1_panel_my_assignments_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AssignmentHistoryRead"][];
+                };
+            };
+        };
+    };
+    my_assignment_api_v1_panel_my_assignments__assignment_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                assignment_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AssignmentHistoryRead"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    show_assignment_api_v1_assignments__assignment_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                assignment_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AssignmentRead"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_messages_api_v1_assignments__assignment_id__messages_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                assignment_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AssignmentMessageRead"][];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    submit_message_api_v1_assignments__assignment_id__messages_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                assignment_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body_submit_message_api_v1_assignments__assignment_id__messages_post"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AssignmentMessageRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
                 headers: {
                     [name: string]: unknown;
                 };

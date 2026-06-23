@@ -21,6 +21,7 @@ import { Route as UsersUserIdRouteImport } from './routes/users.$userId'
 import { Route as QuizQuizIdRouteImport } from './routes/quiz.$quizId'
 import { Route as LearnSlugRouteImport } from './routes/learn.$slug'
 import { Route as CourseSlugRouteImport } from './routes/course.$slug'
+import { Route as AssignmentAssignmentIdRouteImport } from './routes/assignment.$assignmentId'
 
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
@@ -82,6 +83,11 @@ const CourseSlugRoute = CourseSlugRouteImport.update({
   path: '/course/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AssignmentAssignmentIdRoute = AssignmentAssignmentIdRouteImport.update({
+  id: '/assignment/$assignmentId',
+  path: '/assignment/$assignmentId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -92,6 +98,7 @@ export interface FileRoutesByFullPath {
   '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/course/$slug': typeof CourseSlugRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
@@ -106,6 +113,7 @@ export interface FileRoutesByTo {
   '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/course/$slug': typeof CourseSlugRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
@@ -121,6 +129,7 @@ export interface FileRoutesById {
   '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/course/$slug': typeof CourseSlugRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
@@ -137,6 +146,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/register'
     | '/reset-password'
+    | '/assignment/$assignmentId'
     | '/course/$slug'
     | '/learn/$slug'
     | '/quiz/$quizId'
@@ -151,6 +161,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/register'
     | '/reset-password'
+    | '/assignment/$assignmentId'
     | '/course/$slug'
     | '/learn/$slug'
     | '/quiz/$quizId'
@@ -165,6 +176,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/register'
     | '/reset-password'
+    | '/assignment/$assignmentId'
     | '/course/$slug'
     | '/learn/$slug'
     | '/quiz/$quizId'
@@ -180,6 +192,7 @@ export interface RootRouteChildren {
   ProfileRoute: typeof ProfileRoute
   RegisterRoute: typeof RegisterRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  AssignmentAssignmentIdRoute: typeof AssignmentAssignmentIdRoute
   CourseSlugRoute: typeof CourseSlugRoute
   LearnSlugRoute: typeof LearnSlugRoute
   QuizQuizIdRoute: typeof QuizQuizIdRoute
@@ -272,6 +285,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CourseSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/assignment/$assignmentId': {
+      id: '/assignment/$assignmentId'
+      path: '/assignment/$assignmentId'
+      fullPath: '/assignment/$assignmentId'
+      preLoaderRoute: typeof AssignmentAssignmentIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -284,6 +304,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProfileRoute: ProfileRoute,
   RegisterRoute: RegisterRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  AssignmentAssignmentIdRoute: AssignmentAssignmentIdRoute,
   CourseSlugRoute: CourseSlugRoute,
   LearnSlugRoute: LearnSlugRoute,
   QuizQuizIdRoute: QuizQuizIdRoute,
