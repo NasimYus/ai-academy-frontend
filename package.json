@@ -12,6 +12,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest run",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint",
     "lint:fsd": "steiger ./src",
     "format": "prettier --write . && eslint --fix",
