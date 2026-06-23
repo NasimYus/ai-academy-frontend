@@ -225,6 +225,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/courses/{slug}/content": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Course Content */
+        get: operations["get_course_content_api_v1_courses__slug__content_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/categories": {
         parameters: {
             query?: never;
@@ -506,6 +523,20 @@ export interface components {
              */
             webinars_count: number;
         };
+        /** ChapterRead */
+        ChapterRead: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Order */
+            order: number;
+            /**
+             * Items
+             * @default []
+             */
+            items: components["schemas"]["ContentItem"][];
+        };
         /** CommentRead */
         CommentRead: {
             /** Id */
@@ -523,6 +554,65 @@ export interface components {
              * @default []
              */
             replies: components["schemas"]["CommentRead"][];
+        };
+        /**
+         * ContentItem
+         * @description A lesson item (file / text_lesson / session). Gated payload fields are
+         *     null when `locked` (user lacks access and the item isn't free).
+         */
+        ContentItem: {
+            /** Id */
+            id: number;
+            /** Type */
+            type: string;
+            /** Title */
+            title: string;
+            /** Accessibility */
+            accessibility: string;
+            /** Order */
+            order: number;
+            /** Locked */
+            locked: boolean;
+            /** File */
+            file?: string | null;
+            /** File Type */
+            file_type?: string | null;
+            /** Volume */
+            volume?: string | null;
+            /** Image */
+            image?: string | null;
+            /** Study Time */
+            study_time?: number | null;
+            /** Summary */
+            summary?: string | null;
+            /** Content */
+            content?: string | null;
+            /** Link */
+            link?: string | null;
+            /** Session Date */
+            session_date?: string | null;
+            /** Duration */
+            duration?: number | null;
+            /** Description */
+            description?: string | null;
+        };
+        /** CourseContent */
+        CourseContent: {
+            /**
+             * Chapters
+             * @default []
+             */
+            chapters: components["schemas"]["ChapterRead"][];
+            /**
+             * Items
+             * @default []
+             */
+            items: components["schemas"]["ContentItem"][];
+            /**
+             * Has Access
+             * @default false
+             */
+            has_access: boolean;
         };
         /**
          * CourseDetail
@@ -1978,6 +2068,48 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["CourseDetail"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_course_content_api_v1_courses__slug__content_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string | null;
+            };
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CourseContent"];
                 };
             };
             /** @description Not Found */

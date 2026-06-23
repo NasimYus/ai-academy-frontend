@@ -40,6 +40,19 @@ export const featuredCoursesQueryOptions = queryOptions({
   },
 })
 
+// Course content (chapters + lesson items), gated by access (legacy content()).
+export const courseContentQueryOptions = (slug: string) =>
+  queryOptions({
+    queryKey: ['course-content', slug],
+    queryFn: async () => {
+      const { data, error } = await api.GET('/api/v1/courses/{slug}/content', {
+        params: { path: { slug } },
+      })
+      if (error) throw new Error('Не удалось загрузить содержимое курса')
+      return data
+    },
+  })
+
 // Single course detail by slug (legacy WebinarController@show).
 export const courseQueryOptions = (slug: string) =>
   queryOptions({

@@ -142,9 +142,13 @@ export function CoursePage() {
           </dl>
 
           {data.auth_has_bought ? (
-            <div className="mt-6 rounded-full bg-green-50 px-4 py-2 text-center font-semibold text-green-700">
-              Вы записаны
-            </div>
+            <Link
+              to="/learn/$slug"
+              params={{ slug }}
+              className="mt-6 block rounded-full bg-green-600 px-4 py-2 text-center font-semibold text-white transition hover:bg-green-700"
+            >
+              Перейти к обучению
+            </Link>
           ) : Number(data.price) === 0 ? (
             data.auth ? (
               <button

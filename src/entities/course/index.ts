@@ -2,6 +2,7 @@ export { CourseCard } from '#/entities/course/ui/CourseCard'
 export {
   coursesQueryOptions,
   courseQueryOptions,
+  courseContentQueryOptions,
   featuredCoursesQueryOptions,
 } from '#/entities/course/api/courses'
 export type { CourseFilters } from '#/entities/course/api/courses'
