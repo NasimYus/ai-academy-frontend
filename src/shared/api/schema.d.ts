@@ -486,6 +486,24 @@ export interface components {
              */
             webinars_count: number;
         };
+        /** CommentRead */
+        CommentRead: {
+            /** Id */
+            id: number;
+            user?: components["schemas"]["UserBrief"] | null;
+            /** Comment */
+            comment: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Replies
+             * @default []
+             */
+            replies: components["schemas"]["CommentRead"][];
+        };
         /**
          * CourseDetail
          * @description Legacy `Webinar::details` = brief + the keys below.
@@ -671,16 +689,12 @@ export interface components {
              * Comments
              * @default []
              */
-            comments: {
-                [key: string]: unknown;
-            }[];
+            comments: components["schemas"]["CommentRead"][];
             /**
              * Reviews
              * @default []
              */
-            reviews: {
-                [key: string]: unknown;
-            }[];
+            reviews: components["schemas"]["ReviewRead"][];
             /**
              * Chapters
              * @default []
@@ -1250,6 +1264,29 @@ export interface components {
         ResetPasswordResult: {
             /** Status */
             status: string;
+        };
+        /** ReviewRead */
+        ReviewRead: {
+            /** Id */
+            id: number;
+            user?: components["schemas"]["UserBrief"] | null;
+            /** Content Quality */
+            content_quality: number;
+            /** Instructor Skills */
+            instructor_skills: number;
+            /** Purchase Worth */
+            purchase_worth: number;
+            /** Support Quality */
+            support_quality: number;
+            /** Rates */
+            rates: number;
+            /** Description */
+            description: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
         };
         /**
          * SearchResults

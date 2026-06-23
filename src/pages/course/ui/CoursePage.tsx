@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useParams } from '@tanstack/react-router'
+import { Link, useParams } from '@tanstack/react-router'
 
 import { courseQueryOptions } from '#/entities/course'
 
@@ -19,6 +19,11 @@ export function CoursePage() {
         <div>
           <h1 className="font-display text-3xl font-bold text-ink">{data.title}</h1>
           {data.category && <p className="mt-2 text-sm text-brand-600">{data.category}</p>}
+          {data.reviews_count > 0 && (
+            <p className="mt-2 text-sm text-ink/70">
+              <span className="text-amber-500">★</span> {data.rate} · {data.reviews_count} отзывов
+            </p>
+          )}
 
           {data.image_cover && (
             <img
@@ -38,7 +43,11 @@ export function CoursePage() {
           {data.teacher && (
             <section className="mt-8">
               <h2 className="font-display text-xl font-bold text-ink">Инструктор</h2>
-              <div className="mt-3 flex items-center gap-3">
+              <Link
+                to="/users/$userId"
+                params={{ userId: String(data.teacher.id) }}
+                className="mt-3 flex items-center gap-3"
+              >
                 {data.teacher.avatar && (
                   <img
                     src={data.teacher.avatar}
@@ -47,11 +56,54 @@ export function CoursePage() {
                   />
                 )}
                 <div>
-                  <p className="font-semibold text-ink">{data.teacher.full_name}</p>
+                  <p className="font-semibold text-ink hover:text-brand-600">
+                    {data.teacher.full_name}
+                  </p>
                   {data.teacher.headline && (
                     <p className="text-sm text-ink/60">{data.teacher.headline}</p>
                   )}
                 </div>
+              </Link>
+            </section>
+          )}
+
+          {data.reviews.length > 0 && (
+            <section className="mt-8">
+              <h2 className="font-display text-xl font-bold text-ink">Отзывы</h2>
+              <div className="mt-3 space-y-3">
+                {data.reviews.map((review) => (
+                  <div key={review.id} className="border-t border-brand-50 pt-3">
+                    <div className="flex items-center justify-between">
+                      <span className="font-medium text-ink">
+                        {review.user?.full_name ?? 'Аноним'}
+                      </span>
+                      <span className="text-sm text-amber-500">★ {review.rates}</span>
+                    </div>
+                    {review.description && (
+                      <p className="mt-1 text-sm text-ink/70">{review.description}</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {data.comments.length > 0 && (
+            <section className="mt-8">
+              <h2 className="font-display text-xl font-bold text-ink">Комментарии</h2>
+              <div className="mt-3 space-y-4">
+                {data.comments.map((comment) => (
+                  <div key={comment.id}>
+                    <p className="font-medium text-ink">{comment.user?.full_name ?? 'Аноним'}</p>
+                    <p className="text-sm text-ink/70">{comment.comment}</p>
+                    {comment.replies.map((reply) => (
+                      <div key={reply.id} className="ml-6 mt-2 border-l border-brand-100 pl-3">
+                        <p className="font-medium text-ink">{reply.user?.full_name ?? 'Аноним'}</p>
+                        <p className="text-sm text-ink/70">{reply.comment}</p>
+                      </div>
+                    ))}
+                  </div>
+                ))}
               </div>
             </section>
           )}

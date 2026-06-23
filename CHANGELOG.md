@@ -38,7 +38,7 @@
 - ✅ **2.3** Filters: `widgets/course-filters` (категория/тип/сортировка/бесплатные) на странице курсов; `coursesQueryOptions(filters)`; tsc/lint/steiger/vitest/build зелёные
 - ✅ **2.4** Featured: `featuredCoursesQueryOptions` + блок «Рекомендуемые» на странице курсов
 - ✅ **2.5** Instructors: `entities/instructor` (instructors/profile queries, `InstructorCard`), `pages/instructors` (/instructors) + `pages/user` (/users/$userId), nav в Header
-- ⬜ **2.6** Reviews & comments (на странице курса)
+- ✅ **2.6** Reviews & comments: рейтинг + секции «Отзывы» и «Комментарии» (с ответами) на странице курса; ссылка на профиль инструктора
 
 ## Phase 3 — Обучение
 
