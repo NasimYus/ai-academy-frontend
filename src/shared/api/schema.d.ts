@@ -259,6 +259,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/search": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Search */
+        get: operations["search_api_v1_search_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/panel/profile-setting": {
         parameters: {
             query?: never;
@@ -910,6 +927,19 @@ export interface components {
             /** Token */
             token?: string | null;
         };
+        /** OrganizationsGroup */
+        OrganizationsGroup: {
+            /**
+             * Organizations
+             * @default []
+             */
+            organizations: components["schemas"]["UserBrief"][];
+            /**
+             * Count
+             * @default 0
+             */
+            count: number;
+        };
         /** PasswordUpdate */
         PasswordUpdate: {
             /** Current Password */
@@ -1086,6 +1116,40 @@ export interface components {
             /** Status */
             status: string;
         };
+        /**
+         * SearchResults
+         * @description Legacy SearchController shape (multi-entity global search).
+         */
+        SearchResults: {
+            /**
+             * @default {
+             *       "webinars": [],
+             *       "count": 0
+             *     }
+             */
+            webinars: components["schemas"]["WebinarsGroup"];
+            /**
+             * @default {
+             *       "users": [],
+             *       "count": 0
+             *     }
+             */
+            users: components["schemas"]["UsersGroup"];
+            /**
+             * @default {
+             *       "teachers": [],
+             *       "count": 0
+             *     }
+             */
+            teachers: components["schemas"]["TeachersGroup"];
+            /**
+             * @default {
+             *       "organizations": [],
+             *       "count": 0
+             *     }
+             */
+            organizations: components["schemas"]["OrganizationsGroup"];
+        };
         /** SubCategoryRead */
         SubCategoryRead: {
             /** Id */
@@ -1099,6 +1163,19 @@ export interface components {
              * @default 0
              */
             webinars_count: number;
+        };
+        /** TeachersGroup */
+        TeachersGroup: {
+            /**
+             * Teachers
+             * @default []
+             */
+            teachers: components["schemas"]["UserBrief"][];
+            /**
+             * Count
+             * @default 0
+             */
+            count: number;
         };
         /**
          * ThemeColorMode
@@ -1122,6 +1199,22 @@ export interface components {
             color?: string | null;
             /** Icon */
             icon?: string | null;
+        };
+        /**
+         * UserBrief
+         * @description Public, minimal user card (legacy user->brief subset).
+         */
+        UserBrief: {
+            /** Id */
+            id: number;
+            /** Full Name */
+            full_name: string | null;
+            /** Role Name */
+            role_name: string;
+            /** Avatar */
+            avatar: string | null;
+            /** Headline */
+            headline: string | null;
         };
         /** UserRead */
         UserRead: {
@@ -1151,6 +1244,19 @@ export interface components {
          * @enum {string}
          */
         UserStatus: "active" | "pending" | "inactive";
+        /** UsersGroup */
+        UsersGroup: {
+            /**
+             * Users
+             * @default []
+             */
+            users: components["schemas"]["UserBrief"][];
+            /**
+             * Count
+             * @default 0
+             */
+            count: number;
+        };
         /** ValidationError */
         ValidationError: {
             /** Location */
@@ -1186,6 +1292,19 @@ export interface components {
          * @enum {string}
          */
         VideoDemoSource: "upload" | "youtube" | "vimeo" | "external_link";
+        /** WebinarsGroup */
+        WebinarsGroup: {
+            /**
+             * Webinars
+             * @default []
+             */
+            webinars: components["schemas"]["CourseRead"][];
+            /**
+             * Count
+             * @default 0
+             */
+            count: number;
+        };
     };
     responses: never;
     parameters: never;
@@ -1611,6 +1730,15 @@ export interface operations {
             query?: {
                 limit?: number;
                 offset?: number;
+                /** @description category id */
+                cat?: number | null;
+                free?: boolean | null;
+                type?: components["schemas"]["CourseType"] | null;
+                upcoming?: boolean | null;
+                downloadable?: boolean | null;
+                reward?: boolean | null;
+                /** @description newest|oldest|expensive|cheapest */
+                sort?: string | null;
             };
             header?: never;
             path?: never;
@@ -1714,6 +1842,37 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["TrendCategoryList"];
+                };
+            };
+        };
+    };
+    search_api_v1_search_get: {
+        parameters: {
+            query?: {
+                search?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SearchResults"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };
