@@ -1,0 +1,102 @@
+import { useQuery } from '@tanstack/react-query'
+import { useParams } from '@tanstack/react-router'
+
+import { courseQueryOptions } from '#/entities/course'
+
+export function CoursePage() {
+  const { slug } = useParams({ from: '/course/$slug' })
+  const course = useQuery(courseQueryOptions(slug))
+
+  if (course.isPending) return <p className="mx-auto max-w-5xl px-6 py-8 text-ink/60">Загрузка…</p>
+  if (course.isError)
+    return <p className="mx-auto max-w-5xl px-6 py-8 text-red-600">{course.error.message}</p>
+
+  const data = course.data
+
+  return (
+    <div className="mx-auto max-w-5xl px-6 py-8">
+      <div className="grid gap-8 lg:grid-cols-[2fr_1fr]">
+        <div>
+          <h1 className="font-display text-3xl font-bold text-ink">{data.title}</h1>
+          {data.category && <p className="mt-2 text-sm text-brand-600">{data.category}</p>}
+
+          {data.image_cover && (
+            <img
+              src={data.image_cover}
+              alt={data.title}
+              className="mt-6 w-full rounded-card object-cover"
+            />
+          )}
+
+          {data.description && (
+            <section className="mt-8">
+              <h2 className="font-display text-xl font-bold text-ink">Описание</h2>
+              <p className="mt-2 whitespace-pre-line text-ink/80">{data.description}</p>
+            </section>
+          )}
+
+          {data.teacher && (
+            <section className="mt-8">
+              <h2 className="font-display text-xl font-bold text-ink">Инструктор</h2>
+              <div className="mt-3 flex items-center gap-3">
+                {data.teacher.avatar && (
+                  <img
+                    src={data.teacher.avatar}
+                    alt={data.teacher.full_name ?? ''}
+                    className="h-12 w-12 rounded-full object-cover"
+                  />
+                )}
+                <div>
+                  <p className="font-semibold text-ink">{data.teacher.full_name}</p>
+                  {data.teacher.headline && (
+                    <p className="text-sm text-ink/60">{data.teacher.headline}</p>
+                  )}
+                </div>
+              </div>
+            </section>
+          )}
+        </div>
+
+        <aside className="h-fit rounded-card border border-brand-100 bg-white p-6 shadow-sm">
+          <div className="text-2xl font-bold text-ink">
+            {Number(data.price) === 0 ? 'Бесплатно' : `${data.price_string ?? data.price} TJS`}
+          </div>
+
+          <dl className="mt-4 space-y-2 text-sm text-ink/70">
+            {data.duration != null && (
+              <div className="flex justify-between">
+                <dt>Длительность</dt>
+                <dd>{data.duration} мин</dd>
+              </div>
+            )}
+            {data.access_days != null && (
+              <div className="flex justify-between">
+                <dt>Доступ</dt>
+                <dd>{data.access_days} дн.</dd>
+              </div>
+            )}
+            <div className="flex justify-between">
+              <dt>Студентов</dt>
+              <dd>{data.students_count}</dd>
+            </div>
+            {data.certificate && (
+              <div className="flex justify-between">
+                <dt>Сертификат</dt>
+                <dd>Да</dd>
+              </div>
+            )}
+          </dl>
+
+          <button
+            type="button"
+            disabled
+            className="mt-6 w-full cursor-not-allowed rounded-full bg-brand-500 px-4 py-2 font-semibold text-white opacity-60"
+            title="Оплата появится в Phase 4"
+          >
+            В корзину
+          </button>
+        </aside>
+      </div>
+    </div>
+  )
+}

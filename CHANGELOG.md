@@ -34,7 +34,7 @@
 ## Phase 2 — Каталог (public)
 
 - ✅ 🧪 **2.1** `entities/category` (query-опции + типы) + `CategoryNav` на странице курсов _(схемы/типы зелёные; query под smoke бэка)_
-- ⬜ **2.2** Course detail: `pages/course` (метаданные, инструктор, что внутри)
+- ✅ **2.2** Course detail: `entities/course` (типы `CourseRead`/`CourseDetail`/`CourseTeacher`, `courseQueryOptions(slug)`, `CourseCard`→ссылка) + `pages/course` + публичный роут `/course/$slug`. tsc/lint/steiger/vitest/build зелёные
 - ⬜ **2.3** Search & filters: `widgets/course-filters` + `pages/catalog`
 - ⬜ **2.4** Featured courses (блок на главной)
 - ⬜ **2.5** Instructors: `entities/instructor` + `pages/instructor`

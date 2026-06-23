@@ -384,7 +384,277 @@ export interface components {
              */
             webinars_count: number;
         };
-        /** CourseRead */
+        /**
+         * CourseDetail
+         * @description Legacy `Webinar::details` = brief + the keys below.
+         */
+        CourseDetail: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Slug */
+            slug: string;
+            type: components["schemas"]["CourseType"];
+            status: components["schemas"]["CourseStatus"];
+            /** Label */
+            label?: string | null;
+            /** Image */
+            image?: string | null;
+            /** Image Cover */
+            image_cover?: string | null;
+            /** Price */
+            price: number;
+            /** Price String */
+            price_string?: string | null;
+            /** Best Ticket Price */
+            best_ticket_price?: number | null;
+            /**
+             * Discount Percent
+             * @default 0
+             */
+            discount_percent: number;
+            /** Duration */
+            duration?: number | null;
+            /** Access Days */
+            access_days?: number | null;
+            /** Capacity */
+            capacity?: number | null;
+            /** Points */
+            points?: number | null;
+            /** Start Date */
+            start_date?: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            teacher?: components["schemas"]["CourseTeacher"] | null;
+            /** Category */
+            category?: string | null;
+            /** Category Id */
+            category_id?: number | null;
+            /**
+             * Students Count
+             * @default 0
+             */
+            students_count: number;
+            /**
+             * Rate
+             * @default 0
+             */
+            rate: number;
+            /**
+             * Reviews Count
+             * @default 0
+             */
+            reviews_count: number;
+            /**
+             * Is Favorite
+             * @default false
+             */
+            is_favorite: boolean;
+            /**
+             * Is Private
+             * @default false
+             */
+            is_private: boolean;
+            /**
+             * Forum
+             * @default false
+             */
+            forum: boolean;
+            /**
+             * Badges
+             * @default []
+             */
+            badges: {
+                [key: string]: unknown;
+            }[];
+            /**
+             * Auth
+             * @default false
+             */
+            auth: boolean;
+            /**
+             * Auth Has Bought
+             * @default false
+             */
+            auth_has_bought: boolean;
+            /**
+             * Can View
+             * @default true
+             */
+            can_view: boolean;
+            /** Can View Error */
+            can_view_error?: string[] | null;
+            /** Description */
+            description?: string | null;
+            /** Seo Description */
+            seo_description?: string | null;
+            /** Video Demo */
+            video_demo?: string | null;
+            video_demo_source?: components["schemas"]["VideoDemoSource"] | null;
+            /**
+             * Support
+             * @default false
+             */
+            support: boolean;
+            /**
+             * Subscribe
+             * @default false
+             */
+            subscribe: boolean;
+            /**
+             * Downloadable
+             * @default false
+             */
+            downloadable: boolean;
+            /**
+             * Certificate
+             * @default false
+             */
+            certificate: boolean;
+            /**
+             * Can Add To Cart
+             * @default false
+             */
+            can_add_to_cart: boolean;
+            /**
+             * Can Buy With Points
+             * @default false
+             */
+            can_buy_with_points: boolean;
+            /**
+             * Tax
+             * @default 0
+             */
+            tax: number;
+            /**
+             * Price With Discount
+             * @default 0
+             */
+            price_with_discount: number;
+            /**
+             * @default {
+             *       "content_quality": 0,
+             *       "instructor_skills": 0,
+             *       "purchase_worth": 0,
+             *       "support_quality": 0
+             *     }
+             */
+            rate_type: components["schemas"]["CourseRateType"];
+            /**
+             * Prerequisites
+             * @default []
+             */
+            prerequisites: {
+                [key: string]: unknown;
+            }[];
+            /**
+             * Faqs
+             * @default []
+             */
+            faqs: {
+                [key: string]: unknown;
+            }[];
+            /**
+             * Tags
+             * @default []
+             */
+            tags: {
+                [key: string]: unknown;
+            }[];
+            /**
+             * Comments
+             * @default []
+             */
+            comments: {
+                [key: string]: unknown;
+            }[];
+            /**
+             * Reviews
+             * @default []
+             */
+            reviews: {
+                [key: string]: unknown;
+            }[];
+            /**
+             * Chapters
+             * @default []
+             */
+            chapters: {
+                [key: string]: unknown;
+            }[];
+            /**
+             * Sessions Count
+             * @default 0
+             */
+            sessions_count: number;
+            /**
+             * Files Count
+             * @default 0
+             */
+            files_count: number;
+            /**
+             * Text Lessons Count
+             * @default 0
+             */
+            text_lessons_count: number;
+            /**
+             * Quizzes
+             * @default []
+             */
+            quizzes: {
+                [key: string]: unknown;
+            }[];
+            /**
+             * Quizzes Count
+             * @default 0
+             */
+            quizzes_count: number;
+            /**
+             * Certificate Quizzes
+             * @default []
+             */
+            certificate_quizzes: {
+                [key: string]: unknown;
+            }[];
+            /**
+             * Tickets
+             * @default []
+             */
+            tickets: {
+                [key: string]: unknown;
+            }[];
+        };
+        /** CourseRateType */
+        CourseRateType: {
+            /**
+             * Content Quality
+             * @default 0
+             */
+            content_quality: number;
+            /**
+             * Instructor Skills
+             * @default 0
+             */
+            instructor_skills: number;
+            /**
+             * Purchase Worth
+             * @default 0
+             */
+            purchase_worth: number;
+            /**
+             * Support Quality
+             * @default 0
+             */
+            support_quality: number;
+        };
+        /**
+         * CourseRead
+         * @description Legacy `Webinar::brief` — list cards and the base of detail.
+         */
         CourseRead: {
             /** Id */
             id: number;
@@ -392,26 +662,137 @@ export interface components {
             title: string;
             /** Slug */
             slug: string;
-            /** Description */
-            description: string | null;
-            /** Thumbnail */
-            thumbnail: string | null;
+            type: components["schemas"]["CourseType"];
+            status: components["schemas"]["CourseStatus"];
+            /** Label */
+            label?: string | null;
+            /** Image */
+            image?: string | null;
+            /** Image Cover */
+            image_cover?: string | null;
             /** Price */
             price: number;
-            status: components["schemas"]["CourseStatus"];
-            /** Teacher Id */
-            teacher_id: number | null;
+            /** Price String */
+            price_string?: string | null;
+            /** Best Ticket Price */
+            best_ticket_price?: number | null;
+            /**
+             * Discount Percent
+             * @default 0
+             */
+            discount_percent: number;
+            /** Duration */
+            duration?: number | null;
+            /** Access Days */
+            access_days?: number | null;
+            /** Capacity */
+            capacity?: number | null;
+            /** Points */
+            points?: number | null;
+            /** Start Date */
+            start_date?: string | null;
             /**
              * Created At
              * Format: date-time
              */
             created_at: string;
+            teacher?: components["schemas"]["CourseTeacher"] | null;
+            /** Category */
+            category?: string | null;
+            /** Category Id */
+            category_id?: number | null;
+            /**
+             * Students Count
+             * @default 0
+             */
+            students_count: number;
+            /**
+             * Rate
+             * @default 0
+             */
+            rate: number;
+            /**
+             * Reviews Count
+             * @default 0
+             */
+            reviews_count: number;
+            /**
+             * Is Favorite
+             * @default false
+             */
+            is_favorite: boolean;
+            /**
+             * Is Private
+             * @default false
+             */
+            is_private: boolean;
+            /**
+             * Forum
+             * @default false
+             */
+            forum: boolean;
+            /**
+             * Badges
+             * @default []
+             */
+            badges: {
+                [key: string]: unknown;
+            }[];
+            /**
+             * Auth
+             * @default false
+             */
+            auth: boolean;
+            /**
+             * Auth Has Bought
+             * @default false
+             */
+            auth_has_bought: boolean;
+            /**
+             * Can View
+             * @default true
+             */
+            can_view: boolean;
+            /** Can View Error */
+            can_view_error?: string[] | null;
         };
         /**
          * CourseStatus
+         * @description Legacy `webinars.status` enum (parity — was draft/published/archived).
          * @enum {string}
          */
-        CourseStatus: "draft" | "published" | "archived";
+        CourseStatus: "active" | "pending" | "is_draft" | "inactive";
+        /**
+         * CourseTeacher
+         * @description Subset of the legacy `teacher->brief` available in Phase 1.
+         */
+        CourseTeacher: {
+            /** Id */
+            id: number;
+            /** Username */
+            username?: string | null;
+            /** Full Name */
+            full_name?: string | null;
+            /** Role Name */
+            role_name?: string | null;
+            /** Avatar */
+            avatar?: string | null;
+            /** Bio */
+            bio?: string | null;
+            /** Headline */
+            headline?: string | null;
+            /**
+             * Offline
+             * @default false
+             */
+            offline: boolean;
+        };
+        /**
+         * CourseType
+         * @description Legacy `webinars.type` enum (webinar = live, course = self-paced).
+         * @enum {string}
+         */
+        CourseType: "webinar" | "course" | "text_lesson";
         /**
          * ErrorResponse
          * @description Shape of FastAPI's default HTTPException body (`{"detail": "..."}`).
@@ -800,6 +1181,11 @@ export interface components {
              */
             status: string;
         };
+        /**
+         * VideoDemoSource
+         * @enum {string}
+         */
+        VideoDemoSource: "upload" | "youtube" | "vimeo" | "external_link";
     };
     responses: never;
     parameters: never;
@@ -1269,7 +1655,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CourseRead"];
+                    "application/json": components["schemas"]["CourseDetail"];
                 };
             };
             /** @description Not Found */
