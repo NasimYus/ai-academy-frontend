@@ -36,7 +36,7 @@
 - ✅ 🧪 **2.1** `entities/category` (query-опции + типы) + `CategoryNav` на странице курсов _(схемы/типы зелёные; query под smoke бэка)_
 - ✅ **2.2** Course detail: `entities/course` (типы `CourseRead`/`CourseDetail`/`CourseTeacher`, `courseQueryOptions(slug)`, `CourseCard`→ссылка) + `pages/course` + публичный роут `/course/$slug`. tsc/lint/steiger/vitest/build зелёные
 - ✅ **2.3** Filters: `widgets/course-filters` (категория/тип/сортировка/бесплатные) на странице курсов; `coursesQueryOptions(filters)`; tsc/lint/steiger/vitest/build зелёные
-- ⬜ **2.4** Featured courses (блок на главной)
+- ✅ **2.4** Featured: `featuredCoursesQueryOptions` + блок «Рекомендуемые» на странице курсов
 - ⬜ **2.5** Instructors: `entities/instructor` + `pages/instructor`
 - ⬜ **2.6** Reviews & comments (на странице курса)
 

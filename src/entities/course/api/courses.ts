@@ -30,6 +30,16 @@ export const coursesQueryOptions = (filters: CourseFilters = {}) =>
     },
   })
 
+// Featured courses for the home block (legacy FeatureWebinarController).
+// No query/path params -> no declared error response, so use the data guard.
+export const featuredCoursesQueryOptions = queryOptions({
+  queryKey: ['featured-courses'],
+  queryFn: async () => {
+    const { data } = await api.GET('/api/v1/featured-courses', {})
+    return data ?? []
+  },
+})
+
 // Single course detail by slug (legacy WebinarController@show).
 export const courseQueryOptions = (slug: string) =>
   queryOptions({
