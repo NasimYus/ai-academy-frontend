@@ -1,6 +1,7 @@
 import { Link } from '@tanstack/react-router'
 
 import { RegisterForm } from '#/features/auth/register'
+import { OAuthButtons } from '#/features/auth/oauth'
 
 export function RegisterPage() {
   return (
@@ -10,6 +11,8 @@ export function RegisterPage() {
         <p className="mb-6 text-sm text-ink/60">Регистрация в AI Academy</p>
 
         <RegisterForm />
+
+        <OAuthButtons />
 
         <p className="mt-6 text-center text-sm text-ink/60">
           Уже есть аккаунт?{' '}
