@@ -13,9 +13,11 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as InstructorsRouteImport } from './routes/instructors'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as CoursesRouteImport } from './routes/courses'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as UsersUserIdRouteImport } from './routes/users.$userId'
 import { Route as CourseSlugRouteImport } from './routes/course.$slug'
 
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
@@ -38,6 +40,11 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InstructorsRoute = InstructorsRouteImport.update({
+  id: '/instructors',
+  path: '/instructors',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
   id: '/forgot-password',
   path: '/forgot-password',
@@ -53,6 +60,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UsersUserIdRoute = UsersUserIdRouteImport.update({
+  id: '/users/$userId',
+  path: '/users/$userId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CourseSlugRoute = CourseSlugRouteImport.update({
   id: '/course/$slug',
   path: '/course/$slug',
@@ -63,32 +75,38 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/courses': typeof CoursesRoute
   '/forgot-password': typeof ForgotPasswordRoute
+  '/instructors': typeof InstructorsRoute
   '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/course/$slug': typeof CourseSlugRoute
+  '/users/$userId': typeof UsersUserIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/courses': typeof CoursesRoute
   '/forgot-password': typeof ForgotPasswordRoute
+  '/instructors': typeof InstructorsRoute
   '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/course/$slug': typeof CourseSlugRoute
+  '/users/$userId': typeof UsersUserIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/courses': typeof CoursesRoute
   '/forgot-password': typeof ForgotPasswordRoute
+  '/instructors': typeof InstructorsRoute
   '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/course/$slug': typeof CourseSlugRoute
+  '/users/$userId': typeof UsersUserIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -96,42 +114,50 @@ export interface FileRouteTypes {
     | '/'
     | '/courses'
     | '/forgot-password'
+    | '/instructors'
     | '/login'
     | '/profile'
     | '/register'
     | '/reset-password'
     | '/course/$slug'
+    | '/users/$userId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/courses'
     | '/forgot-password'
+    | '/instructors'
     | '/login'
     | '/profile'
     | '/register'
     | '/reset-password'
     | '/course/$slug'
+    | '/users/$userId'
   id:
     | '__root__'
     | '/'
     | '/courses'
     | '/forgot-password'
+    | '/instructors'
     | '/login'
     | '/profile'
     | '/register'
     | '/reset-password'
     | '/course/$slug'
+    | '/users/$userId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CoursesRoute: typeof CoursesRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
+  InstructorsRoute: typeof InstructorsRoute
   LoginRoute: typeof LoginRoute
   ProfileRoute: typeof ProfileRoute
   RegisterRoute: typeof RegisterRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   CourseSlugRoute: typeof CourseSlugRoute
+  UsersUserIdRoute: typeof UsersUserIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -164,6 +190,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/instructors': {
+      id: '/instructors'
+      path: '/instructors'
+      fullPath: '/instructors'
+      preLoaderRoute: typeof InstructorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/forgot-password': {
       id: '/forgot-password'
       path: '/forgot-password'
@@ -185,6 +218,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/users/$userId': {
+      id: '/users/$userId'
+      path: '/users/$userId'
+      fullPath: '/users/$userId'
+      preLoaderRoute: typeof UsersUserIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/course/$slug': {
       id: '/course/$slug'
       path: '/course/$slug'
@@ -199,11 +239,13 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CoursesRoute: CoursesRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
+  InstructorsRoute: InstructorsRoute,
   LoginRoute: LoginRoute,
   ProfileRoute: ProfileRoute,
   RegisterRoute: RegisterRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   CourseSlugRoute: CourseSlugRoute,
+  UsersUserIdRoute: UsersUserIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -11,9 +11,19 @@ export function Header() {
   return (
     <header className="border-b border-brand-100 bg-white">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3">
-        <Link to="/" className="flex items-center">
-          <img src="/logo.png" alt="AI Academy" className="h-8 w-auto" />
-        </Link>
+        <div className="flex items-center gap-6">
+          <Link to="/" className="flex items-center">
+            <img src="/logo.png" alt="AI Academy" className="h-8 w-auto" />
+          </Link>
+          <nav className="hidden gap-4 text-sm text-ink/70 sm:flex">
+            <Link to="/courses" className="hover:text-brand-600">
+              Курсы
+            </Link>
+            <Link to="/instructors" className="hover:text-brand-600">
+              Преподаватели
+            </Link>
+          </nav>
+        </div>
 
         {token && (
           <div className="flex items-center gap-3 text-sm">

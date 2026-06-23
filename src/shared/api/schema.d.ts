@@ -276,6 +276,74 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/providers/instructors": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Instructors */
+        get: operations["instructors_api_v1_providers_instructors_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/providers/organizations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Organizations */
+        get: operations["organizations_api_v1_providers_organizations_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/providers/consultations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Consultations */
+        get: operations["consultations_api_v1_providers_consultations_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/{user_id}/profile": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Public Profile */
+        get: operations["public_profile_api_v1_users__user_id__profile_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/search": {
         parameters: {
             query?: never;
@@ -1078,6 +1146,56 @@ export interface components {
             /** District Id */
             district_id?: number | null;
         };
+        /**
+         * ProviderList
+         * @description Legacy handleProviders() result: {count, users:[brief]}.
+         */
+        ProviderList: {
+            /** Count */
+            count: number;
+            /**
+             * Users
+             * @default []
+             */
+            users: components["schemas"]["UserBrief"][];
+        };
+        /**
+         * PublicProfile
+         * @description Public user profile (legacy user->details subset for Phase 2).
+         */
+        PublicProfile: {
+            /** Id */
+            id: number;
+            /** Full Name */
+            full_name: string | null;
+            /** Role Name */
+            role_name: string;
+            /** Avatar */
+            avatar: string | null;
+            /** Cover Img */
+            cover_img: string | null;
+            /** Headline */
+            headline: string | null;
+            /** Bio */
+            bio: string | null;
+            /** About */
+            about: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Courses Count
+             * @default 0
+             */
+            courses_count: number;
+            /**
+             * Courses
+             * @default []
+             */
+            courses: components["schemas"]["CourseRead"][];
+        };
         /** RegisterStep1 */
         RegisterStep1: {
             /** Email */
@@ -1879,6 +1997,130 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["CourseRead"][];
+                };
+            };
+        };
+    };
+    instructors_api_v1_providers_instructors_get: {
+        parameters: {
+            query?: {
+                search?: string | null;
+                sort?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProviderList"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    organizations_api_v1_providers_organizations_get: {
+        parameters: {
+            query?: {
+                search?: string | null;
+                sort?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProviderList"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    consultations_api_v1_providers_consultations_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProviderList"];
+                };
+            };
+        };
+    };
+    public_profile_api_v1_users__user_id__profile_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                user_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PublicProfile"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };
