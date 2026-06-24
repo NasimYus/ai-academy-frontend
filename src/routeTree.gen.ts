@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as PurchasesRouteImport } from './routes/purchases'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as OrdersRouteImport } from './routes/orders'
 import { Route as MyCoursesRouteImport } from './routes/my-courses'
@@ -38,6 +39,11 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PurchasesRoute = PurchasesRouteImport.update({
+  id: '/purchases',
+  path: '/purchases',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProfileRoute = ProfileRouteImport.update({
@@ -143,6 +149,7 @@ export interface FileRoutesByFullPath {
   '/my-courses': typeof MyCoursesRoute
   '/orders': typeof OrdersRoute
   '/profile': typeof ProfileRoute
+  '/purchases': typeof PurchasesRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
@@ -165,6 +172,7 @@ export interface FileRoutesByTo {
   '/my-courses': typeof MyCoursesRoute
   '/orders': typeof OrdersRoute
   '/profile': typeof ProfileRoute
+  '/purchases': typeof PurchasesRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
@@ -188,6 +196,7 @@ export interface FileRoutesById {
   '/my-courses': typeof MyCoursesRoute
   '/orders': typeof OrdersRoute
   '/profile': typeof ProfileRoute
+  '/purchases': typeof PurchasesRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
@@ -212,6 +221,7 @@ export interface FileRouteTypes {
     | '/my-courses'
     | '/orders'
     | '/profile'
+    | '/purchases'
     | '/register'
     | '/reset-password'
     | '/assignment/$assignmentId'
@@ -234,6 +244,7 @@ export interface FileRouteTypes {
     | '/my-courses'
     | '/orders'
     | '/profile'
+    | '/purchases'
     | '/register'
     | '/reset-password'
     | '/assignment/$assignmentId'
@@ -256,6 +267,7 @@ export interface FileRouteTypes {
     | '/my-courses'
     | '/orders'
     | '/profile'
+    | '/purchases'
     | '/register'
     | '/reset-password'
     | '/assignment/$assignmentId'
@@ -279,6 +291,7 @@ export interface RootRouteChildren {
   MyCoursesRoute: typeof MyCoursesRoute
   OrdersRoute: typeof OrdersRoute
   ProfileRoute: typeof ProfileRoute
+  PurchasesRoute: typeof PurchasesRoute
   RegisterRoute: typeof RegisterRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   AssignmentAssignmentIdRoute: typeof AssignmentAssignmentIdRoute
@@ -304,6 +317,13 @@ declare module '@tanstack/react-router' {
       path: '/register'
       fullPath: '/register'
       preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/purchases': {
+      id: '/purchases'
+      path: '/purchases'
+      fullPath: '/purchases'
+      preLoaderRoute: typeof PurchasesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/profile': {
@@ -447,6 +467,7 @@ const rootRouteChildren: RootRouteChildren = {
   MyCoursesRoute: MyCoursesRoute,
   OrdersRoute: OrdersRoute,
   ProfileRoute: ProfileRoute,
+  PurchasesRoute: PurchasesRoute,
   RegisterRoute: RegisterRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   AssignmentAssignmentIdRoute: AssignmentAssignmentIdRoute,

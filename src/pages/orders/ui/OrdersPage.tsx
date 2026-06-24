@@ -27,7 +27,12 @@ export function OrdersPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-8">
-      <h1 className="mb-6 text-2xl font-bold text-ink">Мои заказы</h1>
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-ink">Мои заказы</h1>
+        <Link to="/purchases" className="text-sm text-brand-600 hover:underline">
+          История покупок
+        </Link>
+      </div>
 
       {orders.data.length === 0 ? (
         <p className="text-ink/60">

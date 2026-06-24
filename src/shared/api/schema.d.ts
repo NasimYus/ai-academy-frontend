@@ -1085,6 +1085,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/panel/purchases": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Purchases
+         * @description Buyer purchase history — paid course line-items (legacy indexPurchases).
+         */
+        get: operations["list_purchases_api_v1_panel_purchases_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/panel/orders/{order_id}": {
         parameters: {
             query?: never;
@@ -2585,6 +2605,29 @@ export interface components {
              * @default []
              */
             courses: components["schemas"]["CourseRead"][];
+        };
+        /**
+         * PurchaseRead
+         * @description A single purchased course (paid order line), for buyer purchase history.
+         */
+        PurchaseRead: {
+            /** Order Id */
+            order_id: number;
+            /** Course Id */
+            course_id?: number | null;
+            /** Title */
+            title?: string | null;
+            /** Slug */
+            slug?: string | null;
+            /** Thumbnail */
+            thumbnail?: string | null;
+            /** Amount */
+            amount: number;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
         };
         /** QuestionRead */
         QuestionRead: {
@@ -5669,6 +5712,35 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["OrderRead"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    list_purchases_api_v1_panel_purchases_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PurchaseRead"][];
                 };
             };
             /** @description Unauthorized */

@@ -14,6 +14,16 @@ export const ordersQueryOptions = queryOptions({
   },
 })
 
+// Buyer purchase history — paid course line-items.
+export const purchasesQueryOptions = queryOptions({
+  queryKey: ['purchases'],
+  queryFn: async () => {
+    const { data, error } = await api.GET('/api/v1/panel/purchases', {})
+    if (error) throw new Error('Не удалось загрузить покупки')
+    return data
+  },
+})
+
 export const orderQueryOptions = (orderId: number) =>
   queryOptions({
     queryKey: ['order', orderId],
