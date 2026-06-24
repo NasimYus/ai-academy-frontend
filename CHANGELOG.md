@@ -72,6 +72,7 @@
 - ✅ **5.3** Уведомления: `entities/notification` (`notificationsQueryOptions`) + `features/notifications` (`NotificationBell`: дропдаун с unread-бейджем + mark-seen в Header) + `pages/notifications` (/notifications, фильтры все/непрочитанные/прочитанные, кнопка «Прочитано»)
 - ✅ **5.4** Поддержка: `entities/support` (index/detail/departments queries) + `features/support` (`CreateTicketForm`, `TicketThread` с ответом/закрытием, multipart-вложения) + `pages/support` (/support — секции «мои по курсам»/«по моим курсам»/«платформа», новое обращение) + `pages/support-ticket` (/support/$supportId — тред переписки) + ссылка в Header
 - ✅ **5.5** Блог: `entities/blog` (list/detail/categories queries) + `features/blog-comment` (`BlogCommentForm`) + `pages/blog` (/blog — грид + фильтр по категориям) + `pages/blog-post` (/blog/$blogId — статья + комментарии с ответами) + публичная ссылка «Блог» в Header
+- ✅ 🧪 **5.6** Newsletter: `features/newsletter-subscribe` (`NewsletterForm` + `useSubscribeNewsletter`, 422→«уже подписан») в новом `widgets/footer` (смонтирован в `__root`) _(unit: subscribe gate-messages)_
 
 ## Backlog (после MVP)
 

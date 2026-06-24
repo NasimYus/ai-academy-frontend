@@ -994,6 +994,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/newsletter": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Make Newsletter
+         * @description Subscribe an email to the newsletter (legacy UserController@makeNewsletter).
+         */
+        post: operations["make_newsletter_api_v1_newsletter_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/support/class_support": {
         parameters: {
             query?: never;
@@ -2809,6 +2829,19 @@ export interface components {
             full_name?: string | null;
             /** Avatar */
             avatar?: string | null;
+        };
+        /** NewsletterRequest */
+        NewsletterRequest: {
+            /**
+             * Email
+             * Format: email
+             */
+            email: string;
+        };
+        /** NewsletterResponse */
+        NewsletterResponse: {
+            /** Message */
+            message: string;
         };
         /**
          * NoteTargetType
@@ -5965,6 +5998,41 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    make_newsletter_api_v1_newsletter_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["NewsletterRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NewsletterResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };

@@ -7,6 +7,7 @@ import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 
 import TanStackQueryDevtools from '#/app/providers/query-devtools'
+import { Footer } from '#/widgets/footer'
 import { Header } from '#/widgets/header'
 
 import appCss from '#/app/styles.css?url'
@@ -56,6 +57,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <body>
         <Header />
         {children}
+        <Footer />
         <TanStackDevtools
           config={{
             position: 'bottom-right',
