@@ -960,6 +960,50 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/cart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Cart
+         * @description The user's cart (legacy CartController@index).
+         */
+        get: operations["list_cart_api_v1_cart_get"];
+        put?: never;
+        /**
+         * Add To Cart
+         * @description Add a course to the cart (legacy AddCartController@store, webinar branch).
+         */
+        post: operations["add_to_cart_api_v1_cart_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/cart/{item_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Remove From Cart
+         * @description Remove an item from the cart (legacy CartController@destroy, scoped to owner).
+         */
+        delete: operations["remove_from_cart_api_v1_cart__item_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/health": {
         parameters: {
             query?: never;
@@ -1001,6 +1045,17 @@ export interface components {
             /** Status */
             status: string;
             certificate?: components["schemas"]["CertificateBrief"] | null;
+        };
+        /** AddToCartRequest */
+        AddToCartRequest: {
+            /** Item Id */
+            item_id: number;
+            /**
+             * Item Name
+             * @default webinar
+             * @constant
+             */
+            item_name: "webinar";
         };
         /** AnswerRead */
         AnswerRead: {
@@ -1198,6 +1253,56 @@ export interface components {
             identity_scan?: string | null;
             /** Certificate */
             certificate?: string | null;
+        };
+        /** CartAmounts */
+        CartAmounts: {
+            /** Sub Total */
+            sub_total: number;
+            /**
+             * Total Discount
+             * @default 0
+             */
+            total_discount: number;
+            /**
+             * Tax Price
+             * @default 0
+             */
+            tax_price: number;
+            /** Total */
+            total: number;
+        };
+        /** CartItemRead */
+        CartItemRead: {
+            /** Id */
+            id: number;
+            /** Type */
+            type: string;
+            /** Course Id */
+            course_id: number;
+            /** Title */
+            title: string;
+            /** Slug */
+            slug: string;
+            /** Thumbnail */
+            thumbnail?: string | null;
+            /** Teacher Name */
+            teacher_name?: string | null;
+            /** Price */
+            price: number;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** CartRead */
+        CartRead: {
+            /**
+             * Items
+             * @default []
+             */
+            items: components["schemas"]["CartItemRead"][];
+            amounts: components["schemas"]["CartAmounts"];
         };
         /** CategoryList */
         CategoryList: {
@@ -4987,6 +5092,146 @@ export interface operations {
             };
             /** @description Forbidden */
             403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_cart_api_v1_cart_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CartRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    add_to_cart_api_v1_cart_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AddToCartRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CartItemRead"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    remove_from_cart_api_v1_cart__item_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                item_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: string;
+                    };
+                };
+            };
+            /** @description Unauthorized */
+            401: {
                 headers: {
                     [name: string]: unknown;
                 };

@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Link, useParams } from '@tanstack/react-router'
 
 import { courseQueryOptions } from '#/entities/course'
+import { AddToCartButton } from '#/features/cart'
 import { useEnrollFree } from '#/features/course-enroll'
 
 export function CoursePage() {
@@ -167,15 +168,15 @@ export function CoursePage() {
                 Войдите, чтобы записаться
               </Link>
             )
+          ) : data.auth ? (
+            <AddToCartButton courseId={data.id} />
           ) : (
-            <button
-              type="button"
-              disabled
-              className="mt-6 w-full cursor-not-allowed rounded-full bg-brand-500 px-4 py-2 font-semibold text-white opacity-60"
-              title="Оплата появится в Phase 4"
+            <Link
+              to="/login"
+              className="mt-6 block rounded-full bg-brand-500 px-4 py-2 text-center font-semibold text-white transition hover:bg-brand-600"
             >
-              В корзину
-            </button>
+              Войдите, чтобы купить
+            </Link>
           )}
           {enroll.isError && (
             <p className="mt-2 text-sm text-red-600">{enroll.error.message}</p>

@@ -54,7 +54,8 @@
 
 ## Phase 4 — Коммерция
 
-- ⬜ **4.1** `entities/cart` + `pages/cart` · **4.2** Купоны · **4.3** `features/checkout`
+- ✅ **4.1** Cart: `entities/cart` (`cartQueryOptions`) + `features/cart` (`AddToCartButton`, add/remove хуки) + `pages/cart` (/cart, список+итоги, удаление); кнопка «В корзину» на детали курса + ссылка «Корзина» в Header
+- ⬜ **4.2** Купоны · **4.3** `features/checkout`
 - ⬜ **4.4** Оплата (redirect/return) · **4.5** Доступ после оплаты · **4.6** `pages/my-courses`
 
 ## Backlog (после MVP)
