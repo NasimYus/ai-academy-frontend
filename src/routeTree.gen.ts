@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RewardsRouteImport } from './routes/rewards'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as PurchasesRouteImport } from './routes/purchases'
@@ -37,6 +38,11 @@ import { Route as CourseForumCourseIdRouteImport } from './routes/course-forum.$
 import { Route as BlogBlogIdRouteImport } from './routes/blog.$blogId'
 import { Route as AssignmentAssignmentIdRouteImport } from './routes/assignment.$assignmentId'
 
+const RewardsRoute = RewardsRouteImport.update({
+  id: '/rewards',
+  path: '/rewards',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
   path: '/reset-password',
@@ -190,6 +196,7 @@ export interface FileRoutesByFullPath {
   '/purchases': typeof PurchasesRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/rewards': typeof RewardsRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
@@ -219,6 +226,7 @@ export interface FileRoutesByTo {
   '/purchases': typeof PurchasesRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/rewards': typeof RewardsRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
@@ -249,6 +257,7 @@ export interface FileRoutesById {
   '/purchases': typeof PurchasesRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/rewards': typeof RewardsRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
@@ -280,6 +289,7 @@ export interface FileRouteTypes {
     | '/purchases'
     | '/register'
     | '/reset-password'
+    | '/rewards'
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
     | '/course-forum/$courseId'
@@ -309,6 +319,7 @@ export interface FileRouteTypes {
     | '/purchases'
     | '/register'
     | '/reset-password'
+    | '/rewards'
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
     | '/course-forum/$courseId'
@@ -338,6 +349,7 @@ export interface FileRouteTypes {
     | '/purchases'
     | '/register'
     | '/reset-password'
+    | '/rewards'
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
     | '/course-forum/$courseId'
@@ -368,6 +380,7 @@ export interface RootRouteChildren {
   PurchasesRoute: typeof PurchasesRoute
   RegisterRoute: typeof RegisterRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  RewardsRoute: typeof RewardsRoute
   AssignmentAssignmentIdRoute: typeof AssignmentAssignmentIdRoute
   BlogBlogIdRoute: typeof BlogBlogIdRoute
   CourseForumCourseIdRoute: typeof CourseForumCourseIdRoute
@@ -383,6 +396,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/rewards': {
+      id: '/rewards'
+      path: '/rewards'
+      fullPath: '/rewards'
+      preLoaderRoute: typeof RewardsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/reset-password': {
       id: '/reset-password'
       path: '/reset-password'
@@ -592,6 +612,7 @@ const rootRouteChildren: RootRouteChildren = {
   PurchasesRoute: PurchasesRoute,
   RegisterRoute: RegisterRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  RewardsRoute: RewardsRoute,
   AssignmentAssignmentIdRoute: AssignmentAssignmentIdRoute,
   BlogBlogIdRoute: BlogBlogIdRoute,
   CourseForumCourseIdRoute: CourseForumCourseIdRoute,

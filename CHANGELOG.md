@@ -73,6 +73,7 @@
 - ✅ **5.4** Поддержка: `entities/support` (index/detail/departments queries) + `features/support` (`CreateTicketForm`, `TicketThread` с ответом/закрытием, multipart-вложения) + `pages/support` (/support — секции «мои по курсам»/«по моим курсам»/«платформа», новое обращение) + `pages/support-ticket` (/support/$supportId — тред переписки) + ссылка в Header
 - ✅ **5.5** Блог: `entities/blog` (list/detail/categories queries) + `features/blog-comment` (`BlogCommentForm`) + `pages/blog` (/blog — грид + фильтр по категориям) + `pages/blog-post` (/blog/$blogId — статья + комментарии с ответами) + публичная ссылка «Блог» в Header
 - ✅ 🧪 **5.6** Newsletter: `features/newsletter-subscribe` (`NewsletterForm` + `useSubscribeNewsletter`, 422→«уже подписан») в новом `widgets/footer` (смонтирован в `__root`) _(unit: subscribe gate-messages)_
+- ✅ 🧪 **5.7** Rewards/баллы: `entities/reward` (overview + reward-courses queries) + `features/redeem-points` (`useRedeemCourse`/`useExchangePoints`, маппинг gate-кодов) + `pages/rewards` (/rewards: баланс/история/курсы за баллы; 404-гейт → «недоступно») + ссылка «Баллы» в Header _(unit: redeem gate-messages)_
 
 ## Backlog (после MVP)
 

@@ -1014,6 +1014,86 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/rewards": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Rewards Overview
+         * @description Points overview + history + leaderboard (legacy RewardsController@index).
+         */
+        get: operations["rewards_overview_api_v1_rewards_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/rewards/reward-courses": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Reward Courses
+         * @description Active courses buyable with points (legacy RewardsController@courses — ungated).
+         */
+        get: operations["reward_courses_api_v1_rewards_reward_courses_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/rewards/exchange": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Exchange
+         * @description Exchange points to wallet (legacy RewardsController@exchange).
+         */
+        post: operations["exchange_api_v1_rewards_exchange_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/rewards/webinar/{course_id}/apply": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Buy With Points
+         * @description Redeem points for a course (legacy RewardsController@buyWithPoint).
+         */
+        post: operations["buy_with_points_api_v1_rewards_webinar__course_id__apply_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/support/class_support": {
         parameters: {
             query?: never;
@@ -2765,6 +2845,12 @@ export interface components {
             description: string;
             user?: components["schemas"]["UserBrief"] | null;
         };
+        /** LeaderUser */
+        LeaderUser: {
+            user: components["schemas"]["UserBrief"];
+            /** Total Points */
+            total_points: number;
+        };
         /** LearningToggle */
         LearningToggle: {
             /**
@@ -3328,6 +3414,11 @@ export interface components {
             attempt_number: number;
             quiz: components["schemas"]["QuizDetail"];
         };
+        /** RedeemResponse */
+        RedeemResponse: {
+            /** Message */
+            message: string;
+        };
         /** RegisterStep1 */
         RegisterStep1: {
             /** Email */
@@ -3405,6 +3496,46 @@ export interface components {
              * Format: date-time
              */
             created_at: string;
+        };
+        /** RewardEntry */
+        RewardEntry: {
+            /** Id */
+            id: number;
+            user: components["schemas"]["UserBrief"];
+            /** Item Id */
+            item_id?: number | null;
+            /** Type */
+            type: string;
+            /** Score */
+            score: number;
+            /** Status */
+            status: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** RewardsOverview */
+        RewardsOverview: {
+            /** Available Points */
+            available_points: number;
+            /** Total Points */
+            total_points: number;
+            /** Spent Points */
+            spent_points: number;
+            /** Rewards */
+            rewards: components["schemas"]["RewardEntry"][];
+            /** Exchangeable */
+            exchangeable: number;
+            /** Earn By Exchange */
+            earn_by_exchange: number;
+            leader_board?: components["schemas"]["LeaderUser"] | null;
+            /**
+             * Most Points Users
+             * @default []
+             */
+            most_points_users: components["schemas"]["LeaderUser"][];
         };
         /**
          * SearchResults
@@ -6024,6 +6155,151 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["NewsletterResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    rewards_overview_api_v1_rewards_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RewardsOverview"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    reward_courses_api_v1_rewards_reward_courses_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CourseRead"][];
+                };
+            };
+        };
+    };
+    exchange_api_v1_rewards_exchange_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RedeemResponse"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    buy_with_points_api_v1_rewards_webinar__course_id__apply_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                course_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RedeemResponse"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
             /** @description Unprocessable Entity */
