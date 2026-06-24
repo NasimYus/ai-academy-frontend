@@ -23,11 +23,15 @@ export function setPrefsGetter(getter: () => { locale?: string; currency?: strin
   getPrefs = getter
 }
 
-// Attach the JWT (if any) to every request.
+// Attach the session JWT (if any) to every request. An explicit per-call
+// Authorization header wins (register/login fetch /auth/me with a fresh token
+// before the session store is updated — don't clobber it with a stale token).
 api.use({
   onRequest({ request }) {
     const token = getAuthToken()
-    if (token) request.headers.set('Authorization', `Bearer ${token}`)
+    if (token && !request.headers.has('Authorization')) {
+      request.headers.set('Authorization', `Bearer ${token}`)
+    }
     return request
   },
 })
