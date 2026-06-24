@@ -748,6 +748,50 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/personal-notes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Show Note
+         * @description A user's note for a content item (legacy CoursePersonalNotesController@show).
+         */
+        get: operations["show_note_api_v1_personal_notes_get"];
+        put?: never;
+        /**
+         * Store Note
+         * @description Upsert a note (legacy CoursePersonalNotesController@store).
+         */
+        post: operations["store_note_api_v1_personal_notes_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/personal-notes/delete/{note_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Destroy Note
+         * @description Delete a note (legacy destroy; scoped to the owner — legacy left it unscoped).
+         */
+        delete: operations["destroy_note_api_v1_personal_notes_delete__note_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/health": {
         parameters: {
             query?: never;
@@ -938,6 +982,18 @@ export interface components {
             token_type: string;
             /** User Id */
             user_id: number;
+        };
+        /** Body_store_note_api_v1_personal_notes_post */
+        Body_store_note_api_v1_personal_notes_post: {
+            item_type: components["schemas"]["NoteTargetType"];
+            /** Item Id */
+            item_id: number;
+            /** Course Id */
+            course_id: number;
+            /** Note */
+            note: string;
+            /** Attachment */
+            attachment?: string | null;
         };
         /** Body_submit_message_api_v1_assignments__assignment_id__messages_post */
         Body_submit_message_api_v1_assignments__assignment_id__messages_post: {
@@ -1623,6 +1679,11 @@ export interface components {
             /** Avatar */
             avatar?: string | null;
         };
+        /**
+         * NoteTargetType
+         * @enum {string}
+         */
+        NoteTargetType: "session" | "file" | "quiz" | "text_lesson" | "assignment";
         /** OAuthCallback */
         OAuthCallback: {
             /**
@@ -1675,6 +1736,26 @@ export interface components {
             status: string;
             /** Token */
             token: string;
+        };
+        /** PersonalNoteRead */
+        PersonalNoteRead: {
+            /** Id */
+            id: number;
+            /** Course Id */
+            course_id: number;
+            /** Target Type */
+            target_type: string;
+            /** Target Id */
+            target_id: number;
+            /** Note */
+            note?: string | null;
+            /** Attachment */
+            attachment?: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
         };
         /** ProfileRead */
         ProfileRead: {
@@ -3889,6 +3970,150 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["CertificateValidation"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    show_note_api_v1_personal_notes_get: {
+        parameters: {
+            query: {
+                type: components["schemas"]["NoteTargetType"];
+                /** @description target item id */
+                item: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PersonalNoteRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    store_note_api_v1_personal_notes_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body_store_note_api_v1_personal_notes_post"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PersonalNoteRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    destroy_note_api_v1_personal_notes_delete__note_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                note_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: string;
+                    };
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
             /** @description Validation Error */

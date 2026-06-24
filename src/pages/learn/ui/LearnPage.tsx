@@ -6,6 +6,7 @@ import { courseContentQueryOptions } from '#/entities/course'
 import { courseQuizzesQueryOptions } from '#/entities/quiz'
 import { useToggleLearning } from '#/features/lesson-progress'
 import type { LearningItemType } from '#/features/lesson-progress'
+import { NotePanel } from '#/features/personal-note'
 import type { components } from '#/shared/api'
 
 type ContentItem = components['schemas']['ContentItem']
@@ -20,10 +21,12 @@ const TYPE_LABEL: Record<string, string> = {
 
 function Item({
   item,
+  courseId,
   onToggle,
   toggling,
 }: {
   item: ContentItem
+  courseId: number
   onToggle: (itemType: LearningItemType, itemId: number, learned: boolean) => void
   toggling: boolean
 }) {
@@ -52,26 +55,35 @@ function Item({
       {item.locked ? (
         <p className="mt-1 text-sm text-ink/50">Доступно после записи на курс</p>
       ) : (
-        <div className="mt-2 text-sm text-ink/80">
-          {item.type === 'text_lesson' && item.content && (
-            <p className="whitespace-pre-line">{item.content}</p>
+        <>
+          <div className="mt-2 text-sm text-ink/80">
+            {item.type === 'text_lesson' && item.content && (
+              <p className="whitespace-pre-line">{item.content}</p>
+            )}
+            {item.type === 'file' && item.file && (
+              <a
+                href={`${API_URL}${item.file}`}
+                className="text-brand-600 hover:underline"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Скачать {item.file_type ? `(${item.file_type})` : ''}
+              </a>
+            )}
+            {item.type === 'session' && item.link && (
+              <a href={item.link} className="text-brand-600 hover:underline" target="_blank" rel="noreferrer">
+                Присоединиться к сессии
+              </a>
+            )}
+          </div>
+          {courseId > 0 && (
+            <NotePanel
+              courseId={courseId}
+              targetType={item.type as 'file' | 'text_lesson' | 'session'}
+              targetId={item.id}
+            />
           )}
-          {item.type === 'file' && item.file && (
-            <a
-              href={`${API_URL}${item.file}`}
-              className="text-brand-600 hover:underline"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Скачать {item.file_type ? `(${item.file_type})` : ''}
-            </a>
-          )}
-          {item.type === 'session' && item.link && (
-            <a href={item.link} className="text-brand-600 hover:underline" target="_blank" rel="noreferrer">
-              Присоединиться к сессии
-            </a>
-          )}
-        </div>
+        </>
       )}
     </div>
   )
@@ -111,6 +123,7 @@ export function LearnPage({ slug }: { slug: string }) {
             <Item
               key={`${item.type}-${item.id}`}
               item={item}
+              courseId={courseId}
               onToggle={handleToggle}
               toggling={toggle.isPending}
             />
@@ -126,6 +139,7 @@ export function LearnPage({ slug }: { slug: string }) {
               <Item
                 key={`${item.type}-${item.id}`}
                 item={item}
+                courseId={courseId}
                 onToggle={handleToggle}
                 toggling={toggle.isPending}
               />
