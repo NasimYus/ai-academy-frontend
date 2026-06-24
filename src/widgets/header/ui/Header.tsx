@@ -24,6 +24,9 @@ export function Header() {
             <Link to="/instructors" className="hover:text-brand-600">
               Преподаватели
             </Link>
+            <Link to="/blog" className="hover:text-brand-600">
+              Блог
+            </Link>
           </nav>
         </div>
 

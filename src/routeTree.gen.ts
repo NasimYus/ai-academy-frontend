@@ -26,6 +26,7 @@ import { Route as CertificateValidationRouteImport } from './routes/certificate-
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SupportIndexRouteImport } from './routes/support.index'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as UsersUserIdRouteImport } from './routes/users.$userId'
 import { Route as SupportSupportIdRouteImport } from './routes/support.$supportId'
 import { Route as QuizQuizIdRouteImport } from './routes/quiz.$quizId'
@@ -33,6 +34,7 @@ import { Route as PaymentCallbackRouteImport } from './routes/payment.callback'
 import { Route as LearnSlugRouteImport } from './routes/learn.$slug'
 import { Route as CourseSlugRouteImport } from './routes/course.$slug'
 import { Route as CourseForumCourseIdRouteImport } from './routes/course-forum.$courseId'
+import { Route as BlogBlogIdRouteImport } from './routes/blog.$blogId'
 import { Route as AssignmentAssignmentIdRouteImport } from './routes/assignment.$assignmentId'
 
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
@@ -120,6 +122,11 @@ const SupportIndexRoute = SupportIndexRouteImport.update({
   path: '/support/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UsersUserIdRoute = UsersUserIdRouteImport.update({
   id: '/users/$userId',
   path: '/users/$userId',
@@ -155,6 +162,11 @@ const CourseForumCourseIdRoute = CourseForumCourseIdRouteImport.update({
   path: '/course-forum/$courseId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogBlogIdRoute = BlogBlogIdRouteImport.update({
+  id: '/blog/$blogId',
+  path: '/blog/$blogId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AssignmentAssignmentIdRoute = AssignmentAssignmentIdRouteImport.update({
   id: '/assignment/$assignmentId',
   path: '/assignment/$assignmentId',
@@ -179,6 +191,7 @@ export interface FileRoutesByFullPath {
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
+  '/blog/$blogId': typeof BlogBlogIdRoute
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
   '/learn/$slug': typeof LearnSlugRoute
@@ -186,6 +199,7 @@ export interface FileRoutesByFullPath {
   '/quiz/$quizId': typeof QuizQuizIdRoute
   '/support/$supportId': typeof SupportSupportIdRoute
   '/users/$userId': typeof UsersUserIdRoute
+  '/blog/': typeof BlogIndexRoute
   '/support/': typeof SupportIndexRoute
 }
 export interface FileRoutesByTo {
@@ -206,6 +220,7 @@ export interface FileRoutesByTo {
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
+  '/blog/$blogId': typeof BlogBlogIdRoute
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
   '/learn/$slug': typeof LearnSlugRoute
@@ -213,6 +228,7 @@ export interface FileRoutesByTo {
   '/quiz/$quizId': typeof QuizQuizIdRoute
   '/support/$supportId': typeof SupportSupportIdRoute
   '/users/$userId': typeof UsersUserIdRoute
+  '/blog': typeof BlogIndexRoute
   '/support': typeof SupportIndexRoute
 }
 export interface FileRoutesById {
@@ -234,6 +250,7 @@ export interface FileRoutesById {
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
+  '/blog/$blogId': typeof BlogBlogIdRoute
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
   '/learn/$slug': typeof LearnSlugRoute
@@ -241,6 +258,7 @@ export interface FileRoutesById {
   '/quiz/$quizId': typeof QuizQuizIdRoute
   '/support/$supportId': typeof SupportSupportIdRoute
   '/users/$userId': typeof UsersUserIdRoute
+  '/blog/': typeof BlogIndexRoute
   '/support/': typeof SupportIndexRoute
 }
 export interface FileRouteTypes {
@@ -263,6 +281,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/reset-password'
     | '/assignment/$assignmentId'
+    | '/blog/$blogId'
     | '/course-forum/$courseId'
     | '/course/$slug'
     | '/learn/$slug'
@@ -270,6 +289,7 @@ export interface FileRouteTypes {
     | '/quiz/$quizId'
     | '/support/$supportId'
     | '/users/$userId'
+    | '/blog/'
     | '/support/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -290,6 +310,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/reset-password'
     | '/assignment/$assignmentId'
+    | '/blog/$blogId'
     | '/course-forum/$courseId'
     | '/course/$slug'
     | '/learn/$slug'
@@ -297,6 +318,7 @@ export interface FileRouteTypes {
     | '/quiz/$quizId'
     | '/support/$supportId'
     | '/users/$userId'
+    | '/blog'
     | '/support'
   id:
     | '__root__'
@@ -317,6 +339,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/reset-password'
     | '/assignment/$assignmentId'
+    | '/blog/$blogId'
     | '/course-forum/$courseId'
     | '/course/$slug'
     | '/learn/$slug'
@@ -324,6 +347,7 @@ export interface FileRouteTypes {
     | '/quiz/$quizId'
     | '/support/$supportId'
     | '/users/$userId'
+    | '/blog/'
     | '/support/'
   fileRoutesById: FileRoutesById
 }
@@ -345,6 +369,7 @@ export interface RootRouteChildren {
   RegisterRoute: typeof RegisterRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   AssignmentAssignmentIdRoute: typeof AssignmentAssignmentIdRoute
+  BlogBlogIdRoute: typeof BlogBlogIdRoute
   CourseForumCourseIdRoute: typeof CourseForumCourseIdRoute
   CourseSlugRoute: typeof CourseSlugRoute
   LearnSlugRoute: typeof LearnSlugRoute
@@ -352,6 +377,7 @@ export interface RootRouteChildren {
   QuizQuizIdRoute: typeof QuizQuizIdRoute
   SupportSupportIdRoute: typeof SupportSupportIdRoute
   UsersUserIdRoute: typeof UsersUserIdRoute
+  BlogIndexRoute: typeof BlogIndexRoute
   SupportIndexRoute: typeof SupportIndexRoute
 }
 
@@ -476,6 +502,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SupportIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/users/$userId': {
       id: '/users/$userId'
       path: '/users/$userId'
@@ -525,6 +558,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CourseForumCourseIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/$blogId': {
+      id: '/blog/$blogId'
+      path: '/blog/$blogId'
+      fullPath: '/blog/$blogId'
+      preLoaderRoute: typeof BlogBlogIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/assignment/$assignmentId': {
       id: '/assignment/$assignmentId'
       path: '/assignment/$assignmentId'
@@ -553,6 +593,7 @@ const rootRouteChildren: RootRouteChildren = {
   RegisterRoute: RegisterRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   AssignmentAssignmentIdRoute: AssignmentAssignmentIdRoute,
+  BlogBlogIdRoute: BlogBlogIdRoute,
   CourseForumCourseIdRoute: CourseForumCourseIdRoute,
   CourseSlugRoute: CourseSlugRoute,
   LearnSlugRoute: LearnSlugRoute,
@@ -560,6 +601,7 @@ const rootRouteChildren: RootRouteChildren = {
   QuizQuizIdRoute: QuizQuizIdRoute,
   SupportSupportIdRoute: SupportSupportIdRoute,
   UsersUserIdRoute: UsersUserIdRoute,
+  BlogIndexRoute: BlogIndexRoute,
   SupportIndexRoute: SupportIndexRoute,
 }
 export const routeTree = rootRouteImport

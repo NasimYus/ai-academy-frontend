@@ -1158,6 +1158,86 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/blogs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Index
+         * @description Published posts (legacy Web\BlogController@index, ?cat/?limit/?offset).
+         */
+        get: operations["index_api_v1_blogs_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/blogs/categories": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Categories
+         * @description Blog categories (legacy Web\BlogCategoryController@index).
+         */
+        get: operations["categories_api_v1_blogs_categories_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/blogs/{blog_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Show
+         * @description A single published post with its comments (legacy Web\BlogController@show).
+         */
+        get: operations["show_api_v1_blogs__blog_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/blogs/{blog_id}/comments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Add Comment
+         * @description Post a comment/reply on a blog (legacy CommentsController@store, item=blog).
+         */
+        post: operations["add_comment_api_v1_blogs__blog_id__comments_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/courses/{course_id}/forums": {
         parameters: {
             query?: never;
@@ -1709,6 +1789,79 @@ export interface components {
             token_type: string;
             /** User Id */
             user_id: number;
+        };
+        /** BlogBrief */
+        BlogBrief: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Image */
+            image: string | null;
+            /** Description */
+            description: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            author: components["schemas"]["UserBrief"] | null;
+            /** Comment Count */
+            comment_count: number;
+            /** Category */
+            category: string | null;
+        };
+        /** BlogCategoryRead */
+        BlogCategoryRead: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Slug */
+            slug: string;
+        };
+        /** BlogCommentCreate */
+        BlogCommentCreate: {
+            /** Comment */
+            comment: string;
+            /** Reply Id */
+            reply_id?: number | null;
+        };
+        /** BlogDetail */
+        BlogDetail: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Image */
+            image: string | null;
+            /** Description */
+            description: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            author: components["schemas"]["UserBrief"] | null;
+            /** Comment Count */
+            comment_count: number;
+            /** Category */
+            category: string | null;
+            /** Content */
+            content: string;
+            /** Comments */
+            comments: components["schemas"]["CommentRead"][];
+        };
+        /** BlogList */
+        BlogList: {
+            /** Count */
+            count: number;
+            /** Blogs */
+            blogs: components["schemas"]["BlogBrief"][];
+        };
+        /** BlogShow */
+        BlogShow: {
+            blog: components["schemas"]["BlogDetail"];
         };
         /** Body_create_forum_api_v1_courses__course_id__forums_post */
         Body_create_forum_api_v1_courses__course_id__forums_post: {
@@ -6134,6 +6287,163 @@ export interface operations {
                     "application/json": {
                         [key: string]: string;
                     };
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    index_api_v1_blogs_get: {
+        parameters: {
+            query?: {
+                cat?: number | null;
+                limit?: number | null;
+                offset?: number | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BlogList"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    categories_api_v1_blogs_categories_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BlogCategoryRead"][];
+                };
+            };
+        };
+    };
+    show_api_v1_blogs__blog_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                blog_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BlogShow"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    add_comment_api_v1_blogs__blog_id__comments_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                blog_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["BlogCommentCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: string;
+                    };
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
             /** @description Unauthorized */
