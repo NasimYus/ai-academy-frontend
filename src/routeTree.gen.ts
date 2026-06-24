@@ -14,6 +14,7 @@ import { Route as RegisterRouteImport } from './routes/register'
 import { Route as PurchasesRouteImport } from './routes/purchases'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as OrdersRouteImport } from './routes/orders'
+import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as MyCoursesRouteImport } from './routes/my-courses'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as InstructorsRouteImport } from './routes/instructors'
@@ -55,6 +56,11 @@ const ProfileRoute = ProfileRouteImport.update({
 const OrdersRoute = OrdersRouteImport.update({
   id: '/orders',
   path: '/orders',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MyCoursesRoute = MyCoursesRouteImport.update({
@@ -154,6 +160,7 @@ export interface FileRoutesByFullPath {
   '/instructors': typeof InstructorsRoute
   '/login': typeof LoginRoute
   '/my-courses': typeof MyCoursesRoute
+  '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
   '/profile': typeof ProfileRoute
   '/purchases': typeof PurchasesRoute
@@ -178,6 +185,7 @@ export interface FileRoutesByTo {
   '/instructors': typeof InstructorsRoute
   '/login': typeof LoginRoute
   '/my-courses': typeof MyCoursesRoute
+  '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
   '/profile': typeof ProfileRoute
   '/purchases': typeof PurchasesRoute
@@ -203,6 +211,7 @@ export interface FileRoutesById {
   '/instructors': typeof InstructorsRoute
   '/login': typeof LoginRoute
   '/my-courses': typeof MyCoursesRoute
+  '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
   '/profile': typeof ProfileRoute
   '/purchases': typeof PurchasesRoute
@@ -229,6 +238,7 @@ export interface FileRouteTypes {
     | '/instructors'
     | '/login'
     | '/my-courses'
+    | '/notifications'
     | '/orders'
     | '/profile'
     | '/purchases'
@@ -253,6 +263,7 @@ export interface FileRouteTypes {
     | '/instructors'
     | '/login'
     | '/my-courses'
+    | '/notifications'
     | '/orders'
     | '/profile'
     | '/purchases'
@@ -277,6 +288,7 @@ export interface FileRouteTypes {
     | '/instructors'
     | '/login'
     | '/my-courses'
+    | '/notifications'
     | '/orders'
     | '/profile'
     | '/purchases'
@@ -302,6 +314,7 @@ export interface RootRouteChildren {
   InstructorsRoute: typeof InstructorsRoute
   LoginRoute: typeof LoginRoute
   MyCoursesRoute: typeof MyCoursesRoute
+  NotificationsRoute: typeof NotificationsRoute
   OrdersRoute: typeof OrdersRoute
   ProfileRoute: typeof ProfileRoute
   PurchasesRoute: typeof PurchasesRoute
@@ -351,6 +364,13 @@ declare module '@tanstack/react-router' {
       path: '/orders'
       fullPath: '/orders'
       preLoaderRoute: typeof OrdersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/my-courses': {
@@ -486,6 +506,7 @@ const rootRouteChildren: RootRouteChildren = {
   InstructorsRoute: InstructorsRoute,
   LoginRoute: LoginRoute,
   MyCoursesRoute: MyCoursesRoute,
+  NotificationsRoute: NotificationsRoute,
   OrdersRoute: OrdersRoute,
   ProfileRoute: ProfileRoute,
   PurchasesRoute: PurchasesRoute,

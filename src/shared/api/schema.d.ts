@@ -952,6 +952,48 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/notifications": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Notifications
+         * @description List the user's notifications (legacy NotificationsController@list).
+         *
+         *     `status=unread` keeps only unseen, `read` only seen, anything else returns all.
+         */
+        get: operations["list_notifications_api_v1_notifications_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/notifications/{notification_id}/seen": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Mark Notification Seen
+         * @description Mark a notification as read (legacy NotificationsController@seen).
+         */
+        post: operations["mark_notification_seen_api_v1_notifications__notification_id__seen_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/courses/{course_id}/forums": {
         parameters: {
             query?: never;
@@ -2454,6 +2496,38 @@ export interface components {
             created_at: string;
             creator?: components["schemas"]["UserBrief"] | null;
         };
+        /** NotificationList */
+        NotificationList: {
+            /** Count */
+            count: number;
+            /** Notifications */
+            notifications: components["schemas"]["NotificationRead"][];
+        };
+        /** NotificationRead */
+        NotificationRead: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Message */
+            message: string;
+            type: components["schemas"]["NotificationType"];
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "read" | "unread";
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /**
+         * NotificationType
+         * @enum {string}
+         */
+        NotificationType: "single" | "all_users" | "students" | "instructors" | "organizations";
         /** OAuthCallback */
         OAuthCallback: {
             /**
@@ -3615,6 +3689,7 @@ export interface operations {
             };
             header?: {
                 "accept-language"?: string | null;
+                "x-currency"?: string | null;
             };
             path?: never;
             cookie?: never;
@@ -3650,6 +3725,7 @@ export interface operations {
             header?: {
                 authorization?: string | null;
                 "accept-language"?: string | null;
+                "x-currency"?: string | null;
             };
             path: {
                 slug: string;
@@ -4122,6 +4198,7 @@ export interface operations {
             };
             header?: {
                 "accept-language"?: string | null;
+                "x-currency"?: string | null;
             };
             path?: never;
             cookie?: never;
@@ -5351,6 +5428,97 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["NoticeboardRead"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_notifications_api_v1_notifications_get: {
+        parameters: {
+            query?: {
+                status?: "all" | "read" | "unread";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NotificationList"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    mark_notification_seen_api_v1_notifications__notification_id__seen_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                notification_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: string;
+                    };
                 };
             };
             /** @description Unauthorized */
