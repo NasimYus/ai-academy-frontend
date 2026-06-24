@@ -50,7 +50,7 @@
 - ✅ **3.6** Сертификаты: `entities/certificate` + `features/download-certificate` (auth'd blob → открытие PDF) + `pages/certificates` (мои достижения) + публичная `pages/certificate-validation`; routes `/certificates` (guarded) + `/certificate-validation`; ссылка в Header
 - ✅ **3.7** Заметки: `entities/note` + `features/personal-note` (`NotePanel`: раскрывашка с textarea, save/delete, вложение) на доступных items в `pages/learn`; `noteQueryOptions` (404→null)
 - ✅ **3.8** Noticeboards: `entities/noticeboard` (`courseNoticeboardsQueryOptions`) + секция объявлений (цветной left-accent по color, автор) в `pages/learn`
-- ⬜ **3.9** Форумы
+- ✅ **3.9** Форумы (Q&A): `entities/forum` (threads+answers queries) + `features/course-forum` (NewThreadForm, ThreadCard с ответами/pin/resolve по `can`-флагам) + `pages/course-forum` (/course-forum/$courseId); ссылка «Форум курса» в `pages/learn`
 
 ## Phase 4 — Коммерция
 

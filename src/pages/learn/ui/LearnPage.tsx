@@ -121,9 +121,20 @@ export function LearnPage({ slug }: { slug: string }) {
     <div className="mx-auto max-w-3xl px-6 py-8">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-ink">Содержание курса</h1>
-        <Link to="/course/$slug" params={{ slug }} className="text-sm text-brand-600 hover:underline">
-          ← К курсу
-        </Link>
+        <div className="flex items-center gap-4">
+          {courseId > 0 && (
+            <Link
+              to="/course-forum/$courseId"
+              params={{ courseId: String(courseId) }}
+              className="text-sm text-brand-600 hover:underline"
+            >
+              Форум курса
+            </Link>
+          )}
+          <Link to="/course/$slug" params={{ slug }} className="text-sm text-brand-600 hover:underline">
+            ← К курсу
+          </Link>
+        </div>
       </div>
 
       {empty && <p className="text-ink/60">Содержимое ещё не добавлено.</p>}

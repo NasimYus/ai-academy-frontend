@@ -23,6 +23,7 @@ import { Route as UsersUserIdRouteImport } from './routes/users.$userId'
 import { Route as QuizQuizIdRouteImport } from './routes/quiz.$quizId'
 import { Route as LearnSlugRouteImport } from './routes/learn.$slug'
 import { Route as CourseSlugRouteImport } from './routes/course.$slug'
+import { Route as CourseForumCourseIdRouteImport } from './routes/course-forum.$courseId'
 import { Route as AssignmentAssignmentIdRouteImport } from './routes/assignment.$assignmentId'
 
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
@@ -95,6 +96,11 @@ const CourseSlugRoute = CourseSlugRouteImport.update({
   path: '/course/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CourseForumCourseIdRoute = CourseForumCourseIdRouteImport.update({
+  id: '/course-forum/$courseId',
+  path: '/course-forum/$courseId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AssignmentAssignmentIdRoute = AssignmentAssignmentIdRouteImport.update({
   id: '/assignment/$assignmentId',
   path: '/assignment/$assignmentId',
@@ -113,6 +119,7 @@ export interface FileRoutesByFullPath {
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
+  '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
@@ -130,6 +137,7 @@ export interface FileRoutesByTo {
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
+  '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
@@ -148,6 +156,7 @@ export interface FileRoutesById {
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
+  '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
@@ -167,6 +176,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/reset-password'
     | '/assignment/$assignmentId'
+    | '/course-forum/$courseId'
     | '/course/$slug'
     | '/learn/$slug'
     | '/quiz/$quizId'
@@ -184,6 +194,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/reset-password'
     | '/assignment/$assignmentId'
+    | '/course-forum/$courseId'
     | '/course/$slug'
     | '/learn/$slug'
     | '/quiz/$quizId'
@@ -201,6 +212,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/reset-password'
     | '/assignment/$assignmentId'
+    | '/course-forum/$courseId'
     | '/course/$slug'
     | '/learn/$slug'
     | '/quiz/$quizId'
@@ -219,6 +231,7 @@ export interface RootRouteChildren {
   RegisterRoute: typeof RegisterRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   AssignmentAssignmentIdRoute: typeof AssignmentAssignmentIdRoute
+  CourseForumCourseIdRoute: typeof CourseForumCourseIdRoute
   CourseSlugRoute: typeof CourseSlugRoute
   LearnSlugRoute: typeof LearnSlugRoute
   QuizQuizIdRoute: typeof QuizQuizIdRoute
@@ -325,6 +338,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CourseSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/course-forum/$courseId': {
+      id: '/course-forum/$courseId'
+      path: '/course-forum/$courseId'
+      fullPath: '/course-forum/$courseId'
+      preLoaderRoute: typeof CourseForumCourseIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/assignment/$assignmentId': {
       id: '/assignment/$assignmentId'
       path: '/assignment/$assignmentId'
@@ -347,6 +367,7 @@ const rootRouteChildren: RootRouteChildren = {
   RegisterRoute: RegisterRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   AssignmentAssignmentIdRoute: AssignmentAssignmentIdRoute,
+  CourseForumCourseIdRoute: CourseForumCourseIdRoute,
   CourseSlugRoute: CourseSlugRoute,
   LearnSlugRoute: LearnSlugRoute,
   QuizQuizIdRoute: QuizQuizIdRoute,
