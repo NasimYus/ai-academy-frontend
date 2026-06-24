@@ -3,6 +3,7 @@ import { Link } from '@tanstack/react-router'
 
 import { courseAssignmentsQueryOptions } from '#/entities/assignment'
 import { courseContentQueryOptions } from '#/entities/course'
+import { courseNoticeboardsQueryOptions } from '#/entities/noticeboard'
 import { courseQuizzesQueryOptions } from '#/entities/quiz'
 import { useToggleLearning } from '#/features/lesson-progress'
 import type { LearningItemType } from '#/features/lesson-progress'
@@ -17,6 +18,15 @@ const TYPE_LABEL: Record<string, string> = {
   file: 'Файл',
   text_lesson: 'Текст',
   session: 'Сессия',
+}
+
+// Noticeboard color → left-accent class (legacy colors warning/danger/neutral/info/success).
+const NOTICE_ACCENT: Record<string, string> = {
+  warning: 'border-amber-400',
+  danger: 'border-red-500',
+  neutral: 'border-ink/30',
+  info: 'border-brand-400',
+  success: 'border-emerald-500',
 }
 
 function Item({
@@ -95,6 +105,7 @@ export function LearnPage({ slug }: { slug: string }) {
   const toggle = useToggleLearning(courseId, slug)
   const quizzes = useQuery(courseQuizzesQueryOptions(courseId))
   const assignments = useQuery(courseAssignmentsQueryOptions(courseId))
+  const noticeboards = useQuery(courseNoticeboardsQueryOptions(courseId))
 
   if (content.isPending) return <p className="mx-auto max-w-3xl px-6 py-8 text-ink/60">Загрузка…</p>
   if (content.isError)
@@ -116,6 +127,23 @@ export function LearnPage({ slug }: { slug: string }) {
       </div>
 
       {empty && <p className="text-ink/60">Содержимое ещё не добавлено.</p>}
+
+      {noticeboards.data && noticeboards.data.length > 0 && (
+        <section className="mb-6 space-y-2">
+          {noticeboards.data.map((board) => (
+            <div
+              key={board.id}
+              className={`rounded-lg border-l-4 bg-white p-4 ${NOTICE_ACCENT[board.color] ?? 'border-brand-300'}`}
+            >
+              <p className="font-medium text-ink">{board.title}</p>
+              <p className="mt-1 whitespace-pre-line text-sm text-ink/80">{board.message}</p>
+              {board.creator?.full_name && (
+                <p className="mt-1 text-xs text-ink/40">— {board.creator.full_name}</p>
+              )}
+            </div>
+          ))}
+        </section>
+      )}
 
       {data.items.length > 0 && (
         <div className="mb-6 space-y-2">

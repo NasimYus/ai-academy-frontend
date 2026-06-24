@@ -49,7 +49,8 @@
 - ✅ 🧪 **3.5** `entities/assignment` (queryOptions/типы) + `features/submit-assignment` (multipart `SubmitAssignmentForm` + `useSubmitMessage`) + `pages/assignment` (определение + тред «моя работа») + route `/assignment/$assignmentId`; список заданий в `pages/learn` _(unit: submit gate-messages)_
 - ✅ **3.6** Сертификаты: `entities/certificate` + `features/download-certificate` (auth'd blob → открытие PDF) + `pages/certificates` (мои достижения) + публичная `pages/certificate-validation`; routes `/certificates` (guarded) + `/certificate-validation`; ссылка в Header
 - ✅ **3.7** Заметки: `entities/note` + `features/personal-note` (`NotePanel`: раскрывашка с textarea, save/delete, вложение) на доступных items в `pages/learn`; `noteQueryOptions` (404→null)
-- ⬜ **3.8** Noticeboards · **3.9** Форумы
+- ✅ **3.8** Noticeboards: `entities/noticeboard` (`courseNoticeboardsQueryOptions`) + секция объявлений (цветной left-accent по color, автор) в `pages/learn`
+- ⬜ **3.9** Форумы
 
 ## Phase 4 — Коммерция
 

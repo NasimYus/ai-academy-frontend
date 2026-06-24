@@ -792,6 +792,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/courses/{course_id}/noticeboards": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Noticeboards
+         * @description Course announcements (legacy CourseNoticeboardController@index).
+         */
+        get: operations["list_noticeboards_api_v1_courses__course_id__noticeboards_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/health": {
         parameters: {
             query?: never;
@@ -1684,6 +1704,25 @@ export interface components {
          * @enum {string}
          */
         NoteTargetType: "session" | "file" | "quiz" | "text_lesson" | "assignment";
+        /** NoticeboardRead */
+        NoticeboardRead: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Message */
+            message: string;
+            /** Color */
+            color: string;
+            /** Icon */
+            icon: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            creator?: components["schemas"]["UserBrief"] | null;
+        };
         /** OAuthCallback */
         OAuthCallback: {
             /**
@@ -4096,6 +4135,55 @@ export interface operations {
                     "application/json": {
                         [key: string]: string;
                     };
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_noticeboards_api_v1_courses__course_id__noticeboards_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                course_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NoticeboardRead"][];
                 };
             };
             /** @description Unauthorized */
