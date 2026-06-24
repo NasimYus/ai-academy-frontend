@@ -61,6 +61,10 @@
 - ✅ **4.5** Доступ после оплаты: `myCoursesQueryOptions` + `pages/my-courses` (/my-courses, грид `CourseCard`) + ссылка в Header + переход из payment-callback; инвалидация после оплаты
 - ✅ **4.6** История покупок: `purchasesQueryOptions` + `pages/purchases` (/purchases, список оплаченных курсов) + ссылка с «Мои заказы»
 
+## Сквозные (foundation)
+
+- ✅ **F.6** i18n/валюта UI: `entities/preference` (persist-стор locale/currency) + middleware openapi-fetch (шлёт `locale`/`currency`) + `features/app-settings` (переключатели языка EN/RU/TJ и валюты из `/currencies`) в Header; смена инвалидирует query-кэш
+
 ## Backlog (после MVP)
 
 - ⬜ **Phase 5** favorites, follow, notifications, support, blog, rewards

@@ -2,6 +2,7 @@ import { Link } from '@tanstack/react-router'
 
 import { useSessionStore } from '#/entities/session'
 import { useLogout } from '#/features/auth/logout'
+import { AppSettings } from '#/features/app-settings'
 
 export function Header() {
   const token = useSessionStore((s) => s.token)
@@ -25,34 +26,37 @@ export function Header() {
           </nav>
         </div>
 
-        {token && (
-          <div className="flex items-center gap-3 text-sm">
-            <Link
-              to="/certificates"
-              className="hidden text-ink/60 hover:text-brand-600 sm:inline"
-            >
-              Сертификаты
-            </Link>
-            <Link to="/my-courses" className="hidden text-ink/60 hover:text-brand-600 sm:inline">
-              Мои курсы
-            </Link>
-            <Link to="/cart" className="text-ink/60 hover:text-brand-600">
-              Корзина
-            </Link>
-            <Link to="/orders" className="hidden text-ink/60 hover:text-brand-600 sm:inline">
-              Заказы
-            </Link>
-            <Link to="/profile" className="hidden text-ink/60 hover:text-brand-600 sm:inline">
-              {user?.email}
-            </Link>
-            <button
-              onClick={() => void logout()}
-              className="rounded-lg border border-brand-200 px-3 py-1.5 font-medium text-brand-700 transition hover:bg-brand-50"
-            >
-              Выйти
-            </button>
-          </div>
-        )}
+        <div className="flex items-center gap-3 text-sm">
+          <AppSettings />
+          {token && (
+            <>
+              <Link
+                to="/certificates"
+                className="hidden text-ink/60 hover:text-brand-600 sm:inline"
+              >
+                Сертификаты
+              </Link>
+              <Link to="/my-courses" className="hidden text-ink/60 hover:text-brand-600 sm:inline">
+                Мои курсы
+              </Link>
+              <Link to="/cart" className="text-ink/60 hover:text-brand-600">
+                Корзина
+              </Link>
+              <Link to="/orders" className="hidden text-ink/60 hover:text-brand-600 sm:inline">
+                Заказы
+              </Link>
+              <Link to="/profile" className="hidden text-ink/60 hover:text-brand-600 sm:inline">
+                {user?.email}
+              </Link>
+              <button
+                onClick={() => void logout()}
+                className="rounded-lg border border-brand-200 px-3 py-1.5 font-medium text-brand-700 transition hover:bg-brand-50"
+              >
+                Выйти
+              </button>
+            </>
+          )}
+        </div>
       </div>
     </header>
   )
