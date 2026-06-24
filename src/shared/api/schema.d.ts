@@ -688,6 +688,66 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/panel/certificates/achievements": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Achievements
+         * @description Passed quizzes with their certificate, if issued (legacy achievements).
+         */
+        get: operations["achievements_api_v1_panel_certificates_achievements_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/quizzes/results/{quiz_result_id}/show": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Show Certificate
+         * @description Render (or return cached) the certificate PDF (legacy makeCertificate).
+         */
+        get: operations["show_certificate_api_v1_panel_quizzes_results__quiz_result_id__show_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/certificate_validation": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Validate Certificate
+         * @description Public certificate validation (legacy CertificatesController@checkValidate).
+         */
+        get: operations["validate_certificate_api_v1_certificate_validation_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/health": {
         parameters: {
             query?: never;
@@ -709,6 +769,27 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /**
+         * Achievement
+         * @description Legacy CertificatesController@achievements: a passed result + its certificate.
+         */
+        Achievement: {
+            /** Quiz Result Id */
+            quiz_result_id: number;
+            /** Quiz Id */
+            quiz_id: number;
+            /** Quiz Title */
+            quiz_title: string;
+            /** Course Id */
+            course_id: number;
+            /** Course Title */
+            course_title?: string | null;
+            /** User Grade */
+            user_grade?: number | null;
+            /** Status */
+            status: string;
+            certificate?: components["schemas"]["CertificateBrief"] | null;
+        };
         /** AnswerRead */
         AnswerRead: {
             /** Id */
@@ -903,6 +984,26 @@ export interface components {
              * @default 0
              */
             webinars_count: number;
+        };
+        /** CertificateBrief */
+        CertificateBrief: {
+            /** Id */
+            id: number;
+            /** User Grade */
+            user_grade?: number | null;
+            /** File */
+            file?: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** CertificateValidation */
+        CertificateValidation: {
+            /** Is Valid */
+            is_valid: boolean;
+            certificate?: components["schemas"]["ValidatedCertificate"] | null;
         };
         /** ChapterRead */
         ChapterRead: {
@@ -2046,6 +2147,22 @@ export interface components {
              * @default 0
              */
             count: number;
+        };
+        /** ValidatedCertificate */
+        ValidatedCertificate: {
+            /** Id */
+            id: number;
+            /** Student Name */
+            student_name?: string | null;
+            /** Quiz Title */
+            quiz_title?: string | null;
+            /** Course Title */
+            course_title?: string | null;
+            /**
+             * Date
+             * Format: date-time
+             */
+            date: string;
         };
         /** ValidationError */
         ValidationError: {
@@ -3674,6 +3791,104 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    achievements_api_v1_panel_certificates_achievements_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Achievement"][];
+                };
+            };
+        };
+    };
+    show_certificate_api_v1_panel_quizzes_results__quiz_result_id__show_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                quiz_result_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    validate_certificate_api_v1_certificate_validation_get: {
+        parameters: {
+            query: {
+                certificate_id: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CertificateValidation"];
                 };
             };
             /** @description Validation Error */

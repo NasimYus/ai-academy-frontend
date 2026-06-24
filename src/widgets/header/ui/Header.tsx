@@ -27,6 +27,12 @@ export function Header() {
 
         {token && (
           <div className="flex items-center gap-3 text-sm">
+            <Link
+              to="/certificates"
+              className="hidden text-ink/60 hover:text-brand-600 sm:inline"
+            >
+              Сертификаты
+            </Link>
             <Link to="/profile" className="hidden text-ink/60 hover:text-brand-600 sm:inline">
               {user?.email}
             </Link>

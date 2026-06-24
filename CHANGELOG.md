@@ -47,7 +47,8 @@
 - ✅ **3.3** `features/lesson-progress` (`useToggleLearning` → инвалидирует `course-content`); чекбоксы «пройдено» на доступных items в `pages/learn`
 - ✅ 🧪 **3.4** `entities/quiz` (queryOptions/типы) + `features/take-quiz` (`QuizRunner`: старт→ответы→грейдинг→результат, гейт попыток) + `pages/quiz` + route `/quiz/$quizId`; список тестов в `pages/learn` _(unit: answer_sheet + gate-messages)_
 - ✅ 🧪 **3.5** `entities/assignment` (queryOptions/типы) + `features/submit-assignment` (multipart `SubmitAssignmentForm` + `useSubmitMessage`) + `pages/assignment` (определение + тред «моя работа») + route `/assignment/$assignmentId`; список заданий в `pages/learn` _(unit: submit gate-messages)_
-- ⬜ **3.6** Сертификаты · **3.7** Заметки · **3.8** Noticeboards · **3.9** Форумы
+- ✅ **3.6** Сертификаты: `entities/certificate` + `features/download-certificate` (auth'd blob → открытие PDF) + `pages/certificates` (мои достижения) + публичная `pages/certificate-validation`; routes `/certificates` (guarded) + `/certificate-validation`; ссылка в Header
+- ⬜ **3.7** Заметки · **3.8** Noticeboards · **3.9** Форумы
 
 ## Phase 4 — Коммерция
 

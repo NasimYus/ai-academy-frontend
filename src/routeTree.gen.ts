@@ -16,6 +16,8 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as InstructorsRouteImport } from './routes/instructors'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as CoursesRouteImport } from './routes/courses'
+import { Route as CertificatesRouteImport } from './routes/certificates'
+import { Route as CertificateValidationRouteImport } from './routes/certificate-validation'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UsersUserIdRouteImport } from './routes/users.$userId'
 import { Route as QuizQuizIdRouteImport } from './routes/quiz.$quizId'
@@ -58,6 +60,16 @@ const CoursesRoute = CoursesRouteImport.update({
   path: '/courses',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CertificatesRoute = CertificatesRouteImport.update({
+  id: '/certificates',
+  path: '/certificates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CertificateValidationRoute = CertificateValidationRouteImport.update({
+  id: '/certificate-validation',
+  path: '/certificate-validation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -91,6 +103,8 @@ const AssignmentAssignmentIdRoute = AssignmentAssignmentIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/certificate-validation': typeof CertificateValidationRoute
+  '/certificates': typeof CertificatesRoute
   '/courses': typeof CoursesRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/instructors': typeof InstructorsRoute
@@ -106,6 +120,8 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/certificate-validation': typeof CertificateValidationRoute
+  '/certificates': typeof CertificatesRoute
   '/courses': typeof CoursesRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/instructors': typeof InstructorsRoute
@@ -122,6 +138,8 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/certificate-validation': typeof CertificateValidationRoute
+  '/certificates': typeof CertificatesRoute
   '/courses': typeof CoursesRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/instructors': typeof InstructorsRoute
@@ -139,6 +157,8 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/certificate-validation'
+    | '/certificates'
     | '/courses'
     | '/forgot-password'
     | '/instructors'
@@ -154,6 +174,8 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/certificate-validation'
+    | '/certificates'
     | '/courses'
     | '/forgot-password'
     | '/instructors'
@@ -169,6 +191,8 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/certificate-validation'
+    | '/certificates'
     | '/courses'
     | '/forgot-password'
     | '/instructors'
@@ -185,6 +209,8 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CertificateValidationRoute: typeof CertificateValidationRoute
+  CertificatesRoute: typeof CertificatesRoute
   CoursesRoute: typeof CoursesRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   InstructorsRoute: typeof InstructorsRoute
@@ -250,6 +276,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CoursesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/certificates': {
+      id: '/certificates'
+      path: '/certificates'
+      fullPath: '/certificates'
+      preLoaderRoute: typeof CertificatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/certificate-validation': {
+      id: '/certificate-validation'
+      path: '/certificate-validation'
+      fullPath: '/certificate-validation'
+      preLoaderRoute: typeof CertificateValidationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -297,6 +337,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CertificateValidationRoute: CertificateValidationRoute,
+  CertificatesRoute: CertificatesRoute,
   CoursesRoute: CoursesRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   InstructorsRoute: InstructorsRoute,
