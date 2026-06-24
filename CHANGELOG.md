@@ -70,10 +70,11 @@
 - ✅ **5.1** Избранное: `entities/favorite` + `features/favorite-toggle` (FavoriteButton ♥ на детали курса, `useIsFavorite`/`useToggleFavorite`) + `pages/favorites` (/favorites, грид) + ссылка в Header
 - ✅ **5.2** Подписки: `features/follow-user` (FollowButton + счётчик подписчиков) на публичном профиле `pages/user`; состояние из `is_following`/`followers_count`
 - ✅ **5.3** Уведомления: `entities/notification` (`notificationsQueryOptions`) + `features/notifications` (`NotificationBell`: дропдаун с unread-бейджем + mark-seen в Header) + `pages/notifications` (/notifications, фильтры все/непрочитанные/прочитанные, кнопка «Прочитано»)
+- ✅ **5.4** Поддержка: `entities/support` (index/detail/departments queries) + `features/support` (`CreateTicketForm`, `TicketThread` с ответом/закрытием, multipart-вложения) + `pages/support` (/support — секции «мои по курсам»/«по моим курсам»/«платформа», новое обращение) + `pages/support-ticket` (/support/$supportId — тред переписки) + ссылка в Header
 
 ## Backlog (после MVP)
 
-- ⬜ **Phase 5** (далее) support, blog, newsletter, rewards
+- ⬜ **Phase 5** (далее) blog, newsletter, rewards
 - ⬜ **Phase 6** инструктор-кабинет (создание курсов/квизов, грейдинг, store)
 - ⬜ **Phase 7** live/meetings, subscriptions
 - ⬜ i18n UI (если нужен мультиязычный переключатель)

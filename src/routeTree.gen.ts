@@ -25,7 +25,9 @@ import { Route as CertificatesRouteImport } from './routes/certificates'
 import { Route as CertificateValidationRouteImport } from './routes/certificate-validation'
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SupportIndexRouteImport } from './routes/support.index'
 import { Route as UsersUserIdRouteImport } from './routes/users.$userId'
+import { Route as SupportSupportIdRouteImport } from './routes/support.$supportId'
 import { Route as QuizQuizIdRouteImport } from './routes/quiz.$quizId'
 import { Route as PaymentCallbackRouteImport } from './routes/payment.callback'
 import { Route as LearnSlugRouteImport } from './routes/learn.$slug'
@@ -113,9 +115,19 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SupportIndexRoute = SupportIndexRouteImport.update({
+  id: '/support/',
+  path: '/support/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UsersUserIdRoute = UsersUserIdRouteImport.update({
   id: '/users/$userId',
   path: '/users/$userId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SupportSupportIdRoute = SupportSupportIdRouteImport.update({
+  id: '/support/$supportId',
+  path: '/support/$supportId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const QuizQuizIdRoute = QuizQuizIdRouteImport.update({
@@ -172,7 +184,9 @@ export interface FileRoutesByFullPath {
   '/learn/$slug': typeof LearnSlugRoute
   '/payment/callback': typeof PaymentCallbackRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
+  '/support/$supportId': typeof SupportSupportIdRoute
   '/users/$userId': typeof UsersUserIdRoute
+  '/support/': typeof SupportIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -197,7 +211,9 @@ export interface FileRoutesByTo {
   '/learn/$slug': typeof LearnSlugRoute
   '/payment/callback': typeof PaymentCallbackRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
+  '/support/$supportId': typeof SupportSupportIdRoute
   '/users/$userId': typeof UsersUserIdRoute
+  '/support': typeof SupportIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -223,7 +239,9 @@ export interface FileRoutesById {
   '/learn/$slug': typeof LearnSlugRoute
   '/payment/callback': typeof PaymentCallbackRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
+  '/support/$supportId': typeof SupportSupportIdRoute
   '/users/$userId': typeof UsersUserIdRoute
+  '/support/': typeof SupportIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -250,7 +268,9 @@ export interface FileRouteTypes {
     | '/learn/$slug'
     | '/payment/callback'
     | '/quiz/$quizId'
+    | '/support/$supportId'
     | '/users/$userId'
+    | '/support/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -275,7 +295,9 @@ export interface FileRouteTypes {
     | '/learn/$slug'
     | '/payment/callback'
     | '/quiz/$quizId'
+    | '/support/$supportId'
     | '/users/$userId'
+    | '/support'
   id:
     | '__root__'
     | '/'
@@ -300,7 +322,9 @@ export interface FileRouteTypes {
     | '/learn/$slug'
     | '/payment/callback'
     | '/quiz/$quizId'
+    | '/support/$supportId'
     | '/users/$userId'
+    | '/support/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -326,7 +350,9 @@ export interface RootRouteChildren {
   LearnSlugRoute: typeof LearnSlugRoute
   PaymentCallbackRoute: typeof PaymentCallbackRoute
   QuizQuizIdRoute: typeof QuizQuizIdRoute
+  SupportSupportIdRoute: typeof SupportSupportIdRoute
   UsersUserIdRoute: typeof UsersUserIdRoute
+  SupportIndexRoute: typeof SupportIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -443,11 +469,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/support/': {
+      id: '/support/'
+      path: '/support'
+      fullPath: '/support/'
+      preLoaderRoute: typeof SupportIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/users/$userId': {
       id: '/users/$userId'
       path: '/users/$userId'
       fullPath: '/users/$userId'
       preLoaderRoute: typeof UsersUserIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/support/$supportId': {
+      id: '/support/$supportId'
+      path: '/support/$supportId'
+      fullPath: '/support/$supportId'
+      preLoaderRoute: typeof SupportSupportIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/quiz/$quizId': {
@@ -518,7 +558,9 @@ const rootRouteChildren: RootRouteChildren = {
   LearnSlugRoute: LearnSlugRoute,
   PaymentCallbackRoute: PaymentCallbackRoute,
   QuizQuizIdRoute: QuizQuizIdRoute,
+  SupportSupportIdRoute: SupportSupportIdRoute,
   UsersUserIdRoute: UsersUserIdRoute,
+  SupportIndexRoute: SupportIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -994,6 +994,170 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/support/class_support": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Class Support
+         * @description Course tickets the user opened (legacy SupportsController@classSupport).
+         */
+        get: operations["class_support_api_v1_support_class_support_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/support/my_class_support": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * My Class Support
+         * @description Course tickets on courses the user teaches (legacy @myClassSupport).
+         */
+        get: operations["my_class_support_api_v1_support_my_class_support_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/support/tickets": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Tickets
+         * @description Platform tickets the user opened (legacy SupportsController@platformSupport).
+         */
+        get: operations["tickets_api_v1_support_tickets_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/support/departments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Departments
+         * @description Platform support departments (legacy SupportDepartmentsController@index).
+         */
+        get: operations["departments_api_v1_support_departments_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/support": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Index
+         * @description All of the user's support (legacy SupportsController@index).
+         */
+        get: operations["index_api_v1_support_get"];
+        put?: never;
+        /**
+         * Store
+         * @description Open a new support ticket (legacy SupportsController@store).
+         */
+        post: operations["store_api_v1_support_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/support/{support_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Show
+         * @description A single ticket (legacy SupportsController@show).
+         */
+        get: operations["show_api_v1_support__support_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/support/{support_id}/conversations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Store Conversation
+         * @description Reply to a ticket (legacy SupportsController@storeConversations).
+         */
+        post: operations["store_conversation_api_v1_support__support_id__conversations_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/support/{support_id}/close": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Close
+         * @description Close a ticket (legacy SupportsController@close — GET in legacy).
+         */
+        get: operations["close_api_v1_support__support_id__close_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/courses/{course_id}/forums": {
         parameters: {
             query?: never;
@@ -1552,6 +1716,27 @@ export interface components {
             title: string;
             /** Description */
             description: string;
+            /** Attachment */
+            attachment?: string | null;
+        };
+        /** Body_store_api_v1_support_post */
+        Body_store_api_v1_support_post: {
+            /** Title */
+            title: string;
+            type: components["schemas"]["SupportType"];
+            /** Message */
+            message: string;
+            /** Department Id */
+            department_id?: number | null;
+            /** Course Id */
+            course_id?: number | null;
+            /** Attach */
+            attach?: string | null;
+        };
+        /** Body_store_conversation_api_v1_support__support_id__conversations_post */
+        Body_store_conversation_api_v1_support__support_id__conversations_post: {
+            /** Message */
+            message: string;
             /** Attachment */
             attachment?: string | null;
         };
@@ -3079,6 +3264,11 @@ export interface components {
              */
             answer_sheet: components["schemas"]["AnswerSheetItem"][];
         };
+        /** StoredAttach */
+        StoredAttach: {
+            /** Attach */
+            attach: string | null;
+        };
         /** SubCategoryRead */
         SubCategoryRead: {
             /** Id */
@@ -3093,6 +3283,82 @@ export interface components {
              */
             webinars_count: number;
         };
+        /** SupportConversationRead */
+        SupportConversationRead: {
+            /** Message */
+            message: string;
+            sender: components["schemas"]["UserBrief"] | null;
+            supporter: components["schemas"]["UserBrief"] | null;
+            /** Attach */
+            attach: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** SupportCourseRef */
+        SupportCourseRef: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Slug */
+            slug: string;
+            /** Image */
+            image: string | null;
+        };
+        /** SupportDepartmentRead */
+        SupportDepartmentRead: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+        };
+        /** SupportDetail */
+        SupportDetail: {
+            /** Id */
+            id: number;
+            /** Department */
+            department: string | null;
+            status: components["schemas"]["SupportStatus"];
+            type: components["schemas"]["SupportType"];
+            /** Title */
+            title: string;
+            course: components["schemas"]["SupportCourseRef"] | null;
+            user: components["schemas"]["UserBrief"];
+            /** Conversations */
+            conversations: components["schemas"]["SupportConversationRead"][];
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+        };
+        /** SupportIndex */
+        SupportIndex: {
+            /** Class Support */
+            class_support: components["schemas"]["SupportDetail"][];
+            /** My Class Support */
+            my_class_support: components["schemas"]["SupportDetail"][];
+            /** Tickets */
+            tickets: components["schemas"]["SupportDetail"][];
+        };
+        /**
+         * SupportStatus
+         * @enum {string}
+         */
+        SupportStatus: "open" | "close" | "replied" | "supporter_replied";
+        /**
+         * SupportType
+         * @enum {string}
+         */
+        SupportType: "course_support" | "platform_support";
         /** TeachersGroup */
         TeachersGroup: {
             /**
@@ -5505,6 +5771,355 @@ export interface operations {
             header?: never;
             path: {
                 notification_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: string;
+                    };
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    class_support_api_v1_support_class_support_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SupportDetail"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    my_class_support_api_v1_support_my_class_support_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SupportDetail"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    tickets_api_v1_support_tickets_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SupportDetail"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    departments_api_v1_support_departments_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SupportDepartmentRead"][];
+                };
+            };
+        };
+    };
+    index_api_v1_support_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SupportIndex"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    store_api_v1_support_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body_store_api_v1_support_post"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StoredAttach"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    show_api_v1_support__support_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                support_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SupportDetail"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    store_conversation_api_v1_support__support_id__conversations_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                support_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body_store_conversation_api_v1_support__support_id__conversations_post"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StoredAttach"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    close_api_v1_support__support_id__close_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                support_id: number;
             };
             cookie?: never;
         };

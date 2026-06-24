@@ -50,6 +50,9 @@ export function Header() {
               <Link to="/orders" className="hidden text-ink/60 hover:text-brand-600 sm:inline">
                 Заказы
               </Link>
+              <Link to="/support" className="hidden text-ink/60 hover:text-brand-600 sm:inline">
+                Поддержка
+              </Link>
               <Link to="/profile" className="hidden text-ink/60 hover:text-brand-600 sm:inline">
                 {user?.email}
               </Link>
