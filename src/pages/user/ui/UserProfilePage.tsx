@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 
 import { CourseCard } from '#/entities/course'
 import { publicProfileQueryOptions } from '#/entities/instructor'
+import { FollowButton } from '#/features/follow-user'
 
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
 
@@ -30,6 +31,13 @@ export function UserProfilePage({ userId }: { userId: number }) {
           <h1 className="text-2xl font-bold text-ink">{user.full_name ?? 'Без имени'}</h1>
           {user.headline && <p className="text-ink/60">{user.headline}</p>}
           {user.bio && <p className="mt-1 text-sm text-ink/50">{user.bio}</p>}
+          <div className="mt-2">
+            <FollowButton
+              userId={user.id}
+              isFollowing={user.is_following}
+              followersCount={user.followers_count}
+            />
+          </div>
         </div>
       </header>
 

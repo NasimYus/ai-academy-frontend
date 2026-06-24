@@ -68,6 +68,7 @@
 ## Phase 5 — Вовлечение
 
 - ✅ **5.1** Избранное: `entities/favorite` + `features/favorite-toggle` (FavoriteButton ♥ на детали курса, `useIsFavorite`/`useToggleFavorite`) + `pages/favorites` (/favorites, грид) + ссылка в Header
+- ✅ **5.2** Подписки: `features/follow-user` (FollowButton + счётчик подписчиков) на публичном профиле `pages/user`; состояние из `is_following`/`followers_count`
 
 ## Backlog (после MVP)
 
