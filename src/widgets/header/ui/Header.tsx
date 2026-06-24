@@ -36,6 +36,9 @@ export function Header() {
             <Link to="/cart" className="text-ink/60 hover:text-brand-600">
               Корзина
             </Link>
+            <Link to="/orders" className="hidden text-ink/60 hover:text-brand-600 sm:inline">
+              Заказы
+            </Link>
             <Link to="/profile" className="hidden text-ink/60 hover:text-brand-600 sm:inline">
               {user?.email}
             </Link>

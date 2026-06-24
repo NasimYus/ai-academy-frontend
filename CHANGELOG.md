@@ -56,7 +56,7 @@
 
 - ✅ **4.1** Cart: `entities/cart` (`cartQueryOptions`) + `features/cart` (`AddToCartButton`, add/remove хуки) + `pages/cart` (/cart, список+итоги, удаление); кнопка «В корзину» на детали курса + ссылка «Корзина» в Header
 - ✅ **4.2** Купоны: `features/cart` `CouponForm` (`useValidateCoupon`, reason→текст) + строка скидки и пересчёт итогов в `pages/cart`
-- ⬜ **4.3** `features/checkout`
+- ✅ **4.3** Checkout: `entities/order` + `features/checkout` (`CheckoutButton` → создаёт заказ из корзины с купоном) + `pages/orders` (/orders, статусы/итоги); кнопка «Оформить заказ» в корзине + ссылка «Заказы» в Header
 - ⬜ **4.4** Оплата (redirect/return) · **4.5** Доступ после оплаты · **4.6** `pages/my-courses`
 
 ## Backlog (после MVP)

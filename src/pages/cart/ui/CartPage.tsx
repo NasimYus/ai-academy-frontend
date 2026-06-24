@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { cartQueryOptions } from '#/entities/cart'
 import { CouponForm, useRemoveFromCart } from '#/features/cart'
 import type { CouponValidation } from '#/features/cart'
+import { CheckoutButton } from '#/features/checkout'
 
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
 
@@ -90,14 +91,7 @@ export function CartPage() {
 
             <CouponForm onApplied={setCoupon} />
 
-            <button
-              type="button"
-              disabled
-              title="Оформление и оплата — следующие срезы (4.3/4.4)"
-              className="mt-4 w-full cursor-not-allowed rounded-full bg-brand-500 px-4 py-2 font-semibold text-white opacity-60"
-            >
-              Оформить заказ
-            </button>
+            <CheckoutButton discountId={coupon?.valid ? coupon.discount?.id : null} />
           </div>
         </>
       )}
