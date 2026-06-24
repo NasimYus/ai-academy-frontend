@@ -36,14 +36,14 @@ api.use({
   },
 })
 
-// Append the chosen locale/currency as query params so the backend localizes
-// content (F.4) and prices (F.5). Explicit params on a call take precedence.
+// Pass the chosen locale/currency as headers so the backend localizes content
+// (F.4) and prices (F.5). Headers are mutated in place — rebuilding the Request
+// (to add query params) breaks POST bodies in the browser.
 api.use({
   onRequest({ request }) {
     const { locale, currency } = getPrefs()
-    const url = new URL(request.url)
-    if (locale && !url.searchParams.has('locale')) url.searchParams.set('locale', locale)
-    if (currency && !url.searchParams.has('currency')) url.searchParams.set('currency', currency)
-    return new Request(url, request)
+    if (locale) request.headers.set('Accept-Language', locale)
+    if (currency) request.headers.set('X-Currency', currency)
+    return request
   },
 })
