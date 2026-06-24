@@ -1,2 +1,5 @@
 export { AddToCartButton } from '#/features/cart/ui/AddToCartButton'
+export { CouponForm } from '#/features/cart/ui/CouponForm'
 export { useAddToCart, useRemoveFromCart } from '#/features/cart/model/use-cart'
+export { useValidateCoupon } from '#/features/cart/model/use-coupon'
+export type { CouponValidation } from '#/features/cart/api/coupon'

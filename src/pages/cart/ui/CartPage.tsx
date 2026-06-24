@@ -1,20 +1,25 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
+import { useState } from 'react'
 
 import { cartQueryOptions } from '#/entities/cart'
-import { useRemoveFromCart } from '#/features/cart'
+import { CouponForm, useRemoveFromCart } from '#/features/cart'
+import type { CouponValidation } from '#/features/cart'
 
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
 
 export function CartPage() {
   const cart = useQuery(cartQueryOptions)
   const remove = useRemoveFromCart()
+  const [coupon, setCoupon] = useState<CouponValidation | null>(null)
 
   if (cart.isPending) return <p className="mx-auto max-w-3xl px-6 py-8 text-ink/60">Загрузка…</p>
   if (cart.isError)
     return <p className="mx-auto max-w-3xl px-6 py-8 text-red-600">{cart.error.message}</p>
 
-  const { items, amounts } = cart.data
+  const { items } = cart.data
+  // Use coupon-adjusted amounts when a valid coupon is applied.
+  const amounts = coupon?.valid && coupon.amounts ? coupon.amounts : cart.data.amounts
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-8">
@@ -72,10 +77,19 @@ export function CartPage() {
               <span>Подытог</span>
               <span>{amounts.sub_total} TJS</span>
             </div>
+            {amounts.total_discount > 0 && (
+              <div className="mt-1 flex justify-between text-sm text-emerald-600">
+                <span>Скидка{coupon?.discount ? ` (${coupon.discount.code})` : ''}</span>
+                <span>−{amounts.total_discount} TJS</span>
+              </div>
+            )}
             <div className="mt-2 flex justify-between text-lg font-bold text-ink">
               <span>Итого</span>
               <span>{amounts.total} TJS</span>
             </div>
+
+            <CouponForm onApplied={setCoupon} />
+
             <button
               type="button"
               disabled

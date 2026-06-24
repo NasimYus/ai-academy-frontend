@@ -984,6 +984,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/cart/coupon/validate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Validate Coupon
+         * @description Validate a coupon against the user's cart (legacy CartController@validateCoupon).
+         */
+        post: operations["validate_coupon_api_v1_cart_coupon_validate_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/cart/{item_id}": {
         parameters: {
             query?: never;
@@ -1430,6 +1450,20 @@ export interface components {
             /** Description */
             description?: string | null;
         };
+        /** CouponValidateRequest */
+        CouponValidateRequest: {
+            /** Coupon */
+            coupon: string;
+        };
+        /** CouponValidation */
+        CouponValidation: {
+            /** Valid */
+            valid: boolean;
+            /** Message */
+            message: string;
+            amounts?: components["schemas"]["CartAmounts"] | null;
+            discount?: components["schemas"]["DiscountBrief"] | null;
+        };
         /** CourseContent */
         CourseContent: {
             /** Course Id */
@@ -1855,6 +1889,21 @@ export interface components {
          * @enum {string}
          */
         CourseType: "webinar" | "course" | "text_lesson";
+        /** DiscountBrief */
+        DiscountBrief: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Code */
+            code: string;
+            /** Discount Type */
+            discount_type: string;
+            /** Percent */
+            percent?: number | null;
+            /** Amount */
+            amount?: number | null;
+        };
         /**
          * ErrorResponse
          * @description Shape of FastAPI's default HTTPException body (`{"detail": "..."}`).
@@ -5190,6 +5239,48 @@ export interface operations {
             };
             /** @description Not Found */
             404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    validate_coupon_api_v1_cart_coupon_validate_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CouponValidateRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CouponValidation"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
                 headers: {
                     [name: string]: unknown;
                 };
