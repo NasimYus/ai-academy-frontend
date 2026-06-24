@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
 
 import { ordersQueryOptions } from '#/entities/order'
+import { PayButton } from '#/features/pay-order'
 
 const STATUS_LABEL: Record<string, string> = {
   pending: 'Ожидает оплаты',
@@ -63,6 +64,11 @@ export function OrdersPage() {
                 )}
                 <span className="font-bold text-ink">Итого: {order.total_amount} TJS</span>
               </div>
+              {order.status === 'pending' && (
+                <div className="mt-3 flex justify-end">
+                  <PayButton orderId={order.id} />
+                </div>
+              )}
             </div>
           ))}
         </div>

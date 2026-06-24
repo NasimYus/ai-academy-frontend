@@ -23,6 +23,7 @@ import { Route as CartRouteImport } from './routes/cart'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UsersUserIdRouteImport } from './routes/users.$userId'
 import { Route as QuizQuizIdRouteImport } from './routes/quiz.$quizId'
+import { Route as PaymentCallbackRouteImport } from './routes/payment.callback'
 import { Route as LearnSlugRouteImport } from './routes/learn.$slug'
 import { Route as CourseSlugRouteImport } from './routes/course.$slug'
 import { Route as CourseForumCourseIdRouteImport } from './routes/course-forum.$courseId'
@@ -98,6 +99,11 @@ const QuizQuizIdRoute = QuizQuizIdRouteImport.update({
   path: '/quiz/$quizId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PaymentCallbackRoute = PaymentCallbackRouteImport.update({
+  id: '/payment/callback',
+  path: '/payment/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LearnSlugRoute = LearnSlugRouteImport.update({
   id: '/learn/$slug',
   path: '/learn/$slug',
@@ -136,6 +142,7 @@ export interface FileRoutesByFullPath {
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
   '/learn/$slug': typeof LearnSlugRoute
+  '/payment/callback': typeof PaymentCallbackRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
   '/users/$userId': typeof UsersUserIdRoute
 }
@@ -156,6 +163,7 @@ export interface FileRoutesByTo {
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
   '/learn/$slug': typeof LearnSlugRoute
+  '/payment/callback': typeof PaymentCallbackRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
   '/users/$userId': typeof UsersUserIdRoute
 }
@@ -177,6 +185,7 @@ export interface FileRoutesById {
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
   '/learn/$slug': typeof LearnSlugRoute
+  '/payment/callback': typeof PaymentCallbackRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
   '/users/$userId': typeof UsersUserIdRoute
 }
@@ -199,6 +208,7 @@ export interface FileRouteTypes {
     | '/course-forum/$courseId'
     | '/course/$slug'
     | '/learn/$slug'
+    | '/payment/callback'
     | '/quiz/$quizId'
     | '/users/$userId'
   fileRoutesByTo: FileRoutesByTo
@@ -219,6 +229,7 @@ export interface FileRouteTypes {
     | '/course-forum/$courseId'
     | '/course/$slug'
     | '/learn/$slug'
+    | '/payment/callback'
     | '/quiz/$quizId'
     | '/users/$userId'
   id:
@@ -239,6 +250,7 @@ export interface FileRouteTypes {
     | '/course-forum/$courseId'
     | '/course/$slug'
     | '/learn/$slug'
+    | '/payment/callback'
     | '/quiz/$quizId'
     | '/users/$userId'
   fileRoutesById: FileRoutesById
@@ -260,6 +272,7 @@ export interface RootRouteChildren {
   CourseForumCourseIdRoute: typeof CourseForumCourseIdRoute
   CourseSlugRoute: typeof CourseSlugRoute
   LearnSlugRoute: typeof LearnSlugRoute
+  PaymentCallbackRoute: typeof PaymentCallbackRoute
   QuizQuizIdRoute: typeof QuizQuizIdRoute
   UsersUserIdRoute: typeof UsersUserIdRoute
 }
@@ -364,6 +377,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuizQuizIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/payment/callback': {
+      id: '/payment/callback'
+      path: '/payment/callback'
+      fullPath: '/payment/callback'
+      preLoaderRoute: typeof PaymentCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/learn/$slug': {
       id: '/learn/$slug'
       path: '/learn/$slug'
@@ -412,6 +432,7 @@ const rootRouteChildren: RootRouteChildren = {
   CourseForumCourseIdRoute: CourseForumCourseIdRoute,
   CourseSlugRoute: CourseSlugRoute,
   LearnSlugRoute: LearnSlugRoute,
+  PaymentCallbackRoute: PaymentCallbackRoute,
   QuizQuizIdRoute: QuizQuizIdRoute,
   UsersUserIdRoute: UsersUserIdRoute,
 }
