@@ -3445,8 +3445,11 @@ export interface operations {
                 reward?: boolean | null;
                 /** @description newest|oldest|expensive|cheapest */
                 sort?: string | null;
+                locale?: string | null;
             };
-            header?: never;
+            header?: {
+                "accept-language"?: string | null;
+            };
             path?: never;
             cookie?: never;
         };
@@ -3474,9 +3477,12 @@ export interface operations {
     };
     get_course_api_v1_courses__slug__get: {
         parameters: {
-            query?: never;
+            query?: {
+                locale?: string | null;
+            };
             header?: {
                 authorization?: string | null;
+                "accept-language"?: string | null;
             };
             path: {
                 slug: string;
@@ -3622,8 +3628,12 @@ export interface operations {
     };
     list_categories_api_v1_categories_get: {
         parameters: {
-            query?: never;
-            header?: never;
+            query?: {
+                locale?: string | null;
+            };
+            header?: {
+                "accept-language"?: string | null;
+            };
             path?: never;
             cookie?: never;
         };
@@ -3638,12 +3648,25 @@ export interface operations {
                     "application/json": components["schemas"]["CategoryList"];
                 };
             };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
         };
     };
     list_trend_categories_api_v1_trend_categories_get: {
         parameters: {
-            query?: never;
-            header?: never;
+            query?: {
+                locale?: string | null;
+            };
+            header?: {
+                "accept-language"?: string | null;
+            };
             path?: never;
             cookie?: never;
         };
@@ -3656,6 +3679,15 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["TrendCategoryList"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };
