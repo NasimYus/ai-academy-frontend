@@ -9,6 +9,16 @@ export interface CourseFilters {
   sort?: 'newest' | 'oldest' | 'expensive' | 'cheapest'
 }
 
+// Courses the signed-in user has access to (enrolled / purchased).
+export const myCoursesQueryOptions = queryOptions({
+  queryKey: ['my-courses'],
+  queryFn: async () => {
+    const { data, error } = await api.GET('/api/v1/panel/my-courses', {})
+    if (error) throw new Error('Не удалось загрузить мои курсы')
+    return data
+  },
+})
+
 // Course catalogue with legacy handleFilters params. Lives in the entity layer
 // so any page/widget can compose it.
 export const coursesQueryOptions = (filters: CourseFilters = {}) =>

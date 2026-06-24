@@ -13,6 +13,7 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as OrdersRouteImport } from './routes/orders'
+import { Route as MyCoursesRouteImport } from './routes/my-courses'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as InstructorsRouteImport } from './routes/instructors'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
@@ -47,6 +48,11 @@ const ProfileRoute = ProfileRouteImport.update({
 const OrdersRoute = OrdersRouteImport.update({
   id: '/orders',
   path: '/orders',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyCoursesRoute = MyCoursesRouteImport.update({
+  id: '/my-courses',
+  path: '/my-courses',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -134,6 +140,7 @@ export interface FileRoutesByFullPath {
   '/forgot-password': typeof ForgotPasswordRoute
   '/instructors': typeof InstructorsRoute
   '/login': typeof LoginRoute
+  '/my-courses': typeof MyCoursesRoute
   '/orders': typeof OrdersRoute
   '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
@@ -155,6 +162,7 @@ export interface FileRoutesByTo {
   '/forgot-password': typeof ForgotPasswordRoute
   '/instructors': typeof InstructorsRoute
   '/login': typeof LoginRoute
+  '/my-courses': typeof MyCoursesRoute
   '/orders': typeof OrdersRoute
   '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
@@ -177,6 +185,7 @@ export interface FileRoutesById {
   '/forgot-password': typeof ForgotPasswordRoute
   '/instructors': typeof InstructorsRoute
   '/login': typeof LoginRoute
+  '/my-courses': typeof MyCoursesRoute
   '/orders': typeof OrdersRoute
   '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
@@ -200,6 +209,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/instructors'
     | '/login'
+    | '/my-courses'
     | '/orders'
     | '/profile'
     | '/register'
@@ -221,6 +231,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/instructors'
     | '/login'
+    | '/my-courses'
     | '/orders'
     | '/profile'
     | '/register'
@@ -242,6 +253,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/instructors'
     | '/login'
+    | '/my-courses'
     | '/orders'
     | '/profile'
     | '/register'
@@ -264,6 +276,7 @@ export interface RootRouteChildren {
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   InstructorsRoute: typeof InstructorsRoute
   LoginRoute: typeof LoginRoute
+  MyCoursesRoute: typeof MyCoursesRoute
   OrdersRoute: typeof OrdersRoute
   ProfileRoute: typeof ProfileRoute
   RegisterRoute: typeof RegisterRoute
@@ -305,6 +318,13 @@ declare module '@tanstack/react-router' {
       path: '/orders'
       fullPath: '/orders'
       preLoaderRoute: typeof OrdersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-courses': {
+      id: '/my-courses'
+      path: '/my-courses'
+      fullPath: '/my-courses'
+      preLoaderRoute: typeof MyCoursesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -424,6 +444,7 @@ const rootRouteChildren: RootRouteChildren = {
   ForgotPasswordRoute: ForgotPasswordRoute,
   InstructorsRoute: InstructorsRoute,
   LoginRoute: LoginRoute,
+  MyCoursesRoute: MyCoursesRoute,
   OrdersRoute: OrdersRoute,
   ProfileRoute: ProfileRoute,
   RegisterRoute: RegisterRoute,

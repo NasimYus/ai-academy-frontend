@@ -30,12 +30,22 @@ export function PaymentCallbackPage({ orderId, gateway }: { orderId: number; gat
             {paid ? 'Оплата прошла' : 'Оплата не завершена'}
           </h1>
           <p className="mt-1 text-ink/60">Заказ #{orderId}</p>
-          <Link
-            to="/orders"
-            className="mt-6 inline-block rounded-full bg-brand-500 px-5 py-2 font-semibold text-white hover:bg-brand-600"
-          >
-            К заказам
-          </Link>
+          <div className="mt-6 flex justify-center gap-3">
+            {paid && (
+              <Link
+                to="/my-courses"
+                className="rounded-full bg-brand-500 px-5 py-2 font-semibold text-white hover:bg-brand-600"
+              >
+                Мои курсы
+              </Link>
+            )}
+            <Link
+              to="/orders"
+              className="rounded-full border border-brand-200 px-5 py-2 font-semibold text-brand-700 hover:bg-brand-50"
+            >
+              К заказам
+            </Link>
+          </div>
         </>
       )}
     </div>

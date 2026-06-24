@@ -58,7 +58,8 @@
 - ✅ **4.2** Купоны: `features/cart` `CouponForm` (`useValidateCoupon`, reason→текст) + строка скидки и пересчёт итогов в `pages/cart`
 - ✅ **4.3** Checkout: `entities/order` + `features/checkout` (`CheckoutButton` → создаёт заказ из корзины с купоном) + `pages/orders` (/orders, статусы/итоги); кнопка «Оформить заказ» в корзине + ссылка «Заказы» в Header
 - ✅ **4.4** Оплата: `entities/payment` (channels) + `features/pay-order` (PayButton: request→redirect) + `pages/payment-callback` (/payment/callback — verify→результат); «Оплатить» на pending-заказах
-- ⬜ **4.5** Доступ после оплаты · **4.6** `pages/my-courses`
+- ✅ **4.5** Доступ после оплаты: `myCoursesQueryOptions` + `pages/my-courses` (/my-courses, грид `CourseCard`) + ссылка в Header + переход из payment-callback; инвалидация после оплаты
+- ⬜ **4.6** История покупок
 
 ## Backlog (после MVP)
 

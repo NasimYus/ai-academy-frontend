@@ -22,6 +22,9 @@ export function useVerifyPayment() {
       orderId: number
       status: 'success' | 'failed'
     }) => verifyPayment(gateway, orderId, status),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ORDERS_QUERY_KEY }),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: ORDERS_QUERY_KEY })
+      void qc.invalidateQueries({ queryKey: ['my-courses'] })
+    },
   })
 }

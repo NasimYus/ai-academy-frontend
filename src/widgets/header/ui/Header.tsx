@@ -33,6 +33,9 @@ export function Header() {
             >
               Сертификаты
             </Link>
+            <Link to="/my-courses" className="hidden text-ink/60 hover:text-brand-600 sm:inline">
+              Мои курсы
+            </Link>
             <Link to="/cart" className="text-ink/60 hover:text-brand-600">
               Корзина
             </Link>
