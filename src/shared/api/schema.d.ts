@@ -296,6 +296,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/currencies": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Currencies
+         * @description Configured display currencies (legacy MultiCurrency::getCurrencies).
+         */
+        get: operations["list_currencies_api_v1_currencies_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/featured-courses": {
         parameters: {
             query?: never;
@@ -1670,6 +1690,8 @@ export interface components {
             price: number;
             /** Price String */
             price_string?: string | null;
+            /** Currency */
+            currency?: string | null;
             /** Best Ticket Price */
             best_ticket_price?: number | null;
             /**
@@ -1933,6 +1955,8 @@ export interface components {
             price: number;
             /** Price String */
             price_string?: string | null;
+            /** Currency */
+            currency?: string | null;
             /** Best Ticket Price */
             best_ticket_price?: number | null;
             /**
@@ -2052,6 +2076,21 @@ export interface components {
          * @enum {string}
          */
         CourseType: "webinar" | "course" | "text_lesson";
+        /** CurrencyRead */
+        CurrencyRead: {
+            /** Code */
+            code: string;
+            /** Sign */
+            sign: string;
+            /** Position */
+            position: string;
+            /** Separator */
+            separator: string;
+            /** Decimals */
+            decimals: number;
+            /** Exchange Rate */
+            exchange_rate: number;
+        };
         /** DiscountBrief */
         DiscountBrief: {
             /** Id */
@@ -3446,6 +3485,7 @@ export interface operations {
                 /** @description newest|oldest|expensive|cheapest */
                 sort?: string | null;
                 locale?: string | null;
+                currency?: string | null;
             };
             header?: {
                 "accept-language"?: string | null;
@@ -3479,6 +3519,7 @@ export interface operations {
         parameters: {
             query?: {
                 locale?: string | null;
+                currency?: string | null;
             };
             header?: {
                 authorization?: string | null;
@@ -3688,6 +3729,26 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_currencies_api_v1_currencies_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CurrencyRead"][];
                 };
             };
         };
