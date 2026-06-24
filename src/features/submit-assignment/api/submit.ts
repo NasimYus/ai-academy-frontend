@@ -20,11 +20,11 @@ export function submitMessage(detail: unknown): string {
 export async function submitAssignmentMessage(assignmentId: number, input: SubmitInput) {
   const { data, error } = await api.POST('/api/v1/assignments/{assignment_id}/messages', {
     params: { path: { assignment_id: assignmentId } },
-    body: {},
-    bodySerializer: () => {
+    body: { message: input.message, file_title: input.fileTitle ?? null },
+    bodySerializer: (body) => {
       const fd = new FormData()
-      fd.append('message', input.message)
-      if (input.fileTitle) fd.append('file_title', input.fileTitle)
+      fd.append('message', body.message)
+      if (body.file_title) fd.append('file_title', body.file_title)
       if (input.attachment) fd.append('attachment', input.attachment)
       return fd
     },

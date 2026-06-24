@@ -2,7 +2,6 @@ export { courseQuizzesQueryOptions, quizQueryOptions } from '#/entities/quiz/api
 export type {
   Answer,
   Question,
-  QuizBrief,
   QuizDetail,
   QuizResult,
   QuizStartResult,
