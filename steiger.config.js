@@ -23,6 +23,11 @@ export default defineConfig([
       // the meaningful guardrails (layer boundaries, public API, cross-imports)
       // enabled and disable only this one.
       'fsd/insignificant-slice': 'off',
+      // Advisory heuristic that caps slices per layer (default 20). The app
+      // legitimately has one page slice per screen; grouping unrelated pages
+      // purely to satisfy a count would hurt clarity. Keep the real guardrails
+      // (boundaries, public API, cross-imports) and disable this ceiling.
+      'fsd/excessive-slicing': 'off',
     },
   },
 ])

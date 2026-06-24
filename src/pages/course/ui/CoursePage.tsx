@@ -4,6 +4,7 @@ import { Link, useParams } from '@tanstack/react-router'
 import { courseQueryOptions } from '#/entities/course'
 import { AddToCartButton } from '#/features/cart'
 import { useEnrollFree } from '#/features/course-enroll'
+import { FavoriteButton } from '#/features/favorite-toggle'
 
 export function CoursePage() {
   const { slug } = useParams({ from: '/course/$slug' })
@@ -181,6 +182,7 @@ export function CoursePage() {
           {enroll.isError && (
             <p className="mt-2 text-sm text-red-600">{enroll.error.message}</p>
           )}
+          {data.auth && <FavoriteButton courseId={data.id} />}
         </aside>
       </div>
     </div>

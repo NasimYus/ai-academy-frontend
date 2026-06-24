@@ -18,6 +18,7 @@ import { Route as MyCoursesRouteImport } from './routes/my-courses'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as InstructorsRouteImport } from './routes/instructors'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
+import { Route as FavoritesRouteImport } from './routes/favorites'
 import { Route as CoursesRouteImport } from './routes/courses'
 import { Route as CertificatesRouteImport } from './routes/certificates'
 import { Route as CertificateValidationRouteImport } from './routes/certificate-validation'
@@ -74,6 +75,11 @@ const InstructorsRoute = InstructorsRouteImport.update({
 const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
   id: '/forgot-password',
   path: '/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FavoritesRoute = FavoritesRouteImport.update({
+  id: '/favorites',
+  path: '/favorites',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CoursesRoute = CoursesRouteImport.update({
@@ -143,6 +149,7 @@ export interface FileRoutesByFullPath {
   '/certificate-validation': typeof CertificateValidationRoute
   '/certificates': typeof CertificatesRoute
   '/courses': typeof CoursesRoute
+  '/favorites': typeof FavoritesRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/instructors': typeof InstructorsRoute
   '/login': typeof LoginRoute
@@ -166,6 +173,7 @@ export interface FileRoutesByTo {
   '/certificate-validation': typeof CertificateValidationRoute
   '/certificates': typeof CertificatesRoute
   '/courses': typeof CoursesRoute
+  '/favorites': typeof FavoritesRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/instructors': typeof InstructorsRoute
   '/login': typeof LoginRoute
@@ -190,6 +198,7 @@ export interface FileRoutesById {
   '/certificate-validation': typeof CertificateValidationRoute
   '/certificates': typeof CertificatesRoute
   '/courses': typeof CoursesRoute
+  '/favorites': typeof FavoritesRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/instructors': typeof InstructorsRoute
   '/login': typeof LoginRoute
@@ -215,6 +224,7 @@ export interface FileRouteTypes {
     | '/certificate-validation'
     | '/certificates'
     | '/courses'
+    | '/favorites'
     | '/forgot-password'
     | '/instructors'
     | '/login'
@@ -238,6 +248,7 @@ export interface FileRouteTypes {
     | '/certificate-validation'
     | '/certificates'
     | '/courses'
+    | '/favorites'
     | '/forgot-password'
     | '/instructors'
     | '/login'
@@ -261,6 +272,7 @@ export interface FileRouteTypes {
     | '/certificate-validation'
     | '/certificates'
     | '/courses'
+    | '/favorites'
     | '/forgot-password'
     | '/instructors'
     | '/login'
@@ -285,6 +297,7 @@ export interface RootRouteChildren {
   CertificateValidationRoute: typeof CertificateValidationRoute
   CertificatesRoute: typeof CertificatesRoute
   CoursesRoute: typeof CoursesRoute
+  FavoritesRoute: typeof FavoritesRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   InstructorsRoute: typeof InstructorsRoute
   LoginRoute: typeof LoginRoute
@@ -366,6 +379,13 @@ declare module '@tanstack/react-router' {
       path: '/forgot-password'
       fullPath: '/forgot-password'
       preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/favorites': {
+      id: '/favorites'
+      path: '/favorites'
+      fullPath: '/favorites'
+      preLoaderRoute: typeof FavoritesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/courses': {
@@ -461,6 +481,7 @@ const rootRouteChildren: RootRouteChildren = {
   CertificateValidationRoute: CertificateValidationRoute,
   CertificatesRoute: CertificatesRoute,
   CoursesRoute: CoursesRoute,
+  FavoritesRoute: FavoritesRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   InstructorsRoute: InstructorsRoute,
   LoginRoute: LoginRoute,

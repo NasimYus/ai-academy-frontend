@@ -65,9 +65,13 @@
 
 - ✅ **F.6** i18n/валюта UI: `entities/preference` (persist-стор locale/currency) + middleware openapi-fetch (шлёт `locale`/`currency`) + `features/app-settings` (переключатели языка EN/RU/TJ и валюты из `/currencies`) в Header; смена инвалидирует query-кэш
 
+## Phase 5 — Вовлечение
+
+- ✅ **5.1** Избранное: `entities/favorite` + `features/favorite-toggle` (FavoriteButton ♥ на детали курса, `useIsFavorite`/`useToggleFavorite`) + `pages/favorites` (/favorites, грид) + ссылка в Header
+
 ## Backlog (после MVP)
 
-- ⬜ **Phase 5** favorites, follow, notifications, support, blog, rewards
+- ⬜ **Phase 5** (далее) follow, notifications, support, blog, rewards
 - ⬜ **Phase 6** инструктор-кабинет (создание курсов/квизов, грейдинг, store)
 - ⬜ **Phase 7** live/meetings, subscriptions
 - ⬜ i18n UI (если нужен мультиязычный переключатель)
