@@ -27,6 +27,7 @@ import { Route as CertificateValidationRouteImport } from './routes/certificate-
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SupportIndexRouteImport } from './routes/support.index'
+import { Route as InstructorIndexRouteImport } from './routes/instructor.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as UsersUserIdRouteImport } from './routes/users.$userId'
 import { Route as SupportSupportIdRouteImport } from './routes/support.$supportId'
@@ -37,6 +38,8 @@ import { Route as CourseSlugRouteImport } from './routes/course.$slug'
 import { Route as CourseForumCourseIdRouteImport } from './routes/course-forum.$courseId'
 import { Route as BlogBlogIdRouteImport } from './routes/blog.$blogId'
 import { Route as AssignmentAssignmentIdRouteImport } from './routes/assignment.$assignmentId'
+import { Route as InstructorCourseNewRouteImport } from './routes/instructor.course.new'
+import { Route as InstructorCourseCourseIdEditRouteImport } from './routes/instructor.course.$courseId.edit'
 
 const RewardsRoute = RewardsRouteImport.update({
   id: '/rewards',
@@ -128,6 +131,11 @@ const SupportIndexRoute = SupportIndexRouteImport.update({
   path: '/support/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InstructorIndexRoute = InstructorIndexRouteImport.update({
+  id: '/instructor/',
+  path: '/instructor/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
@@ -178,6 +186,17 @@ const AssignmentAssignmentIdRoute = AssignmentAssignmentIdRouteImport.update({
   path: '/assignment/$assignmentId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InstructorCourseNewRoute = InstructorCourseNewRouteImport.update({
+  id: '/instructor/course/new',
+  path: '/instructor/course/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InstructorCourseCourseIdEditRoute =
+  InstructorCourseCourseIdEditRouteImport.update({
+    id: '/instructor/course/$courseId/edit',
+    path: '/instructor/course/$courseId/edit',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -207,7 +226,10 @@ export interface FileRoutesByFullPath {
   '/support/$supportId': typeof SupportSupportIdRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/blog/': typeof BlogIndexRoute
+  '/instructor/': typeof InstructorIndexRoute
   '/support/': typeof SupportIndexRoute
+  '/instructor/course/new': typeof InstructorCourseNewRoute
+  '/instructor/course/$courseId/edit': typeof InstructorCourseCourseIdEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -237,7 +259,10 @@ export interface FileRoutesByTo {
   '/support/$supportId': typeof SupportSupportIdRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/blog': typeof BlogIndexRoute
+  '/instructor': typeof InstructorIndexRoute
   '/support': typeof SupportIndexRoute
+  '/instructor/course/new': typeof InstructorCourseNewRoute
+  '/instructor/course/$courseId/edit': typeof InstructorCourseCourseIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -268,7 +293,10 @@ export interface FileRoutesById {
   '/support/$supportId': typeof SupportSupportIdRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/blog/': typeof BlogIndexRoute
+  '/instructor/': typeof InstructorIndexRoute
   '/support/': typeof SupportIndexRoute
+  '/instructor/course/new': typeof InstructorCourseNewRoute
+  '/instructor/course/$courseId/edit': typeof InstructorCourseCourseIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -300,7 +328,10 @@ export interface FileRouteTypes {
     | '/support/$supportId'
     | '/users/$userId'
     | '/blog/'
+    | '/instructor/'
     | '/support/'
+    | '/instructor/course/new'
+    | '/instructor/course/$courseId/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -330,7 +361,10 @@ export interface FileRouteTypes {
     | '/support/$supportId'
     | '/users/$userId'
     | '/blog'
+    | '/instructor'
     | '/support'
+    | '/instructor/course/new'
+    | '/instructor/course/$courseId/edit'
   id:
     | '__root__'
     | '/'
@@ -360,7 +394,10 @@ export interface FileRouteTypes {
     | '/support/$supportId'
     | '/users/$userId'
     | '/blog/'
+    | '/instructor/'
     | '/support/'
+    | '/instructor/course/new'
+    | '/instructor/course/$courseId/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -391,7 +428,10 @@ export interface RootRouteChildren {
   SupportSupportIdRoute: typeof SupportSupportIdRoute
   UsersUserIdRoute: typeof UsersUserIdRoute
   BlogIndexRoute: typeof BlogIndexRoute
+  InstructorIndexRoute: typeof InstructorIndexRoute
   SupportIndexRoute: typeof SupportIndexRoute
+  InstructorCourseNewRoute: typeof InstructorCourseNewRoute
+  InstructorCourseCourseIdEditRoute: typeof InstructorCourseCourseIdEditRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -522,6 +562,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SupportIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/instructor/': {
+      id: '/instructor/'
+      path: '/instructor'
+      fullPath: '/instructor/'
+      preLoaderRoute: typeof InstructorIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/': {
       id: '/blog/'
       path: '/blog'
@@ -592,6 +639,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AssignmentAssignmentIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/instructor/course/new': {
+      id: '/instructor/course/new'
+      path: '/instructor/course/new'
+      fullPath: '/instructor/course/new'
+      preLoaderRoute: typeof InstructorCourseNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/instructor/course/$courseId/edit': {
+      id: '/instructor/course/$courseId/edit'
+      path: '/instructor/course/$courseId/edit'
+      fullPath: '/instructor/course/$courseId/edit'
+      preLoaderRoute: typeof InstructorCourseCourseIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -623,7 +684,10 @@ const rootRouteChildren: RootRouteChildren = {
   SupportSupportIdRoute: SupportSupportIdRoute,
   UsersUserIdRoute: UsersUserIdRoute,
   BlogIndexRoute: BlogIndexRoute,
+  InstructorIndexRoute: InstructorIndexRoute,
   SupportIndexRoute: SupportIndexRoute,
+  InstructorCourseNewRoute: InstructorCourseNewRoute,
+  InstructorCourseCourseIdEditRoute: InstructorCourseCourseIdEditRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

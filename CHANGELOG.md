@@ -75,6 +75,10 @@
 - ✅ 🧪 **5.6** Newsletter: `features/newsletter-subscribe` (`NewsletterForm` + `useSubscribeNewsletter`, 422→«уже подписан») в новом `widgets/footer` (смонтирован в `__root`) _(unit: subscribe gate-messages)_
 - ✅ 🧪 **5.7** Rewards/баллы: `entities/reward` (overview + reward-courses queries) + `features/redeem-points` (`useRedeemCourse`/`useExchangePoints`, маппинг gate-кодов) + `pages/rewards` (/rewards: баланс/история/курсы за баллы; 404-гейт → «недоступно») + ссылка «Баллы» в Header _(unit: redeem gate-messages)_
 
+## Phase 6 — Инструктор
+
+- ✅ 🧪 **6.1** Course CRUD: `features/manage-course` (`CourseForm` + `useCreateCourse`/`useUpdateCourse`/`useDeleteCourse`, classes/edit queries) + `pages/instructor` (список «Мои курсы» + create/edit/delete) + routes `/instructor`, `/instructor/course/new`, `/instructor/course/$courseId/edit` (guarded) + ссылка «Преподавание» в Header _(unit: manage gate-messages)_
+
 ## Backlog (после MVP)
 
 - ⬜ **Phase 5** (далее) newsletter, rewards

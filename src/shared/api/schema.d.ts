@@ -1094,6 +1094,81 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/panel/classes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * My Classes
+         * @description The instructor's own courses (legacy WebinarsController@list).
+         */
+        get: operations["my_classes_api_v1_panel_classes_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/webinar": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Create Course
+         * @description Create a course (legacy WebinarsController@storeAll).
+         */
+        post: operations["create_course_api_v1_panel_webinar_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/webinar/{course_id}/edit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Edit Course */
+        get: operations["edit_course_api_v1_panel_webinar__course_id__edit_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/webinar/{course_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Update Course */
+        put: operations["update_course_api_v1_panel_webinar__course_id__put"];
+        post?: never;
+        /** Delete Course */
+        delete: operations["delete_course_api_v1_panel_webinar__course_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/support/class_support": {
         parameters: {
             query?: never;
@@ -2247,6 +2322,77 @@ export interface components {
              */
             has_access: boolean;
         };
+        /** CourseCreate */
+        CourseCreate: {
+            type: components["schemas"]["CourseType"];
+            /** Title */
+            title: string;
+            /** Thumbnail */
+            thumbnail: string;
+            /** Image Cover */
+            image_cover: string;
+            /** Description */
+            description: string;
+            /** Category Id */
+            category_id: number;
+            /** Duration */
+            duration?: number | null;
+            /** Start Date */
+            start_date?: string | null;
+            /** Capacity */
+            capacity?: number | null;
+            /** Seo Description */
+            seo_description?: string | null;
+            /** Video Demo */
+            video_demo?: string | null;
+            video_demo_source?: components["schemas"]["VideoDemoSource"] | null;
+            /**
+             * Price
+             * @default 0
+             */
+            price: number;
+            /** Organization Price */
+            organization_price?: number | null;
+            /** Points */
+            points?: number | null;
+            /** Access Days */
+            access_days?: number | null;
+            /**
+             * Private
+             * @default false
+             */
+            private: boolean;
+            /**
+             * Support
+             * @default false
+             */
+            support: boolean;
+            /**
+             * Downloadable
+             * @default false
+             */
+            downloadable: boolean;
+            /**
+             * Partner Instructor
+             * @default false
+             */
+            partner_instructor: boolean;
+            /**
+             * Subscribe
+             * @default false
+             */
+            subscribe: boolean;
+            /**
+             * Rules
+             * @default false
+             */
+            rules: boolean;
+            /**
+             * Draft
+             * @default false
+             */
+            draft: boolean;
+        };
         /**
          * CourseDetail
          * @description Legacy `Webinar::details` = brief + the keys below.
@@ -2656,6 +2802,49 @@ export interface components {
          * @enum {string}
          */
         CourseType: "webinar" | "course" | "text_lesson";
+        /** CourseUpdate */
+        CourseUpdate: {
+            /** Title */
+            title?: string | null;
+            type?: components["schemas"]["CourseType"] | null;
+            /** Thumbnail */
+            thumbnail?: string | null;
+            /** Image Cover */
+            image_cover?: string | null;
+            /** Description */
+            description?: string | null;
+            /** Category Id */
+            category_id?: number | null;
+            /** Duration */
+            duration?: number | null;
+            /** Start Date */
+            start_date?: string | null;
+            /** Capacity */
+            capacity?: number | null;
+            /** Seo Description */
+            seo_description?: string | null;
+            /** Video Demo */
+            video_demo?: string | null;
+            video_demo_source?: components["schemas"]["VideoDemoSource"] | null;
+            /** Price */
+            price?: number | null;
+            /** Organization Price */
+            organization_price?: number | null;
+            /** Points */
+            points?: number | null;
+            /** Access Days */
+            access_days?: number | null;
+            /** Private */
+            private?: boolean | null;
+            /** Support */
+            support?: boolean | null;
+            /** Downloadable */
+            downloadable?: boolean | null;
+            /** Partner Instructor */
+            partner_instructor?: boolean | null;
+            /** Subscribe */
+            subscribe?: boolean | null;
+        };
         /** CurrencyRead */
         CurrencyRead: {
             /** Code */
@@ -6309,6 +6498,226 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    my_classes_api_v1_panel_classes_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CourseRead"][];
+                };
+            };
+        };
+    };
+    create_course_api_v1_panel_webinar_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CourseCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CourseDetail"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    edit_course_api_v1_panel_webinar__course_id__edit_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                course_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CourseDetail"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_course_api_v1_panel_webinar__course_id__put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                course_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CourseUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CourseDetail"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    delete_course_api_v1_panel_webinar__course_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                course_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };
