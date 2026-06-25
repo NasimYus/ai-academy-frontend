@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
+import { useNavigate } from '@tanstack/react-router'
 
 import { meetingsIndexQueryOptions } from '#/entities/meeting'
+import { usePayReservation } from '#/features/reserve-meeting'
 
 const STATUS_RU: Record<string, string> = {
   pending: 'Ожидает',
@@ -10,6 +12,8 @@ const STATUS_RU: Record<string, string> = {
 }
 
 export function MyMeetingsPage() {
+  const navigate = useNavigate()
+  const pay = usePayReservation()
   const { data, isPending, isError, error } = useQuery(meetingsIndexQueryOptions)
 
   if (isPending) return <p className="mx-auto max-w-3xl px-6 py-8 text-ink/60">Загрузка…</p>
@@ -43,6 +47,18 @@ export function MyMeetingsPage() {
               </p>
               {r.description && (
                 <p className="mt-1 text-sm text-ink/70">{r.description}</p>
+              )}
+              {r.status === 'pending' && r.amount > 0 && (
+                <button
+                  type="button"
+                  onClick={() =>
+                    pay.mutate(r.id, { onSuccess: () => void navigate({ to: '/orders' }) })
+                  }
+                  disabled={pay.isPending}
+                  className="mt-2 rounded-lg bg-brand-600 px-4 py-1.5 text-sm font-medium text-white transition hover:bg-brand-700 disabled:opacity-50"
+                >
+                  {pay.isPending ? '…' : `Оплатить ${r.amount}`}
+                </button>
               )}
             </li>
           ))}

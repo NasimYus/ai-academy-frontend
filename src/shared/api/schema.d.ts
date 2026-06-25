@@ -1673,6 +1673,29 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/meetings/reserve/{reserve_id}/pay": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Pay Reservation
+         * @description Create a pending order for a paid reservation (legacy reserve → checkout).
+         *
+         *     Settling it via /payments links the Sale to the reservation, stamps
+         *     `reserved_at`, and opens it (`payments._confirm_reservation`).
+         */
+        post: operations["pay_reservation_api_v1_meetings_reserve__reserve_id__pay_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/panel/meetings": {
         parameters: {
             query?: never;
@@ -4279,6 +4302,8 @@ export interface components {
             bundle_id?: number | null;
             /** Subscribe Id */
             subscribe_id?: number | null;
+            /** Reserve Meeting Id */
+            reserve_meeting_id?: number | null;
             /** Title */
             title?: string | null;
             /** Slug */
@@ -9381,6 +9406,55 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    pay_reservation_api_v1_meetings_reserve__reserve_id__pay_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                reserve_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrderRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };

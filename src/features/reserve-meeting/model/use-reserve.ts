@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { MEETING_QUERY_KEY } from '#/entities/meeting'
 
-import { reserveMeeting } from '#/features/reserve-meeting/api/reserve'
+import { payReservation, reserveMeeting } from '#/features/reserve-meeting/api/reserve'
 
 export function useReserveMeeting() {
   const qc = useQueryClient()
@@ -10,5 +10,13 @@ export function useReserveMeeting() {
     mutationFn: (vars: { meetingTimeId: number; description?: string }) =>
       reserveMeeting(vars.meetingTimeId, vars.description),
     onSuccess: () => qc.invalidateQueries({ queryKey: MEETING_QUERY_KEY }),
+  })
+}
+
+export function usePayReservation() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (reserveId: number) => payReservation(reserveId),
+    onSuccess: () => void qc.invalidateQueries({ queryKey: ['orders'] }),
   })
 }
