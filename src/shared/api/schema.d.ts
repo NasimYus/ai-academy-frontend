@@ -2376,6 +2376,75 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/admin/payment-channels": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Channels
+         * @description All gateways regardless of status, newest first (legacy index).
+         */
+        get: operations["list_channels_api_v1_admin_payment_channels_get"];
+        put?: never;
+        /**
+         * Create Channel
+         * @description Register a gateway. NOTE: legacy seeds channels on install; we let admin
+         *     add one by `class_name` (use a registered driver for it to work).
+         */
+        post: operations["create_channel_api_v1_admin_payment_channels_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/payment-channels/{channel_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Channel
+         * @description A gateway + its credential contract (legacy edit).
+         */
+        get: operations["get_channel_api_v1_admin_payment_channels__channel_id__get"];
+        /**
+         * Update Channel
+         * @description Update title/image/status/credentials/currencies (legacy update).
+         */
+        put: operations["update_channel_api_v1_admin_payment_channels__channel_id__put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/payment-channels/{channel_id}/toggle-status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Toggle Status
+         * @description Flip active/inactive (legacy toggleStatus).
+         */
+        post: operations["toggle_status_api_v1_admin_payment_channels__channel_id__toggle_status_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/health": {
         parameters: {
             query?: never;
@@ -2445,6 +2514,75 @@ export interface components {
              * @constant
              */
             item_name: "webinar";
+        };
+        /** AdminPaymentChannelCreate */
+        AdminPaymentChannelCreate: {
+            /** Title */
+            title: string;
+            /** Class Name */
+            class_name: string;
+            /** @default inactive */
+            status: components["schemas"]["PaymentChannelStatus"];
+            /**
+             * Test Mode
+             * @default false
+             */
+            test_mode: boolean;
+            /** Image */
+            image?: string | null;
+            /** Credentials */
+            credentials?: {
+                [key: string]: unknown;
+            } | null;
+            /** Currencies */
+            currencies?: unknown[] | null;
+        };
+        /** AdminPaymentChannelRead */
+        AdminPaymentChannelRead: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Class Name */
+            class_name: string;
+            /** Image */
+            image: string | null;
+            status: components["schemas"]["PaymentChannelStatus"];
+            /** Test Mode */
+            test_mode: boolean;
+            /** Credentials */
+            credentials: {
+                [key: string]: unknown;
+            } | null;
+            /** Currencies */
+            currencies: unknown[] | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Credential Items */
+            credential_items: string[];
+            /** Supported */
+            supported: boolean;
+            /** Show Test Mode Toggle */
+            show_test_mode_toggle: boolean;
+        };
+        /** AdminPaymentChannelUpdate */
+        AdminPaymentChannelUpdate: {
+            /** Title */
+            title: string;
+            /** Image */
+            image?: string | null;
+            status?: components["schemas"]["PaymentChannelStatus"] | null;
+            /** Test Mode */
+            test_mode?: boolean | null;
+            /** Credentials */
+            credentials?: {
+                [key: string]: unknown;
+            } | null;
+            /** Currencies */
+            currencies?: unknown[] | null;
         };
         /** AnswerRead */
         AnswerRead: {
@@ -4159,6 +4297,11 @@ export interface components {
              */
             supported: boolean;
         };
+        /**
+         * PaymentChannelStatus
+         * @enum {string}
+         */
+        PaymentChannelStatus: "active" | "inactive";
         /** PaymentRequestInput */
         PaymentRequestInput: {
             /** Order Id */
@@ -10852,6 +10995,273 @@ export interface operations {
             };
             /** @description Unauthorized */
             401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_channels_api_v1_admin_payment_channels_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminPaymentChannelRead"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    create_channel_api_v1_admin_payment_channels_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AdminPaymentChannelCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminPaymentChannelRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_channel_api_v1_admin_payment_channels__channel_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                channel_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminPaymentChannelRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_channel_api_v1_admin_payment_channels__channel_id__put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                channel_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AdminPaymentChannelUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminPaymentChannelRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    toggle_status_api_v1_admin_payment_channels__channel_id__toggle_status_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                channel_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminPaymentChannelRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
                 headers: {
                     [name: string]: unknown;
                 };

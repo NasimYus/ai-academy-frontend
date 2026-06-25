@@ -92,6 +92,10 @@
 - ✅ 🧪 **7.2** Subscriptions: `entities/subscription` (list+active query) + `features/subscribe` (`useActivatePlan`/`useApplySubscription` + `SubscribeApplyButton`, маппинг gate-кодов) + `pages/subscriptions` (/subscriptions — планы + активация + статус) + кнопка «Открыть по подписке» на платном subscribable-курсе + ссылка «Подписки» в footer _(unit: subscribe gate-messages)_
 - ✅ 🧪 **7.3** Bundle purchase: `entities/bundle` (list/detail queries) + `features/buy-bundle` (`useBuyFreeBundle`/`useBuyBundleWithPoints`, маппинг gate-кодов) + `pages/bundles` (/bundles — грид) + `pages/bundle` (/bundles/$bundleId — курсы + покупка free/баллы) + ссылка «Наборы» в footer _(unit: buy gate-messages)_
 
+## Admin
+
+- ✅ **A.1** Payment channels: `features/manage-payment-channels` (`adminChannelsQueryOptions` + `ChannelEditor`: креды по `credential_items`, валюты, test-mode toggle, статус; `CreateChannelForm`) + `pages/admin-payments` (/admin/payment-channels — список + редактирование + добавление, гейт `requireRole('admin')`) + ссылка «Админ» в Header (только для admin)
+
 ## Backlog (после MVP)
 
 - ⬜ **Phase 5** (далее) newsletter, rewards

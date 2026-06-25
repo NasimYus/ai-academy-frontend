@@ -49,6 +49,7 @@ import { Route as CourseForumCourseIdRouteImport } from './routes/course-forum.$
 import { Route as BundlesBundleIdRouteImport } from './routes/bundles.$bundleId'
 import { Route as BlogBlogIdRouteImport } from './routes/blog.$blogId'
 import { Route as AssignmentAssignmentIdRouteImport } from './routes/assignment.$assignmentId'
+import { Route as AdminPaymentChannelsRouteImport } from './routes/admin.payment-channels'
 import { Route as InstructorCourseNewRouteImport } from './routes/instructor.course.new'
 import { Route as InstructorCourseCourseIdStatisticsRouteImport } from './routes/instructor.course.$courseId.statistics'
 import { Route as InstructorCourseCourseIdEditRouteImport } from './routes/instructor.course.$courseId.edit'
@@ -253,6 +254,11 @@ const AssignmentAssignmentIdRoute = AssignmentAssignmentIdRouteImport.update({
   path: '/assignment/$assignmentId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminPaymentChannelsRoute = AdminPaymentChannelsRouteImport.update({
+  id: '/admin/payment-channels',
+  path: '/admin/payment-channels',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InstructorCourseNewRoute = InstructorCourseNewRouteImport.update({
   id: '/instructor/course/new',
   path: '/instructor/course/new',
@@ -291,6 +297,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/rewards': typeof RewardsRoute
   '/subscriptions': typeof SubscriptionsRoute
+  '/admin/payment-channels': typeof AdminPaymentChannelsRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/bundles/$bundleId': typeof BundlesBundleIdRoute
@@ -336,6 +343,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/rewards': typeof RewardsRoute
   '/subscriptions': typeof SubscriptionsRoute
+  '/admin/payment-channels': typeof AdminPaymentChannelsRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/bundles/$bundleId': typeof BundlesBundleIdRoute
@@ -382,6 +390,7 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/rewards': typeof RewardsRoute
   '/subscriptions': typeof SubscriptionsRoute
+  '/admin/payment-channels': typeof AdminPaymentChannelsRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/bundles/$bundleId': typeof BundlesBundleIdRoute
@@ -429,6 +438,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/rewards'
     | '/subscriptions'
+    | '/admin/payment-channels'
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
     | '/bundles/$bundleId'
@@ -474,6 +484,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/rewards'
     | '/subscriptions'
+    | '/admin/payment-channels'
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
     | '/bundles/$bundleId'
@@ -519,6 +530,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/rewards'
     | '/subscriptions'
+    | '/admin/payment-channels'
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
     | '/bundles/$bundleId'
@@ -565,6 +577,7 @@ export interface RootRouteChildren {
   ResetPasswordRoute: typeof ResetPasswordRoute
   RewardsRoute: typeof RewardsRoute
   SubscriptionsRoute: typeof SubscriptionsRoute
+  AdminPaymentChannelsRoute: typeof AdminPaymentChannelsRoute
   AssignmentAssignmentIdRoute: typeof AssignmentAssignmentIdRoute
   BlogBlogIdRoute: typeof BlogBlogIdRoute
   BundlesBundleIdRoute: typeof BundlesBundleIdRoute
@@ -873,6 +886,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AssignmentAssignmentIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/payment-channels': {
+      id: '/admin/payment-channels'
+      path: '/admin/payment-channels'
+      fullPath: '/admin/payment-channels'
+      preLoaderRoute: typeof AdminPaymentChannelsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/instructor/course/new': {
       id: '/instructor/course/new'
       path: '/instructor/course/new'
@@ -917,6 +937,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResetPasswordRoute: ResetPasswordRoute,
   RewardsRoute: RewardsRoute,
   SubscriptionsRoute: SubscriptionsRoute,
+  AdminPaymentChannelsRoute: AdminPaymentChannelsRoute,
   AssignmentAssignmentIdRoute: AssignmentAssignmentIdRoute,
   BlogBlogIdRoute: BlogBlogIdRoute,
   BundlesBundleIdRoute: BundlesBundleIdRoute,
