@@ -1169,6 +1169,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/panel/webinar/{course_id}/statistic": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Course Statistics
+         * @description Aggregate statistics for an owned course (legacy WebinarStatisticController).
+         */
+        get: operations["course_statistics_api_v1_panel_webinar__course_id__statistic_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/panel/quizzes/list": {
         parameters: {
             query?: never;
@@ -3212,6 +3232,35 @@ export interface components {
             can_view: boolean;
             /** Can View Error */
             can_view_error?: string[] | null;
+        };
+        /** CourseStatistics */
+        CourseStatistics: {
+            /** Students Count */
+            students_count: number;
+            /** Sales Count */
+            sales_count: number;
+            /** Sales Amount */
+            sales_amount: number;
+            /** Rate */
+            rate: number;
+            /** Reviews Count */
+            reviews_count: number;
+            /** Comments Count */
+            comments_count: number;
+            /** Chapters Count */
+            chapters_count: number;
+            /** Sessions Count */
+            sessions_count: number;
+            /** Files Count */
+            files_count: number;
+            /** Text Lessons Count */
+            text_lessons_count: number;
+            /** Quizzes Count */
+            quizzes_count: number;
+            /** Assignments Count */
+            assignments_count: number;
+            /** Forums Count */
+            forums_count: number;
         };
         /**
          * CourseStatus
@@ -7413,6 +7462,55 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    course_statistics_api_v1_panel_webinar__course_id__statistic_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                course_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CourseStatistics"];
+                };
             };
             /** @description Forbidden */
             403: {

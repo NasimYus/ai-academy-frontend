@@ -45,6 +45,7 @@ import { Route as CourseForumCourseIdRouteImport } from './routes/course-forum.$
 import { Route as BlogBlogIdRouteImport } from './routes/blog.$blogId'
 import { Route as AssignmentAssignmentIdRouteImport } from './routes/assignment.$assignmentId'
 import { Route as InstructorCourseNewRouteImport } from './routes/instructor.course.new'
+import { Route as InstructorCourseCourseIdStatisticsRouteImport } from './routes/instructor.course.$courseId.statistics'
 import { Route as InstructorCourseCourseIdEditRouteImport } from './routes/instructor.course.$courseId.edit'
 
 const RewardsRoute = RewardsRouteImport.update({
@@ -227,6 +228,12 @@ const InstructorCourseNewRoute = InstructorCourseNewRouteImport.update({
   path: '/instructor/course/new',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InstructorCourseCourseIdStatisticsRoute =
+  InstructorCourseCourseIdStatisticsRouteImport.update({
+    id: '/instructor/course/$courseId/statistics',
+    path: '/instructor/course/$courseId/statistics',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const InstructorCourseCourseIdEditRoute =
   InstructorCourseCourseIdEditRouteImport.update({
     id: '/instructor/course/$courseId/edit',
@@ -272,6 +279,7 @@ export interface FileRoutesByFullPath {
   '/support/': typeof SupportIndexRoute
   '/instructor/course/new': typeof InstructorCourseNewRoute
   '/instructor/course/$courseId/edit': typeof InstructorCourseCourseIdEditRoute
+  '/instructor/course/$courseId/statistics': typeof InstructorCourseCourseIdStatisticsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -311,6 +319,7 @@ export interface FileRoutesByTo {
   '/support': typeof SupportIndexRoute
   '/instructor/course/new': typeof InstructorCourseNewRoute
   '/instructor/course/$courseId/edit': typeof InstructorCourseCourseIdEditRoute
+  '/instructor/course/$courseId/statistics': typeof InstructorCourseCourseIdStatisticsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -351,6 +360,7 @@ export interface FileRoutesById {
   '/support/': typeof SupportIndexRoute
   '/instructor/course/new': typeof InstructorCourseNewRoute
   '/instructor/course/$courseId/edit': typeof InstructorCourseCourseIdEditRoute
+  '/instructor/course/$courseId/statistics': typeof InstructorCourseCourseIdStatisticsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -392,6 +402,7 @@ export interface FileRouteTypes {
     | '/support/'
     | '/instructor/course/new'
     | '/instructor/course/$courseId/edit'
+    | '/instructor/course/$courseId/statistics'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -431,6 +442,7 @@ export interface FileRouteTypes {
     | '/support'
     | '/instructor/course/new'
     | '/instructor/course/$courseId/edit'
+    | '/instructor/course/$courseId/statistics'
   id:
     | '__root__'
     | '/'
@@ -470,6 +482,7 @@ export interface FileRouteTypes {
     | '/support/'
     | '/instructor/course/new'
     | '/instructor/course/$courseId/edit'
+    | '/instructor/course/$courseId/statistics'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -510,6 +523,7 @@ export interface RootRouteChildren {
   SupportIndexRoute: typeof SupportIndexRoute
   InstructorCourseNewRoute: typeof InstructorCourseNewRoute
   InstructorCourseCourseIdEditRoute: typeof InstructorCourseCourseIdEditRoute
+  InstructorCourseCourseIdStatisticsRoute: typeof InstructorCourseCourseIdStatisticsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -766,6 +780,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InstructorCourseNewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/instructor/course/$courseId/statistics': {
+      id: '/instructor/course/$courseId/statistics'
+      path: '/instructor/course/$courseId/statistics'
+      fullPath: '/instructor/course/$courseId/statistics'
+      preLoaderRoute: typeof InstructorCourseCourseIdStatisticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/instructor/course/$courseId/edit': {
       id: '/instructor/course/$courseId/edit'
       path: '/instructor/course/$courseId/edit'
@@ -814,6 +835,8 @@ const rootRouteChildren: RootRouteChildren = {
   SupportIndexRoute: SupportIndexRoute,
   InstructorCourseNewRoute: InstructorCourseNewRoute,
   InstructorCourseCourseIdEditRoute: InstructorCourseCourseIdEditRoute,
+  InstructorCourseCourseIdStatisticsRoute:
+    InstructorCourseCourseIdStatisticsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

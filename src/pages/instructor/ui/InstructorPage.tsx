@@ -61,6 +61,13 @@ export function InstructorPage() {
               >
                 Редактировать
               </Link>
+              <Link
+                to="/instructor/course/$courseId/statistics"
+                params={{ courseId: String(c.id) }}
+                className="text-brand-600 hover:underline"
+              >
+                Статистика
+              </Link>
               <button
                 type="button"
                 onClick={() => del.mutate(c.id)}

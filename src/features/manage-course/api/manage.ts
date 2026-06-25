@@ -37,6 +37,19 @@ export const editCourseQueryOptions = (courseId: number) =>
     enabled: courseId > 0,
   })
 
+export const courseStatisticsQueryOptions = (courseId: number) =>
+  queryOptions({
+    queryKey: ['course-statistics', courseId],
+    queryFn: async () => {
+      const { data, error } = await api.GET('/api/v1/panel/webinar/{course_id}/statistic', {
+        params: { path: { course_id: courseId } },
+      })
+      if (error) throw new Error('Не удалось загрузить статистику')
+      return data
+    },
+    enabled: courseId > 0,
+  })
+
 export async function createCourse(body: CourseCreateBody) {
   const { data, error } = await api.POST('/api/v1/panel/webinar', { body })
   if (error) throw new Error(manageMessage(error.detail))
