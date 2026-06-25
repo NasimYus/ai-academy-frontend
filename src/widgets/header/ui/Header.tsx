@@ -54,7 +54,7 @@ export function Header() {
               </Link>
               {user?.role_name === 'admin' && (
                 <Link
-                  to="/admin/payment-channels"
+                  to="/admin/courses"
                   className="hidden text-ink/60 hover:text-brand-600 sm:inline"
                 >
                   Админ

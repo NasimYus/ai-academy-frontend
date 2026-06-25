@@ -51,6 +51,7 @@ import { Route as BundlesBundleIdRouteImport } from './routes/bundles.$bundleId'
 import { Route as BlogBlogIdRouteImport } from './routes/blog.$blogId'
 import { Route as AssignmentAssignmentIdRouteImport } from './routes/assignment.$assignmentId'
 import { Route as AdminPaymentChannelsRouteImport } from './routes/admin.payment-channels'
+import { Route as AdminCoursesRouteImport } from './routes/admin.courses'
 import { Route as InstructorCourseNewRouteImport } from './routes/instructor.course.new'
 import { Route as InstructorCourseCourseIdStatisticsRouteImport } from './routes/instructor.course.$courseId.statistics'
 import { Route as InstructorCourseCourseIdEditRouteImport } from './routes/instructor.course.$courseId.edit'
@@ -265,6 +266,11 @@ const AdminPaymentChannelsRoute = AdminPaymentChannelsRouteImport.update({
   path: '/admin/payment-channels',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminCoursesRoute = AdminCoursesRouteImport.update({
+  id: '/admin/courses',
+  path: '/admin/courses',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InstructorCourseNewRoute = InstructorCourseNewRouteImport.update({
   id: '/instructor/course/new',
   path: '/instructor/course/new',
@@ -303,6 +309,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/rewards': typeof RewardsRoute
   '/subscriptions': typeof SubscriptionsRoute
+  '/admin/courses': typeof AdminCoursesRoute
   '/admin/payment-channels': typeof AdminPaymentChannelsRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
@@ -350,6 +357,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/rewards': typeof RewardsRoute
   '/subscriptions': typeof SubscriptionsRoute
+  '/admin/courses': typeof AdminCoursesRoute
   '/admin/payment-channels': typeof AdminPaymentChannelsRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
@@ -398,6 +406,7 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/rewards': typeof RewardsRoute
   '/subscriptions': typeof SubscriptionsRoute
+  '/admin/courses': typeof AdminCoursesRoute
   '/admin/payment-channels': typeof AdminPaymentChannelsRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
@@ -447,6 +456,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/rewards'
     | '/subscriptions'
+    | '/admin/courses'
     | '/admin/payment-channels'
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
@@ -494,6 +504,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/rewards'
     | '/subscriptions'
+    | '/admin/courses'
     | '/admin/payment-channels'
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
@@ -541,6 +552,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/rewards'
     | '/subscriptions'
+    | '/admin/courses'
     | '/admin/payment-channels'
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
@@ -589,6 +601,7 @@ export interface RootRouteChildren {
   ResetPasswordRoute: typeof ResetPasswordRoute
   RewardsRoute: typeof RewardsRoute
   SubscriptionsRoute: typeof SubscriptionsRoute
+  AdminCoursesRoute: typeof AdminCoursesRoute
   AdminPaymentChannelsRoute: typeof AdminPaymentChannelsRoute
   AssignmentAssignmentIdRoute: typeof AssignmentAssignmentIdRoute
   BlogBlogIdRoute: typeof BlogBlogIdRoute
@@ -913,6 +926,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPaymentChannelsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/courses': {
+      id: '/admin/courses'
+      path: '/admin/courses'
+      fullPath: '/admin/courses'
+      preLoaderRoute: typeof AdminCoursesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/instructor/course/new': {
       id: '/instructor/course/new'
       path: '/instructor/course/new'
@@ -957,6 +977,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResetPasswordRoute: ResetPasswordRoute,
   RewardsRoute: RewardsRoute,
   SubscriptionsRoute: SubscriptionsRoute,
+  AdminCoursesRoute: AdminCoursesRoute,
   AdminPaymentChannelsRoute: AdminPaymentChannelsRoute,
   AssignmentAssignmentIdRoute: AssignmentAssignmentIdRoute,
   BlogBlogIdRoute: BlogBlogIdRoute,

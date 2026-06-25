@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import { Link } from '@tanstack/react-router'
 
 import {
   adminChannelsQueryOptions,
@@ -12,7 +13,12 @@ export function AdminPaymentsPage() {
   return (
     <div className="mx-auto max-w-3xl space-y-6 px-6 py-8">
       <header>
-        <h1 className="text-2xl font-bold text-ink">Платёжные шлюзы</h1>
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-bold text-ink">Платёжные шлюзы</h1>
+          <Link to="/admin/courses" className="text-sm text-brand-600 hover:underline">
+            Модерация курсов →
+          </Link>
+        </div>
         <p className="mt-1 text-sm text-ink/60">
           Настройка драйверов, реквизитов (credentials) и статуса. Реальные шлюзы требуют ключей
           мерчанта.

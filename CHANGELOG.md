@@ -100,6 +100,7 @@
 ## Admin
 
 - ✅ **A.1** Payment channels: `features/manage-payment-channels` (`adminChannelsQueryOptions` + `ChannelEditor`: креды по `credential_items`, валюты, test-mode toggle, статус; `CreateChannelForm`) + `pages/admin-payments` (/admin/payment-channels — список + редактирование + добавление, гейт `requireRole('admin')`) + ссылка «Админ» в Header (только для admin)
+- ✅ **A.2** Course moderation: `features/moderate-courses` (`adminCoursesQueryOptions` + approve/reject/unpublish хуки) + `pages/admin-courses` (/admin/courses — список со статус-бейджами + действия, гейт `requireRole('admin')`) + кросс-ссылки между admin-страницами; «Админ» в Header → /admin/courses
 
 ## Backlog (после MVP)
 
