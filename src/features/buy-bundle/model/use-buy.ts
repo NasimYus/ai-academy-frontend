@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-import { buyBundleWithPoints, buyFreeBundle } from '#/features/buy-bundle/api/buy'
+import { buyBundleWithPoints, buyFreeBundle, payBundle } from '#/features/buy-bundle/api/buy'
 
 function useBundleInvalidation(bundleId: number) {
   const qc = useQueryClient()
@@ -18,4 +18,12 @@ export function useBuyFreeBundle(bundleId: number) {
 export function useBuyBundleWithPoints(bundleId: number) {
   const invalidate = useBundleInvalidation(bundleId)
   return useMutation({ mutationFn: () => buyBundleWithPoints(bundleId), onSuccess: invalidate })
+}
+
+export function usePayBundle(bundleId: number) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: () => payBundle(bundleId),
+    onSuccess: () => void qc.invalidateQueries({ queryKey: ['orders'] }),
+  })
 }

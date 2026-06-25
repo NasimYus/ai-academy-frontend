@@ -28,3 +28,12 @@ export async function buyBundleWithPoints(bundleId: number): Promise<string> {
   if (error) throw new Error(buyMessage(error.detail))
   return data.message
 }
+
+// Create a pending order for a paid bundle, then settle it via /payments.
+export async function payBundle(bundleId: number) {
+  const { data, error } = await api.POST('/api/v1/bundles/{bundle_id}/pay', {
+    params: { path: { bundle_id: bundleId } },
+  })
+  if (error) throw new Error(buyMessage(error.detail))
+  return data
+}

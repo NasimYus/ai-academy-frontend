@@ -2047,6 +2047,29 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/bundles/{bundle_id}/pay": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Pay Bundle
+         * @description Create a pending order for a paid bundle (legacy fakeCart → checkout).
+         *
+         *     Settle it via the normal /payments flow; on `paid`, `payments.complete`
+         *     records a `bundle` Sale and enrolls the buyer in every bundle course.
+         */
+        post: operations["pay_bundle_api_v1_bundles__bundle_id__pay_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/courses/{course_id}/forums": {
         parameters: {
             query?: never;
@@ -4231,6 +4254,8 @@ export interface components {
             id: number;
             /** Course Id */
             course_id?: number | null;
+            /** Bundle Id */
+            bundle_id?: number | null;
             /** Title */
             title?: string | null;
             /** Slug */
@@ -10079,6 +10104,55 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["BundlePurchaseResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    pay_bundle_api_v1_bundles__bundle_id__pay_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                bundle_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrderRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
             /** @description Not Found */

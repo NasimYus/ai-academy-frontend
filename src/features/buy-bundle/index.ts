@@ -1,1 +1,5 @@
-export { useBuyBundleWithPoints, useBuyFreeBundle } from '#/features/buy-bundle/model/use-buy'
+export {
+  useBuyBundleWithPoints,
+  useBuyFreeBundle,
+  usePayBundle,
+} from '#/features/buy-bundle/model/use-buy'

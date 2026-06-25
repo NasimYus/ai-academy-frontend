@@ -1,15 +1,17 @@
 import { useQuery } from '@tanstack/react-query'
-import { Link } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
 
 import { bundleQueryOptions } from '#/entities/bundle'
-import { useBuyBundleWithPoints, useBuyFreeBundle } from '#/features/buy-bundle'
+import { useBuyBundleWithPoints, useBuyFreeBundle, usePayBundle } from '#/features/buy-bundle'
 import { useSessionStore } from '#/entities/session'
 
 export function BundlePage({ bundleId }: { bundleId: number }) {
   const token = useSessionStore((s) => s.token)
+  const navigate = useNavigate()
   const bundle = useQuery(bundleQueryOptions(bundleId))
   const free = useBuyFreeBundle(bundleId)
   const points = useBuyBundleWithPoints(bundleId)
+  const pay = usePayBundle(bundleId)
 
   if (bundle.isPending) return <p className="mx-auto max-w-3xl px-6 py-8 text-ink/60">Загрузка…</p>
   if (bundle.isError)
@@ -18,7 +20,7 @@ export function BundlePage({ bundleId }: { bundleId: number }) {
   const b = bundle.data
   const isFree = !b.price || b.price <= 0
   const done = free.isSuccess || points.isSuccess
-  const error = free.error?.message ?? points.error?.message
+  const error = free.error?.message ?? points.error?.message ?? pay.error?.message
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-8">
@@ -36,7 +38,7 @@ export function BundlePage({ bundleId }: { bundleId: number }) {
 
       {token && (
         <div className="mt-4 flex flex-wrap items-center gap-3">
-          {isFree && (
+          {isFree ? (
             <button
               type="button"
               onClick={() => free.mutate()}
@@ -44,6 +46,19 @@ export function BundlePage({ bundleId }: { bundleId: number }) {
               className="rounded-lg bg-brand-600 px-5 py-2.5 font-medium text-white hover:bg-brand-700 disabled:opacity-50"
             >
               {free.isPending ? '…' : 'Получить бесплатно'}
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() =>
+                pay.mutate(undefined, {
+                  onSuccess: () => void navigate({ to: '/orders' }),
+                })
+              }
+              disabled={pay.isPending}
+              className="rounded-lg bg-brand-600 px-5 py-2.5 font-medium text-white hover:bg-brand-700 disabled:opacity-50"
+            >
+              {pay.isPending ? '…' : `Купить за ${b.price}`}
             </button>
           )}
           {b.points != null && b.points > 0 && (
