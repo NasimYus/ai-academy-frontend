@@ -1233,6 +1233,66 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/panel/assignments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Assignment Dashboard
+         * @description Instructor assignments + review counts (legacy AssignmentController@index).
+         */
+        get: operations["assignment_dashboard_api_v1_panel_assignments_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/assignments/{assignment_id}/submissions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Assignment Submissions
+         * @description Student submission threads on one assignment (legacy @submmision).
+         */
+        get: operations["assignment_submissions_api_v1_panel_assignments__assignment_id__submissions_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/assignments/histories/{history_id}/rate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Grade Submission
+         * @description Grade a submission (legacy AssignmentController@setGrade).
+         */
+        post: operations["grade_submission_api_v1_panel_assignments_histories__history_id__rate_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/support/class_support": {
         parameters: {
             query?: never;
@@ -1898,6 +1958,19 @@ export interface components {
             /** Answer */
             answer?: number | string | null;
         };
+        /** AssignmentDashboard */
+        AssignmentDashboard: {
+            /** Course Assignments Count */
+            course_assignments_count: number;
+            /** Pending Reviews Count */
+            pending_reviews_count: number;
+            /** Passed Count */
+            passed_count: number;
+            /** Failed Count */
+            failed_count: number;
+            /** Assignments */
+            assignments: components["schemas"]["InstructorAssignmentRow"][];
+        };
         /**
          * AssignmentHistoryRead
          * @description Legacy WebinarAssignmentHistoryResource (the student's submission state).
@@ -1948,6 +2021,28 @@ export interface components {
                 [key: string]: unknown;
             }[];
         };
+        /** AssignmentHistoryRow */
+        AssignmentHistoryRow: {
+            /** Id */
+            id: number;
+            student: components["schemas"]["UserBrief"] | null;
+            status: components["schemas"]["AssignmentHistoryStatus"];
+            /** Grade */
+            grade: number | null;
+            /** Submissions Count */
+            submissions_count: number;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /**
+         * AssignmentHistoryStatus
+         * @description Legacy WebinarAssignmentHistory::$assignmentHistoryStatus.
+         * @enum {string}
+         */
+        AssignmentHistoryStatus: "pending" | "passed" | "not_passed" | "not_submitted";
         /**
          * AssignmentMessageRead
          * @description Legacy WebinarAssignmentHistoryMessageResource (sender/supporter split).
@@ -3073,6 +3168,11 @@ export interface components {
             last_activity?: string | null;
             last_answer?: components["schemas"]["LastAnswer"] | null;
         };
+        /** GradeInput */
+        GradeInput: {
+            /** Grade */
+            grade: number;
+        };
         /** HTTPValidationError */
         HTTPValidationError: {
             /** Detail */
@@ -3091,6 +3191,19 @@ export interface components {
             identity_scan?: string | null;
             /** Certificate */
             certificate?: string | null;
+        };
+        /** InstructorAssignmentRow */
+        InstructorAssignmentRow: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Course Id */
+            course_id: number;
+            /** Pass Grade */
+            pass_grade: number | null;
+            /** Histories */
+            histories: components["schemas"]["AssignmentHistoryRow"][];
         };
         /** LastAnswer */
         LastAnswer: {
@@ -3968,6 +4081,34 @@ export interface components {
              * @default 0
              */
             webinars_count: number;
+        };
+        /** SubmissionMessage */
+        SubmissionMessage: {
+            /** Id */
+            id: number;
+            sender: components["schemas"]["UserBrief"] | null;
+            /** Message */
+            message: string;
+            /** File Title */
+            file_title: string | null;
+            /** File Path */
+            file_path: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** SubmissionView */
+        SubmissionView: {
+            /** Id */
+            id: number;
+            student: components["schemas"]["UserBrief"] | null;
+            status: components["schemas"]["AssignmentHistoryStatus"];
+            /** Grade */
+            grade: number | null;
+            /** Messages */
+            messages: components["schemas"]["SubmissionMessage"][];
         };
         /** SupportConversationRead */
         SupportConversationRead: {
@@ -7079,6 +7220,146 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    assignment_dashboard_api_v1_panel_assignments_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AssignmentDashboard"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    assignment_submissions_api_v1_panel_assignments__assignment_id__submissions_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                assignment_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SubmissionView"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    grade_submission_api_v1_panel_assignments_histories__history_id__rate_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                history_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["GradeInput"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SubmissionView"];
+                };
             };
             /** @description Unauthorized */
             401: {

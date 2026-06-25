@@ -35,6 +35,7 @@ import { Route as QuizQuizIdRouteImport } from './routes/quiz.$quizId'
 import { Route as PaymentCallbackRouteImport } from './routes/payment.callback'
 import { Route as LearnSlugRouteImport } from './routes/learn.$slug'
 import { Route as InstructorQuizzesRouteImport } from './routes/instructor.quizzes'
+import { Route as InstructorAssignmentsRouteImport } from './routes/instructor.assignments'
 import { Route as CourseSlugRouteImport } from './routes/course.$slug'
 import { Route as CourseForumCourseIdRouteImport } from './routes/course-forum.$courseId'
 import { Route as BlogBlogIdRouteImport } from './routes/blog.$blogId'
@@ -172,6 +173,11 @@ const InstructorQuizzesRoute = InstructorQuizzesRouteImport.update({
   path: '/instructor/quizzes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InstructorAssignmentsRoute = InstructorAssignmentsRouteImport.update({
+  id: '/instructor/assignments',
+  path: '/instructor/assignments',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CourseSlugRoute = CourseSlugRouteImport.update({
   id: '/course/$slug',
   path: '/course/$slug',
@@ -226,6 +232,7 @@ export interface FileRoutesByFullPath {
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
+  '/instructor/assignments': typeof InstructorAssignmentsRoute
   '/instructor/quizzes': typeof InstructorQuizzesRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/payment/callback': typeof PaymentCallbackRoute
@@ -260,6 +267,7 @@ export interface FileRoutesByTo {
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
+  '/instructor/assignments': typeof InstructorAssignmentsRoute
   '/instructor/quizzes': typeof InstructorQuizzesRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/payment/callback': typeof PaymentCallbackRoute
@@ -295,6 +303,7 @@ export interface FileRoutesById {
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
+  '/instructor/assignments': typeof InstructorAssignmentsRoute
   '/instructor/quizzes': typeof InstructorQuizzesRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/payment/callback': typeof PaymentCallbackRoute
@@ -331,6 +340,7 @@ export interface FileRouteTypes {
     | '/blog/$blogId'
     | '/course-forum/$courseId'
     | '/course/$slug'
+    | '/instructor/assignments'
     | '/instructor/quizzes'
     | '/learn/$slug'
     | '/payment/callback'
@@ -365,6 +375,7 @@ export interface FileRouteTypes {
     | '/blog/$blogId'
     | '/course-forum/$courseId'
     | '/course/$slug'
+    | '/instructor/assignments'
     | '/instructor/quizzes'
     | '/learn/$slug'
     | '/payment/callback'
@@ -399,6 +410,7 @@ export interface FileRouteTypes {
     | '/blog/$blogId'
     | '/course-forum/$courseId'
     | '/course/$slug'
+    | '/instructor/assignments'
     | '/instructor/quizzes'
     | '/learn/$slug'
     | '/payment/callback'
@@ -434,6 +446,7 @@ export interface RootRouteChildren {
   BlogBlogIdRoute: typeof BlogBlogIdRoute
   CourseForumCourseIdRoute: typeof CourseForumCourseIdRoute
   CourseSlugRoute: typeof CourseSlugRoute
+  InstructorAssignmentsRoute: typeof InstructorAssignmentsRoute
   InstructorQuizzesRoute: typeof InstructorQuizzesRoute
   LearnSlugRoute: typeof LearnSlugRoute
   PaymentCallbackRoute: typeof PaymentCallbackRoute
@@ -631,6 +644,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InstructorQuizzesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/instructor/assignments': {
+      id: '/instructor/assignments'
+      path: '/instructor/assignments'
+      fullPath: '/instructor/assignments'
+      preLoaderRoute: typeof InstructorAssignmentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/course/$slug': {
       id: '/course/$slug'
       path: '/course/$slug'
@@ -698,6 +718,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogBlogIdRoute: BlogBlogIdRoute,
   CourseForumCourseIdRoute: CourseForumCourseIdRoute,
   CourseSlugRoute: CourseSlugRoute,
+  InstructorAssignmentsRoute: InstructorAssignmentsRoute,
   InstructorQuizzesRoute: InstructorQuizzesRoute,
   LearnSlugRoute: LearnSlugRoute,
   PaymentCallbackRoute: PaymentCallbackRoute,
