@@ -1335,6 +1335,49 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/panel/bundles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * My Bundles
+         * @description The instructor's bundles + sales aggregates (legacy BundleController@index).
+         *
+         *     NOTE: bundle purchasing isn't implemented (no Sale/bundle-order), so sales
+         *     aggregates are 0 — faithful on a clean install.
+         */
+        get: operations["my_bundles_api_v1_panel_bundles_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/bundles/{bundle_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Delete Bundle
+         * @description Delete a bundle (legacy BundleController@destroy).
+         */
+        delete: operations["delete_bundle_api_v1_panel_bundles__bundle_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/support/class_support": {
         parameters: {
             query?: never;
@@ -2308,6 +2351,49 @@ export interface components {
             /** Certificate */
             certificate?: string | null;
         };
+        /** BundleDashboard */
+        BundleDashboard: {
+            /** Bundles */
+            bundles: components["schemas"]["BundleRead"][];
+            /** Bundles Count */
+            bundles_count: number;
+            /** Bundle Sales Amount */
+            bundle_sales_amount: number;
+            /** Bundle Sales Count */
+            bundle_sales_count: number;
+            /** Bundles Hours */
+            bundles_hours: number;
+        };
+        /** BundleRead */
+        BundleRead: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Slug */
+            slug: string;
+            /** Thumbnail */
+            thumbnail: string | null;
+            /** Image Cover */
+            image_cover: string | null;
+            /** Price */
+            price: number | null;
+            status: components["schemas"]["BundleStatus"];
+            /** Category */
+            category: string | null;
+            /** Webinars Count */
+            webinars_count: number;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /**
+         * BundleStatus
+         * @enum {string}
+         */
+        BundleStatus: "active" | "pending" | "is_draft" | "inactive";
         /** CartAmounts */
         CartAmounts: {
             /** Sub Total */
@@ -7512,6 +7598,91 @@ export interface operations {
             };
             /** @description Forbidden */
             403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    my_bundles_api_v1_panel_bundles_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BundleDashboard"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    delete_bundle_api_v1_panel_bundles__bundle_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                bundle_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
                 headers: {
                     [name: string]: unknown;
                 };

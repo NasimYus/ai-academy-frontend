@@ -81,6 +81,7 @@
 - ✅ **6.2** Quizzes CRUD: `features/manage-quiz` (`QuizForm` + `useCreateQuiz`/`useUpdateQuiz`/`useDeleteQuiz`, results-dashboard query) + `pages/instructor-quizzes` (/instructor/quizzes — список тестов с inline create/edit/delete + сводка результатов студентов) + ссылка «Тесты» на `pages/instructor`
 - ✅ **6.3** Assignment grading: `features/grade-assignment` (dashboard/submissions queries + `SubmissionThread` с inline-оценкой) + `pages/instructor-assignments` (/instructor/assignments — счётчики + раскрывающиеся задания с тредами работ и выставлением балла) + ссылка «Задания» на `pages/instructor`
 - ✅ **6.4** Instructor comments: `features/class-comments` (`classCommentsQueryOptions` + `CommentReply` inline-форма) + `pages/instructor-comments` (/instructor/comments — комментарии к курсам деревом + ответы) + ссылка «Комментарии» на `pages/instructor`
+- ✅ **6.5** Bundles: `features/manage-bundle` (`bundlesQueryOptions` + `useDeleteBundle`) + `pages/instructor-bundles` (/instructor/bundles — список наборов + счётчики + удаление) + ссылка «Наборы» на `pages/instructor`
 
 ## Backlog (после MVP)
 

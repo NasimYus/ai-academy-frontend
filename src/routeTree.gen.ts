@@ -36,6 +36,7 @@ import { Route as PaymentCallbackRouteImport } from './routes/payment.callback'
 import { Route as LearnSlugRouteImport } from './routes/learn.$slug'
 import { Route as InstructorQuizzesRouteImport } from './routes/instructor.quizzes'
 import { Route as InstructorCommentsRouteImport } from './routes/instructor.comments'
+import { Route as InstructorBundlesRouteImport } from './routes/instructor.bundles'
 import { Route as InstructorAssignmentsRouteImport } from './routes/instructor.assignments'
 import { Route as CourseSlugRouteImport } from './routes/course.$slug'
 import { Route as CourseForumCourseIdRouteImport } from './routes/course-forum.$courseId'
@@ -179,6 +180,11 @@ const InstructorCommentsRoute = InstructorCommentsRouteImport.update({
   path: '/instructor/comments',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InstructorBundlesRoute = InstructorBundlesRouteImport.update({
+  id: '/instructor/bundles',
+  path: '/instructor/bundles',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InstructorAssignmentsRoute = InstructorAssignmentsRouteImport.update({
   id: '/instructor/assignments',
   path: '/instructor/assignments',
@@ -239,6 +245,7 @@ export interface FileRoutesByFullPath {
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
   '/instructor/assignments': typeof InstructorAssignmentsRoute
+  '/instructor/bundles': typeof InstructorBundlesRoute
   '/instructor/comments': typeof InstructorCommentsRoute
   '/instructor/quizzes': typeof InstructorQuizzesRoute
   '/learn/$slug': typeof LearnSlugRoute
@@ -275,6 +282,7 @@ export interface FileRoutesByTo {
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
   '/instructor/assignments': typeof InstructorAssignmentsRoute
+  '/instructor/bundles': typeof InstructorBundlesRoute
   '/instructor/comments': typeof InstructorCommentsRoute
   '/instructor/quizzes': typeof InstructorQuizzesRoute
   '/learn/$slug': typeof LearnSlugRoute
@@ -312,6 +320,7 @@ export interface FileRoutesById {
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
   '/instructor/assignments': typeof InstructorAssignmentsRoute
+  '/instructor/bundles': typeof InstructorBundlesRoute
   '/instructor/comments': typeof InstructorCommentsRoute
   '/instructor/quizzes': typeof InstructorQuizzesRoute
   '/learn/$slug': typeof LearnSlugRoute
@@ -350,6 +359,7 @@ export interface FileRouteTypes {
     | '/course-forum/$courseId'
     | '/course/$slug'
     | '/instructor/assignments'
+    | '/instructor/bundles'
     | '/instructor/comments'
     | '/instructor/quizzes'
     | '/learn/$slug'
@@ -386,6 +396,7 @@ export interface FileRouteTypes {
     | '/course-forum/$courseId'
     | '/course/$slug'
     | '/instructor/assignments'
+    | '/instructor/bundles'
     | '/instructor/comments'
     | '/instructor/quizzes'
     | '/learn/$slug'
@@ -422,6 +433,7 @@ export interface FileRouteTypes {
     | '/course-forum/$courseId'
     | '/course/$slug'
     | '/instructor/assignments'
+    | '/instructor/bundles'
     | '/instructor/comments'
     | '/instructor/quizzes'
     | '/learn/$slug'
@@ -459,6 +471,7 @@ export interface RootRouteChildren {
   CourseForumCourseIdRoute: typeof CourseForumCourseIdRoute
   CourseSlugRoute: typeof CourseSlugRoute
   InstructorAssignmentsRoute: typeof InstructorAssignmentsRoute
+  InstructorBundlesRoute: typeof InstructorBundlesRoute
   InstructorCommentsRoute: typeof InstructorCommentsRoute
   InstructorQuizzesRoute: typeof InstructorQuizzesRoute
   LearnSlugRoute: typeof LearnSlugRoute
@@ -664,6 +677,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InstructorCommentsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/instructor/bundles': {
+      id: '/instructor/bundles'
+      path: '/instructor/bundles'
+      fullPath: '/instructor/bundles'
+      preLoaderRoute: typeof InstructorBundlesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/instructor/assignments': {
       id: '/instructor/assignments'
       path: '/instructor/assignments'
@@ -739,6 +759,7 @@ const rootRouteChildren: RootRouteChildren = {
   CourseForumCourseIdRoute: CourseForumCourseIdRoute,
   CourseSlugRoute: CourseSlugRoute,
   InstructorAssignmentsRoute: InstructorAssignmentsRoute,
+  InstructorBundlesRoute: InstructorBundlesRoute,
   InstructorCommentsRoute: InstructorCommentsRoute,
   InstructorQuizzesRoute: InstructorQuizzesRoute,
   LearnSlugRoute: LearnSlugRoute,
