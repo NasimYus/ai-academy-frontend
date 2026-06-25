@@ -29,6 +29,7 @@ import { Route as CartRouteImport } from './routes/cart'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SupportIndexRouteImport } from './routes/support.index'
 import { Route as InstructorIndexRouteImport } from './routes/instructor.index'
+import { Route as BundlesIndexRouteImport } from './routes/bundles.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as UsersUserIdRouteImport } from './routes/users.$userId'
 import { Route as SupportSupportIdRouteImport } from './routes/support.$supportId'
@@ -42,6 +43,7 @@ import { Route as InstructorBundlesRouteImport } from './routes/instructor.bundl
 import { Route as InstructorAssignmentsRouteImport } from './routes/instructor.assignments'
 import { Route as CourseSlugRouteImport } from './routes/course.$slug'
 import { Route as CourseForumCourseIdRouteImport } from './routes/course-forum.$courseId'
+import { Route as BundlesBundleIdRouteImport } from './routes/bundles.$bundleId'
 import { Route as BlogBlogIdRouteImport } from './routes/blog.$blogId'
 import { Route as AssignmentAssignmentIdRouteImport } from './routes/assignment.$assignmentId'
 import { Route as InstructorCourseNewRouteImport } from './routes/instructor.course.new'
@@ -148,6 +150,11 @@ const InstructorIndexRoute = InstructorIndexRouteImport.update({
   path: '/instructor/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BundlesIndexRoute = BundlesIndexRouteImport.update({
+  id: '/bundles/',
+  path: '/bundles/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
@@ -213,6 +220,11 @@ const CourseForumCourseIdRoute = CourseForumCourseIdRouteImport.update({
   path: '/course-forum/$courseId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BundlesBundleIdRoute = BundlesBundleIdRouteImport.update({
+  id: '/bundles/$bundleId',
+  path: '/bundles/$bundleId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogBlogIdRoute = BlogBlogIdRouteImport.update({
   id: '/blog/$blogId',
   path: '/blog/$blogId',
@@ -262,6 +274,7 @@ export interface FileRoutesByFullPath {
   '/rewards': typeof RewardsRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
+  '/bundles/$bundleId': typeof BundlesBundleIdRoute
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
   '/instructor/assignments': typeof InstructorAssignmentsRoute
@@ -275,6 +288,7 @@ export interface FileRoutesByFullPath {
   '/support/$supportId': typeof SupportSupportIdRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/blog/': typeof BlogIndexRoute
+  '/bundles/': typeof BundlesIndexRoute
   '/instructor/': typeof InstructorIndexRoute
   '/support/': typeof SupportIndexRoute
   '/instructor/course/new': typeof InstructorCourseNewRoute
@@ -302,6 +316,7 @@ export interface FileRoutesByTo {
   '/rewards': typeof RewardsRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
+  '/bundles/$bundleId': typeof BundlesBundleIdRoute
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
   '/instructor/assignments': typeof InstructorAssignmentsRoute
@@ -315,6 +330,7 @@ export interface FileRoutesByTo {
   '/support/$supportId': typeof SupportSupportIdRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/blog': typeof BlogIndexRoute
+  '/bundles': typeof BundlesIndexRoute
   '/instructor': typeof InstructorIndexRoute
   '/support': typeof SupportIndexRoute
   '/instructor/course/new': typeof InstructorCourseNewRoute
@@ -343,6 +359,7 @@ export interface FileRoutesById {
   '/rewards': typeof RewardsRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
+  '/bundles/$bundleId': typeof BundlesBundleIdRoute
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
   '/instructor/assignments': typeof InstructorAssignmentsRoute
@@ -356,6 +373,7 @@ export interface FileRoutesById {
   '/support/$supportId': typeof SupportSupportIdRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/blog/': typeof BlogIndexRoute
+  '/bundles/': typeof BundlesIndexRoute
   '/instructor/': typeof InstructorIndexRoute
   '/support/': typeof SupportIndexRoute
   '/instructor/course/new': typeof InstructorCourseNewRoute
@@ -385,6 +403,7 @@ export interface FileRouteTypes {
     | '/rewards'
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
+    | '/bundles/$bundleId'
     | '/course-forum/$courseId'
     | '/course/$slug'
     | '/instructor/assignments'
@@ -398,6 +417,7 @@ export interface FileRouteTypes {
     | '/support/$supportId'
     | '/users/$userId'
     | '/blog/'
+    | '/bundles/'
     | '/instructor/'
     | '/support/'
     | '/instructor/course/new'
@@ -425,6 +445,7 @@ export interface FileRouteTypes {
     | '/rewards'
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
+    | '/bundles/$bundleId'
     | '/course-forum/$courseId'
     | '/course/$slug'
     | '/instructor/assignments'
@@ -438,6 +459,7 @@ export interface FileRouteTypes {
     | '/support/$supportId'
     | '/users/$userId'
     | '/blog'
+    | '/bundles'
     | '/instructor'
     | '/support'
     | '/instructor/course/new'
@@ -465,6 +487,7 @@ export interface FileRouteTypes {
     | '/rewards'
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
+    | '/bundles/$bundleId'
     | '/course-forum/$courseId'
     | '/course/$slug'
     | '/instructor/assignments'
@@ -478,6 +501,7 @@ export interface FileRouteTypes {
     | '/support/$supportId'
     | '/users/$userId'
     | '/blog/'
+    | '/bundles/'
     | '/instructor/'
     | '/support/'
     | '/instructor/course/new'
@@ -506,6 +530,7 @@ export interface RootRouteChildren {
   RewardsRoute: typeof RewardsRoute
   AssignmentAssignmentIdRoute: typeof AssignmentAssignmentIdRoute
   BlogBlogIdRoute: typeof BlogBlogIdRoute
+  BundlesBundleIdRoute: typeof BundlesBundleIdRoute
   CourseForumCourseIdRoute: typeof CourseForumCourseIdRoute
   CourseSlugRoute: typeof CourseSlugRoute
   InstructorAssignmentsRoute: typeof InstructorAssignmentsRoute
@@ -519,6 +544,7 @@ export interface RootRouteChildren {
   SupportSupportIdRoute: typeof SupportSupportIdRoute
   UsersUserIdRoute: typeof UsersUserIdRoute
   BlogIndexRoute: typeof BlogIndexRoute
+  BundlesIndexRoute: typeof BundlesIndexRoute
   InstructorIndexRoute: typeof InstructorIndexRoute
   SupportIndexRoute: typeof SupportIndexRoute
   InstructorCourseNewRoute: typeof InstructorCourseNewRoute
@@ -668,6 +694,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InstructorIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bundles/': {
+      id: '/bundles/'
+      path: '/bundles'
+      fullPath: '/bundles/'
+      preLoaderRoute: typeof BundlesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/': {
       id: '/blog/'
       path: '/blog'
@@ -759,6 +792,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CourseForumCourseIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bundles/$bundleId': {
+      id: '/bundles/$bundleId'
+      path: '/bundles/$bundleId'
+      fullPath: '/bundles/$bundleId'
+      preLoaderRoute: typeof BundlesBundleIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/$blogId': {
       id: '/blog/$blogId'
       path: '/blog/$blogId'
@@ -818,6 +858,7 @@ const rootRouteChildren: RootRouteChildren = {
   RewardsRoute: RewardsRoute,
   AssignmentAssignmentIdRoute: AssignmentAssignmentIdRoute,
   BlogBlogIdRoute: BlogBlogIdRoute,
+  BundlesBundleIdRoute: BundlesBundleIdRoute,
   CourseForumCourseIdRoute: CourseForumCourseIdRoute,
   CourseSlugRoute: CourseSlugRoute,
   InstructorAssignmentsRoute: InstructorAssignmentsRoute,
@@ -831,6 +872,7 @@ const rootRouteChildren: RootRouteChildren = {
   SupportSupportIdRoute: SupportSupportIdRoute,
   UsersUserIdRoute: UsersUserIdRoute,
   BlogIndexRoute: BlogIndexRoute,
+  BundlesIndexRoute: BundlesIndexRoute,
   InstructorIndexRoute: InstructorIndexRoute,
   SupportIndexRoute: SupportIndexRoute,
   InstructorCourseNewRoute: InstructorCourseNewRoute,

@@ -14,6 +14,9 @@ export function Footer() {
           <Link to="/blog" className="hover:text-brand-600">
             Блог
           </Link>
+          <Link to="/bundles" className="hover:text-brand-600">
+            Наборы
+          </Link>
           <Link to="/certificate-validation" className="hover:text-brand-600">
             Проверка сертификата
           </Link>
