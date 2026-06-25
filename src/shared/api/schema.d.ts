@@ -2325,7 +2325,7 @@ export interface paths {
         };
         /**
          * List Channels
-         * @description Active payment gateways the user can pay with.
+         * @description Active payment gateways the user can pay with (+ their credential contract).
          */
         get: operations["list_channels_api_v1_payments_channels_get"];
         put?: never;
@@ -4146,6 +4146,18 @@ export interface components {
             title: string;
             /** Class Name */
             class_name: string;
+            /** Image */
+            image?: string | null;
+            /**
+             * Credential Items
+             * @default []
+             */
+            credential_items: string[];
+            /**
+             * Supported
+             * @default true
+             */
+            supported: boolean;
         };
         /** PaymentRequestInput */
         PaymentRequestInput: {
