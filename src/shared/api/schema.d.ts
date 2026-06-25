@@ -1155,6 +1155,27 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/subscribe/{plan_id}/pay": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Pay Subscription
+         * @description Create a pending order for a paid plan (legacy webPay). Settling it via
+         *     /payments activates the subscription and records a `subscribe` Sale.
+         */
+        post: operations["pay_subscription_api_v1_subscribe__plan_id__pay_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/subscribe/apply": {
         parameters: {
             query?: never;
@@ -4256,6 +4277,8 @@ export interface components {
             course_id?: number | null;
             /** Bundle Id */
             bundle_id?: number | null;
+            /** Subscribe Id */
+            subscribe_id?: number | null;
             /** Title */
             title?: string | null;
             /** Slug */
@@ -8057,6 +8080,55 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["SubscribeResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    pay_subscription_api_v1_subscribe__plan_id__pay_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                plan_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrderRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
             /** @description Not Found */

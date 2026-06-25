@@ -1,12 +1,15 @@
 import { useQuery } from '@tanstack/react-query'
+import { useNavigate } from '@tanstack/react-router'
 
 import { useSessionStore } from '#/entities/session'
 import { subscriptionsQueryOptions } from '#/entities/subscription'
 import type { SubscribePlan } from '#/entities/subscription'
-import { useActivatePlan } from '#/features/subscribe'
+import { useActivatePlan, usePayPlan } from '#/features/subscribe'
 
 function PlanCard({ plan, authed }: { plan: SubscribePlan; authed: boolean }) {
+  const navigate = useNavigate()
   const activate = useActivatePlan()
+  const pay = usePayPlan()
   const isFree = plan.price <= 0
   return (
     <div className="rounded-lg border border-brand-100 bg-white p-4">
@@ -14,17 +17,30 @@ function PlanCard({ plan, authed }: { plan: SubscribePlan; authed: boolean }) {
       <p className="mt-1 text-xs text-ink/50">
         {plan.usable_count} курс(ов) · {plan.days} дн. · {isFree ? 'Бесплатно' : `${plan.price}`}
       </p>
-      {authed && isFree && (
-        <button
-          type="button"
-          onClick={() => activate.mutate(plan.id)}
-          disabled={activate.isPending || activate.isSuccess}
-          className="mt-3 w-full rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700 disabled:opacity-50"
-        >
-          {activate.isSuccess ? 'Активирован' : activate.isPending ? '…' : 'Активировать'}
-        </button>
-      )}
+      {authed &&
+        (isFree ? (
+          <button
+            type="button"
+            onClick={() => activate.mutate(plan.id)}
+            disabled={activate.isPending || activate.isSuccess}
+            className="mt-3 w-full rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700 disabled:opacity-50"
+          >
+            {activate.isSuccess ? 'Активирован' : activate.isPending ? '…' : 'Активировать'}
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={() =>
+              pay.mutate(plan.id, { onSuccess: () => void navigate({ to: '/orders' }) })
+            }
+            disabled={pay.isPending}
+            className="mt-3 w-full rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700 disabled:opacity-50"
+          >
+            {pay.isPending ? '…' : `Купить за ${plan.price}`}
+          </button>
+        ))}
       {activate.isError && <p className="mt-2 text-sm text-red-600">{activate.error.message}</p>}
+      {pay.isError && <p className="mt-2 text-sm text-red-600">{pay.error.message}</p>}
     </div>
   )
 }

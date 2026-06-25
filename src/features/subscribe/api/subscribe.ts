@@ -21,6 +21,15 @@ export async function activatePlan(planId: number): Promise<string> {
   return data.message
 }
 
+// Create a pending order for a paid plan, then settle it via /payments.
+export async function payPlan(planId: number) {
+  const { data, error } = await api.POST('/api/v1/subscribe/{plan_id}/pay', {
+    params: { path: { plan_id: planId } },
+  })
+  if (error) throw new Error(subscribeMessage(error.detail))
+  return data
+}
+
 // Use the active subscription to unlock a course (legacy apply).
 export async function applySubscription(courseId: number): Promise<string> {
   const { data, error } = await api.POST('/api/v1/subscribe/apply', {

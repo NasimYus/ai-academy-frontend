@@ -93,6 +93,7 @@
 - ✅ 🧪 **7.2** Subscriptions: `entities/subscription` (list+active query) + `features/subscribe` (`useActivatePlan`/`useApplySubscription` + `SubscribeApplyButton`, маппинг gate-кодов) + `pages/subscriptions` (/subscriptions — планы + активация + статус) + кнопка «Открыть по подписке» на платном subscribable-курсе + ссылка «Подписки» в footer _(unit: subscribe gate-messages)_
 - ✅ 🧪 **7.3** Bundle purchase: `entities/bundle` (list/detail queries) + `features/buy-bundle` (`useBuyFreeBundle`/`useBuyBundleWithPoints`, маппинг gate-кодов) + `pages/bundles` (/bundles — грид) + `pages/bundle` (/bundles/$bundleId — курсы + покупка free/баллы) + ссылка «Наборы» в footer _(unit: buy gate-messages)_
 - ✅ **7.3.1** Paid bundle: `usePayBundle` (POST `/bundles/{id}/pay` → pending-заказ) + кнопка «Купить за {price}» на платном наборе в `pages/bundle` → переход в `/orders` для оплаты существующим `PayButton`
+- ✅ **7.2.1** Paid subscription: `usePayPlan` (POST `/subscribe/{id}/pay`) + кнопка «Купить за {price}» на платном плане в `pages/subscriptions` → переход в `/orders`
 
 ## Admin
 
