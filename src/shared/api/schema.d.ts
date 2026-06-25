@@ -1094,6 +1094,27 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/panel/sales": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * My Sales
+         * @description An instructor's sales (revenue) — paid items where they are the seller
+         *     (legacy AccountingController sales list).
+         */
+        get: operations["my_sales_api_v1_panel_sales_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/subscribe": {
         parameters: {
             query?: never;
@@ -4302,6 +4323,11 @@ export interface components {
          * @enum {string}
          */
         PaymentChannelStatus: "active" | "inactive";
+        /**
+         * PaymentMethod
+         * @enum {string}
+         */
+        PaymentMethod: "credit" | "payment_channel";
         /** PaymentRequestInput */
         PaymentRequestInput: {
             /** Order Id */
@@ -5025,6 +5051,43 @@ export interface components {
              */
             most_points_users: components["schemas"]["LeaderUser"][];
         };
+        /** SaleRead */
+        SaleRead: {
+            /** Id */
+            id: number;
+            type: components["schemas"]["SaleType"];
+            payment_method: components["schemas"]["PaymentMethod"] | null;
+            /** Buyer Id */
+            buyer_id: number;
+            /** Seller Id */
+            seller_id: number | null;
+            /** Order Id */
+            order_id: number;
+            /** Webinar Id */
+            webinar_id: number | null;
+            /** Bundle Id */
+            bundle_id: number | null;
+            /** Subscribe Id */
+            subscribe_id: number | null;
+            /** Product Id */
+            product_id: number | null;
+            /** Amount */
+            amount: number;
+            /** Discount */
+            discount: number | null;
+            /** Total Amount */
+            total_amount: number;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /**
+         * SaleType
+         * @enum {string}
+         */
+        SaleType: "webinar" | "meeting" | "subscribe" | "promotion" | "registration_package" | "product" | "bundle" | "gift" | "installment_payment";
         /**
          * SearchResults
          * @description Legacy SearchController shape (multi-entity global search).
@@ -5058,6 +5121,15 @@ export interface components {
              *     }
              */
             organizations: components["schemas"]["OrganizationsGroup"];
+        };
+        /** SellerSales */
+        SellerSales: {
+            /** Count */
+            count: number;
+            /** Total Income */
+            total_income: number;
+            /** Sales */
+            sales: components["schemas"]["SaleRead"][];
         };
         /** StoreResultRequest */
         StoreResultRequest: {
@@ -7864,6 +7936,44 @@ export interface operations {
             };
             /** @description Unprocessable Entity */
             422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    my_sales_api_v1_panel_sales_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SellerSales"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
                 headers: {
                     [name: string]: unknown;
                 };

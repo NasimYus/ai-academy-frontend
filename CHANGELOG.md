@@ -60,6 +60,7 @@
 - ✅ **4.4** Оплата: `entities/payment` (channels) + `features/pay-order` (PayButton: request→redirect) + `pages/payment-callback` (/payment/callback — verify→результат); «Оплатить» на pending-заказах
 - ✅ **4.4.1** Драйверы шлюзов (UI): `PayButton` — выбор шлюза (лого/название из `image`, default→`supported`-драйвер) когда каналов >1; типы регенерированы (`credential_items`/`image`/`supported`)
 - ✅ **4.5** Доступ после оплаты: `myCoursesQueryOptions` + `pages/my-courses` (/my-courses, грид `CourseCard`) + ссылка в Header + переход из payment-callback; инвалидация после оплаты
+- ✅ **4.5.1** Sale accounting (UI): `entities/sale` (`sellerSalesQueryOptions`) + `pages/instructor-sales` (/instructor/sales — доход + таблица продаж, гейт `requireRole('teacher','organization')`) + ссылка «Продажи» на `pages/instructor`
 - ✅ **4.6** История покупок: `purchasesQueryOptions` + `pages/purchases` (/purchases, список оплаченных курсов) + ссылка с «Мои заказы»
 
 ## Сквозные (foundation)
