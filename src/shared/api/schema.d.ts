@@ -1313,6 +1313,46 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/registration-packages": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Packages
+         * @description Packages for the instructor's role + their active package (legacy index).
+         */
+        get: operations["list_packages_api_v1_registration_packages_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/registration-packages/{package_id}/activate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Activate Package
+         * @description Activate a free package (paid checkout via the order flow is deferred).
+         */
+        post: operations["activate_package_api_v1_registration_packages__package_id__activate_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/panel/classes": {
         parameters: {
             query?: never;
@@ -2777,6 +2817,30 @@ export interface components {
             /** Status */
             status: string;
             certificate?: components["schemas"]["CertificateBrief"] | null;
+        };
+        /** ActivePackage */
+        ActivePackage: {
+            /** Package Id */
+            package_id: number;
+            /** Title */
+            title: string;
+            /**
+             * Activation Date
+             * Format: date-time
+             */
+            activation_date: string;
+            /** Days Remained */
+            days_remained?: number | null;
+            /** Instructors Count */
+            instructors_count?: number | null;
+            /** Students Count */
+            students_count?: number | null;
+            /** Courses Capacity */
+            courses_capacity?: number | null;
+            /** Courses Count */
+            courses_count?: number | null;
+            /** Meeting Count */
+            meeting_count?: number | null;
         };
         /** ActiveSubscription */
         ActiveSubscription: {
@@ -4624,6 +4688,27 @@ export interface components {
              */
             count: number;
         };
+        /** PackageList */
+        PackageList: {
+            /** Packages */
+            packages: components["schemas"]["RegistrationPackageRead"][];
+            active_package?: components["schemas"]["ActivePackage"] | null;
+        };
+        /** PackageResponse */
+        PackageResponse: {
+            /** Message */
+            message: string;
+        };
+        /**
+         * PackageRole
+         * @enum {string}
+         */
+        PackageRole: "instructors" | "organizations";
+        /**
+         * PackageStatus
+         * @enum {string}
+         */
+        PackageStatus: "disabled" | "active";
         /** PasswordUpdate */
         PasswordUpdate: {
             /** Current Password */
@@ -5288,6 +5373,38 @@ export interface components {
             full_name: string;
             /** Referral Code */
             referral_code?: string | null;
+        };
+        /** RegistrationPackageRead */
+        RegistrationPackageRead: {
+            /** Id */
+            id: number;
+            role: components["schemas"]["PackageRole"];
+            /** Title */
+            title: string;
+            /** Description */
+            description?: string | null;
+            /** Icon */
+            icon?: string | null;
+            /** Days */
+            days?: number | null;
+            /** Price */
+            price: number;
+            /** Instructors Count */
+            instructors_count?: number | null;
+            /** Students Count */
+            students_count?: number | null;
+            /** Courses Capacity */
+            courses_capacity?: number | null;
+            /** Courses Count */
+            courses_count?: number | null;
+            /** Meeting Count */
+            meeting_count?: number | null;
+            status: components["schemas"]["PackageStatus"];
+            /**
+             * Is Active
+             * @default false
+             */
+            is_active: boolean;
         };
         /** ReserveBucket */
         ReserveBucket: {
@@ -8712,6 +8829,66 @@ export interface operations {
             };
             /** @description Unauthorized */
             401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    list_packages_api_v1_registration_packages_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PackageList"];
+                };
+            };
+        };
+    };
+    activate_package_api_v1_registration_packages__package_id__activate_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                package_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PackageResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
                 headers: {
                     [name: string]: unknown;
                 };

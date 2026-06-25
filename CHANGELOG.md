@@ -94,6 +94,7 @@
 - ✅ 🧪 **7.2** Subscriptions: `entities/subscription` (list+active query) + `features/subscribe` (`useActivatePlan`/`useApplySubscription` + `SubscribeApplyButton`, маппинг gate-кодов) + `pages/subscriptions` (/subscriptions — планы + активация + статус) + кнопка «Открыть по подписке» на платном subscribable-курсе + ссылка «Подписки» в footer _(unit: subscribe gate-messages)_
 - ✅ 🧪 **7.3** Bundle purchase: `entities/bundle` (list/detail queries) + `features/buy-bundle` (`useBuyFreeBundle`/`useBuyBundleWithPoints`, маппинг gate-кодов) + `pages/bundles` (/bundles — грид) + `pages/bundle` (/bundles/$bundleId — курсы + покупка free/баллы) + ссылка «Наборы» в footer _(unit: buy gate-messages)_
 - ✅ **7.3.1** Paid bundle: `usePayBundle` (POST `/bundles/{id}/pay` → pending-заказ) + кнопка «Купить за {price}» на платном наборе в `pages/bundle` → переход в `/orders` для оплаты существующим `PayButton`
+- ✅ 🧪 **registration-packages**: `entities/registration-package` + `features/activate-package` (`useActivatePackage`, маппинг gate-кодов) + `pages/registration-packages` (/instructor/packages — пакеты по роли, активный пакет, активация free) + ссылка «Пакеты» на `pages/instructor` _(unit: activate gate-messages)_
 - ✅ **7.2.1** Paid subscription: `usePayPlan` (POST `/subscribe/{id}/pay`) + кнопка «Купить за {price}» на платном плане в `pages/subscriptions` → переход в `/orders`
 - ✅ **7.1.1** Paid meeting: `usePayReservation` (POST `/meetings/reserve/{id}/pay`) + кнопка «Оплатить {amount}» на pending-броне в `pages/my-meetings` → переход в `/orders`
 

@@ -41,6 +41,7 @@ import { Route as PaymentCallbackRouteImport } from './routes/payment.callback'
 import { Route as LearnSlugRouteImport } from './routes/learn.$slug'
 import { Route as InstructorSalesRouteImport } from './routes/instructor.sales'
 import { Route as InstructorQuizzesRouteImport } from './routes/instructor.quizzes'
+import { Route as InstructorPackagesRouteImport } from './routes/instructor.packages'
 import { Route as InstructorMeetingsRouteImport } from './routes/instructor.meetings'
 import { Route as InstructorCommentsRouteImport } from './routes/instructor.comments'
 import { Route as InstructorBundlesRouteImport } from './routes/instructor.bundles'
@@ -217,6 +218,11 @@ const InstructorQuizzesRoute = InstructorQuizzesRouteImport.update({
   path: '/instructor/quizzes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InstructorPackagesRoute = InstructorPackagesRouteImport.update({
+  id: '/instructor/packages',
+  path: '/instructor/packages',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InstructorMeetingsRoute = InstructorMeetingsRouteImport.update({
   id: '/instructor/meetings',
   path: '/instructor/meetings',
@@ -327,6 +333,7 @@ export interface FileRoutesByFullPath {
   '/instructor/bundles': typeof InstructorBundlesRoute
   '/instructor/comments': typeof InstructorCommentsRoute
   '/instructor/meetings': typeof InstructorMeetingsRoute
+  '/instructor/packages': typeof InstructorPackagesRoute
   '/instructor/quizzes': typeof InstructorQuizzesRoute
   '/instructor/sales': typeof InstructorSalesRoute
   '/learn/$slug': typeof LearnSlugRoute
@@ -376,6 +383,7 @@ export interface FileRoutesByTo {
   '/instructor/bundles': typeof InstructorBundlesRoute
   '/instructor/comments': typeof InstructorCommentsRoute
   '/instructor/meetings': typeof InstructorMeetingsRoute
+  '/instructor/packages': typeof InstructorPackagesRoute
   '/instructor/quizzes': typeof InstructorQuizzesRoute
   '/instructor/sales': typeof InstructorSalesRoute
   '/learn/$slug': typeof LearnSlugRoute
@@ -426,6 +434,7 @@ export interface FileRoutesById {
   '/instructor/bundles': typeof InstructorBundlesRoute
   '/instructor/comments': typeof InstructorCommentsRoute
   '/instructor/meetings': typeof InstructorMeetingsRoute
+  '/instructor/packages': typeof InstructorPackagesRoute
   '/instructor/quizzes': typeof InstructorQuizzesRoute
   '/instructor/sales': typeof InstructorSalesRoute
   '/learn/$slug': typeof LearnSlugRoute
@@ -477,6 +486,7 @@ export interface FileRouteTypes {
     | '/instructor/bundles'
     | '/instructor/comments'
     | '/instructor/meetings'
+    | '/instructor/packages'
     | '/instructor/quizzes'
     | '/instructor/sales'
     | '/learn/$slug'
@@ -526,6 +536,7 @@ export interface FileRouteTypes {
     | '/instructor/bundles'
     | '/instructor/comments'
     | '/instructor/meetings'
+    | '/instructor/packages'
     | '/instructor/quizzes'
     | '/instructor/sales'
     | '/learn/$slug'
@@ -575,6 +586,7 @@ export interface FileRouteTypes {
     | '/instructor/bundles'
     | '/instructor/comments'
     | '/instructor/meetings'
+    | '/instructor/packages'
     | '/instructor/quizzes'
     | '/instructor/sales'
     | '/learn/$slug'
@@ -625,6 +637,7 @@ export interface RootRouteChildren {
   InstructorBundlesRoute: typeof InstructorBundlesRoute
   InstructorCommentsRoute: typeof InstructorCommentsRoute
   InstructorMeetingsRoute: typeof InstructorMeetingsRoute
+  InstructorPackagesRoute: typeof InstructorPackagesRoute
   InstructorQuizzesRoute: typeof InstructorQuizzesRoute
   InstructorSalesRoute: typeof InstructorSalesRoute
   LearnSlugRoute: typeof LearnSlugRoute
@@ -869,6 +882,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InstructorQuizzesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/instructor/packages': {
+      id: '/instructor/packages'
+      path: '/instructor/packages'
+      fullPath: '/instructor/packages'
+      preLoaderRoute: typeof InstructorPackagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/instructor/meetings': {
       id: '/instructor/meetings'
       path: '/instructor/meetings'
@@ -1009,6 +1029,7 @@ const rootRouteChildren: RootRouteChildren = {
   InstructorBundlesRoute: InstructorBundlesRoute,
   InstructorCommentsRoute: InstructorCommentsRoute,
   InstructorMeetingsRoute: InstructorMeetingsRoute,
+  InstructorPackagesRoute: InstructorPackagesRoute,
   InstructorQuizzesRoute: InstructorQuizzesRoute,
   InstructorSalesRoute: InstructorSalesRoute,
   LearnSlugRoute: LearnSlugRoute,
