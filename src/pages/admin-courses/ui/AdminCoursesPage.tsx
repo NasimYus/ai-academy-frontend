@@ -33,9 +33,14 @@ export function AdminCoursesPage() {
     <div className="mx-auto max-w-3xl space-y-5 px-6 py-8">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-ink">Модерация курсов</h1>
-        <Link to="/admin/payment-channels" className="text-sm text-brand-600 hover:underline">
-          Шлюзы →
-        </Link>
+        <span className="flex gap-3 text-sm">
+          <Link to="/admin/users" className="text-brand-600 hover:underline">
+            Пользователи →
+          </Link>
+          <Link to="/admin/payment-channels" className="text-brand-600 hover:underline">
+            Шлюзы →
+          </Link>
+        </span>
       </div>
 
       {isPending ? (
