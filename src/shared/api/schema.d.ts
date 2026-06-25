@@ -1270,6 +1270,49 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/products/{product_id}/pay": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Pay Product
+         * @description Buy a product: create a pending ProductOrder + order (legacy store checkout).
+         *
+         *     Settling it via /payments records a `product` Sale and advances the
+         *     ProductOrder (virtual → success, physical → waiting_delivery).
+         */
+        post: operations["pay_product_api_v1_products__product_id__pay_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/product-orders": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * My Product Orders
+         * @description The buyer's store orders + their delivery status.
+         */
+        get: operations["my_product_orders_api_v1_panel_product_orders_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/panel/classes": {
         parameters: {
             query?: never;
@@ -4304,6 +4347,8 @@ export interface components {
             subscribe_id?: number | null;
             /** Reserve Meeting Id */
             reserve_meeting_id?: number | null;
+            /** Product Id */
+            product_id?: number | null;
             /** Title */
             title?: string | null;
             /** Slug */
@@ -4506,6 +4551,40 @@ export interface components {
             /** Description */
             description?: string | null;
         };
+        /** ProductOrderCreate */
+        ProductOrderCreate: {
+            /**
+             * Quantity
+             * @default 1
+             */
+            quantity: number;
+            /** Message To Seller */
+            message_to_seller?: string | null;
+        };
+        /** ProductOrderRead */
+        ProductOrderRead: {
+            /** Id */
+            id: number;
+            /** Product Id */
+            product_id: number;
+            /** Title */
+            title: string | null;
+            /** Quantity */
+            quantity: number;
+            status: components["schemas"]["ProductOrderStatus"];
+            /** Tracking Code */
+            tracking_code: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /**
+         * ProductOrderStatus
+         * @enum {string}
+         */
+        ProductOrderStatus: "pending" | "waiting_delivery" | "shipped" | "success" | "canceled";
         /** ProductRead */
         ProductRead: {
             /** Id */
@@ -8325,6 +8404,88 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ProductRead"][];
+                };
+            };
+        };
+    };
+    pay_product_api_v1_products__product_id__pay_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                product_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ProductOrderCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrderRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    my_product_orders_api_v1_panel_product_orders_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductOrderRead"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };
