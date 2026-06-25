@@ -79,6 +79,7 @@ export function CourseForm({ course }: { course?: CourseDetail }) {
       private: f.private,
       support: f.support,
       downloadable: f.downloadable,
+      partner_instructor: false,
       subscribe: f.subscribe,
       rules: f.rules,
       draft: f.draft,

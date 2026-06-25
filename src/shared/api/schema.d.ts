@@ -1169,6 +1169,70 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/panel/quizzes/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Quiz Results
+         * @description Instructor results dashboard (legacy QuizzesController@results).
+         */
+        get: operations["quiz_results_api_v1_panel_quizzes_list_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/quizzes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Create Quiz
+         * @description Create a quiz shell (legacy QuizzesController@store).
+         */
+        post: operations["create_quiz_api_v1_panel_quizzes_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/quizzes/{quiz_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Update Quiz
+         * @description Update a quiz shell (legacy QuizzesController@update; scoped to the creator).
+         */
+        put: operations["update_quiz_api_v1_panel_quizzes__quiz_id__put"];
+        post?: never;
+        /**
+         * Delete Quiz
+         * @description Delete a quiz (legacy QuizzesController@destroy, creator-scoped).
+         */
+        delete: operations["delete_quiz_api_v1_panel_quizzes__quiz_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/support/class_support": {
         parameters: {
             query?: never;
@@ -3534,6 +3598,31 @@ export interface components {
              */
             answers: components["schemas"]["AnswerRead"][];
         };
+        /** QuizCreate */
+        QuizCreate: {
+            /** Title */
+            title: string;
+            /** Course Id */
+            course_id: number;
+            /** Chapter Id */
+            chapter_id?: number | null;
+            /** Pass Mark */
+            pass_mark: number;
+            /** Attempt */
+            attempt?: number | null;
+            /** Time */
+            time?: number | null;
+            /**
+             * Active
+             * @default false
+             */
+            active: boolean;
+            /**
+             * Certificate
+             * @default false
+             */
+            certificate: boolean;
+        };
         /** QuizDetail */
         QuizDetail: {
             /** Id */
@@ -3570,6 +3659,31 @@ export interface components {
              */
             questions: components["schemas"]["QuestionRead"][];
         };
+        /** QuizManageRead */
+        QuizManageRead: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Course Id */
+            course_id: number;
+            /** Chapter Id */
+            chapter_id: number | null;
+            /** Pass Mark */
+            pass_mark: number;
+            /** Attempt */
+            attempt: number | null;
+            /** Time */
+            time: number;
+            status: components["schemas"]["QuizStatus"];
+            /** Certificate */
+            certificate: boolean;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
         /** QuizResultRead */
         QuizResultRead: {
             /** Id */
@@ -3595,6 +3709,42 @@ export interface components {
                 [key: string]: unknown;
             } | null;
         };
+        /** QuizResultRow */
+        QuizResultRow: {
+            /** Id */
+            id: number;
+            user: components["schemas"]["UserBrief"] | null;
+            /** Quiz Id */
+            quiz_id: number;
+            /** Quiz Title */
+            quiz_title: string;
+            /** User Grade */
+            user_grade: number | null;
+            /** Status */
+            status: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** QuizResultsOverview */
+        QuizResultsOverview: {
+            /** Quiz Results Count */
+            quiz_results_count: number;
+            /** Passed Count */
+            passed_count: number;
+            /** Waiting Count */
+            waiting_count: number;
+            /** Success Rate */
+            success_rate: number;
+            /** Avg Grade */
+            avg_grade: number;
+            /** Quizzes */
+            quizzes: components["schemas"]["QuizManageRead"][];
+            /** Results */
+            results: components["schemas"]["QuizResultRow"][];
+        };
         /** QuizStartResult */
         QuizStartResult: {
             /** Quiz Result Id */
@@ -3602,6 +3752,36 @@ export interface components {
             /** Attempt Number */
             attempt_number: number;
             quiz: components["schemas"]["QuizDetail"];
+        };
+        /**
+         * QuizStatus
+         * @enum {string}
+         */
+        QuizStatus: "active" | "inactive";
+        /** QuizUpdate */
+        QuizUpdate: {
+            /** Title */
+            title: string;
+            /** Course Id */
+            course_id: number;
+            /** Chapter Id */
+            chapter_id?: number | null;
+            /** Pass Mark */
+            pass_mark: number;
+            /** Attempt */
+            attempt?: number | null;
+            /** Time */
+            time?: number | null;
+            /**
+             * Active
+             * @default false
+             */
+            active: boolean;
+            /**
+             * Certificate
+             * @default false
+             */
+            certificate: boolean;
         };
         /** RedeemResponse */
         RedeemResponse: {
@@ -6695,6 +6875,213 @@ export interface operations {
             };
             /** @description Forbidden */
             403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    quiz_results_api_v1_panel_quizzes_list_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuizResultsOverview"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    create_quiz_api_v1_panel_quizzes_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["QuizCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuizManageRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_quiz_api_v1_panel_quizzes__quiz_id__put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                quiz_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["QuizUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuizManageRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_quiz_api_v1_panel_quizzes__quiz_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                quiz_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
                 headers: {
                     [name: string]: unknown;
                 };

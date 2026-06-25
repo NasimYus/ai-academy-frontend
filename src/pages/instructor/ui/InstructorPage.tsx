@@ -11,12 +11,17 @@ export function InstructorPage() {
     <div className="mx-auto max-w-3xl px-6 py-8">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-ink">Мои курсы</h1>
-        <Link
-          to="/instructor/course/new"
-          className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700"
-        >
-          Создать курс
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link to="/instructor/quizzes" className="text-sm text-brand-600 hover:underline">
+            Тесты
+          </Link>
+          <Link
+            to="/instructor/course/new"
+            className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700"
+          >
+            Создать курс
+          </Link>
+        </div>
       </div>
 
       {classes.isPending && <p className="text-ink/60">Загрузка…</p>}

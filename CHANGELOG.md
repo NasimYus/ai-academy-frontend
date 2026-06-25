@@ -78,6 +78,7 @@
 ## Phase 6 — Инструктор
 
 - ✅ 🧪 **6.1** Course CRUD: `features/manage-course` (`CourseForm` + `useCreateCourse`/`useUpdateCourse`/`useDeleteCourse`, classes/edit queries) + `pages/instructor` (список «Мои курсы» + create/edit/delete) + routes `/instructor`, `/instructor/course/new`, `/instructor/course/$courseId/edit` (guarded) + ссылка «Преподавание» в Header _(unit: manage gate-messages)_
+- ✅ **6.2** Quizzes CRUD: `features/manage-quiz` (`QuizForm` + `useCreateQuiz`/`useUpdateQuiz`/`useDeleteQuiz`, results-dashboard query) + `pages/instructor-quizzes` (/instructor/quizzes — список тестов с inline create/edit/delete + сводка результатов студентов) + ссылка «Тесты» на `pages/instructor`
 
 ## Backlog (после MVP)
 

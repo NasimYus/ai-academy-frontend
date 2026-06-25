@@ -34,6 +34,7 @@ import { Route as SupportSupportIdRouteImport } from './routes/support.$supportI
 import { Route as QuizQuizIdRouteImport } from './routes/quiz.$quizId'
 import { Route as PaymentCallbackRouteImport } from './routes/payment.callback'
 import { Route as LearnSlugRouteImport } from './routes/learn.$slug'
+import { Route as InstructorQuizzesRouteImport } from './routes/instructor.quizzes'
 import { Route as CourseSlugRouteImport } from './routes/course.$slug'
 import { Route as CourseForumCourseIdRouteImport } from './routes/course-forum.$courseId'
 import { Route as BlogBlogIdRouteImport } from './routes/blog.$blogId'
@@ -166,6 +167,11 @@ const LearnSlugRoute = LearnSlugRouteImport.update({
   path: '/learn/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InstructorQuizzesRoute = InstructorQuizzesRouteImport.update({
+  id: '/instructor/quizzes',
+  path: '/instructor/quizzes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CourseSlugRoute = CourseSlugRouteImport.update({
   id: '/course/$slug',
   path: '/course/$slug',
@@ -220,6 +226,7 @@ export interface FileRoutesByFullPath {
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
+  '/instructor/quizzes': typeof InstructorQuizzesRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/payment/callback': typeof PaymentCallbackRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
@@ -253,6 +260,7 @@ export interface FileRoutesByTo {
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
+  '/instructor/quizzes': typeof InstructorQuizzesRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/payment/callback': typeof PaymentCallbackRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
@@ -287,6 +295,7 @@ export interface FileRoutesById {
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
+  '/instructor/quizzes': typeof InstructorQuizzesRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/payment/callback': typeof PaymentCallbackRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
@@ -322,6 +331,7 @@ export interface FileRouteTypes {
     | '/blog/$blogId'
     | '/course-forum/$courseId'
     | '/course/$slug'
+    | '/instructor/quizzes'
     | '/learn/$slug'
     | '/payment/callback'
     | '/quiz/$quizId'
@@ -355,6 +365,7 @@ export interface FileRouteTypes {
     | '/blog/$blogId'
     | '/course-forum/$courseId'
     | '/course/$slug'
+    | '/instructor/quizzes'
     | '/learn/$slug'
     | '/payment/callback'
     | '/quiz/$quizId'
@@ -388,6 +399,7 @@ export interface FileRouteTypes {
     | '/blog/$blogId'
     | '/course-forum/$courseId'
     | '/course/$slug'
+    | '/instructor/quizzes'
     | '/learn/$slug'
     | '/payment/callback'
     | '/quiz/$quizId'
@@ -422,6 +434,7 @@ export interface RootRouteChildren {
   BlogBlogIdRoute: typeof BlogBlogIdRoute
   CourseForumCourseIdRoute: typeof CourseForumCourseIdRoute
   CourseSlugRoute: typeof CourseSlugRoute
+  InstructorQuizzesRoute: typeof InstructorQuizzesRoute
   LearnSlugRoute: typeof LearnSlugRoute
   PaymentCallbackRoute: typeof PaymentCallbackRoute
   QuizQuizIdRoute: typeof QuizQuizIdRoute
@@ -611,6 +624,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearnSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/instructor/quizzes': {
+      id: '/instructor/quizzes'
+      path: '/instructor/quizzes'
+      fullPath: '/instructor/quizzes'
+      preLoaderRoute: typeof InstructorQuizzesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/course/$slug': {
       id: '/course/$slug'
       path: '/course/$slug'
@@ -678,6 +698,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogBlogIdRoute: BlogBlogIdRoute,
   CourseForumCourseIdRoute: CourseForumCourseIdRoute,
   CourseSlugRoute: CourseSlugRoute,
+  InstructorQuizzesRoute: InstructorQuizzesRoute,
   LearnSlugRoute: LearnSlugRoute,
   PaymentCallbackRoute: PaymentCallbackRoute,
   QuizQuizIdRoute: QuizQuizIdRoute,
