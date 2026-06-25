@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { CourseCard } from '#/entities/course'
 import { publicProfileQueryOptions } from '#/entities/instructor'
 import { FollowButton } from '#/features/follow-user'
+import { ReserveMeetingPanel } from '#/features/reserve-meeting'
 
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
 
@@ -42,6 +43,9 @@ export function UserProfilePage({ userId }: { userId: number }) {
       </header>
 
       {user.about && <p className="mb-8 whitespace-pre-line text-ink/80">{user.about}</p>}
+
+      <ReserveMeetingPanel instructorId={user.id} />
+
 
       <h2 className="mb-4 font-display text-lg font-bold text-ink">
         Курсы ({user.courses_count})

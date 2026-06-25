@@ -59,6 +59,9 @@ export function Header() {
               <Link to="/orders" className="hidden text-ink/60 hover:text-brand-600 sm:inline">
                 Заказы
               </Link>
+              <Link to="/meetings" className="hidden text-ink/60 hover:text-brand-600 sm:inline">
+                Встречи
+              </Link>
               <Link to="/support" className="hidden text-ink/60 hover:text-brand-600 sm:inline">
                 Поддержка
               </Link>

@@ -17,6 +17,7 @@ import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as OrdersRouteImport } from './routes/orders'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as MyCoursesRouteImport } from './routes/my-courses'
+import { Route as MeetingsRouteImport } from './routes/meetings'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as InstructorsRouteImport } from './routes/instructors'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
@@ -35,6 +36,7 @@ import { Route as QuizQuizIdRouteImport } from './routes/quiz.$quizId'
 import { Route as PaymentCallbackRouteImport } from './routes/payment.callback'
 import { Route as LearnSlugRouteImport } from './routes/learn.$slug'
 import { Route as InstructorQuizzesRouteImport } from './routes/instructor.quizzes'
+import { Route as InstructorMeetingsRouteImport } from './routes/instructor.meetings'
 import { Route as InstructorCommentsRouteImport } from './routes/instructor.comments'
 import { Route as InstructorBundlesRouteImport } from './routes/instructor.bundles'
 import { Route as InstructorAssignmentsRouteImport } from './routes/instructor.assignments'
@@ -83,6 +85,11 @@ const NotificationsRoute = NotificationsRouteImport.update({
 const MyCoursesRoute = MyCoursesRouteImport.update({
   id: '/my-courses',
   path: '/my-courses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MeetingsRoute = MeetingsRouteImport.update({
+  id: '/meetings',
+  path: '/meetings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -175,6 +182,11 @@ const InstructorQuizzesRoute = InstructorQuizzesRouteImport.update({
   path: '/instructor/quizzes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InstructorMeetingsRoute = InstructorMeetingsRouteImport.update({
+  id: '/instructor/meetings',
+  path: '/instructor/meetings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InstructorCommentsRoute = InstructorCommentsRouteImport.update({
   id: '/instructor/comments',
   path: '/instructor/comments',
@@ -232,6 +244,7 @@ export interface FileRoutesByFullPath {
   '/forgot-password': typeof ForgotPasswordRoute
   '/instructors': typeof InstructorsRoute
   '/login': typeof LoginRoute
+  '/meetings': typeof MeetingsRoute
   '/my-courses': typeof MyCoursesRoute
   '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
@@ -247,6 +260,7 @@ export interface FileRoutesByFullPath {
   '/instructor/assignments': typeof InstructorAssignmentsRoute
   '/instructor/bundles': typeof InstructorBundlesRoute
   '/instructor/comments': typeof InstructorCommentsRoute
+  '/instructor/meetings': typeof InstructorMeetingsRoute
   '/instructor/quizzes': typeof InstructorQuizzesRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/payment/callback': typeof PaymentCallbackRoute
@@ -269,6 +283,7 @@ export interface FileRoutesByTo {
   '/forgot-password': typeof ForgotPasswordRoute
   '/instructors': typeof InstructorsRoute
   '/login': typeof LoginRoute
+  '/meetings': typeof MeetingsRoute
   '/my-courses': typeof MyCoursesRoute
   '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
@@ -284,6 +299,7 @@ export interface FileRoutesByTo {
   '/instructor/assignments': typeof InstructorAssignmentsRoute
   '/instructor/bundles': typeof InstructorBundlesRoute
   '/instructor/comments': typeof InstructorCommentsRoute
+  '/instructor/meetings': typeof InstructorMeetingsRoute
   '/instructor/quizzes': typeof InstructorQuizzesRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/payment/callback': typeof PaymentCallbackRoute
@@ -307,6 +323,7 @@ export interface FileRoutesById {
   '/forgot-password': typeof ForgotPasswordRoute
   '/instructors': typeof InstructorsRoute
   '/login': typeof LoginRoute
+  '/meetings': typeof MeetingsRoute
   '/my-courses': typeof MyCoursesRoute
   '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
@@ -322,6 +339,7 @@ export interface FileRoutesById {
   '/instructor/assignments': typeof InstructorAssignmentsRoute
   '/instructor/bundles': typeof InstructorBundlesRoute
   '/instructor/comments': typeof InstructorCommentsRoute
+  '/instructor/meetings': typeof InstructorMeetingsRoute
   '/instructor/quizzes': typeof InstructorQuizzesRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/payment/callback': typeof PaymentCallbackRoute
@@ -346,6 +364,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/instructors'
     | '/login'
+    | '/meetings'
     | '/my-courses'
     | '/notifications'
     | '/orders'
@@ -361,6 +380,7 @@ export interface FileRouteTypes {
     | '/instructor/assignments'
     | '/instructor/bundles'
     | '/instructor/comments'
+    | '/instructor/meetings'
     | '/instructor/quizzes'
     | '/learn/$slug'
     | '/payment/callback'
@@ -383,6 +403,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/instructors'
     | '/login'
+    | '/meetings'
     | '/my-courses'
     | '/notifications'
     | '/orders'
@@ -398,6 +419,7 @@ export interface FileRouteTypes {
     | '/instructor/assignments'
     | '/instructor/bundles'
     | '/instructor/comments'
+    | '/instructor/meetings'
     | '/instructor/quizzes'
     | '/learn/$slug'
     | '/payment/callback'
@@ -420,6 +442,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/instructors'
     | '/login'
+    | '/meetings'
     | '/my-courses'
     | '/notifications'
     | '/orders'
@@ -435,6 +458,7 @@ export interface FileRouteTypes {
     | '/instructor/assignments'
     | '/instructor/bundles'
     | '/instructor/comments'
+    | '/instructor/meetings'
     | '/instructor/quizzes'
     | '/learn/$slug'
     | '/payment/callback'
@@ -458,6 +482,7 @@ export interface RootRouteChildren {
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   InstructorsRoute: typeof InstructorsRoute
   LoginRoute: typeof LoginRoute
+  MeetingsRoute: typeof MeetingsRoute
   MyCoursesRoute: typeof MyCoursesRoute
   NotificationsRoute: typeof NotificationsRoute
   OrdersRoute: typeof OrdersRoute
@@ -473,6 +498,7 @@ export interface RootRouteChildren {
   InstructorAssignmentsRoute: typeof InstructorAssignmentsRoute
   InstructorBundlesRoute: typeof InstructorBundlesRoute
   InstructorCommentsRoute: typeof InstructorCommentsRoute
+  InstructorMeetingsRoute: typeof InstructorMeetingsRoute
   InstructorQuizzesRoute: typeof InstructorQuizzesRoute
   LearnSlugRoute: typeof LearnSlugRoute
   PaymentCallbackRoute: typeof PaymentCallbackRoute
@@ -542,6 +568,13 @@ declare module '@tanstack/react-router' {
       path: '/my-courses'
       fullPath: '/my-courses'
       preLoaderRoute: typeof MyCoursesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/meetings': {
+      id: '/meetings'
+      path: '/meetings'
+      fullPath: '/meetings'
+      preLoaderRoute: typeof MeetingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -670,6 +703,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InstructorQuizzesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/instructor/meetings': {
+      id: '/instructor/meetings'
+      path: '/instructor/meetings'
+      fullPath: '/instructor/meetings'
+      preLoaderRoute: typeof InstructorMeetingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/instructor/comments': {
       id: '/instructor/comments'
       path: '/instructor/comments'
@@ -746,6 +786,7 @@ const rootRouteChildren: RootRouteChildren = {
   ForgotPasswordRoute: ForgotPasswordRoute,
   InstructorsRoute: InstructorsRoute,
   LoginRoute: LoginRoute,
+  MeetingsRoute: MeetingsRoute,
   MyCoursesRoute: MyCoursesRoute,
   NotificationsRoute: NotificationsRoute,
   OrdersRoute: OrdersRoute,
@@ -761,6 +802,7 @@ const rootRouteChildren: RootRouteChildren = {
   InstructorAssignmentsRoute: InstructorAssignmentsRoute,
   InstructorBundlesRoute: InstructorBundlesRoute,
   InstructorCommentsRoute: InstructorCommentsRoute,
+  InstructorMeetingsRoute: InstructorMeetingsRoute,
   InstructorQuizzesRoute: InstructorQuizzesRoute,
   LearnSlugRoute: LearnSlugRoute,
   PaymentCallbackRoute: PaymentCallbackRoute,

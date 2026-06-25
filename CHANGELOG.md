@@ -83,6 +83,10 @@
 - ✅ **6.4** Instructor comments: `features/class-comments` (`classCommentsQueryOptions` + `CommentReply` inline-форма) + `pages/instructor-comments` (/instructor/comments — комментарии к курсам деревом + ответы) + ссылка «Комментарии» на `pages/instructor`
 - ✅ **6.5** Bundles: `features/manage-bundle` (`bundlesQueryOptions` + `useDeleteBundle`) + `pages/instructor-bundles` (/instructor/bundles — список наборов + счётчики + удаление) + ссылка «Наборы» на `pages/instructor`
 
+## Phase 7 — Live & advanced
+
+- ✅ **7.1** Консультации: `entities/meeting` (config/instructor/index queries) + `features/manage-meeting` (`MeetingConfigForm`: цена/слоты + finish) + `features/reserve-meeting` (`ReserveMeetingPanel` на публичном профиле) + `pages/instructor-meetings` (/instructor/meetings — настройки + заявки) + `pages/my-meetings` (/meetings — мои записи) + ссылки «Консультации»/«Встречи»
+
 ## Backlog (после MVP)
 
 - ⬜ **Phase 5** (далее) newsletter, rewards

@@ -1378,6 +1378,162 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/panel/meeting": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * My Meeting
+         * @description The instructor's consultation config + slots (created on first access).
+         */
+        get: operations["my_meeting_api_v1_panel_meeting_get"];
+        /**
+         * Update My Meeting
+         * @description Set price/discount and enable/disable consultations.
+         */
+        put: operations["update_my_meeting_api_v1_panel_meeting_put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/meeting/times": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Add Meeting Time */
+        post: operations["add_meeting_time_api_v1_panel_meeting_times_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/meeting/times/{time_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Delete Meeting Time */
+        delete: operations["delete_meeting_time_api_v1_panel_meeting_times__time_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/{instructor_id}/meeting": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Instructor Meeting
+         * @description An instructor's enabled consultation config (null if none/disabled).
+         */
+        get: operations["instructor_meeting_api_v1_users__instructor_id__meeting_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/meetings/reserve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Reserve Meeting
+         * @description Reserve an instructor's slot. NOTE(Phase 7): paid checkout/Agora gated —
+         *     reservation is created directly (free path).
+         */
+        post: operations["reserve_meeting_api_v1_meetings_reserve_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/meetings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Meetings Index
+         * @description My reservations + requests on my meetings (legacy ReserveMeetingsController@index).
+         */
+        get: operations["meetings_index_api_v1_panel_meetings_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/meetings/{reserve_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Show Reservation */
+        get: operations["show_reservation_api_v1_panel_meetings__reserve_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/meetings/{reserve_id}/finish": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Finish Reservation
+         * @description Mark a reservation finished (legacy @finish; either participant).
+         */
+        post: operations["finish_reservation_api_v1_panel_meetings__reserve_id__finish_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/support/class_support": {
         parameters: {
             query?: never;
@@ -3152,6 +3308,11 @@ export interface components {
             /** Exchange Rate */
             exchange_rate: number;
         };
+        /**
+         * DayLabel
+         * @enum {string}
+         */
+        DayLabel: "saturday" | "sunday" | "monday" | "tuesday" | "wednesday" | "thursday" | "friday";
         /** DiscountBrief */
         DiscountBrief: {
             /** Id */
@@ -3400,6 +3561,45 @@ export interface components {
              * @default logout
              */
             status: string;
+        };
+        /** MeetingConfig */
+        MeetingConfig: {
+            /** Id */
+            id: number;
+            /** Amount */
+            amount: number | null;
+            /** Discount */
+            discount: number | null;
+            /** Disabled */
+            disabled: boolean;
+            /** Times */
+            times: components["schemas"]["MeetingTimeRead"][];
+        };
+        /** MeetingConfigInput */
+        MeetingConfigInput: {
+            /** Amount */
+            amount?: number | null;
+            /** Discount */
+            discount?: number | null;
+            /**
+             * Disabled
+             * @default false
+             */
+            disabled: boolean;
+        };
+        /** MeetingTimeInput */
+        MeetingTimeInput: {
+            day_label: components["schemas"]["DayLabel"];
+            /** Time */
+            time: string;
+        };
+        /** MeetingTimeRead */
+        MeetingTimeRead: {
+            /** Id */
+            id: number;
+            day_label: components["schemas"]["DayLabel"];
+            /** Time */
+            time: string;
         };
         /**
          * MeetingType
@@ -4072,6 +4272,66 @@ export interface components {
             /** Referral Code */
             referral_code?: string | null;
         };
+        /** ReserveBucket */
+        ReserveBucket: {
+            /** Count */
+            count: number;
+            /** Meetings */
+            meetings: components["schemas"]["ReserveMeetingRead"][];
+        };
+        /** ReserveCreate */
+        ReserveCreate: {
+            /** Meeting Time Id */
+            meeting_time_id: number;
+            /** Date */
+            date?: string | null;
+            /** Description */
+            description?: string | null;
+            /** Student Count */
+            student_count?: number | null;
+            /** @default online */
+            meeting_type: components["schemas"]["ReserveMeetingType"];
+        };
+        /** ReserveIndex */
+        ReserveIndex: {
+            reservations: components["schemas"]["ReserveBucket"];
+            requests: components["schemas"]["ReserveBucket"];
+        };
+        /** ReserveMeetingRead */
+        ReserveMeetingRead: {
+            /** Id */
+            id: number;
+            status: components["schemas"]["ReserveStatus"];
+            /** Link */
+            link: string | null;
+            /** Amount */
+            amount: number;
+            /** Discount */
+            discount: number | null;
+            /** Date */
+            date: string | null;
+            day: components["schemas"]["DayLabel"] | null;
+            time: components["schemas"]["TimeRange"] | null;
+            /** Student Count */
+            student_count: number | null;
+            /** Description */
+            description: string | null;
+            meeting: components["schemas"]["MeetingConfig"];
+            instructor: components["schemas"]["UserBrief"] | null;
+            type: components["schemas"]["ReserveMeetingType"];
+            /** Can Agora */
+            can_agora: boolean;
+        };
+        /**
+         * ReserveMeetingType
+         * @enum {string}
+         */
+        ReserveMeetingType: "in_person" | "online";
+        /**
+         * ReserveStatus
+         * @enum {string}
+         */
+        ReserveStatus: "open" | "finished" | "pending" | "canceled";
         /** ResetPasswordRequest */
         ResetPasswordRequest: {
             /**
@@ -4337,6 +4597,13 @@ export interface components {
          * @enum {string}
          */
         ThemeColorMode: "dark" | "light";
+        /** TimeRange */
+        TimeRange: {
+            /** Start */
+            start: string;
+            /** End */
+            end: string;
+        };
         /** TrendCategoryList */
         TrendCategoryList: {
             /** Count */
@@ -7680,6 +7947,411 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    my_meeting_api_v1_panel_meeting_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MeetingConfig"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    update_my_meeting_api_v1_panel_meeting_put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["MeetingConfigInput"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MeetingConfig"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    add_meeting_time_api_v1_panel_meeting_times_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["MeetingTimeInput"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MeetingTimeRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_meeting_time_api_v1_panel_meeting_times__time_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                time_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    instructor_meeting_api_v1_users__instructor_id__meeting_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                instructor_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MeetingConfig"] | null;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    reserve_meeting_api_v1_meetings_reserve_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReserveCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReserveMeetingRead"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    meetings_index_api_v1_panel_meetings_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReserveIndex"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    show_reservation_api_v1_panel_meetings__reserve_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                reserve_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReserveMeetingRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    finish_reservation_api_v1_panel_meetings__reserve_id__finish_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                reserve_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReserveMeetingRead"];
+                };
             };
             /** @description Unauthorized */
             401: {

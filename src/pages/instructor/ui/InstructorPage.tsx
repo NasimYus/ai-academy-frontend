@@ -21,6 +21,9 @@ export function InstructorPage() {
           <Link to="/instructor/comments" className="text-sm text-brand-600 hover:underline">
             Комментарии
           </Link>
+          <Link to="/instructor/meetings" className="text-sm text-brand-600 hover:underline">
+            Консультации
+          </Link>
           <Link to="/instructor/bundles" className="text-sm text-brand-600 hover:underline">
             Наборы
           </Link>
