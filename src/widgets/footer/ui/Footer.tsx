@@ -20,6 +20,9 @@ export function Footer() {
           <Link to="/subscriptions" className="hover:text-brand-600">
             Подписки
           </Link>
+          <Link to="/store" className="hover:text-brand-600">
+            Магазин
+          </Link>
           <Link to="/certificate-validation" className="hover:text-brand-600">
             Проверка сертификата
           </Link>

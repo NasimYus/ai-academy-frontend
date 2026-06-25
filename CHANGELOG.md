@@ -82,6 +82,7 @@
 - ✅ **6.3** Assignment grading: `features/grade-assignment` (dashboard/submissions queries + `SubmissionThread` с inline-оценкой) + `pages/instructor-assignments` (/instructor/assignments — счётчики + раскрывающиеся задания с тредами работ и выставлением балла) + ссылка «Задания» на `pages/instructor`
 - ✅ **6.4** Instructor comments: `features/class-comments` (`classCommentsQueryOptions` + `CommentReply` inline-форма) + `pages/instructor-comments` (/instructor/comments — комментарии к курсам деревом + ответы) + ссылка «Комментарии» на `pages/instructor`
 - ✅ **6.5** Bundles: `features/manage-bundle` (`bundlesQueryOptions` + `useDeleteBundle`) + `pages/instructor-bundles` (/instructor/bundles — список наборов + счётчики + удаление) + ссылка «Наборы» на `pages/instructor`
+- ✅ **6.6** Store/products: `entities/product` (list/detail/categories queries) + `pages/store` (/store — каталог + фильтр по категориям) + `pages/product` (/store/$productId) + ссылка «Магазин» в footer
 - ✅ **6.7** Statistics: `courseStatisticsQueryOptions` (в `features/manage-course`) + `pages/instructor-statistics` (/instructor/course/$courseId/statistics — сетка агрегатов) + ссылка «Статистика» на каждом курсе в `pages/instructor`
 
 ## Phase 7 — Live & advanced

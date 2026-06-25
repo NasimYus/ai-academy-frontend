@@ -29,11 +29,13 @@ import { Route as CertificateValidationRouteImport } from './routes/certificate-
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SupportIndexRouteImport } from './routes/support.index'
+import { Route as StoreIndexRouteImport } from './routes/store.index'
 import { Route as InstructorIndexRouteImport } from './routes/instructor.index'
 import { Route as BundlesIndexRouteImport } from './routes/bundles.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as UsersUserIdRouteImport } from './routes/users.$userId'
 import { Route as SupportSupportIdRouteImport } from './routes/support.$supportId'
+import { Route as StoreProductIdRouteImport } from './routes/store.$productId'
 import { Route as QuizQuizIdRouteImport } from './routes/quiz.$quizId'
 import { Route as PaymentCallbackRouteImport } from './routes/payment.callback'
 import { Route as LearnSlugRouteImport } from './routes/learn.$slug'
@@ -151,6 +153,11 @@ const SupportIndexRoute = SupportIndexRouteImport.update({
   path: '/support/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StoreIndexRoute = StoreIndexRouteImport.update({
+  id: '/store/',
+  path: '/store/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InstructorIndexRoute = InstructorIndexRouteImport.update({
   id: '/instructor/',
   path: '/instructor/',
@@ -174,6 +181,11 @@ const UsersUserIdRoute = UsersUserIdRouteImport.update({
 const SupportSupportIdRoute = SupportSupportIdRouteImport.update({
   id: '/support/$supportId',
   path: '/support/$supportId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StoreProductIdRoute = StoreProductIdRouteImport.update({
+  id: '/store/$productId',
+  path: '/store/$productId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const QuizQuizIdRoute = QuizQuizIdRouteImport.update({
@@ -292,11 +304,13 @@ export interface FileRoutesByFullPath {
   '/learn/$slug': typeof LearnSlugRoute
   '/payment/callback': typeof PaymentCallbackRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
+  '/store/$productId': typeof StoreProductIdRoute
   '/support/$supportId': typeof SupportSupportIdRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/blog/': typeof BlogIndexRoute
   '/bundles/': typeof BundlesIndexRoute
   '/instructor/': typeof InstructorIndexRoute
+  '/store/': typeof StoreIndexRoute
   '/support/': typeof SupportIndexRoute
   '/instructor/course/new': typeof InstructorCourseNewRoute
   '/instructor/course/$courseId/edit': typeof InstructorCourseCourseIdEditRoute
@@ -335,11 +349,13 @@ export interface FileRoutesByTo {
   '/learn/$slug': typeof LearnSlugRoute
   '/payment/callback': typeof PaymentCallbackRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
+  '/store/$productId': typeof StoreProductIdRoute
   '/support/$supportId': typeof SupportSupportIdRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/blog': typeof BlogIndexRoute
   '/bundles': typeof BundlesIndexRoute
   '/instructor': typeof InstructorIndexRoute
+  '/store': typeof StoreIndexRoute
   '/support': typeof SupportIndexRoute
   '/instructor/course/new': typeof InstructorCourseNewRoute
   '/instructor/course/$courseId/edit': typeof InstructorCourseCourseIdEditRoute
@@ -379,11 +395,13 @@ export interface FileRoutesById {
   '/learn/$slug': typeof LearnSlugRoute
   '/payment/callback': typeof PaymentCallbackRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
+  '/store/$productId': typeof StoreProductIdRoute
   '/support/$supportId': typeof SupportSupportIdRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/blog/': typeof BlogIndexRoute
   '/bundles/': typeof BundlesIndexRoute
   '/instructor/': typeof InstructorIndexRoute
+  '/store/': typeof StoreIndexRoute
   '/support/': typeof SupportIndexRoute
   '/instructor/course/new': typeof InstructorCourseNewRoute
   '/instructor/course/$courseId/edit': typeof InstructorCourseCourseIdEditRoute
@@ -424,11 +442,13 @@ export interface FileRouteTypes {
     | '/learn/$slug'
     | '/payment/callback'
     | '/quiz/$quizId'
+    | '/store/$productId'
     | '/support/$supportId'
     | '/users/$userId'
     | '/blog/'
     | '/bundles/'
     | '/instructor/'
+    | '/store/'
     | '/support/'
     | '/instructor/course/new'
     | '/instructor/course/$courseId/edit'
@@ -467,11 +487,13 @@ export interface FileRouteTypes {
     | '/learn/$slug'
     | '/payment/callback'
     | '/quiz/$quizId'
+    | '/store/$productId'
     | '/support/$supportId'
     | '/users/$userId'
     | '/blog'
     | '/bundles'
     | '/instructor'
+    | '/store'
     | '/support'
     | '/instructor/course/new'
     | '/instructor/course/$courseId/edit'
@@ -510,11 +532,13 @@ export interface FileRouteTypes {
     | '/learn/$slug'
     | '/payment/callback'
     | '/quiz/$quizId'
+    | '/store/$productId'
     | '/support/$supportId'
     | '/users/$userId'
     | '/blog/'
     | '/bundles/'
     | '/instructor/'
+    | '/store/'
     | '/support/'
     | '/instructor/course/new'
     | '/instructor/course/$courseId/edit'
@@ -554,11 +578,13 @@ export interface RootRouteChildren {
   LearnSlugRoute: typeof LearnSlugRoute
   PaymentCallbackRoute: typeof PaymentCallbackRoute
   QuizQuizIdRoute: typeof QuizQuizIdRoute
+  StoreProductIdRoute: typeof StoreProductIdRoute
   SupportSupportIdRoute: typeof SupportSupportIdRoute
   UsersUserIdRoute: typeof UsersUserIdRoute
   BlogIndexRoute: typeof BlogIndexRoute
   BundlesIndexRoute: typeof BundlesIndexRoute
   InstructorIndexRoute: typeof InstructorIndexRoute
+  StoreIndexRoute: typeof StoreIndexRoute
   SupportIndexRoute: typeof SupportIndexRoute
   InstructorCourseNewRoute: typeof InstructorCourseNewRoute
   InstructorCourseCourseIdEditRoute: typeof InstructorCourseCourseIdEditRoute
@@ -707,6 +733,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SupportIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/store/': {
+      id: '/store/'
+      path: '/store'
+      fullPath: '/store/'
+      preLoaderRoute: typeof StoreIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/instructor/': {
       id: '/instructor/'
       path: '/instructor'
@@ -740,6 +773,13 @@ declare module '@tanstack/react-router' {
       path: '/support/$supportId'
       fullPath: '/support/$supportId'
       preLoaderRoute: typeof SupportSupportIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/store/$productId': {
+      id: '/store/$productId'
+      path: '/store/$productId'
+      fullPath: '/store/$productId'
+      preLoaderRoute: typeof StoreProductIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/quiz/$quizId': {
@@ -890,11 +930,13 @@ const rootRouteChildren: RootRouteChildren = {
   LearnSlugRoute: LearnSlugRoute,
   PaymentCallbackRoute: PaymentCallbackRoute,
   QuizQuizIdRoute: QuizQuizIdRoute,
+  StoreProductIdRoute: StoreProductIdRoute,
   SupportSupportIdRoute: SupportSupportIdRoute,
   UsersUserIdRoute: UsersUserIdRoute,
   BlogIndexRoute: BlogIndexRoute,
   BundlesIndexRoute: BundlesIndexRoute,
   InstructorIndexRoute: InstructorIndexRoute,
+  StoreIndexRoute: StoreIndexRoute,
   SupportIndexRoute: SupportIndexRoute,
   InstructorCourseNewRoute: InstructorCourseNewRoute,
   InstructorCourseCourseIdEditRoute: InstructorCourseCourseIdEditRoute,
