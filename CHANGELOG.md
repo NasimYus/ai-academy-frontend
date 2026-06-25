@@ -87,6 +87,7 @@
 ## Phase 7 — Live & advanced
 
 - ✅ **7.1** Консультации: `entities/meeting` (config/instructor/index queries) + `features/manage-meeting` (`MeetingConfigForm`: цена/слоты + finish) + `features/reserve-meeting` (`ReserveMeetingPanel` на публичном профиле) + `pages/instructor-meetings` (/instructor/meetings — настройки + заявки) + `pages/my-meetings` (/meetings — мои записи) + ссылки «Консультации»/«Встречи»
+- ✅ 🧪 **7.2** Subscriptions: `entities/subscription` (list+active query) + `features/subscribe` (`useActivatePlan`/`useApplySubscription` + `SubscribeApplyButton`, маппинг gate-кодов) + `pages/subscriptions` (/subscriptions — планы + активация + статус) + кнопка «Открыть по подписке» на платном subscribable-курсе + ссылка «Подписки» в footer _(unit: subscribe gate-messages)_
 - ✅ 🧪 **7.3** Bundle purchase: `entities/bundle` (list/detail queries) + `features/buy-bundle` (`useBuyFreeBundle`/`useBuyBundleWithPoints`, маппинг gate-кодов) + `pages/bundles` (/bundles — грид) + `pages/bundle` (/bundles/$bundleId — курсы + покупка free/баллы) + ссылка «Наборы» в footer _(unit: buy gate-messages)_
 
 ## Backlog (после MVP)

@@ -1094,6 +1094,66 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/subscribe": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Subscriptions
+         * @description Subscription plans + the user's active subscription (legacy list).
+         */
+        get: operations["list_subscriptions_api_v1_subscribe_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/subscribe/{plan_id}/activate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Activate Subscription
+         * @description Activate a free plan (paid checkout via webPay is deferred).
+         */
+        post: operations["activate_subscription_api_v1_subscribe__plan_id__activate_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/subscribe/apply": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Apply Subscription
+         * @description Use the active subscription to unlock a subscribable course (legacy apply).
+         */
+        post: operations["apply_subscription_api_v1_subscribe_apply_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/panel/classes": {
         parameters: {
             query?: never;
@@ -2283,6 +2343,23 @@ export interface components {
             /** Status */
             status: string;
             certificate?: components["schemas"]["CertificateBrief"] | null;
+        };
+        /** ActiveSubscription */
+        ActiveSubscription: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Usable Count */
+            usable_count: number;
+            /** Used Count */
+            used_count: number;
+            /** Remaining */
+            remaining: number;
+            /** Days */
+            days: number;
+            /** Days Left */
+            days_left: number;
         };
         /** AddToCartRequest */
         AddToCartRequest: {
@@ -4710,6 +4787,43 @@ export interface components {
             grade: number | null;
             /** Messages */
             messages: components["schemas"]["SubmissionMessage"][];
+        };
+        /** SubscribeApplyRequest */
+        SubscribeApplyRequest: {
+            /** Course Id */
+            course_id: number;
+        };
+        /** SubscribeList */
+        SubscribeList: {
+            /** Count */
+            count: number;
+            /** Subscribes */
+            subscribes: components["schemas"]["SubscribePlan"][];
+            subscribed?: components["schemas"]["ActiveSubscription"] | null;
+            /** Day Of Use */
+            day_of_use?: number | null;
+        };
+        /** SubscribePlan */
+        SubscribePlan: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Usable Count */
+            usable_count: number;
+            /** Days */
+            days: number;
+            /** Price */
+            price: number;
+            /** Icon */
+            icon?: string | null;
+            /** Description */
+            description?: string | null;
+        };
+        /** SubscribeResponse */
+        SubscribeResponse: {
+            /** Message */
+            message: string;
         };
         /** SupportConversationRead */
         SupportConversationRead: {
@@ -7409,6 +7523,119 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    list_subscriptions_api_v1_subscribe_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SubscribeList"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    activate_subscription_api_v1_subscribe__plan_id__activate_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                plan_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SubscribeResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    apply_subscription_api_v1_subscribe_apply_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SubscribeApplyRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SubscribeResponse"];
                 };
             };
             /** @description Not Found */

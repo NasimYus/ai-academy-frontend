@@ -5,6 +5,7 @@ import { courseQueryOptions } from '#/entities/course'
 import { AddToCartButton } from '#/features/cart'
 import { useEnrollFree } from '#/features/course-enroll'
 import { FavoriteButton } from '#/features/favorite-toggle'
+import { SubscribeApplyButton } from '#/features/subscribe'
 
 export function CoursePage() {
   const { slug } = useParams({ from: '/course/$slug' })
@@ -170,7 +171,10 @@ export function CoursePage() {
               </Link>
             )
           ) : data.auth ? (
-            <AddToCartButton courseId={data.id} />
+            <>
+              <AddToCartButton courseId={data.id} />
+              {data.subscribe && <SubscribeApplyButton courseId={data.id} />}
+            </>
           ) : (
             <Link
               to="/login"

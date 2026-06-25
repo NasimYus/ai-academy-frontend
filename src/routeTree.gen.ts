@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SubscriptionsRouteImport } from './routes/subscriptions'
 import { Route as RewardsRouteImport } from './routes/rewards'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RegisterRouteImport } from './routes/register'
@@ -50,6 +51,11 @@ import { Route as InstructorCourseNewRouteImport } from './routes/instructor.cou
 import { Route as InstructorCourseCourseIdStatisticsRouteImport } from './routes/instructor.course.$courseId.statistics'
 import { Route as InstructorCourseCourseIdEditRouteImport } from './routes/instructor.course.$courseId.edit'
 
+const SubscriptionsRoute = SubscriptionsRouteImport.update({
+  id: '/subscriptions',
+  path: '/subscriptions',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RewardsRoute = RewardsRouteImport.update({
   id: '/rewards',
   path: '/rewards',
@@ -272,6 +278,7 @@ export interface FileRoutesByFullPath {
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/rewards': typeof RewardsRoute
+  '/subscriptions': typeof SubscriptionsRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/bundles/$bundleId': typeof BundlesBundleIdRoute
@@ -314,6 +321,7 @@ export interface FileRoutesByTo {
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/rewards': typeof RewardsRoute
+  '/subscriptions': typeof SubscriptionsRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/bundles/$bundleId': typeof BundlesBundleIdRoute
@@ -357,6 +365,7 @@ export interface FileRoutesById {
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/rewards': typeof RewardsRoute
+  '/subscriptions': typeof SubscriptionsRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/bundles/$bundleId': typeof BundlesBundleIdRoute
@@ -401,6 +410,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/reset-password'
     | '/rewards'
+    | '/subscriptions'
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
     | '/bundles/$bundleId'
@@ -443,6 +453,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/reset-password'
     | '/rewards'
+    | '/subscriptions'
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
     | '/bundles/$bundleId'
@@ -485,6 +496,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/reset-password'
     | '/rewards'
+    | '/subscriptions'
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
     | '/bundles/$bundleId'
@@ -528,6 +540,7 @@ export interface RootRouteChildren {
   RegisterRoute: typeof RegisterRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   RewardsRoute: typeof RewardsRoute
+  SubscriptionsRoute: typeof SubscriptionsRoute
   AssignmentAssignmentIdRoute: typeof AssignmentAssignmentIdRoute
   BlogBlogIdRoute: typeof BlogBlogIdRoute
   BundlesBundleIdRoute: typeof BundlesBundleIdRoute
@@ -554,6 +567,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/subscriptions': {
+      id: '/subscriptions'
+      path: '/subscriptions'
+      fullPath: '/subscriptions'
+      preLoaderRoute: typeof SubscriptionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/rewards': {
       id: '/rewards'
       path: '/rewards'
@@ -856,6 +876,7 @@ const rootRouteChildren: RootRouteChildren = {
   RegisterRoute: RegisterRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   RewardsRoute: RewardsRoute,
+  SubscriptionsRoute: SubscriptionsRoute,
   AssignmentAssignmentIdRoute: AssignmentAssignmentIdRoute,
   BlogBlogIdRoute: BlogBlogIdRoute,
   BundlesBundleIdRoute: BundlesBundleIdRoute,
