@@ -40,6 +40,12 @@ export function Header() {
               >
                 Сертификаты
               </Link>
+              <Link
+                to="/panel"
+                className="hidden font-medium text-brand-700 hover:text-brand-600 sm:inline"
+              >
+                Кабинет
+              </Link>
               <Link to="/my-courses" className="hidden text-ink/60 hover:text-brand-600 sm:inline">
                 Мои курсы
               </Link>

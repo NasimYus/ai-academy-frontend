@@ -105,6 +105,15 @@
 - ✅ **A.3** User management: `features/manage-users` (`adminUsersQueryOptions` + ban/unban/set-role хуки) + `pages/admin-users` (/admin/users — фильтр по роли, селект роли, бан/разбан, гейт `requireRole('admin')`) + кросс-ссылка
 - ✅ **R.1** Course reviews: `features/write-review` (`ReviewForm` — звёздные оценки по 4 измерениям + текст) на странице курса для купивших + `features/moderate-reviews` + `pages/admin-reviews` (/admin/reviews — очередь pending + одобрить/отклонить, гейт `requireRole('admin')`) + кросс-ссылка «Отзывы»
 
+## Дизайн-система / Кабинет (переход на легаси-вид)
+
+> Начат перевод визуала на клон легаси-темы `design_1`: вместо навбара — **сайдбар-кабинет**, переиспользуемые компоненты в `shared/ui`.
+
+- ✅ 🧪 **P.1** `shared/ui`-кит (Tailwind, брендбук-токены): `Button` (variants/sizes), `Card`, `Badge`, `Avatar`, `Spinner`, `EmptyState`, `PageHeader`, `StatCard` _(unit: Button/StatCard)_
+- ✅ 🧪 **P.1** `widgets/panel-layout` (`PanelLayout` + сайдбар): role-aware секции (Обучение/Преподавание[teacher+]/Администрирование[admin]/Аккаунт) клонированы из легаси `SidebarItems`, active-подсветка по пути, мобильный drawer; links → существующие cabinet-роуты _(unit: menu role-filtering)_
+- ✅ **P.1** `entities/dashboard` (`dashboardQueryOptions`) + `pages/dashboard` (/panel — приветствие + StatCard'ы по `/panel/dashboard`, быстрые переходы; гейт `requireAuth`) + ссылка «Кабинет» в Header
+- ⬜ далее: миграция остальных cabinet-страниц под `PanelLayout`; публичная оболочка (хедер/футер) и landing — отдельно (легаси-главная — CMS landing-builder)
+
 ## Backlog (после MVP)
 
 - ⬜ **Phase 5** (далее) newsletter, rewards

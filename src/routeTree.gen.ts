@@ -15,6 +15,7 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as PurchasesRouteImport } from './routes/purchases'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as PanelRouteImport } from './routes/panel'
 import { Route as OrdersRouteImport } from './routes/orders'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as MyCoursesRouteImport } from './routes/my-courses'
@@ -87,6 +88,11 @@ const PurchasesRoute = PurchasesRouteImport.update({
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PanelRoute = PanelRouteImport.update({
+  id: '/panel',
+  path: '/panel',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OrdersRoute = OrdersRouteImport.update({
@@ -321,6 +327,7 @@ export interface FileRoutesByFullPath {
   '/my-courses': typeof MyCoursesRoute
   '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
+  '/panel': typeof PanelRoute
   '/profile': typeof ProfileRoute
   '/purchases': typeof PurchasesRoute
   '/register': typeof RegisterRoute
@@ -372,6 +379,7 @@ export interface FileRoutesByTo {
   '/my-courses': typeof MyCoursesRoute
   '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
+  '/panel': typeof PanelRoute
   '/profile': typeof ProfileRoute
   '/purchases': typeof PurchasesRoute
   '/register': typeof RegisterRoute
@@ -424,6 +432,7 @@ export interface FileRoutesById {
   '/my-courses': typeof MyCoursesRoute
   '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
+  '/panel': typeof PanelRoute
   '/profile': typeof ProfileRoute
   '/purchases': typeof PurchasesRoute
   '/register': typeof RegisterRoute
@@ -477,6 +486,7 @@ export interface FileRouteTypes {
     | '/my-courses'
     | '/notifications'
     | '/orders'
+    | '/panel'
     | '/profile'
     | '/purchases'
     | '/register'
@@ -528,6 +538,7 @@ export interface FileRouteTypes {
     | '/my-courses'
     | '/notifications'
     | '/orders'
+    | '/panel'
     | '/profile'
     | '/purchases'
     | '/register'
@@ -579,6 +590,7 @@ export interface FileRouteTypes {
     | '/my-courses'
     | '/notifications'
     | '/orders'
+    | '/panel'
     | '/profile'
     | '/purchases'
     | '/register'
@@ -631,6 +643,7 @@ export interface RootRouteChildren {
   MyCoursesRoute: typeof MyCoursesRoute
   NotificationsRoute: typeof NotificationsRoute
   OrdersRoute: typeof OrdersRoute
+  PanelRoute: typeof PanelRoute
   ProfileRoute: typeof ProfileRoute
   PurchasesRoute: typeof PurchasesRoute
   RegisterRoute: typeof RegisterRoute
@@ -711,6 +724,13 @@ declare module '@tanstack/react-router' {
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/panel': {
+      id: '/panel'
+      path: '/panel'
+      fullPath: '/panel'
+      preLoaderRoute: typeof PanelRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/orders': {
@@ -1031,6 +1051,7 @@ const rootRouteChildren: RootRouteChildren = {
   MyCoursesRoute: MyCoursesRoute,
   NotificationsRoute: NotificationsRoute,
   OrdersRoute: OrdersRoute,
+  PanelRoute: PanelRoute,
   ProfileRoute: ProfileRoute,
   PurchasesRoute: PurchasesRoute,
   RegisterRoute: RegisterRoute,

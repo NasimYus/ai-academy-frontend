@@ -441,6 +441,27 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/panel/dashboard": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Dashboard
+         * @description Panel home aggregates (legacy DashboardController): the buyer's learning +
+         *     purchase counts, plus sales/teaching counts for instructors.
+         */
+        get: operations["dashboard_api_v1_panel_dashboard_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/favorites": {
         parameters: {
             query?: never;
@@ -4343,6 +4364,40 @@ export interface components {
             exchange_rate: number;
         };
         /**
+         * DashboardSummary
+         * @description Panel dashboard aggregates (legacy Panel\DashboardController).
+         */
+        DashboardSummary: {
+            /** Is Instructor */
+            is_instructor: boolean;
+            /** Enrolled Count */
+            enrolled_count: number;
+            /** Purchases Count */
+            purchases_count: number;
+            /** Favorites Count */
+            favorites_count: number;
+            /**
+             * Courses Count
+             * @default 0
+             */
+            courses_count: number;
+            /**
+             * Sales Count
+             * @default 0
+             */
+            sales_count: number;
+            /**
+             * Sales Income
+             * @default 0
+             */
+            sales_income: number;
+            /**
+             * Meeting Requests Count
+             * @default 0
+             */
+            meeting_requests_count: number;
+        };
+        /**
          * DayLabel
          * @enum {string}
          */
@@ -7035,6 +7090,35 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    dashboard_api_v1_panel_dashboard_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DashboardSummary"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };
