@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
 import { useState } from 'react'
+import { MessageSquare } from 'lucide-react'
 
 import { blogCategoriesQueryOptions, blogListQueryOptions } from '#/entities/blog'
 import type { BlogBrief } from '#/entities/blog'
@@ -23,7 +24,10 @@ function BlogCard({ post }: { post: BlogBrief }) {
         <p className="mt-1 line-clamp-3 flex-1 text-sm text-ink/60">{post.description}</p>
         <div className="mt-3 flex items-center justify-between text-xs text-ink/40">
           <span>{post.author?.full_name ?? 'Автор'}</span>
-          <span>{post.comment_count} 💬</span>
+          <span className="inline-flex items-center gap-1">
+            <MessageSquare className="size-3.5" strokeWidth={1.8} />
+            {post.comment_count}
+          </span>
         </div>
       </div>
     </Link>

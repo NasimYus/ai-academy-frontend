@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { StickyNote } from 'lucide-react'
 
 import type { NoteTargetType } from '#/entities/note'
 import { useDeleteNote, useNote, useSaveNote } from '#/features/personal-note/model/use-note'
@@ -31,9 +32,10 @@ export function NotePanel({
     return (
       <button
         onClick={() => setOpen(true)}
-        className="mt-2 text-xs text-brand-600 hover:underline"
+        className="mt-2 inline-flex items-center gap-1.5 text-xs text-brand-600 hover:underline"
       >
-        📝 Заметка{hasNote ? ' (есть)' : ''}
+        <StickyNote className="size-3.5" strokeWidth={1.8} />
+        Заметка{hasNote ? ' (есть)' : ''}
       </button>
     )
   }

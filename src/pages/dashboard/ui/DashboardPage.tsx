@@ -1,5 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
+import {
+  BookOpen,
+  CalendarDays,
+  GraduationCap,
+  Heart,
+  Receipt,
+  TrendingUp,
+  Wallet,
+} from 'lucide-react'
 
 import { dashboardQueryOptions } from '#/entities/dashboard'
 import { useSessionStore } from '#/entities/session'
@@ -26,9 +35,21 @@ export function DashboardPage() {
           <section>
             <h2 className="mb-3 font-display text-lg font-bold text-ink">Обучение</h2>
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-              <StatCard label="Мои курсы" value={data.enrolled_count} icon="🎓" />
-              <StatCard label="Покупки" value={data.purchases_count} icon="🧾" />
-              <StatCard label="Избранное" value={data.favorites_count} icon="♥" />
+              <StatCard
+                label="Мои курсы"
+                value={data.enrolled_count}
+                icon={<GraduationCap className="size-5" strokeWidth={1.8} />}
+              />
+              <StatCard
+                label="Покупки"
+                value={data.purchases_count}
+                icon={<Receipt className="size-5" strokeWidth={1.8} />}
+              />
+              <StatCard
+                label="Избранное"
+                value={data.favorites_count}
+                icon={<Heart className="size-5" strokeWidth={1.8} />}
+              />
             </div>
           </section>
 
@@ -36,14 +57,26 @@ export function DashboardPage() {
             <section>
               <h2 className="mb-3 font-display text-lg font-bold text-ink">Преподавание</h2>
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-                <StatCard label="Курсов создано" value={data.courses_count} icon="📚" />
-                <StatCard label="Продаж" value={data.sales_count} icon="💰" />
+                <StatCard
+                  label="Курсов создано"
+                  value={data.courses_count}
+                  icon={<BookOpen className="size-5" strokeWidth={1.8} />}
+                />
+                <StatCard
+                  label="Продаж"
+                  value={data.sales_count}
+                  icon={<Wallet className="size-5" strokeWidth={1.8} />}
+                />
                 <StatCard
                   label="Доход"
                   value={data.sales_income.toLocaleString('ru-RU')}
-                  icon="📈"
+                  icon={<TrendingUp className="size-5" strokeWidth={1.8} />}
                 />
-                <StatCard label="Заявки на консультации" value={data.meeting_requests_count} icon="🗓" />
+                <StatCard
+                  label="Заявки на консультации"
+                  value={data.meeting_requests_count}
+                  icon={<CalendarDays className="size-5" strokeWidth={1.8} />}
+                />
               </div>
             </section>
           )}

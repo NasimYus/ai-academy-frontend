@@ -95,7 +95,7 @@ export function QuizForm({
             type="number"
             value={attempt}
             onChange={(e) => setAttempt(e.target.value)}
-            placeholder="∞"
+            placeholder="без ограничений"
             className="mt-1 w-full rounded-lg border border-brand-200 px-3 py-2 text-sm"
           />
         </label>
