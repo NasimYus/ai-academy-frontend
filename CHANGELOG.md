@@ -112,7 +112,8 @@
 - ✅ 🧪 **P.1** `shared/ui`-кит (Tailwind, брендбук-токены): `Button` (variants/sizes), `Card`, `Badge`, `Avatar`, `Spinner`, `EmptyState`, `PageHeader`, `StatCard` _(unit: Button/StatCard)_
 - ✅ 🧪 **P.1** `widgets/panel-layout` (`PanelLayout` + сайдбар): role-aware секции (Обучение/Преподавание[teacher+]/Администрирование[admin]/Аккаунт) клонированы из легаси `SidebarItems`, active-подсветка по пути, мобильный drawer; links → существующие cabinet-роуты _(unit: menu role-filtering)_
 - ✅ **P.1** `entities/dashboard` (`dashboardQueryOptions`) + `pages/dashboard` (/panel — приветствие + StatCard'ы по `/panel/dashboard`, быстрые переходы; гейт `requireAuth`) + ссылка «Кабинет» в Header
-- ⬜ далее: миграция остальных cabinet-страниц под `PanelLayout`; публичная оболочка (хедер/футер) и landing — отдельно (легаси-главная — CMS landing-builder)
+- ✅ **P.2** Сквозной сайдбар: `withPanel()` HOC оборачивает **все авторизованные роуты** в `PanelLayout` — кабинет (my-courses/purchases/favorites/orders/certificates/notifications/meetings/rewards/profile/support) + инструктор (`/instructor/*`) + админ (`/admin/*`). Навбар → сайдбар по всему авторизованному разделу
+- ⬜ далее: чистка дублирующих cross-link'ов на instructor/admin-страницах (теперь в сайдбаре); публичная оболочка (хедер/футер) и landing — отдельно (легаси-главная — CMS landing-builder)
 
 ## Backlog (после MVP)
 
