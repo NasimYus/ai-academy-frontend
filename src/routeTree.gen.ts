@@ -52,6 +52,7 @@ import { Route as BundlesBundleIdRouteImport } from './routes/bundles.$bundleId'
 import { Route as BlogBlogIdRouteImport } from './routes/blog.$blogId'
 import { Route as AssignmentAssignmentIdRouteImport } from './routes/assignment.$assignmentId'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
+import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
 import { Route as AdminPaymentChannelsRouteImport } from './routes/admin.payment-channels'
 import { Route as AdminCoursesRouteImport } from './routes/admin.courses'
 import { Route as InstructorCourseNewRouteImport } from './routes/instructor.course.new'
@@ -273,6 +274,11 @@ const AdminUsersRoute = AdminUsersRouteImport.update({
   path: '/admin/users',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminReviewsRoute = AdminReviewsRouteImport.update({
+  id: '/admin/reviews',
+  path: '/admin/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminPaymentChannelsRoute = AdminPaymentChannelsRouteImport.update({
   id: '/admin/payment-channels',
   path: '/admin/payment-channels',
@@ -323,6 +329,7 @@ export interface FileRoutesByFullPath {
   '/subscriptions': typeof SubscriptionsRoute
   '/admin/courses': typeof AdminCoursesRoute
   '/admin/payment-channels': typeof AdminPaymentChannelsRoute
+  '/admin/reviews': typeof AdminReviewsRoute
   '/admin/users': typeof AdminUsersRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
@@ -373,6 +380,7 @@ export interface FileRoutesByTo {
   '/subscriptions': typeof SubscriptionsRoute
   '/admin/courses': typeof AdminCoursesRoute
   '/admin/payment-channels': typeof AdminPaymentChannelsRoute
+  '/admin/reviews': typeof AdminReviewsRoute
   '/admin/users': typeof AdminUsersRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
@@ -424,6 +432,7 @@ export interface FileRoutesById {
   '/subscriptions': typeof SubscriptionsRoute
   '/admin/courses': typeof AdminCoursesRoute
   '/admin/payment-channels': typeof AdminPaymentChannelsRoute
+  '/admin/reviews': typeof AdminReviewsRoute
   '/admin/users': typeof AdminUsersRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
@@ -476,6 +485,7 @@ export interface FileRouteTypes {
     | '/subscriptions'
     | '/admin/courses'
     | '/admin/payment-channels'
+    | '/admin/reviews'
     | '/admin/users'
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
@@ -526,6 +536,7 @@ export interface FileRouteTypes {
     | '/subscriptions'
     | '/admin/courses'
     | '/admin/payment-channels'
+    | '/admin/reviews'
     | '/admin/users'
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
@@ -576,6 +587,7 @@ export interface FileRouteTypes {
     | '/subscriptions'
     | '/admin/courses'
     | '/admin/payment-channels'
+    | '/admin/reviews'
     | '/admin/users'
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
@@ -627,6 +639,7 @@ export interface RootRouteChildren {
   SubscriptionsRoute: typeof SubscriptionsRoute
   AdminCoursesRoute: typeof AdminCoursesRoute
   AdminPaymentChannelsRoute: typeof AdminPaymentChannelsRoute
+  AdminReviewsRoute: typeof AdminReviewsRoute
   AdminUsersRoute: typeof AdminUsersRoute
   AssignmentAssignmentIdRoute: typeof AssignmentAssignmentIdRoute
   BlogBlogIdRoute: typeof BlogBlogIdRoute
@@ -959,6 +972,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminUsersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/reviews': {
+      id: '/admin/reviews'
+      path: '/admin/reviews'
+      fullPath: '/admin/reviews'
+      preLoaderRoute: typeof AdminReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/payment-channels': {
       id: '/admin/payment-channels'
       path: '/admin/payment-channels'
@@ -1019,6 +1039,7 @@ const rootRouteChildren: RootRouteChildren = {
   SubscriptionsRoute: SubscriptionsRoute,
   AdminCoursesRoute: AdminCoursesRoute,
   AdminPaymentChannelsRoute: AdminPaymentChannelsRoute,
+  AdminReviewsRoute: AdminReviewsRoute,
   AdminUsersRoute: AdminUsersRoute,
   AssignmentAssignmentIdRoute: AssignmentAssignmentIdRoute,
   BlogBlogIdRoute: BlogBlogIdRoute,

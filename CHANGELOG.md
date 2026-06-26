@@ -103,6 +103,7 @@
 - ✅ **A.1** Payment channels: `features/manage-payment-channels` (`adminChannelsQueryOptions` + `ChannelEditor`: креды по `credential_items`, валюты, test-mode toggle, статус; `CreateChannelForm`) + `pages/admin-payments` (/admin/payment-channels — список + редактирование + добавление, гейт `requireRole('admin')`) + ссылка «Админ» в Header (только для admin)
 - ✅ **A.2** Course moderation: `features/moderate-courses` (`adminCoursesQueryOptions` + approve/reject/unpublish хуки) + `pages/admin-courses` (/admin/courses — список со статус-бейджами + действия, гейт `requireRole('admin')`) + кросс-ссылки между admin-страницами; «Админ» в Header → /admin/courses
 - ✅ **A.3** User management: `features/manage-users` (`adminUsersQueryOptions` + ban/unban/set-role хуки) + `pages/admin-users` (/admin/users — фильтр по роли, селект роли, бан/разбан, гейт `requireRole('admin')`) + кросс-ссылка
+- ✅ **R.1** Course reviews: `features/write-review` (`ReviewForm` — звёздные оценки по 4 измерениям + текст) на странице курса для купивших + `features/moderate-reviews` + `pages/admin-reviews` (/admin/reviews — очередь pending + одобрить/отклонить, гейт `requireRole('admin')`) + кросс-ссылка «Отзывы»
 
 ## Backlog (после MVP)
 

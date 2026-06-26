@@ -6,6 +6,7 @@ import { AddToCartButton } from '#/features/cart'
 import { useEnrollFree } from '#/features/course-enroll'
 import { FavoriteButton } from '#/features/favorite-toggle'
 import { SubscribeApplyButton } from '#/features/subscribe'
+import { ReviewForm } from '#/features/write-review'
 
 export function CoursePage() {
   const { slug } = useParams({ from: '/course/$slug' })
@@ -72,7 +73,7 @@ export function CoursePage() {
             </section>
           )}
 
-          {data.reviews.length > 0 && (
+          {(data.reviews.length > 0 || data.auth_has_bought) && (
             <section className="mt-8">
               <h2 className="font-display text-xl font-bold text-ink">Отзывы</h2>
               <div className="mt-3 space-y-3">
@@ -90,6 +91,7 @@ export function CoursePage() {
                   </div>
                 ))}
               </div>
+              {data.auth_has_bought && <ReviewForm courseId={data.id} slug={slug} />}
             </section>
           )}
 

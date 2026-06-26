@@ -37,6 +37,9 @@ export function AdminCoursesPage() {
           <Link to="/admin/users" className="text-brand-600 hover:underline">
             Пользователи →
           </Link>
+          <Link to="/admin/reviews" className="text-brand-600 hover:underline">
+            Отзывы →
+          </Link>
           <Link to="/admin/payment-channels" className="text-brand-600 hover:underline">
             Шлюзы →
           </Link>
