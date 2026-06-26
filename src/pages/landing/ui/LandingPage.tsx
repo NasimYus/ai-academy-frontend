@@ -1,13 +1,26 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
+import { Award, CalendarDays, GraduationCap } from 'lucide-react'
 
 import { CourseCard, featuredCoursesQueryOptions } from '#/entities/course'
 import { Button } from '#/shared/ui'
 
 const VALUES = [
-  { icon: '🎓', title: 'Курсы и вебинары', text: 'Видео, текстовые уроки и живые сессии от практиков.' },
-  { icon: '🏅', title: 'Сертификаты', text: 'Проходите тесты и получайте подтверждённые достижения.' },
-  { icon: '🗓', title: 'Консультации', text: 'Бронируйте личные встречи с преподавателями.' },
+  {
+    icon: GraduationCap,
+    title: 'Курсы и вебинары',
+    text: 'Видео, текстовые уроки и живые сессии от практиков.',
+  },
+  {
+    icon: Award,
+    title: 'Сертификаты',
+    text: 'Проходите тесты и получайте подтверждённые достижения.',
+  },
+  {
+    icon: CalendarDays,
+    title: 'Консультации',
+    text: 'Бронируйте личные встречи с преподавателями.',
+  },
 ]
 
 export function LandingPage() {
@@ -40,7 +53,9 @@ export function LandingPage() {
         <div className="grid gap-6 sm:grid-cols-3">
           {VALUES.map((v) => (
             <div key={v.title} className="rounded-card border border-brand-100 bg-white p-6 text-center">
-              <div className="text-3xl">{v.icon}</div>
+              <span className="inline-flex size-12 items-center justify-center rounded-full bg-brand-50 text-brand-600">
+                <v.icon className="size-6" strokeWidth={1.8} />
+              </span>
               <h3 className="mt-3 font-display text-lg font-bold text-ink">{v.title}</h3>
               <p className="mt-1 text-sm text-ink/60">{v.text}</p>
             </div>

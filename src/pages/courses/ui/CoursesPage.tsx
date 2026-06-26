@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
+import { SearchX } from 'lucide-react'
 
 import { CourseCard, coursesQueryOptions, featuredCoursesQueryOptions } from '#/entities/course'
 import type { CourseFilters as Filters } from '#/entities/course'
@@ -41,7 +42,9 @@ export function CoursesPage() {
         {courses.isError && <p className="text-red-600">{courses.error.message}</p>}
 
         {courses.data && courses.data.length === 0 ? (
-          <EmptyState icon="🔍">Ничего не найдено по выбранным фильтрам.</EmptyState>
+          <EmptyState icon={<SearchX className="mx-auto size-7" strokeWidth={1.6} />}>
+            Ничего не найдено по выбранным фильтрам.
+          </EmptyState>
         ) : (
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {courses.data?.map((course) => (

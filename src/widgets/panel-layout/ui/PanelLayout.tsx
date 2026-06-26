@@ -34,7 +34,7 @@ function SidebarNav({ pathname, onNavigate }: { pathname: string; onNavigate?: (
                           : 'text-ink/70 hover:bg-brand-50/60'
                       }`}
                     >
-                      <span className="w-5 text-center">{item.icon}</span>
+                      <item.icon className="size-[18px] shrink-0" strokeWidth={1.8} />
                       <span>{item.label}</span>
                     </Link>
                   </li>
