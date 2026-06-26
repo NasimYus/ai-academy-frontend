@@ -3,6 +3,7 @@ import { useState } from 'react'
 
 import { supportDepartmentsQueryOptions } from '#/entities/support'
 import type { SupportType } from '#/entities/support'
+import { Button, Select } from '#/shared/ui'
 
 import { useCreateTicket } from '#/features/support/model/use-support'
 
@@ -75,12 +76,10 @@ export function CreateTicketForm({
       )}
 
       {type === 'platform_support' && !courseId && (
-        <select
+        <Select
           value={departmentId}
-          onChange={(e) =>
-            setDepartmentId(e.target.value ? Number(e.target.value) : '')
-          }
-          className="w-full rounded-lg border border-brand-200 px-3 py-2 text-sm"
+          onChange={(e) => setDepartmentId(e.target.value ? Number(e.target.value) : '')}
+          className="w-full"
         >
           <option value="">Выберите отдел…</option>
           {(departments.data ?? []).map((d) => (
@@ -88,7 +87,7 @@ export function CreateTicketForm({
               {d.title}
             </option>
           ))}
-        </select>
+        </Select>
       )}
 
       <input
@@ -115,13 +114,9 @@ export function CreateTicketForm({
         <p className="text-sm text-red-600">{create.error.message}</p>
       )}
 
-      <button
-        type="submit"
-        disabled={!canSubmit || create.isPending}
-        className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-brand-700 disabled:opacity-50"
-      >
+      <Button type="submit" size="sm" disabled={!canSubmit || create.isPending}>
         {create.isPending ? 'Отправка…' : 'Создать обращение'}
-      </button>
+      </Button>
     </form>
   )
 }

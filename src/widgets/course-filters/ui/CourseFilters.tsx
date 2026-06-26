@@ -2,9 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 
 import { categoriesQueryOptions } from '#/entities/category'
 import type { CourseFilters as Filters } from '#/entities/course'
-
-const selectCls =
-  'rounded-lg border border-brand-200 px-3 py-1.5 text-sm outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-200'
+import { Select } from '#/shared/ui'
 
 const TYPES: Array<{ value: NonNullable<Filters['type']>; label: string }> = [
   { value: 'course', label: 'Курс' },
@@ -36,10 +34,11 @@ export function CourseFilters({
 
   return (
     <div className="mb-6 flex flex-wrap items-center gap-3">
-      <select
-        className={selectCls}
+      <Select
         value={value.cat ?? ''}
-        onChange={(e) => onChange({ ...value, cat: e.target.value ? Number(e.target.value) : undefined })}
+        onChange={(e) =>
+          onChange({ ...value, cat: e.target.value ? Number(e.target.value) : undefined })
+        }
       >
         <option value="">Все категории</option>
         {options.map((o) => (
@@ -47,10 +46,9 @@ export function CourseFilters({
             {o.title}
           </option>
         ))}
-      </select>
+      </Select>
 
-      <select
-        className={selectCls}
+      <Select
         value={value.type ?? ''}
         onChange={(e) =>
           onChange({ ...value, type: (e.target.value || undefined) as Filters['type'] })
@@ -62,10 +60,9 @@ export function CourseFilters({
             {t.label}
           </option>
         ))}
-      </select>
+      </Select>
 
-      <select
-        className={selectCls}
+      <Select
         value={value.sort ?? 'newest'}
         onChange={(e) => onChange({ ...value, sort: e.target.value as Filters['sort'] })}
       >
@@ -74,7 +71,7 @@ export function CourseFilters({
             {s.label}
           </option>
         ))}
-      </select>
+      </Select>
 
       <label className="flex items-center gap-2 text-sm text-ink">
         <input

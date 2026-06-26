@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import type { QuizCreateBody, QuizManage } from '#/features/manage-quiz/api/manage'
 import { useCreateQuiz, useUpdateQuiz } from '#/features/manage-quiz/model/use-manage'
+import { Select } from '#/shared/ui'
 
 interface CourseOption {
   id: number
@@ -67,10 +68,10 @@ export function QuizForm({
         placeholder="Название теста"
         className="w-full rounded-lg border border-brand-200 px-3 py-2 text-sm"
       />
-      <select
+      <Select
         value={courseId}
         onChange={(e) => setCourseId(e.target.value ? Number(e.target.value) : '')}
-        className="w-full rounded-lg border border-brand-200 px-3 py-2 text-sm"
+        className="w-full"
       >
         <option value="">Выберите курс…</option>
         {courses.map((c) => (
@@ -78,7 +79,7 @@ export function QuizForm({
             {c.title}
           </option>
         ))}
-      </select>
+      </Select>
       <div className="flex gap-3">
         <label className="flex-1 text-sm text-ink/70">
           Проходной балл

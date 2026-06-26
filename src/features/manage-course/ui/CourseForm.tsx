@@ -6,6 +6,7 @@ import { categoriesQueryOptions } from '#/entities/category'
 import type { CourseCreateBody } from '#/features/manage-course/api/manage'
 import { useCreateCourse, useUpdateCourse } from '#/features/manage-course/model/use-manage'
 import type { components } from '#/shared/api'
+import { Button, Field, Select, Textarea } from '#/shared/ui'
 
 type CourseDetail = components['schemas']['CourseDetail']
 
@@ -49,7 +50,7 @@ function initialState(course?: CourseDetail): FormState {
   }
 }
 
-const FIELD = 'w-full rounded-md border border-brand-200 p-2 text-sm focus:ring-brand-500'
+const CHECKBOXES = ['private', 'support', 'downloadable', 'subscribe'] as const
 
 export function CourseForm({ course }: { course?: CourseDetail }) {
   const navigate = useNavigate()
@@ -95,92 +96,87 @@ export function CourseForm({ course }: { course?: CourseDetail }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid grid-cols-2 gap-3">
-        <label className="text-sm">
-          Тип
-          <select
-            value={f.type}
-            onChange={(e) => set('type', e.target.value as FormState['type'])}
-            className={FIELD}
-          >
-            <option value="course">Курс</option>
-            <option value="webinar">Вебинар</option>
-            <option value="text_lesson">Текстовый урок</option>
-          </select>
-        </label>
-        <label className="text-sm">
-          Категория
-          <select
-            required
-            value={f.category_id}
-            onChange={(e) => set('category_id', e.target.value)}
-            className={FIELD}
-          >
-            <option value="">—</option>
-            {options.map((o) => (
-              <option key={o.id} value={o.id}>
-                {o.title}
-              </option>
-            ))}
-          </select>
-        </label>
+        <Select
+          label="Тип"
+          value={f.type}
+          onChange={(e) => set('type', e.target.value as FormState['type'])}
+        >
+          <option value="course">Курс</option>
+          <option value="webinar">Вебинар</option>
+          <option value="text_lesson">Текстовый урок</option>
+        </Select>
+        <Select
+          label="Категория"
+          required
+          value={f.category_id}
+          onChange={(e) => set('category_id', e.target.value)}
+        >
+          <option value="">—</option>
+          {options.map((o) => (
+            <option key={o.id} value={o.id}>
+              {o.title}
+            </option>
+          ))}
+        </Select>
       </div>
 
-      <label className="block text-sm">
-        Название
-        <input required value={f.title} onChange={(e) => set('title', e.target.value)} className={FIELD} />
-      </label>
+      <Field label="Название" required value={f.title} onChange={(e) => set('title', e.target.value)} />
 
-      <label className="block text-sm">
-        Описание
-        <textarea
-          required
-          rows={4}
-          value={f.description}
-          onChange={(e) => set('description', e.target.value)}
-          className={FIELD}
-        />
-      </label>
+      <Textarea
+        label="Описание"
+        required
+        rows={4}
+        value={f.description}
+        onChange={(e) => set('description', e.target.value)}
+      />
 
       <div className="grid grid-cols-2 gap-3">
-        <label className="text-sm">
-          Обложка (thumbnail URL)
-          <input required value={f.thumbnail} onChange={(e) => set('thumbnail', e.target.value)} className={FIELD} />
-        </label>
-        <label className="text-sm">
-          Картинка (cover URL)
-          <input required value={f.image_cover} onChange={(e) => set('image_cover', e.target.value)} className={FIELD} />
-        </label>
+        <Field
+          label="Обложка (thumbnail URL)"
+          required
+          value={f.thumbnail}
+          onChange={(e) => set('thumbnail', e.target.value)}
+        />
+        <Field
+          label="Картинка (cover URL)"
+          required
+          value={f.image_cover}
+          onChange={(e) => set('image_cover', e.target.value)}
+        />
       </div>
 
       <div className="grid grid-cols-3 gap-3">
-        <label className="text-sm">
-          Длительность (мин)
-          <input type="number" value={f.duration} onChange={(e) => set('duration', e.target.value)} className={FIELD} />
-        </label>
-        <label className="text-sm">
-          Цена
-          <input type="number" value={f.price} onChange={(e) => set('price', e.target.value)} className={FIELD} />
-        </label>
-        <label className="text-sm">
-          Баллы
-          <input type="number" value={f.points} onChange={(e) => set('points', e.target.value)} className={FIELD} />
-        </label>
+        <Field
+          label="Длительность (мин)"
+          type="number"
+          value={f.duration}
+          onChange={(e) => set('duration', e.target.value)}
+        />
+        <Field
+          label="Цена"
+          type="number"
+          value={f.price}
+          onChange={(e) => set('price', e.target.value)}
+        />
+        <Field
+          label="Баллы"
+          type="number"
+          value={f.points}
+          onChange={(e) => set('points', e.target.value)}
+        />
       </div>
 
       {f.type === 'webinar' && (
-        <label className="block text-sm">
-          Дата старта
-          <input
-            type="datetime-local"
-            value={f.start_date}
-            onChange={(e) => set('start_date', e.target.value)}
-            className={FIELD}
-          />
-        </label>
+        <Field
+          label="Дата старта"
+          type="datetime-local"
+          value={f.start_date}
+          onChange={(e) => set('start_date', e.target.value)}
+        />
       )}
 
       <div className="flex flex-wrap gap-4 text-sm">
-        {(['private', 'support', 'downloadable', 'subscribe'] as const).map((flag) => (
+        {CHECKBOXES.map((flag) => (
           <label key={flag} className="flex items-center gap-2">
             <input type="checkbox" checked={f[flag]} onChange={(e) => set(flag, e.target.checked)} />
             {flag}
@@ -203,13 +199,9 @@ export function CourseForm({ course }: { course?: CourseDetail }) {
 
       {mutation.isError && <p className="text-sm text-red-600">{mutation.error.message}</p>}
 
-      <button
-        type="submit"
-        disabled={mutation.isPending}
-        className="rounded-lg bg-brand-600 px-5 py-2.5 font-medium text-white hover:bg-brand-700 disabled:opacity-50"
-      >
+      <Button type="submit" disabled={mutation.isPending}>
         {mutation.isPending ? 'Сохранение…' : isEdit ? 'Сохранить' : 'Создать курс'}
-      </button>
+      </Button>
     </form>
   )
 }
