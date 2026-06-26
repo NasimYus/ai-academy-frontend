@@ -1,12 +1,9 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
-import {
-  CourseCard,
-  coursesQueryOptions,
-  featuredCoursesQueryOptions,
-} from '#/entities/course'
+import { CourseCard, coursesQueryOptions, featuredCoursesQueryOptions } from '#/entities/course'
 import type { CourseFilters as Filters } from '#/entities/course'
+import { EmptyState, Spinner } from '#/shared/ui'
 import { CourseFilters } from '#/widgets/course-filters'
 
 export function CoursesPage() {
@@ -15,33 +12,43 @@ export function CoursesPage() {
   const featured = useQuery(featuredCoursesQueryOptions)
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-8">
-      <h1 className="mb-6 text-2xl font-bold text-ink">Курсы</h1>
+    <div>
+      {/* Hero band */}
+      <section className="border-b border-brand-100 bg-gradient-to-br from-brand-50 to-white">
+        <div className="mx-auto max-w-6xl px-6 py-12">
+          <h1 className="font-display text-3xl font-bold text-ink sm:text-4xl">Каталог курсов</h1>
+          <p className="mt-2 max-w-xl text-ink/60">
+            Выбирайте курсы, вебинары и текстовые уроки от практикующих преподавателей.
+          </p>
+        </div>
+      </section>
 
-      {featured.data && featured.data.length > 0 && (
-        <section className="mb-8">
-          <h2 className="mb-4 font-display text-lg font-bold text-ink">Рекомендуемые</h2>
+      <div className="mx-auto max-w-6xl px-6 py-10">
+        {featured.data && featured.data.length > 0 && (
+          <section className="mb-10">
+            <h2 className="mb-4 font-display text-lg font-bold text-ink">Рекомендуемые</h2>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {featured.data.map((course) => (
+                <CourseCard key={course.id} course={course} />
+              ))}
+            </div>
+          </section>
+        )}
+
+        <CourseFilters value={filters} onChange={setFilters} />
+
+        {courses.isPending && <Spinner />}
+        {courses.isError && <p className="text-red-600">{courses.error.message}</p>}
+
+        {courses.data && courses.data.length === 0 ? (
+          <EmptyState icon="🔍">Ничего не найдено по выбранным фильтрам.</EmptyState>
+        ) : (
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {featured.data.map((course) => (
+            {courses.data?.map((course) => (
               <CourseCard key={course.id} course={course} />
             ))}
           </div>
-        </section>
-      )}
-
-      <CourseFilters value={filters} onChange={setFilters} />
-
-      {courses.isPending && <p className="text-ink/60">Загрузка…</p>}
-      {courses.isError && <p className="text-red-600">{courses.error.message}</p>}
-
-      {courses.data && courses.data.length === 0 && (
-        <p className="text-ink/60">Ничего не найдено по выбранным фильтрам.</p>
-      )}
-
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {courses.data?.map((course) => (
-          <CourseCard key={course.id} course={course} />
-        ))}
+        )}
       </div>
     </div>
   )
