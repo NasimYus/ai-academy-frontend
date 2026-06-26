@@ -13,12 +13,7 @@ import {
   registerStep2Schema,
   registerStep3Schema,
 } from '#/features/auth/register/model/schema'
-
-const inputCls =
-  'rounded-lg border border-brand-200 px-3 py-2 font-normal outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-200'
-const labelCls = 'flex flex-col gap-1.5 text-sm font-medium text-ink'
-const submitCls =
-  'mt-2 rounded-lg bg-brand-500 px-4 py-2.5 font-semibold text-white transition hover:bg-brand-600 disabled:opacity-50'
+import { Button, Field } from '#/shared/ui'
 
 export function RegisterForm() {
   const navigate = useNavigate()
@@ -89,50 +84,68 @@ export function RegisterForm() {
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-4">
+      {/* Step indicator */}
+      <div className="mb-1 flex items-center justify-center gap-2">
+        {[1, 2, 3].map((s) => (
+          <span
+            key={s}
+            className={`h-1.5 rounded-full transition-all ${
+              s === step ? 'w-8 bg-brand-500' : s < step ? 'w-8 bg-brand-300' : 'w-4 bg-brand-100'
+            }`}
+          />
+        ))}
+      </div>
+
       {step === 1 && (
         <>
-          <label className={labelCls}>
-            E-mail
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className={inputCls} />
-          </label>
-          <label className={labelCls}>
-            Пароль
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className={inputCls} />
-          </label>
-          <label className={labelCls}>
-            Повторите пароль
-            <input
-              type="password"
-              value={passwordConfirmation}
-              onChange={(e) => setPasswordConfirmation(e.target.value)}
-              className={inputCls}
-            />
-          </label>
+          <Field
+            label="E-mail"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Field
+            label="Пароль"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Field
+            label="Повторите пароль"
+            type="password"
+            value={passwordConfirmation}
+            onChange={(e) => setPasswordConfirmation(e.target.value)}
+          />
         </>
       )}
 
       {step === 2 && (
-        <label className={labelCls}>
-          Код подтверждения
-          <input value={code} onChange={(e) => setCode(e.target.value)} className={inputCls} inputMode="numeric" />
-          {devCode && <span className="text-xs text-ink/50">Код (dev): {devCode}</span>}
-        </label>
+        <div>
+          <Field
+            label="Код подтверждения"
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            inputMode="numeric"
+          />
+          {devCode && <span className="mt-1 block text-xs text-ink/50">Код (dev): {devCode}</span>}
+        </div>
       )}
 
       {step === 3 && (
-        <label className={labelCls}>
-          Имя и фамилия
-          <input value={fullName} onChange={(e) => setFullName(e.target.value)} className={inputCls} />
-        </label>
+        <Field
+          label="Имя и фамилия"
+          value={fullName}
+          onChange={(e) => setFullName(e.target.value)}
+        />
       )}
 
       {(fieldError || mutationError) && (
         <p className="text-sm text-red-600">{fieldError ?? mutationError?.message}</p>
       )}
 
-      <button type="submit" disabled={pending} className={submitCls}>
+      <Button type="submit" disabled={pending} className="mt-2 w-full">
         {pending ? 'Подождите…' : step === 3 ? 'Завершить' : 'Далее'}
-      </button>
+      </Button>
     </form>
   )
 }
