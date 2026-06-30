@@ -13,6 +13,6 @@ export function useOAuthLogin() {
   return async (provider: OAuthProvider, profile: OAuthProfile) => {
     const { token, user } = await authenticateWithProvider(provider, profile)
     setAuth(token, user)
-    navigate({ to: '/courses' })
+    navigate({ to: '/panel' })
   }
 }

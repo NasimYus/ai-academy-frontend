@@ -48,7 +48,7 @@ export function RegisterForm() {
     mutationFn: registerStep3,
     onSuccess: ({ token, user }) => {
       setAuth(token, user)
-      navigate({ to: '/courses' })
+      navigate({ to: '/panel' })
     },
   })
 

@@ -2,6 +2,8 @@ import { cleanup, render, screen } from '@testing-library/react'
 import type { ReactNode } from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
+import { DashboardPage } from '#/pages/dashboard/ui/DashboardPage'
+
 // The page composes PanelLayout (router) + a dashboard query + the session store.
 // Mock those boundaries so the test exercises the dashboard markup itself.
 vi.mock('@tanstack/react-router', () => ({
@@ -35,8 +37,6 @@ vi.mock('#/entities/session', () => ({
   useSessionStore: (sel: (s: unknown) => unknown) =>
     sel({ user: { full_name: 'Иван Студент', email: 'ivan@aiacademy.tj', role_name: 'user' } }),
 }))
-
-import { DashboardPage } from '#/pages/dashboard/ui/DashboardPage'
 
 afterEach(cleanup)
 

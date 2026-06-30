@@ -19,7 +19,7 @@ export function LoginForm() {
     mutationFn: login,
     onSuccess: ({ token, user }) => {
       setAuth(token, user)
-      navigate({ to: '/courses' })
+      navigate({ to: '/panel' })
     },
   })
 
