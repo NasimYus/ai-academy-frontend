@@ -1,19 +1,69 @@
+import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
 import { LayoutGrid, Mail, Phone, Search, ShoppingCart, Sparkles } from 'lucide-react'
+import { useState } from 'react'
 
+import { categoriesQueryOptions } from '#/entities/category'
 import { useSessionStore } from '#/entities/session'
 import { AppSettings } from '#/features/app-settings'
 import { useLogout } from '#/features/auth/logout'
 import { NotificationBell } from '#/features/notifications'
 import { Avatar, Button } from '#/shared/ui'
 
+// Guest navbar links — parity of the legacy theme header (Home / Courses /
+// Forums / News / Contact). Categories is a dropdown rendered separately.
 const NAV = [
   { to: '/', label: 'Home' },
   { to: '/courses', label: 'Courses' },
-  { to: '/blog', label: 'Forums' },
+  // NOTE: Forums (global) + Contact pages are pending design screens; interim
+  // targets keep the nav functional (course forums live under /courses; the
+  // contact/support flow is /support).
+  { to: '/courses', label: 'Forums' },
   { to: '/blog', label: 'News' },
   { to: '/support', label: 'Contact' },
 ] as const
+
+function CategoriesMenu() {
+  const [open, setOpen] = useState(false)
+  const { data: categories } = useQuery(categoriesQueryOptions)
+  return (
+    <div className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="flex items-center gap-1.5 rounded-lg bg-brand-50 px-3 py-1.5 text-brand-700"
+      >
+        <LayoutGrid className="size-4" strokeWidth={1.8} />
+        Categories
+      </button>
+      {open && (
+        <>
+          <div className="fixed inset-0 z-10" onClick={() => setOpen(false)} />
+          <div className="absolute left-0 top-full z-20 mt-2 max-h-96 w-64 overflow-y-auto rounded-xl border border-brand-100 bg-white p-2 shadow-lg">
+            {categories && categories.length > 0 ? (
+              categories.map((c) => (
+                <Link
+                  key={c.id}
+                  to="/courses"
+                  onClick={() => setOpen(false)}
+                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-ink/70 transition hover:bg-brand-50 hover:text-brand-700"
+                >
+                  <span
+                    className="size-2.5 rounded-full"
+                    style={{ backgroundColor: c.color ?? 'var(--color-brand-400)' }}
+                  />
+                  {c.title}
+                </Link>
+              ))
+            ) : (
+              <p className="px-3 py-2 text-sm text-ink/40">Нет категорий</p>
+            )}
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
 
 export function Header() {
   const token = useSessionStore((s) => s.token)
@@ -70,13 +120,7 @@ function GuestHeader() {
           </Link>
 
           <nav className="hidden items-center gap-1 text-sm font-medium text-ink/70 lg:flex">
-            <Link
-              to="/courses"
-              className="flex items-center gap-1.5 rounded-lg bg-brand-50 px-3 py-1.5 text-brand-700"
-            >
-              <LayoutGrid className="size-4" strokeWidth={1.8} />
-              Categories
-            </Link>
+            <CategoriesMenu />
             {NAV.map((item) => (
               <Link
                 key={item.label}
