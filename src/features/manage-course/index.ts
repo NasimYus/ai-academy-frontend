@@ -1,4 +1,4 @@
-export { CourseForm } from '#/features/manage-course/ui/CourseForm'
+export { CourseWizard } from '#/features/manage-course/ui/CourseWizard'
 export {
   useCreateCourse,
   useDeleteCourse,

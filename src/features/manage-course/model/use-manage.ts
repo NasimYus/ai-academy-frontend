@@ -1,7 +1,16 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-import type { CourseCreateBody, CourseUpdateBody } from '#/features/manage-course/api/manage'
-import { createCourse, deleteCourse, updateCourse } from '#/features/manage-course/api/manage'
+import type {
+  CourseCreateBody,
+  CourseMediaKind,
+  CourseUpdateBody,
+} from '#/features/manage-course/api/manage'
+import {
+  createCourse,
+  deleteCourse,
+  updateCourse,
+  uploadCourseMedia,
+} from '#/features/manage-course/api/manage'
 
 export function useCreateCourse() {
   const qc = useQueryClient()
@@ -27,5 +36,12 @@ export function useDeleteCourse() {
   return useMutation({
     mutationFn: (courseId: number) => deleteCourse(courseId),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['instructor-classes'] }),
+  })
+}
+
+export function useUploadCourseMedia() {
+  return useMutation({
+    mutationFn: ({ file, kind }: { file: File; kind: CourseMediaKind }) =>
+      uploadCourseMedia(file, kind),
   })
 }

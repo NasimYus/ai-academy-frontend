@@ -63,6 +63,7 @@ export function InstructorPage() {
               <Link
                 to="/instructor/course/$courseId/edit"
                 params={{ courseId: String(c.id) }}
+                search={{ step: 1 }}
                 className="text-brand-600 hover:underline"
               >
                 Редактировать

@@ -1708,6 +1708,28 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/panel/webinar/media": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Upload Course Media
+         * @description Upload a course asset and return its stored path (legacy storeWebinarMedia).
+         *
+         *     The wizard sends the returned path back in the create/update payload.
+         */
+        post: operations["upload_course_media_api_v1_panel_webinar_media_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/panel/webinar/{course_id}/edit": {
         parameters: {
             query?: never;
@@ -3928,6 +3950,16 @@ export interface components {
             /** Certificate */
             certificate?: string | null;
         };
+        /** Body_upload_course_media_api_v1_panel_webinar_media_post */
+        Body_upload_course_media_api_v1_panel_webinar_media_post: {
+            /** File */
+            file: string;
+            /**
+             * Kind
+             * @default thumbnail
+             */
+            kind: string;
+        };
         /** BundleDashboard */
         BundleDashboard: {
             /** Bundles */
@@ -4296,30 +4328,40 @@ export interface components {
              */
             has_access: boolean;
         };
-        /** CourseCreate */
+        /**
+         * CourseCreate
+         * @description Step-1 (draft-first) create. Only the type+title are required so the
+         *     wizard can persist a draft early; later steps fill the rest via update.
+         */
         CourseCreate: {
             type: components["schemas"]["CourseType"];
             /** Title */
             title: string;
-            /** Thumbnail */
-            thumbnail: string;
-            /** Image Cover */
-            image_cover: string;
+            /** Locale */
+            locale?: string | null;
+            /** Summary */
+            summary?: string | null;
             /** Description */
-            description: string;
+            description?: string | null;
+            /** Seo Description */
+            seo_description?: string | null;
+            /** Thumbnail */
+            thumbnail?: string | null;
+            /** Image Cover */
+            image_cover?: string | null;
+            /** Icon */
+            icon?: string | null;
+            /** Video Demo */
+            video_demo?: string | null;
+            video_demo_source?: components["schemas"]["VideoDemoSource"] | null;
             /** Category Id */
-            category_id: number;
+            category_id?: number | null;
             /** Duration */
             duration?: number | null;
             /** Start Date */
             start_date?: string | null;
             /** Capacity */
             capacity?: number | null;
-            /** Seo Description */
-            seo_description?: string | null;
-            /** Video Demo */
-            video_demo?: string | null;
-            video_demo_source?: components["schemas"]["VideoDemoSource"] | null;
             /**
              * Price
              * @default 0
@@ -4473,6 +4515,14 @@ export interface components {
             can_view: boolean;
             /** Can View Error */
             can_view_error?: string[] | null;
+            /** Locale */
+            locale?: string | null;
+            /** Summary */
+            summary?: string | null;
+            /** Icon */
+            icon?: string | null;
+            /** Timezone */
+            timezone?: string | null;
             /** Description */
             description?: string | null;
             /** Seo Description */
@@ -4608,6 +4658,14 @@ export interface components {
             tickets: {
                 [key: string]: unknown;
             }[];
+        };
+        /**
+         * CourseMediaResult
+         * @description Stored path of an uploaded course asset (thumbnail/cover/icon/demo).
+         */
+        CourseMediaResult: {
+            /** Path */
+            path: string;
         };
         /** CourseRateType */
         CourseRateType: {
@@ -4810,10 +4868,16 @@ export interface components {
             /** Title */
             title?: string | null;
             type?: components["schemas"]["CourseType"] | null;
+            /** Locale */
+            locale?: string | null;
+            /** Summary */
+            summary?: string | null;
             /** Thumbnail */
             thumbnail?: string | null;
             /** Image Cover */
             image_cover?: string | null;
+            /** Icon */
+            icon?: string | null;
             /** Description */
             description?: string | null;
             /** Category Id */
@@ -4824,6 +4888,8 @@ export interface components {
             start_date?: string | null;
             /** Capacity */
             capacity?: number | null;
+            /** Timezone */
+            timezone?: string | null;
             /** Seo Description */
             seo_description?: string | null;
             /** Video Demo */
@@ -4847,6 +4913,10 @@ export interface components {
             partner_instructor?: boolean | null;
             /** Subscribe */
             subscribe?: boolean | null;
+            /** Forum */
+            forum?: boolean | null;
+            /** Certificate */
+            certificate?: boolean | null;
         };
         /** CurrencyRead */
         CurrencyRead: {
@@ -6925,7 +6995,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -6967,7 +7037,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -7042,7 +7112,7 @@ export interface operations {
                     "application/json": components["schemas"]["VerificationResult"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -7084,7 +7154,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -7119,7 +7189,7 @@ export interface operations {
                     "application/json": components["schemas"]["ResetPasswordResult"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -8078,7 +8148,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -9057,7 +9127,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -9765,7 +9835,7 @@ export interface operations {
                     "application/json": components["schemas"]["NewsletterResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -9827,7 +9897,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -9972,7 +10042,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -10081,7 +10151,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -10130,7 +10200,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -10172,7 +10242,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -10336,7 +10406,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -10425,7 +10495,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -10534,7 +10604,58 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    upload_course_media_api_v1_panel_webinar_media_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body_upload_course_media_api_v1_panel_webinar_media_post"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CourseMediaResult"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -10636,7 +10757,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -11593,7 +11714,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -12366,7 +12487,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -12406,7 +12527,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -12455,7 +12576,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -13046,7 +13167,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -13162,7 +13283,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -14256,7 +14377,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -14314,7 +14435,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -14376,7 +14497,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;

@@ -71,3 +71,20 @@ export async function deleteCourse(courseId: number) {
   })
   if (error) throw new Error('Не удалось удалить курс')
 }
+
+export type CourseMediaKind = 'thumbnail' | 'image_cover' | 'icon' | 'demo_video'
+
+// Upload a course asset, returns its stored path to put into the create/update body.
+export async function uploadCourseMedia(file: File, kind: CourseMediaKind): Promise<string> {
+  const { data, error } = await api.POST('/api/v1/panel/webinar/media', {
+    body: {} as never,
+    bodySerializer: () => {
+      const fd = new FormData()
+      fd.append('file', file)
+      fd.append('kind', kind)
+      return fd
+    },
+  })
+  if (error) throw new Error('Не удалось загрузить файл')
+  return data.path
+}
