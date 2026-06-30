@@ -526,6 +526,71 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/panel/financial/account": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Account Balance
+         * @description The student's wallet balance (legacy getAccountingCharge).
+         */
+        get: operations["account_balance_api_v1_panel_financial_account_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/financial/accounting": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Financial Report
+         * @description Financial report — the student's ledger rows (legacy financial summary).
+         */
+        get: operations["financial_report_api_v1_panel_financial_accounting_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/financial/offline-payments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Offline Payments
+         * @description The student's offline top-up requests (legacy offline payments history).
+         */
+        get: operations["offline_payments_api_v1_panel_financial_offline_payments_get"];
+        put?: never;
+        /**
+         * Create Offline Payment
+         * @description Submit an offline (bank-transfer) top-up request — created `waiting`;
+         *     admin approval (→ wallet credit) is deferred (legacy charge → offline).
+         */
+        post: operations["create_offline_payment_api_v1_panel_financial_offline_payments_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/favorites": {
         parameters: {
             query?: never;
@@ -3086,6 +3151,47 @@ export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
         /**
+         * AccountBalance
+         * @description Wallet figures for the charge-account page (legacy getAccountingCharge).
+         */
+        AccountBalance: {
+            /** Charge */
+            charge: number;
+        };
+        /**
+         * AccountingRead
+         * @description One financial-report row (legacy AccountingSummaryController list).
+         */
+        AccountingRead: {
+            /** Id */
+            id: number;
+            /** Amount */
+            amount: number;
+            /** Type */
+            type: string;
+            /** Type Account */
+            type_account: string;
+            /** Description */
+            description?: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /**
+         * AccountingType
+         * @description Legacy Accounting `type` — money added to or taken from the ledger.
+         * @enum {string}
+         */
+        AccountingType: "addiction" | "deduction";
+        /**
+         * AccountingTypeAccount
+         * @description Legacy Accounting `type_account` (only `asset` matters for the wallet).
+         * @enum {string}
+         */
+        AccountingTypeAccount: "asset" | "income" | "subscribe" | "promotion" | "registration_package" | "installment_payment";
+        /**
          * Achievement
          * @description Legacy CertificatesController@achievements: a passed result + its certificate.
          */
@@ -5153,6 +5259,39 @@ export interface components {
             already_registered: boolean;
             /** Token */
             token?: string | null;
+        };
+        /** OfflinePaymentCreate */
+        OfflinePaymentCreate: {
+            /** Amount */
+            amount: number;
+            /** Bank */
+            bank?: string | null;
+            /** Reference Number */
+            reference_number?: string | null;
+            /** Pay Date */
+            pay_date?: string | null;
+        };
+        /** OfflinePaymentRead */
+        OfflinePaymentRead: {
+            /** Id */
+            id: number;
+            /** Bank */
+            bank?: string | null;
+            /** Reference Number */
+            reference_number?: string | null;
+            /** Amount */
+            amount: number;
+            /** Status */
+            status: string;
+            /** Attachment */
+            attachment?: string | null;
+            /** Pay Date */
+            pay_date?: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
         };
         /**
          * OpenQuizRead
@@ -7579,6 +7718,150 @@ export interface operations {
             };
             /** @description Unauthorized */
             401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    account_balance_api_v1_panel_financial_account_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AccountBalance"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    financial_report_api_v1_panel_financial_accounting_get: {
+        parameters: {
+            query?: {
+                type?: components["schemas"]["AccountingType"] | null;
+                type_account?: components["schemas"]["AccountingTypeAccount"] | null;
+                search?: string | null;
+                date_from?: string | null;
+                date_to?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AccountingRead"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    offline_payments_api_v1_panel_financial_offline_payments_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OfflinePaymentRead"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    create_offline_payment_api_v1_panel_financial_offline_payments_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OfflinePaymentCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OfflinePaymentRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
                 headers: {
                     [name: string]: unknown;
                 };

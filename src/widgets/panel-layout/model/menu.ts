@@ -98,7 +98,11 @@ export const MENU: MenuSection[] = [
       {
         label: 'Финансы',
         icon: Wallet,
-        items: [{ to: '/subscriptions', label: 'Подписки' }],
+        items: [
+          { to: '/finance', label: 'Финансовый отчёт' },
+          { to: '/charge-account', label: 'Пополнить счёт' },
+          { to: '/subscriptions', label: 'Подписки' },
+        ],
       },
       { label: 'Баллы', icon: Star, to: '/rewards' },
     ],

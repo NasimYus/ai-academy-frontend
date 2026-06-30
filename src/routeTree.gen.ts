@@ -26,9 +26,11 @@ import { Route as MeetingsRouteImport } from './routes/meetings'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as InstructorsRouteImport } from './routes/instructors'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
+import { Route as FinanceRouteImport } from './routes/finance'
 import { Route as FavoritesRouteImport } from './routes/favorites'
 import { Route as CoursesRouteImport } from './routes/courses'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ChargeAccountRouteImport } from './routes/charge-account'
 import { Route as CertificatesRouteImport } from './routes/certificates'
 import { Route as CertificateValidationRouteImport } from './routes/certificate-validation'
 import { Route as CartRouteImport } from './routes/cart'
@@ -151,6 +153,11 @@ const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
   path: '/forgot-password',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FinanceRoute = FinanceRouteImport.update({
+  id: '/finance',
+  path: '/finance',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FavoritesRoute = FavoritesRouteImport.update({
   id: '/favorites',
   path: '/favorites',
@@ -164,6 +171,11 @@ const CoursesRoute = CoursesRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChargeAccountRoute = ChargeAccountRouteImport.update({
+  id: '/charge-account',
+  path: '/charge-account',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CertificatesRoute = CertificatesRouteImport.update({
@@ -356,9 +368,11 @@ export interface FileRoutesByFullPath {
   '/cart': typeof CartRoute
   '/certificate-validation': typeof CertificateValidationRoute
   '/certificates': typeof CertificatesRoute
+  '/charge-account': typeof ChargeAccountRoute
   '/contact': typeof ContactRoute
   '/courses': typeof CoursesRoute
   '/favorites': typeof FavoritesRoute
+  '/finance': typeof FinanceRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/instructors': typeof InstructorsRoute
   '/login': typeof LoginRoute
@@ -414,9 +428,11 @@ export interface FileRoutesByTo {
   '/cart': typeof CartRoute
   '/certificate-validation': typeof CertificateValidationRoute
   '/certificates': typeof CertificatesRoute
+  '/charge-account': typeof ChargeAccountRoute
   '/contact': typeof ContactRoute
   '/courses': typeof CoursesRoute
   '/favorites': typeof FavoritesRoute
+  '/finance': typeof FinanceRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/instructors': typeof InstructorsRoute
   '/login': typeof LoginRoute
@@ -473,9 +489,11 @@ export interface FileRoutesById {
   '/cart': typeof CartRoute
   '/certificate-validation': typeof CertificateValidationRoute
   '/certificates': typeof CertificatesRoute
+  '/charge-account': typeof ChargeAccountRoute
   '/contact': typeof ContactRoute
   '/courses': typeof CoursesRoute
   '/favorites': typeof FavoritesRoute
+  '/finance': typeof FinanceRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/instructors': typeof InstructorsRoute
   '/login': typeof LoginRoute
@@ -533,9 +551,11 @@ export interface FileRouteTypes {
     | '/cart'
     | '/certificate-validation'
     | '/certificates'
+    | '/charge-account'
     | '/contact'
     | '/courses'
     | '/favorites'
+    | '/finance'
     | '/forgot-password'
     | '/instructors'
     | '/login'
@@ -591,9 +611,11 @@ export interface FileRouteTypes {
     | '/cart'
     | '/certificate-validation'
     | '/certificates'
+    | '/charge-account'
     | '/contact'
     | '/courses'
     | '/favorites'
+    | '/finance'
     | '/forgot-password'
     | '/instructors'
     | '/login'
@@ -649,9 +671,11 @@ export interface FileRouteTypes {
     | '/cart'
     | '/certificate-validation'
     | '/certificates'
+    | '/charge-account'
     | '/contact'
     | '/courses'
     | '/favorites'
+    | '/finance'
     | '/forgot-password'
     | '/instructors'
     | '/login'
@@ -708,9 +732,11 @@ export interface RootRouteChildren {
   CartRoute: typeof CartRoute
   CertificateValidationRoute: typeof CertificateValidationRoute
   CertificatesRoute: typeof CertificatesRoute
+  ChargeAccountRoute: typeof ChargeAccountRoute
   ContactRoute: typeof ContactRoute
   CoursesRoute: typeof CoursesRoute
   FavoritesRoute: typeof FavoritesRoute
+  FinanceRoute: typeof FinanceRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   InstructorsRoute: typeof InstructorsRoute
   LoginRoute: typeof LoginRoute
@@ -881,6 +907,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ForgotPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/finance': {
+      id: '/finance'
+      path: '/finance'
+      fullPath: '/finance'
+      preLoaderRoute: typeof FinanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/favorites': {
       id: '/favorites'
       path: '/favorites'
@@ -900,6 +933,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/charge-account': {
+      id: '/charge-account'
+      path: '/charge-account'
+      fullPath: '/charge-account'
+      preLoaderRoute: typeof ChargeAccountRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/certificates': {
@@ -1164,9 +1204,11 @@ const rootRouteChildren: RootRouteChildren = {
   CartRoute: CartRoute,
   CertificateValidationRoute: CertificateValidationRoute,
   CertificatesRoute: CertificatesRoute,
+  ChargeAccountRoute: ChargeAccountRoute,
   ContactRoute: ContactRoute,
   CoursesRoute: CoursesRoute,
   FavoritesRoute: FavoritesRoute,
+  FinanceRoute: FinanceRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   InstructorsRoute: InstructorsRoute,
   LoginRoute: LoginRoute,
