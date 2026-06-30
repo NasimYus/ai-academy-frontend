@@ -1667,6 +1667,27 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/panel/instructor-dashboard": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Instructor Dashboard
+         * @description Instructor panel home — counters + course-management cards (legacy
+         *     getInstructorDashboardData hello-box + courses overview).
+         */
+        get: operations["instructor_dashboard_api_v1_panel_instructor_dashboard_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/panel/webinar": {
         parameters: {
             query?: never;
@@ -5157,6 +5178,28 @@ export interface components {
             /** Histories */
             histories: components["schemas"]["AssignmentHistoryRow"][];
         };
+        /**
+         * InstructorDashboard
+         * @description Instructor panel home (legacy getInstructorDashboardData).
+         */
+        InstructorDashboard: {
+            /** Courses Count */
+            courses_count: number;
+            /** Meetings Count */
+            meetings_count: number;
+            /** Products Count */
+            products_count: number;
+            /** Bundles Count */
+            bundles_count: number;
+            /** Live Courses */
+            live_courses: number;
+            /** Video Courses */
+            video_courses: number;
+            /** Text Courses */
+            text_courses: number;
+            /** Manage Courses */
+            manage_courses: components["schemas"]["ManageCourseCard"][];
+        };
         /** LastAnswer */
         LastAnswer: {
             /** Description */
@@ -5219,6 +5262,27 @@ export interface components {
              * @default logout
              */
             status: string;
+        };
+        /**
+         * ManageCourseCard
+         * @description A course card on the instructor dashboard (legacy helloBox manageCourses).
+         */
+        ManageCourseCard: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Slug */
+            slug: string;
+            /** Type */
+            type: string;
+            /** Image */
+            image?: string | null;
+            /**
+             * Students Count
+             * @default 0
+             */
+            students_count: number;
         };
         /** MeetingConfig */
         MeetingConfig: {
@@ -10388,6 +10452,44 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["CourseRead"][];
+                };
+            };
+        };
+    };
+    instructor_dashboard_api_v1_panel_instructor_dashboard_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["InstructorDashboard"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };

@@ -1,2 +1,5 @@
-export { dashboardQueryOptions } from '#/entities/dashboard/api/dashboard'
-export type { DashboardSummary } from '#/entities/dashboard/api/dashboard'
+export {
+  dashboardQueryOptions,
+  instructorDashboardQueryOptions,
+} from '#/entities/dashboard/api/dashboard'
+export type { DashboardSummary, InstructorDashboard } from '#/entities/dashboard/api/dashboard'

@@ -12,6 +12,7 @@ import {
   LifeBuoy,
   MessageSquare,
   Package,
+  Plus,
   Settings,
   ShoppingCart,
   Star,
@@ -118,6 +119,7 @@ export const MENU: MenuSection[] = [
     roles: ['teacher', 'organization', 'admin'],
     groups: [
       { label: 'Мои курсы', icon: BookOpen, to: '/instructor' },
+      { label: 'Создать курс', icon: Plus, to: '/instructor/course/new' },
       { label: 'Продажи', icon: Wallet, to: '/instructor/sales' },
       { label: 'Наборы', icon: Package, to: '/instructor/bundles' },
       { label: 'Тесты', icon: ClipboardCheck, to: '/instructor/quizzes' },

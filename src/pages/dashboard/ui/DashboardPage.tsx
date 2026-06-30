@@ -16,8 +16,10 @@ import type { ReactNode } from 'react'
 
 import { dashboardQueryOptions } from '#/entities/dashboard'
 import { useSessionStore } from '#/entities/session'
-import { Spinner } from '#/shared/ui'
+import { PageHeader, Spinner } from '#/shared/ui'
 import { PanelLayout } from '#/widgets/panel-layout'
+
+import { InstructorDashboardView } from '#/pages/dashboard/ui/InstructorDashboardView'
 
 /** A white panel card (legacy `.bg-white .rounded-24`). */
 function Panel({ className = '', children }: { className?: string; children: ReactNode }) {
@@ -76,6 +78,15 @@ export function DashboardPage() {
     return (
       <PanelLayout>
         <p className="text-red-600">{error.message}</p>
+      </PanelLayout>
+    )
+  }
+
+  if (data.is_instructor) {
+    return (
+      <PanelLayout>
+        <PageHeader title="Панель управления" />
+        <InstructorDashboardView name={user?.full_name} balance={data.balance} />
       </PanelLayout>
     )
   }
