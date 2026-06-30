@@ -23,6 +23,7 @@ export function RegisterForm() {
   const [userId, setUserId] = useState<number | null>(null)
   const [devCode, setDevCode] = useState<string | null>(null)
 
+  const [accountType, setAccountType] = useState<'user' | 'teacher'>('user')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
@@ -66,7 +67,7 @@ export function RegisterForm() {
         password_confirmation: passwordConfirmation,
       })
       if (!parsed.success) return setFieldError(parsed.error.issues[0]?.message ?? 'Проверьте поля')
-      return step1.mutate(parsed.data)
+      return step1.mutate({ ...parsed.data, account_type: accountType })
     }
 
     if (step === 2) {
@@ -98,6 +99,32 @@ export function RegisterForm() {
 
       {step === 1 && (
         <>
+          {/* Account type — student vs instructor (legacy register account_type) */}
+          <div>
+            <span className="mb-1.5 block text-sm font-medium text-ink">Я регистрируюсь как</span>
+            <div className="grid grid-cols-2 gap-2">
+              {(
+                [
+                  { value: 'user', label: 'Студент', hint: 'Учиться на курсах' },
+                  { value: 'teacher', label: 'Инструктор', hint: 'Продавать курсы' },
+                ] as const
+              ).map((opt) => (
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() => setAccountType(opt.value)}
+                  className={`rounded-xl border px-3 py-2.5 text-left transition ${
+                    accountType === opt.value
+                      ? 'border-brand-500 bg-brand-50 text-brand-700'
+                      : 'border-brand-100 text-ink/70 hover:bg-brand-50/60'
+                  }`}
+                >
+                  <span className="block text-sm font-semibold">{opt.label}</span>
+                  <span className="mt-0.5 block text-xs text-ink/50">{opt.hint}</span>
+                </button>
+              ))}
+            </div>
+          </div>
           <Field
             label="E-mail"
             type="email"
