@@ -4501,6 +4501,26 @@ export interface components {
             /** Favorites Count */
             favorites_count: number;
             /**
+             * Meetings Count
+             * @default 0
+             */
+            meetings_count: number;
+            /**
+             * Certificates Count
+             * @default 0
+             */
+            certificates_count: number;
+            /**
+             * Passed Quizzes Count
+             * @default 0
+             */
+            passed_quizzes_count: number;
+            /**
+             * Balance
+             * @default 0
+             */
+            balance: number;
+            /**
              * Courses Count
              * @default 0
              */
