@@ -43,6 +43,7 @@ export const MENU: MenuSection[] = [
     title: 'Обучение',
     items: [
       { to: '/panel', label: 'Дашборд', icon: LayoutDashboard },
+      { to: '/calendar', label: 'Календарь событий', icon: CalendarDays },
       { to: '/my-courses', label: 'Мои курсы', icon: GraduationCap },
       { to: '/purchases', label: 'Покупки', icon: Receipt },
       { to: '/favorites', label: 'Избранное', icon: Heart },

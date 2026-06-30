@@ -1,11 +1,36 @@
+import { useQuery } from '@tanstack/react-query'
 import { Link, useRouterState } from '@tanstack/react-router'
 import { useState } from 'react'
 import type { ReactNode } from 'react'
 
+import { dashboardQueryOptions } from '#/entities/dashboard'
 import { useSessionStore } from '#/entities/session'
 import { Avatar } from '#/shared/ui'
 
 import { MENU } from '#/widgets/panel-layout/model/menu'
+
+// Avatar counters cloned from the legacy sidebar: a student sees purchased
+// courses + who they follow; instructors see created courses + followers (the
+// follower count isn't migrated yet, so it falls back to following).
+function SidebarCounters() {
+  const isStudent = useSessionStore((s) => s.user?.role_name === 'user')
+  const { data } = useQuery(dashboardQueryOptions)
+  const courses = isStudent ? (data?.enrolled_count ?? 0) : (data?.courses_count ?? 0)
+  const following = data?.following_count ?? 0
+  return (
+    <div className="mt-3 flex items-center justify-around rounded-xl bg-brand-50/70 px-2 py-2.5">
+      <div className="flex flex-col items-center">
+        <span className="text-sm font-bold text-ink">{courses}</span>
+        <span className="text-xs text-ink/50">Курсы</span>
+      </div>
+      <span className="h-8 w-px bg-brand-100" />
+      <div className="flex flex-col items-center">
+        <span className="text-sm font-bold text-ink">{following}</span>
+        <span className="text-xs text-ink/50">Подписки</span>
+      </div>
+    </div>
+  )
+}
 
 function SidebarNav({ pathname, onNavigate }: { pathname: string; onNavigate?: () => void }) {
   const role = useSessionStore((s) => s.user?.role_name)
@@ -59,12 +84,12 @@ export function PanelLayout({ children }: { children: ReactNode }) {
         {/* Desktop sidebar */}
         <aside className="hidden w-64 shrink-0 lg:block">
           <div className="sticky top-6 rounded-2xl border border-brand-100 bg-white p-4">
-            <div className="mb-5 flex items-center gap-3 border-b border-brand-50 pb-4">
-              <Avatar name={user?.full_name} size={40} />
-              <div className="min-w-0">
-                <p className="truncate font-semibold text-ink">{user?.full_name ?? 'Профиль'}</p>
-                <p className="truncate text-xs text-ink/45">{user?.email}</p>
-              </div>
+            <div className="mb-5 border-b border-brand-50 pb-4 text-center">
+              <Avatar name={user?.full_name} size={56} className="mx-auto" />
+              <p className="mt-2 truncate font-display font-bold text-ink">
+                {user?.full_name ?? 'Профиль'}
+              </p>
+              <SidebarCounters />
             </div>
             <SidebarNav pathname={pathname} />
           </div>
@@ -86,6 +111,13 @@ export function PanelLayout({ children }: { children: ReactNode }) {
               className="absolute left-0 top-0 h-full w-72 overflow-y-auto bg-white p-4"
               onClick={(e) => e.stopPropagation()}
             >
+              <div className="mb-5 border-b border-brand-50 pb-4 text-center">
+                <Avatar name={user?.full_name} size={56} className="mx-auto" />
+                <p className="mt-2 truncate font-display font-bold text-ink">
+                  {user?.full_name ?? 'Профиль'}
+                </p>
+                <SidebarCounters />
+              </div>
               <SidebarNav pathname={pathname} onNavigate={() => setOpen(false)} />
             </div>
           </div>

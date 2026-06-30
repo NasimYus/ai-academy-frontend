@@ -29,6 +29,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CertificatesRouteImport } from './routes/certificates'
 import { Route as CertificateValidationRouteImport } from './routes/certificate-validation'
 import { Route as CartRouteImport } from './routes/cart'
+import { Route as CalendarRouteImport } from './routes/calendar'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SupportIndexRouteImport } from './routes/support.index'
 import { Route as StoreIndexRouteImport } from './routes/store.index'
@@ -159,6 +160,11 @@ const CertificateValidationRoute = CertificateValidationRouteImport.update({
 const CartRoute = CartRouteImport.update({
   id: '/cart',
   path: '/cart',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalendarRoute = CalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -321,6 +327,7 @@ const InstructorCourseCourseIdEditRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/calendar': typeof CalendarRoute
   '/cart': typeof CartRoute
   '/certificate-validation': typeof CertificateValidationRoute
   '/certificates': typeof CertificatesRoute
@@ -374,6 +381,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/calendar': typeof CalendarRoute
   '/cart': typeof CartRoute
   '/certificate-validation': typeof CertificateValidationRoute
   '/certificates': typeof CertificatesRoute
@@ -428,6 +436,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/calendar': typeof CalendarRoute
   '/cart': typeof CartRoute
   '/certificate-validation': typeof CertificateValidationRoute
   '/certificates': typeof CertificatesRoute
@@ -483,6 +492,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/calendar'
     | '/cart'
     | '/certificate-validation'
     | '/certificates'
@@ -536,6 +546,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/calendar'
     | '/cart'
     | '/certificate-validation'
     | '/certificates'
@@ -589,6 +600,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/calendar'
     | '/cart'
     | '/certificate-validation'
     | '/certificates'
@@ -643,6 +655,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CalendarRoute: typeof CalendarRoute
   CartRoute: typeof CartRoute
   CertificateValidationRoute: typeof CertificateValidationRoute
   CertificatesRoute: typeof CertificatesRoute
@@ -835,6 +848,13 @@ declare module '@tanstack/react-router' {
       path: '/cart'
       fullPath: '/cart'
       preLoaderRoute: typeof CartRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calendar': {
+      id: '/calendar'
+      path: '/calendar'
+      fullPath: '/calendar'
+      preLoaderRoute: typeof CalendarRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -1059,6 +1079,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CalendarRoute: CalendarRoute,
   CartRoute: CartRoute,
   CertificateValidationRoute: CertificateValidationRoute,
   CertificatesRoute: CertificatesRoute,

@@ -485,6 +485,27 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/panel/events-calendar": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Events Calendar
+         * @description Upcoming events for the panel calendar (legacy EventsCalendarController).
+         *     Returns a flat, date-sorted list; the client derives day/upcoming views.
+         */
+        get: operations["events_calendar_api_v1_panel_events_calendar_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/favorites": {
         parameters: {
             query?: never;
@@ -3679,6 +3700,25 @@ export interface components {
          * @enum {string}
          */
         BundleStatus: "active" | "pending" | "is_draft" | "inactive";
+        /**
+         * CalendarEvent
+         * @description One dated item on the student's events calendar (legacy
+         *     EventsCalendarController event entry). `type` is the legacy event group key
+         *     (e.g. ``meetings``, ``live_class_start``, ``courses_expirations``).
+         */
+        CalendarEvent: {
+            /** Type */
+            type: string;
+            /** Subtitle */
+            subtitle: string;
+            /**
+             * Event At
+             * Format: date-time
+             */
+            event_at: string;
+            /** Time */
+            time?: string | null;
+        };
         /** CartAmounts */
         CartAmounts: {
             /** Sub Total */
@@ -4501,6 +4541,11 @@ export interface components {
             /** Favorites Count */
             favorites_count: number;
             /**
+             * Following Count
+             * @default 0
+             */
+            following_count: number;
+            /**
              * Meetings Count
              * @default 0
              */
@@ -4571,6 +4616,17 @@ export interface components {
         ErrorResponse: {
             /** Detail */
             detail: string;
+        };
+        /**
+         * EventsCalendar
+         * @description All upcoming events for the current user. The client derives the calendar
+         *     dots, per-day list and the upcoming panel from this flat list.
+         */
+        EventsCalendar: {
+            /** Events */
+            events: components["schemas"]["CalendarEvent"][];
+            /** Total */
+            total: number;
         };
         /** FavoriteRead */
         FavoriteRead: {
@@ -7343,6 +7399,35 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["DashboardSummary"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    events_calendar_api_v1_panel_events_calendar_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EventsCalendar"];
                 };
             };
             /** @description Unauthorized */
