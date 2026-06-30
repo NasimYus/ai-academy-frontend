@@ -13,12 +13,15 @@ import { Route as SubscriptionsRouteImport } from './routes/subscriptions'
 import { Route as RewardsRouteImport } from './routes/rewards'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as QuizResultsRouteImport } from './routes/quiz-results'
+import { Route as QuizOpensRouteImport } from './routes/quiz-opens'
 import { Route as PurchasesRouteImport } from './routes/purchases'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PanelRouteImport } from './routes/panel'
 import { Route as OrdersRouteImport } from './routes/orders'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as MyCoursesRouteImport } from './routes/my-courses'
+import { Route as MyCommentsRouteImport } from './routes/my-comments'
 import { Route as MeetingsRouteImport } from './routes/meetings'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as InstructorsRouteImport } from './routes/instructors'
@@ -30,6 +33,7 @@ import { Route as CertificatesRouteImport } from './routes/certificates'
 import { Route as CertificateValidationRouteImport } from './routes/certificate-validation'
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as CalendarRouteImport } from './routes/calendar'
+import { Route as AssignmentsRouteImport } from './routes/assignments'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SupportIndexRouteImport } from './routes/support.index'
 import { Route as StoreIndexRouteImport } from './routes/store.index'
@@ -82,6 +86,16 @@ const RegisterRoute = RegisterRouteImport.update({
   path: '/register',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QuizResultsRoute = QuizResultsRouteImport.update({
+  id: '/quiz-results',
+  path: '/quiz-results',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuizOpensRoute = QuizOpensRouteImport.update({
+  id: '/quiz-opens',
+  path: '/quiz-opens',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PurchasesRoute = PurchasesRouteImport.update({
   id: '/purchases',
   path: '/purchases',
@@ -110,6 +124,11 @@ const NotificationsRoute = NotificationsRouteImport.update({
 const MyCoursesRoute = MyCoursesRouteImport.update({
   id: '/my-courses',
   path: '/my-courses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyCommentsRoute = MyCommentsRouteImport.update({
+  id: '/my-comments',
+  path: '/my-comments',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MeetingsRoute = MeetingsRouteImport.update({
@@ -165,6 +184,11 @@ const CartRoute = CartRouteImport.update({
 const CalendarRoute = CalendarRouteImport.update({
   id: '/calendar',
   path: '/calendar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AssignmentsRoute = AssignmentsRouteImport.update({
+  id: '/assignments',
+  path: '/assignments',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -327,6 +351,7 @@ const InstructorCourseCourseIdEditRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/assignments': typeof AssignmentsRoute
   '/calendar': typeof CalendarRoute
   '/cart': typeof CartRoute
   '/certificate-validation': typeof CertificateValidationRoute
@@ -338,12 +363,15 @@ export interface FileRoutesByFullPath {
   '/instructors': typeof InstructorsRoute
   '/login': typeof LoginRoute
   '/meetings': typeof MeetingsRoute
+  '/my-comments': typeof MyCommentsRoute
   '/my-courses': typeof MyCoursesRoute
   '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
   '/panel': typeof PanelRoute
   '/profile': typeof ProfileRoute
   '/purchases': typeof PurchasesRoute
+  '/quiz-opens': typeof QuizOpensRoute
+  '/quiz-results': typeof QuizResultsRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/rewards': typeof RewardsRoute
@@ -381,6 +409,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/assignments': typeof AssignmentsRoute
   '/calendar': typeof CalendarRoute
   '/cart': typeof CartRoute
   '/certificate-validation': typeof CertificateValidationRoute
@@ -392,12 +421,15 @@ export interface FileRoutesByTo {
   '/instructors': typeof InstructorsRoute
   '/login': typeof LoginRoute
   '/meetings': typeof MeetingsRoute
+  '/my-comments': typeof MyCommentsRoute
   '/my-courses': typeof MyCoursesRoute
   '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
   '/panel': typeof PanelRoute
   '/profile': typeof ProfileRoute
   '/purchases': typeof PurchasesRoute
+  '/quiz-opens': typeof QuizOpensRoute
+  '/quiz-results': typeof QuizResultsRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/rewards': typeof RewardsRoute
@@ -436,6 +468,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/assignments': typeof AssignmentsRoute
   '/calendar': typeof CalendarRoute
   '/cart': typeof CartRoute
   '/certificate-validation': typeof CertificateValidationRoute
@@ -447,12 +480,15 @@ export interface FileRoutesById {
   '/instructors': typeof InstructorsRoute
   '/login': typeof LoginRoute
   '/meetings': typeof MeetingsRoute
+  '/my-comments': typeof MyCommentsRoute
   '/my-courses': typeof MyCoursesRoute
   '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
   '/panel': typeof PanelRoute
   '/profile': typeof ProfileRoute
   '/purchases': typeof PurchasesRoute
+  '/quiz-opens': typeof QuizOpensRoute
+  '/quiz-results': typeof QuizResultsRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/rewards': typeof RewardsRoute
@@ -492,6 +528,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/assignments'
     | '/calendar'
     | '/cart'
     | '/certificate-validation'
@@ -503,12 +540,15 @@ export interface FileRouteTypes {
     | '/instructors'
     | '/login'
     | '/meetings'
+    | '/my-comments'
     | '/my-courses'
     | '/notifications'
     | '/orders'
     | '/panel'
     | '/profile'
     | '/purchases'
+    | '/quiz-opens'
+    | '/quiz-results'
     | '/register'
     | '/reset-password'
     | '/rewards'
@@ -546,6 +586,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/assignments'
     | '/calendar'
     | '/cart'
     | '/certificate-validation'
@@ -557,12 +598,15 @@ export interface FileRouteTypes {
     | '/instructors'
     | '/login'
     | '/meetings'
+    | '/my-comments'
     | '/my-courses'
     | '/notifications'
     | '/orders'
     | '/panel'
     | '/profile'
     | '/purchases'
+    | '/quiz-opens'
+    | '/quiz-results'
     | '/register'
     | '/reset-password'
     | '/rewards'
@@ -600,6 +644,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/assignments'
     | '/calendar'
     | '/cart'
     | '/certificate-validation'
@@ -611,12 +656,15 @@ export interface FileRouteTypes {
     | '/instructors'
     | '/login'
     | '/meetings'
+    | '/my-comments'
     | '/my-courses'
     | '/notifications'
     | '/orders'
     | '/panel'
     | '/profile'
     | '/purchases'
+    | '/quiz-opens'
+    | '/quiz-results'
     | '/register'
     | '/reset-password'
     | '/rewards'
@@ -655,6 +703,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AssignmentsRoute: typeof AssignmentsRoute
   CalendarRoute: typeof CalendarRoute
   CartRoute: typeof CartRoute
   CertificateValidationRoute: typeof CertificateValidationRoute
@@ -666,12 +715,15 @@ export interface RootRouteChildren {
   InstructorsRoute: typeof InstructorsRoute
   LoginRoute: typeof LoginRoute
   MeetingsRoute: typeof MeetingsRoute
+  MyCommentsRoute: typeof MyCommentsRoute
   MyCoursesRoute: typeof MyCoursesRoute
   NotificationsRoute: typeof NotificationsRoute
   OrdersRoute: typeof OrdersRoute
   PanelRoute: typeof PanelRoute
   ProfileRoute: typeof ProfileRoute
   PurchasesRoute: typeof PurchasesRoute
+  QuizOpensRoute: typeof QuizOpensRoute
+  QuizResultsRoute: typeof QuizResultsRoute
   RegisterRoute: typeof RegisterRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   RewardsRoute: typeof RewardsRoute
@@ -738,6 +790,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/quiz-results': {
+      id: '/quiz-results'
+      path: '/quiz-results'
+      fullPath: '/quiz-results'
+      preLoaderRoute: typeof QuizResultsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quiz-opens': {
+      id: '/quiz-opens'
+      path: '/quiz-opens'
+      fullPath: '/quiz-opens'
+      preLoaderRoute: typeof QuizOpensRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/purchases': {
       id: '/purchases'
       path: '/purchases'
@@ -778,6 +844,13 @@ declare module '@tanstack/react-router' {
       path: '/my-courses'
       fullPath: '/my-courses'
       preLoaderRoute: typeof MyCoursesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-comments': {
+      id: '/my-comments'
+      path: '/my-comments'
+      fullPath: '/my-comments'
+      preLoaderRoute: typeof MyCommentsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/meetings': {
@@ -855,6 +928,13 @@ declare module '@tanstack/react-router' {
       path: '/calendar'
       fullPath: '/calendar'
       preLoaderRoute: typeof CalendarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/assignments': {
+      id: '/assignments'
+      path: '/assignments'
+      fullPath: '/assignments'
+      preLoaderRoute: typeof AssignmentsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -1079,6 +1159,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AssignmentsRoute: AssignmentsRoute,
   CalendarRoute: CalendarRoute,
   CartRoute: CartRoute,
   CertificateValidationRoute: CertificateValidationRoute,
@@ -1090,12 +1171,15 @@ const rootRouteChildren: RootRouteChildren = {
   InstructorsRoute: InstructorsRoute,
   LoginRoute: LoginRoute,
   MeetingsRoute: MeetingsRoute,
+  MyCommentsRoute: MyCommentsRoute,
   MyCoursesRoute: MyCoursesRoute,
   NotificationsRoute: NotificationsRoute,
   OrdersRoute: OrdersRoute,
   PanelRoute: PanelRoute,
   ProfileRoute: ProfileRoute,
   PurchasesRoute: PurchasesRoute,
+  QuizOpensRoute: QuizOpensRoute,
+  QuizResultsRoute: QuizResultsRoute,
   RegisterRoute: RegisterRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   RewardsRoute: RewardsRoute,

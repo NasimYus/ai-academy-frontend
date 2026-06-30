@@ -1,4 +1,9 @@
-export { courseQuizzesQueryOptions, quizQueryOptions } from '#/entities/quiz/api/quizzes'
+export {
+  courseQuizzesQueryOptions,
+  myQuizResultsQueryOptions,
+  openQuizzesQueryOptions,
+  quizQueryOptions,
+} from '#/entities/quiz/api/quizzes'
 export type {
   Answer,
   Question,

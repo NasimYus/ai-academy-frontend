@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link, useRouterState } from '@tanstack/react-router'
+import { ChevronDown } from 'lucide-react'
 import { useState } from 'react'
 import type { ReactNode } from 'react'
 
@@ -8,6 +9,10 @@ import { useSessionStore } from '#/entities/session'
 import { Avatar } from '#/shared/ui'
 
 import { MENU } from '#/widgets/panel-layout/model/menu'
+import type { MenuGroup } from '#/widgets/panel-layout/model/menu'
+
+const isActive = (pathname: string, to: string) =>
+  to === '/panel' ? pathname === '/panel' : pathname === to || pathname.startsWith(`${to}/`)
 
 // Avatar counters cloned from the legacy sidebar: a student sees purchased
 // courses + who they follow; instructors see created courses + followers (the
@@ -32,6 +37,80 @@ function SidebarCounters() {
   )
 }
 
+function SidebarGroup({
+  group,
+  pathname,
+  onNavigate,
+}: {
+  group: MenuGroup
+  pathname: string
+  onNavigate?: () => void
+}) {
+  const itemActive = (group.items ?? []).some((i) => isActive(pathname, i.to))
+  const groupActive = itemActive || (group.to ? isActive(pathname, group.to) : false)
+  const [override, setOverride] = useState<boolean | null>(null)
+
+  // Plain link (no sub-items).
+  if (!group.items?.length) {
+    return (
+      <Link
+        to={group.to ?? '#'}
+        onClick={onNavigate}
+        className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition ${
+          groupActive ? 'bg-brand-50 font-medium text-brand-700' : 'text-ink/70 hover:bg-brand-50/60'
+        }`}
+      >
+        <group.icon className="size-[18px] shrink-0" strokeWidth={1.8} />
+        <span>{group.label}</span>
+      </Link>
+    )
+  }
+
+  const expanded = override ?? groupActive
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={() => setOverride(!expanded)}
+        className={`flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm transition ${
+          groupActive ? 'font-medium text-brand-700' : 'text-ink/70 hover:bg-brand-50/60'
+        }`}
+      >
+        <group.icon className="size-[18px] shrink-0" strokeWidth={1.8} />
+        <span className="flex-1 text-left">{group.label}</span>
+        <ChevronDown
+          className={`size-4 shrink-0 text-ink/40 transition ${expanded ? '' : '-rotate-90'}`}
+        />
+      </button>
+      {expanded && (
+        <ul className="mt-0.5 space-y-0.5 pl-7">
+          {group.items.map((item) => {
+            const active = isActive(pathname, item.to)
+            return (
+              <li key={item.to}>
+                <Link
+                  to={item.to}
+                  onClick={onNavigate}
+                  className={`flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm transition ${
+                    active
+                      ? 'font-medium text-brand-700'
+                      : 'text-ink/55 hover:bg-brand-50/60 hover:text-ink/80'
+                  }`}
+                >
+                  <span
+                    className={`size-1.5 shrink-0 rounded-full ${active ? 'bg-brand-500' : 'bg-ink/20'}`}
+                  />
+                  <span>{item.label}</span>
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+      )}
+    </div>
+  )
+}
+
 function SidebarNav({ pathname, onNavigate }: { pathname: string; onNavigate?: () => void }) {
   const role = useSessionStore((s) => s.user?.role_name)
   return (
@@ -42,30 +121,16 @@ function SidebarNav({ pathname, onNavigate }: { pathname: string; onNavigate?: (
             <p className="px-3 pb-2 text-xs font-bold uppercase tracking-wide text-ink/35">
               {section.title}
             </p>
-            <ul className="space-y-0.5">
-              {section.items.map((item) => {
-                const active =
-                  item.to === '/panel'
-                    ? pathname === '/panel'
-                    : pathname === item.to || pathname.startsWith(`${item.to}/`)
-                return (
-                  <li key={item.to}>
-                    <Link
-                      to={item.to}
-                      onClick={onNavigate}
-                      className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition ${
-                        active
-                          ? 'bg-brand-50 font-medium text-brand-700'
-                          : 'text-ink/70 hover:bg-brand-50/60'
-                      }`}
-                    >
-                      <item.icon className="size-[18px] shrink-0" strokeWidth={1.8} />
-                      <span>{item.label}</span>
-                    </Link>
-                  </li>
-                )
-              })}
-            </ul>
+            <div className="space-y-0.5">
+              {section.groups.map((group) => (
+                <SidebarGroup
+                  key={group.label}
+                  group={group}
+                  pathname={pathname}
+                  onNavigate={onNavigate}
+                />
+              ))}
+            </div>
           </div>
         ),
       )}

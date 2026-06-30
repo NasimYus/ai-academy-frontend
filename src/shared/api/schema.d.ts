@@ -506,6 +506,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/panel/my-comments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * My Comments
+         * @description The student's own comments (legacy panel `courses/my-comments`).
+         */
+        get: operations["my_comments_api_v1_panel_my_comments_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/favorites": {
         parameters: {
             query?: never;
@@ -687,6 +707,46 @@ export interface paths {
          * @description Active quizzes for a course (legacy WebinarContentController@quizzes).
          */
         get: operations["list_course_quizzes_api_v1_courses__course_id__quizzes_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/quizzes/my-results": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * My Quiz Results
+         * @description The student's quiz attempts across enrolled courses (legacy my-results).
+         */
+        get: operations["my_quiz_results_api_v1_panel_quizzes_my_results_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/quizzes/opens": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Open Quizzes
+         * @description Active quizzes in enrolled courses the student hasn't completed (legacy opens).
+         */
+        get: operations["open_quizzes_api_v1_panel_quizzes_opens_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -4958,6 +5018,50 @@ export interface components {
             /** Avatar */
             avatar?: string | null;
         };
+        /**
+         * MyCommentRead
+         * @description A student's own comment for the panel `my-comments` list.
+         */
+        MyCommentRead: {
+            /** Id */
+            id: number;
+            /** Comment */
+            comment?: string | null;
+            /** Status */
+            status: string;
+            /** Course Id */
+            course_id?: number | null;
+            /** Blog Id */
+            blog_id?: number | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /**
+         * MyQuizResultRead
+         * @description A student's own quiz attempt for the panel `my-results` list.
+         */
+        MyQuizResultRead: {
+            /** Id */
+            id: number;
+            /** Quiz Id */
+            quiz_id: number;
+            /** Quiz Title */
+            quiz_title: string;
+            /** Course Id */
+            course_id: number;
+            /** Status */
+            status: string;
+            /** User Grade */
+            user_grade?: number | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
         /** NewsletterRequest */
         NewsletterRequest: {
             /**
@@ -5049,6 +5153,20 @@ export interface components {
             already_registered: boolean;
             /** Token */
             token?: string | null;
+        };
+        /**
+         * OpenQuizRead
+         * @description An active quiz the student hasn't completed (panel `not participated`).
+         */
+        OpenQuizRead: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Course Id */
+            course_id: number;
+            /** Question Count */
+            question_count: number;
         };
         /** OrderItemRead */
         OrderItemRead: {
@@ -7441,6 +7559,35 @@ export interface operations {
             };
         };
     };
+    my_comments_api_v1_panel_my_comments_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MyCommentRead"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
     list_favorites_api_v1_favorites_get: {
         parameters: {
             query?: {
@@ -7922,6 +8069,64 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    my_quiz_results_api_v1_panel_quizzes_my_results_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MyQuizResultRead"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    open_quizzes_api_v1_panel_quizzes_opens_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OpenQuizRead"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };

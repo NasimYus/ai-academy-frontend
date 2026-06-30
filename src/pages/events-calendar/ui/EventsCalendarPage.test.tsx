@@ -18,7 +18,7 @@ const state: { events: { type: string; subtitle: string; event_at: string; time:
 
 vi.mock('@tanstack/react-query', () => ({
   useQuery: (opts: { queryKey?: unknown[] }) => {
-    if (opts?.queryKey?.[0] === 'events-calendar') {
+    if (opts.queryKey?.[0] === 'events-calendar') {
       return {
         data: { events: state.events, total: state.events.length },
         isPending: false,

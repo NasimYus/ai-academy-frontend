@@ -2,6 +2,16 @@ import { queryOptions } from '@tanstack/react-query'
 
 import { api } from '#/shared/api'
 
+// The student's submission threads across enrolled courses (panel my-requests).
+export const myAssignmentsQueryOptions = queryOptions({
+  queryKey: ['my-assignments'],
+  queryFn: async () => {
+    // /panel/my_assignments declares no error responses → no `if (error)`.
+    const { data } = await api.GET('/api/v1/panel/my_assignments', {})
+    return data ?? []
+  },
+})
+
 // Active assignments of a course (discovery on the learn page).
 export const courseAssignmentsQueryOptions = (courseId: number) =>
   queryOptions({
