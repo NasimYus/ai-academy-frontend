@@ -22,7 +22,7 @@ export function Header() {
 
 function GuestHeader() {
   return (
-    <header>
+    <header className="sticky top-0 z-30">
       {/* Utility bar */}
       <div className="bg-brand-600 pb-12 text-sm text-white/90">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-6 py-2.5">

@@ -1,10 +1,14 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
 
 import { useSessionStore } from '#/entities/session'
+import { LandingPage } from '#/pages/landing'
 
 export const Route = createFileRoute('/')({
   beforeLoad: () => {
-    // Authenticated users go to their cabinet; guests to the login screen.
-    throw redirect({ to: useSessionStore.getState().token ? '/panel' : '/login' })
+    // Signed-in users land in their cabinet; guests see the public landing.
+    if (useSessionStore.getState().token) {
+      throw redirect({ to: '/panel' })
+    }
   },
+  component: LandingPage,
 })
