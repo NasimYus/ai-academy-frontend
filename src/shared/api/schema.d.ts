@@ -296,6 +296,29 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/contact": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Submit Contact
+         * @description Public contact-form submission (legacy ContactController@store).
+         *
+         *     Stores the message; admin notification/email are settings-gated (deferred,
+         *     like the other notification stubs).
+         */
+        post: operations["submit_contact_api_v1_contact_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/currencies": {
         parameters: {
             query?: never;
@@ -2389,6 +2412,86 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/gifts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Create Gift
+         * @description Gift a course/bundle to someone by email (legacy GiftController@store).
+         *
+         *     Creates a pending Gift + order; settling it via /payments activates the gift
+         *     and enrols the recipient if they already have an account.
+         */
+        post: operations["create_gift_api_v1_gifts_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/gifts/received": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Received Gifts
+         * @description Active gifts addressed to my email.
+         */
+        get: operations["received_gifts_api_v1_panel_gifts_received_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/gifts/sent": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Sent Gifts */
+        get: operations["sent_gifts_api_v1_panel_gifts_sent_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/gifts/{gift_id}/redeem": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Redeem Gift
+         * @description Redeem an active gift: enrol the recipient in the gifted item (idempotent).
+         */
+        post: operations["redeem_gift_api_v1_gifts__gift_id__redeem_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/cart": {
         parameters: {
             query?: never;
@@ -3716,6 +3819,27 @@ export interface components {
             /** Reply */
             reply: string;
         };
+        /** ContactCreate */
+        ContactCreate: {
+            /** Name */
+            name: string;
+            /**
+             * Email
+             * Format: email
+             */
+            email: string;
+            /** Phone */
+            phone?: string | null;
+            /** Subject */
+            subject: string;
+            /** Message */
+            message: string;
+        };
+        /** ContactResponse */
+        ContactResponse: {
+            /** Message */
+            message: string;
+        };
         /**
          * ContentItem
          * @description A lesson item (file / text_lesson / session). Gated payload fields are
@@ -4551,6 +4675,60 @@ export interface components {
             last_activity?: string | null;
             last_answer?: components["schemas"]["LastAnswer"] | null;
         };
+        /** GiftActionResponse */
+        GiftActionResponse: {
+            /** Message */
+            message: string;
+        };
+        /** GiftCreate */
+        GiftCreate: {
+            item_type: components["schemas"]["GiftItemType"];
+            /** Item Id */
+            item_id: number;
+            /** Name */
+            name: string;
+            /**
+             * Email
+             * Format: email
+             */
+            email: string;
+            /** Description */
+            description?: string | null;
+        };
+        /**
+         * GiftItemType
+         * @enum {string}
+         */
+        GiftItemType: "course" | "bundle";
+        /** GiftRead */
+        GiftRead: {
+            /** Id */
+            id: number;
+            item_type: components["schemas"]["GiftItemType"];
+            /** Item Id */
+            item_id: number;
+            /** Item Title */
+            item_title?: string | null;
+            /** Name */
+            name: string;
+            /** Email */
+            email: string;
+            /** Description */
+            description: string | null;
+            status: components["schemas"]["GiftStatus"];
+            /** Viewed */
+            viewed: boolean;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /**
+         * GiftStatus
+         * @enum {string}
+         */
+        GiftStatus: "pending" | "active" | "cancel";
         /** GradeInput */
         GradeInput: {
             /** Grade */
@@ -4810,6 +4988,8 @@ export interface components {
             reserve_meeting_id?: number | null;
             /** Product Id */
             product_id?: number | null;
+            /** Gift Id */
+            gift_id?: number | null;
             /** Title */
             title?: string | null;
             /** Slug */
@@ -6826,6 +7006,39 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["TrendCategoryList"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    submit_contact_api_v1_contact_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ContactCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContactResponse"];
                 };
             };
             /** @description Validation Error */
@@ -11706,6 +11919,173 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_gift_api_v1_gifts_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["GiftCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrderRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    received_gifts_api_v1_panel_gifts_received_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GiftRead"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    sent_gifts_api_v1_panel_gifts_sent_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GiftRead"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    redeem_gift_api_v1_gifts__gift_id__redeem_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                gift_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GiftActionResponse"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };

@@ -15,12 +15,11 @@ import { Avatar, Button } from '#/shared/ui'
 const NAV = [
   { to: '/', label: 'Home' },
   { to: '/courses', label: 'Courses' },
-  // NOTE: Forums (global) + Contact pages are pending design screens; interim
-  // targets keep the nav functional (course forums live under /courses; the
-  // contact/support flow is /support).
+  // TODO(Forums): global forum is a separate subsystem (topics/posts/likes) —
+  // deferred; interim target is the catalog where per-course forums live.
   { to: '/courses', label: 'Forums' },
   { to: '/blog', label: 'News' },
-  { to: '/support', label: 'Contact' },
+  { to: '/contact', label: 'Contact' },
 ] as const
 
 function CategoriesMenu() {
