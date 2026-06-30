@@ -35,6 +35,7 @@ import { Route as CertificatesRouteImport } from './routes/certificates'
 import { Route as CertificateValidationRouteImport } from './routes/certificate-validation'
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as CalendarRouteImport } from './routes/calendar'
+import { Route as BecomeInstructorRouteImport } from './routes/become-instructor'
 import { Route as AssignmentsRouteImport } from './routes/assignments'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SupportIndexRouteImport } from './routes/support.index'
@@ -64,6 +65,7 @@ import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
 import { Route as AdminPaymentChannelsRouteImport } from './routes/admin.payment-channels'
 import { Route as AdminCoursesRouteImport } from './routes/admin.courses'
+import { Route as AdminBecomeInstructorsRouteImport } from './routes/admin.become-instructors'
 import { Route as InstructorCourseNewRouteImport } from './routes/instructor.course.new'
 import { Route as InstructorCourseCourseIdStatisticsRouteImport } from './routes/instructor.course.$courseId.statistics'
 import { Route as InstructorCourseCourseIdEditRouteImport } from './routes/instructor.course.$courseId.edit'
@@ -196,6 +198,11 @@ const CartRoute = CartRouteImport.update({
 const CalendarRoute = CalendarRouteImport.update({
   id: '/calendar',
   path: '/calendar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BecomeInstructorRoute = BecomeInstructorRouteImport.update({
+  id: '/become-instructor',
+  path: '/become-instructor',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AssignmentsRoute = AssignmentsRouteImport.update({
@@ -343,6 +350,11 @@ const AdminCoursesRoute = AdminCoursesRouteImport.update({
   path: '/admin/courses',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminBecomeInstructorsRoute = AdminBecomeInstructorsRouteImport.update({
+  id: '/admin/become-instructors',
+  path: '/admin/become-instructors',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InstructorCourseNewRoute = InstructorCourseNewRouteImport.update({
   id: '/instructor/course/new',
   path: '/instructor/course/new',
@@ -364,6 +376,7 @@ const InstructorCourseCourseIdEditRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/assignments': typeof AssignmentsRoute
+  '/become-instructor': typeof BecomeInstructorRoute
   '/calendar': typeof CalendarRoute
   '/cart': typeof CartRoute
   '/certificate-validation': typeof CertificateValidationRoute
@@ -390,6 +403,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/rewards': typeof RewardsRoute
   '/subscriptions': typeof SubscriptionsRoute
+  '/admin/become-instructors': typeof AdminBecomeInstructorsRoute
   '/admin/courses': typeof AdminCoursesRoute
   '/admin/payment-channels': typeof AdminPaymentChannelsRoute
   '/admin/reviews': typeof AdminReviewsRoute
@@ -424,6 +438,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/assignments': typeof AssignmentsRoute
+  '/become-instructor': typeof BecomeInstructorRoute
   '/calendar': typeof CalendarRoute
   '/cart': typeof CartRoute
   '/certificate-validation': typeof CertificateValidationRoute
@@ -450,6 +465,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/rewards': typeof RewardsRoute
   '/subscriptions': typeof SubscriptionsRoute
+  '/admin/become-instructors': typeof AdminBecomeInstructorsRoute
   '/admin/courses': typeof AdminCoursesRoute
   '/admin/payment-channels': typeof AdminPaymentChannelsRoute
   '/admin/reviews': typeof AdminReviewsRoute
@@ -485,6 +501,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/assignments': typeof AssignmentsRoute
+  '/become-instructor': typeof BecomeInstructorRoute
   '/calendar': typeof CalendarRoute
   '/cart': typeof CartRoute
   '/certificate-validation': typeof CertificateValidationRoute
@@ -511,6 +528,7 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/rewards': typeof RewardsRoute
   '/subscriptions': typeof SubscriptionsRoute
+  '/admin/become-instructors': typeof AdminBecomeInstructorsRoute
   '/admin/courses': typeof AdminCoursesRoute
   '/admin/payment-channels': typeof AdminPaymentChannelsRoute
   '/admin/reviews': typeof AdminReviewsRoute
@@ -547,6 +565,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/assignments'
+    | '/become-instructor'
     | '/calendar'
     | '/cart'
     | '/certificate-validation'
@@ -573,6 +592,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/rewards'
     | '/subscriptions'
+    | '/admin/become-instructors'
     | '/admin/courses'
     | '/admin/payment-channels'
     | '/admin/reviews'
@@ -607,6 +627,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/assignments'
+    | '/become-instructor'
     | '/calendar'
     | '/cart'
     | '/certificate-validation'
@@ -633,6 +654,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/rewards'
     | '/subscriptions'
+    | '/admin/become-instructors'
     | '/admin/courses'
     | '/admin/payment-channels'
     | '/admin/reviews'
@@ -667,6 +689,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/assignments'
+    | '/become-instructor'
     | '/calendar'
     | '/cart'
     | '/certificate-validation'
@@ -693,6 +716,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/rewards'
     | '/subscriptions'
+    | '/admin/become-instructors'
     | '/admin/courses'
     | '/admin/payment-channels'
     | '/admin/reviews'
@@ -728,6 +752,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AssignmentsRoute: typeof AssignmentsRoute
+  BecomeInstructorRoute: typeof BecomeInstructorRoute
   CalendarRoute: typeof CalendarRoute
   CartRoute: typeof CartRoute
   CertificateValidationRoute: typeof CertificateValidationRoute
@@ -754,6 +779,7 @@ export interface RootRouteChildren {
   ResetPasswordRoute: typeof ResetPasswordRoute
   RewardsRoute: typeof RewardsRoute
   SubscriptionsRoute: typeof SubscriptionsRoute
+  AdminBecomeInstructorsRoute: typeof AdminBecomeInstructorsRoute
   AdminCoursesRoute: typeof AdminCoursesRoute
   AdminPaymentChannelsRoute: typeof AdminPaymentChannelsRoute
   AdminReviewsRoute: typeof AdminReviewsRoute
@@ -970,6 +996,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CalendarRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/become-instructor': {
+      id: '/become-instructor'
+      path: '/become-instructor'
+      fullPath: '/become-instructor'
+      preLoaderRoute: typeof BecomeInstructorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/assignments': {
       id: '/assignments'
       path: '/assignments'
@@ -1173,6 +1206,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminCoursesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/become-instructors': {
+      id: '/admin/become-instructors'
+      path: '/admin/become-instructors'
+      fullPath: '/admin/become-instructors'
+      preLoaderRoute: typeof AdminBecomeInstructorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/instructor/course/new': {
       id: '/instructor/course/new'
       path: '/instructor/course/new'
@@ -1200,6 +1240,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AssignmentsRoute: AssignmentsRoute,
+  BecomeInstructorRoute: BecomeInstructorRoute,
   CalendarRoute: CalendarRoute,
   CartRoute: CartRoute,
   CertificateValidationRoute: CertificateValidationRoute,
@@ -1226,6 +1267,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResetPasswordRoute: ResetPasswordRoute,
   RewardsRoute: RewardsRoute,
   SubscriptionsRoute: SubscriptionsRoute,
+  AdminBecomeInstructorsRoute: AdminBecomeInstructorsRoute,
   AdminCoursesRoute: AdminCoursesRoute,
   AdminPaymentChannelsRoute: AdminPaymentChannelsRoute,
   AdminReviewsRoute: AdminReviewsRoute,

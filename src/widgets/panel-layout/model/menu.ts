@@ -17,6 +17,7 @@ import {
   Star,
   Store,
   User,
+  UserCheck,
   Users,
   Wallet,
 } from 'lucide-react'
@@ -108,6 +109,11 @@ export const MENU: MenuSection[] = [
     ],
   },
   {
+    title: 'Карьера',
+    roles: ['user'],
+    groups: [{ label: 'Стать инструктором', icon: GraduationCap, to: '/become-instructor' }],
+  },
+  {
     title: 'Преподавание',
     roles: ['teacher', 'organization', 'admin'],
     groups: [
@@ -126,6 +132,7 @@ export const MENU: MenuSection[] = [
     groups: [
       { label: 'Модерация курсов', icon: CheckCircle, to: '/admin/courses' },
       { label: 'Пользователи', icon: Users, to: '/admin/users' },
+      { label: 'Заявки инструкторов', icon: UserCheck, to: '/admin/become-instructors' },
       { label: 'Отзывы', icon: Star, to: '/admin/reviews' },
       { label: 'Платёжные шлюзы', icon: CreditCard, to: '/admin/payment-channels' },
     ],

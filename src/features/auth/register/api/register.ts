@@ -13,7 +13,9 @@ export async function registerStep1(input: {
   password_confirmation: string
   account_type?: string // "user" (student) | "teacher" (instructor)
 }): Promise<Step1Result> {
-  const { data, error } = await api.POST('/api/v1/auth/register/step/1', { body: input })
+  const { data, error } = await api.POST('/api/v1/auth/register/step/1', {
+    body: { ...input, account_type: input.account_type ?? 'user' },
+  })
   if (error) throw new Error('Не удалось зарегистрироваться. Возможно, e-mail уже занят')
   return data
 }
