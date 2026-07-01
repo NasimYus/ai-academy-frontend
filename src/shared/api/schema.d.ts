@@ -1765,6 +1765,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/panel/webinar/{course_id}/submit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Submit Course
+         * @description Submit a course for review — flips draft → pending (legacy step 8 `rules`).
+         */
+        post: operations["submit_course_api_v1_panel_webinar__course_id__submit_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/panel/webinar/{course_id}/statistic": {
         parameters: {
             query?: never;
@@ -4744,6 +4764,8 @@ export interface components {
             icon?: string | null;
             /** Timezone */
             timezone?: string | null;
+            /** Message For Reviewer */
+            message_for_reviewer?: string | null;
             /** Description */
             description?: string | null;
             /** Seo Description */
@@ -5054,6 +5076,19 @@ export interface components {
          */
         CourseStatus: "active" | "pending" | "is_draft" | "inactive";
         /**
+         * CourseSubmit
+         * @description Wizard step 8 — submit for review (legacy `rules` + message_for_reviewer).
+         */
+        CourseSubmit: {
+            /** Message For Reviewer */
+            message_for_reviewer?: string | null;
+            /**
+             * Rules
+             * @default false
+             */
+            rules: boolean;
+        };
+        /**
          * CourseTeacher
          * @description Subset of the legacy `teacher->brief` available in Phase 1.
          */
@@ -5138,6 +5173,8 @@ export interface components {
             forum?: boolean | null;
             /** Certificate */
             certificate?: boolean | null;
+            /** Message For Reviewer */
+            message_for_reviewer?: string | null;
         };
         /** CurrencyRead */
         CurrencyRead: {
@@ -11074,6 +11111,59 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    submit_course_api_v1_panel_webinar__course_id__submit_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                course_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CourseSubmit"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CourseDetail"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };

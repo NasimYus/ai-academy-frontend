@@ -72,6 +72,27 @@ export async function deleteCourse(courseId: number) {
   if (error) throw new Error('Не удалось удалить курс')
 }
 
+const SUBMIT_MESSAGE: Record<string, string> = {
+  rules_required: 'Примите условия и правила',
+  category_required: 'Выберите категорию (шаг 2)',
+  start_date_required: 'Укажите дату начала (шаг 2)',
+  title_required: 'Укажите название (шаг 1)',
+}
+
+export async function submitCourse(courseId: number, message: string | null, rules: boolean) {
+  const { data, error } = await api.POST('/api/v1/panel/webinar/{course_id}/submit', {
+    params: { path: { course_id: courseId } },
+    body: { message_for_reviewer: message, rules },
+  })
+  if (error) {
+    const detail = error.detail
+    throw new Error(
+      (typeof detail === 'string' && SUBMIT_MESSAGE[detail]) || 'Не удалось отправить на проверку',
+    )
+  }
+  return data
+}
+
 export type CourseMediaKind = 'thumbnail' | 'image_cover' | 'icon' | 'demo_video'
 
 // Upload a course asset, returns its stored path to put into the create/update body.

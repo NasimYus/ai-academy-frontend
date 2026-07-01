@@ -8,6 +8,7 @@ import type {
 import {
   createCourse,
   deleteCourse,
+  submitCourse,
   updateCourse,
   uploadCourseMedia,
 } from '#/features/manage-course/api/manage'
@@ -35,6 +36,15 @@ export function useDeleteCourse() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: (courseId: number) => deleteCourse(courseId),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['instructor-classes'] }),
+  })
+}
+
+export function useSubmitCourse() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ courseId, message, rules }: { courseId: number; message: string | null; rules: boolean }) =>
+      submitCourse(courseId, message, rules),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['instructor-classes'] }),
   })
 }

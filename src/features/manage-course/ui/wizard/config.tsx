@@ -61,6 +61,9 @@ export interface WizardForm {
   price: string
   access_days: string
   subscribe: boolean
+  // step 8 — reviewer
+  message_for_reviewer: string
+  rules: boolean
 }
 
 export function initialForm(course?: CourseDetail): WizardForm {
@@ -88,6 +91,8 @@ export function initialForm(course?: CourseDetail): WizardForm {
     price: course?.price != null ? String(course.price) : '0',
     access_days: course?.access_days != null ? String(course.access_days) : '',
     subscribe: course?.subscribe ?? false,
+    message_for_reviewer: course?.message_for_reviewer ?? '',
+    rules: false,
   }
 }
 

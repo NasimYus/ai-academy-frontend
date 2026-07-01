@@ -4,6 +4,7 @@ import { useNavigate } from '@tanstack/react-router'
 import {
   useCreateCourse,
   useDeleteCourse,
+  useSubmitCourse,
   useUpdateCourse,
 } from '#/features/manage-course/model/use-manage'
 import type { CourseDetail, WizardForm } from '#/features/manage-course/ui/wizard/config'
@@ -14,6 +15,7 @@ import { Step1Basic } from '#/features/manage-course/ui/wizard/steps/Step1Basic'
 import { Step2Extra } from '#/features/manage-course/ui/wizard/steps/Step2Extra'
 import { Step3Pricing } from '#/features/manage-course/ui/wizard/steps/Step3Pricing'
 import { Step4Content } from '#/features/manage-course/ui/wizard/steps/Step4Content'
+import { Step8Reviewer } from '#/features/manage-course/ui/wizard/steps/Step8Reviewer'
 import { StepSoon } from '#/features/manage-course/ui/wizard/steps/StepSoon'
 
 export function CourseWizard({ course, step }: { course?: CourseDetail; step: number }) {
@@ -21,6 +23,7 @@ export function CourseWizard({ course, step }: { course?: CourseDetail; step: nu
   const create = useCreateCourse()
   const update = useUpdateCourse(course?.id ?? 0)
   const del = useDeleteCourse()
+  const submit = useSubmitCourse()
 
   const [f, setF] = useState<WizardForm>(() => initialForm(course))
   const [localError, setLocalError] = useState('')
@@ -31,8 +34,13 @@ export function CourseWizard({ course, step }: { course?: CourseDetail; step: nu
     [],
   )
 
-  const saving = create.isPending || update.isPending || del.isPending
-  const error = localError || create.error?.message || update.error?.message || del.error?.message
+  const saving = create.isPending || update.isPending || del.isPending || submit.isPending
+  const error =
+    localError ||
+    create.error?.message ||
+    update.error?.message ||
+    del.error?.message ||
+    submit.error?.message
 
   const goToStep = (courseId: number, target: number) =>
     void navigate({
@@ -79,9 +87,13 @@ export function CourseWizard({ course, step }: { course?: CourseDetail; step: nu
   }
 
   const onSubmit = async () => {
-    // NOTE(W.6): full "submit to review" status flip is wired with step 8.
-    const id = await persist(false)
-    if (id) void navigate({ to: '/instructor' })
+    // Save the current step first, then flip draft -> pending via the submit endpoint.
+    const id = await persist(true)
+    if (!id) return
+    submit.mutate(
+      { courseId: id, message: f.message_for_reviewer || null, rules: f.rules },
+      { onSuccess: () => void navigate({ to: '/instructor' }) },
+    )
   }
 
   const onDelete = () => {
@@ -98,7 +110,8 @@ export function CourseWizard({ course, step }: { course?: CourseDetail; step: nu
         {step === 2 && <Step2Extra f={f} set={set} />}
         {step === 3 && <Step3Pricing f={f} set={set} />}
         {step === 4 && course && <Step4Content courseId={course.id} />}
-        {step > 4 && <StepSoon step={step} />}
+        {step > 4 && step < 8 && <StepSoon step={step} />}
+        {step === 8 && <Step8Reviewer f={f} set={set} />}
       </div>
 
       {error && <p className="text-sm text-red-600">{error}</p>}
