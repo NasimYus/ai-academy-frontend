@@ -15,6 +15,7 @@ import { Step1Basic } from '#/features/manage-course/ui/wizard/steps/Step1Basic'
 import { Step2Extra } from '#/features/manage-course/ui/wizard/steps/Step2Extra'
 import { Step3Pricing } from '#/features/manage-course/ui/wizard/steps/Step3Pricing'
 import { Step4Content } from '#/features/manage-course/ui/wizard/steps/Step4Content'
+import { Step5Relations } from '#/features/manage-course/ui/wizard/steps/Step5Relations'
 import { Step8Reviewer } from '#/features/manage-course/ui/wizard/steps/Step8Reviewer'
 import { StepSoon } from '#/features/manage-course/ui/wizard/steps/StepSoon'
 
@@ -110,7 +111,8 @@ export function CourseWizard({ course, step }: { course?: CourseDetail; step: nu
         {step === 2 && <Step2Extra f={f} set={set} />}
         {step === 3 && <Step3Pricing f={f} set={set} />}
         {step === 4 && course && <Step4Content courseId={course.id} />}
-        {step > 4 && step < 8 && <StepSoon step={step} />}
+        {step === 5 && course && <Step5Relations courseId={course.id} />}
+        {step > 5 && step < 8 && <StepSoon step={step} />}
         {step === 8 && <Step8Reviewer f={f} set={set} />}
       </div>
 
