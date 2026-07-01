@@ -167,6 +167,7 @@ export const MENU: MenuSection[] = [
       { label: 'Пользователи', icon: Users, to: '/admin/users' },
       { label: 'Заявки инструкторов', icon: UserCheck, to: '/admin/become-instructors' },
       { label: 'Отзывы', icon: Star, to: '/admin/reviews' },
+      { label: 'Офлайн-платежи', icon: Wallet, to: '/admin/offline-payments' },
       { label: 'Платёжные шлюзы', icon: CreditCard, to: '/admin/payment-channels' },
     ],
   },

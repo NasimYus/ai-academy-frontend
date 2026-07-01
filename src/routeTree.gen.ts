@@ -66,6 +66,7 @@ import { Route as AssignmentAssignmentIdRouteImport } from './routes/assignment.
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
 import { Route as AdminPaymentChannelsRouteImport } from './routes/admin.payment-channels'
+import { Route as AdminOfflinePaymentsRouteImport } from './routes/admin.offline-payments'
 import { Route as AdminCoursesRouteImport } from './routes/admin.courses'
 import { Route as AdminCategoriesRouteImport } from './routes/admin.categories'
 import { Route as AdminBecomeInstructorsRouteImport } from './routes/admin.become-instructors'
@@ -361,6 +362,11 @@ const AdminPaymentChannelsRoute = AdminPaymentChannelsRouteImport.update({
   path: '/admin/payment-channels',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminOfflinePaymentsRoute = AdminOfflinePaymentsRouteImport.update({
+  id: '/admin/offline-payments',
+  path: '/admin/offline-payments',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminCoursesRoute = AdminCoursesRouteImport.update({
   id: '/admin/courses',
   path: '/admin/courses',
@@ -444,6 +450,7 @@ export interface FileRoutesByFullPath {
   '/admin/become-instructors': typeof AdminBecomeInstructorsRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/courses': typeof AdminCoursesRoute
+  '/admin/offline-payments': typeof AdminOfflinePaymentsRoute
   '/admin/payment-channels': typeof AdminPaymentChannelsRoute
   '/admin/reviews': typeof AdminReviewsRoute
   '/admin/users': typeof AdminUsersRoute
@@ -512,6 +519,7 @@ export interface FileRoutesByTo {
   '/admin/become-instructors': typeof AdminBecomeInstructorsRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/courses': typeof AdminCoursesRoute
+  '/admin/offline-payments': typeof AdminOfflinePaymentsRoute
   '/admin/payment-channels': typeof AdminPaymentChannelsRoute
   '/admin/reviews': typeof AdminReviewsRoute
   '/admin/users': typeof AdminUsersRoute
@@ -581,6 +589,7 @@ export interface FileRoutesById {
   '/admin/become-instructors': typeof AdminBecomeInstructorsRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/courses': typeof AdminCoursesRoute
+  '/admin/offline-payments': typeof AdminOfflinePaymentsRoute
   '/admin/payment-channels': typeof AdminPaymentChannelsRoute
   '/admin/reviews': typeof AdminReviewsRoute
   '/admin/users': typeof AdminUsersRoute
@@ -651,6 +660,7 @@ export interface FileRouteTypes {
     | '/admin/become-instructors'
     | '/admin/categories'
     | '/admin/courses'
+    | '/admin/offline-payments'
     | '/admin/payment-channels'
     | '/admin/reviews'
     | '/admin/users'
@@ -719,6 +729,7 @@ export interface FileRouteTypes {
     | '/admin/become-instructors'
     | '/admin/categories'
     | '/admin/courses'
+    | '/admin/offline-payments'
     | '/admin/payment-channels'
     | '/admin/reviews'
     | '/admin/users'
@@ -787,6 +798,7 @@ export interface FileRouteTypes {
     | '/admin/become-instructors'
     | '/admin/categories'
     | '/admin/courses'
+    | '/admin/offline-payments'
     | '/admin/payment-channels'
     | '/admin/reviews'
     | '/admin/users'
@@ -856,6 +868,7 @@ export interface RootRouteChildren {
   AdminBecomeInstructorsRoute: typeof AdminBecomeInstructorsRoute
   AdminCategoriesRoute: typeof AdminCategoriesRoute
   AdminCoursesRoute: typeof AdminCoursesRoute
+  AdminOfflinePaymentsRoute: typeof AdminOfflinePaymentsRoute
   AdminPaymentChannelsRoute: typeof AdminPaymentChannelsRoute
   AdminReviewsRoute: typeof AdminReviewsRoute
   AdminUsersRoute: typeof AdminUsersRoute
@@ -1288,6 +1301,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPaymentChannelsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/offline-payments': {
+      id: '/admin/offline-payments'
+      path: '/admin/offline-payments'
+      fullPath: '/admin/offline-payments'
+      preLoaderRoute: typeof AdminOfflinePaymentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/courses': {
       id: '/admin/courses'
       path: '/admin/courses'
@@ -1427,6 +1447,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminBecomeInstructorsRoute: AdminBecomeInstructorsRoute,
   AdminCategoriesRoute: AdminCategoriesRoute,
   AdminCoursesRoute: AdminCoursesRoute,
+  AdminOfflinePaymentsRoute: AdminOfflinePaymentsRoute,
   AdminPaymentChannelsRoute: AdminPaymentChannelsRoute,
   AdminReviewsRoute: AdminReviewsRoute,
   AdminUsersRoute: AdminUsersRoute,
