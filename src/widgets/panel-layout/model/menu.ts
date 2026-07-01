@@ -31,6 +31,7 @@ import type { LucideIcon } from 'lucide-react'
 export interface MenuLink {
   to: string
   label: string
+  roles?: string[] // visible only to these role_names; omit = everyone in the section
 }
 export interface MenuGroup {
   label: string
@@ -74,7 +75,19 @@ export const MENU: MenuSection[] = [
       {
         label: 'Домашние задания',
         icon: ClipboardList,
-        items: [{ to: '/assignments', label: 'Мои задания' }],
+        items: [
+          { to: '/assignments', label: 'Мои задания' },
+          {
+            to: '/instructor/assignments/courses',
+            label: 'Задания моих курсов',
+            roles: ['teacher', 'organization', 'admin'],
+          },
+          {
+            to: '/instructor/assignments',
+            label: 'Задания студентов',
+            roles: ['teacher', 'organization', 'admin'],
+          },
+        ],
       },
       {
         label: 'Тесты',
@@ -131,7 +144,6 @@ export const MENU: MenuSection[] = [
           { to: '/instructor/quizzes', label: 'Список' },
         ],
       },
-      { label: 'Задания', icon: ClipboardList, to: '/instructor/assignments' },
       { label: 'Комментарии', icon: MessageSquare, to: '/instructor/comments' },
       { label: 'Настройка консультаций', icon: Settings, to: '/instructor/meetings' },
     ],

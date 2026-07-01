@@ -69,6 +69,7 @@ import { Route as AdminCategoriesRouteImport } from './routes/admin.categories'
 import { Route as AdminBecomeInstructorsRouteImport } from './routes/admin.become-instructors'
 import { Route as InstructorQuizzesNewRouteImport } from './routes/instructor.quizzes.new'
 import { Route as InstructorCourseNewRouteImport } from './routes/instructor.course.new'
+import { Route as InstructorAssignmentsCoursesRouteImport } from './routes/instructor.assignments.courses'
 import { Route as InstructorQuizzesQuizIdEditRouteImport } from './routes/instructor.quizzes.$quizId.edit'
 import { Route as InstructorCourseCourseIdStatisticsRouteImport } from './routes/instructor.course.$courseId.statistics'
 import { Route as InstructorCourseCourseIdEditRouteImport } from './routes/instructor.course.$courseId.edit'
@@ -373,6 +374,12 @@ const InstructorCourseNewRoute = InstructorCourseNewRouteImport.update({
   path: '/instructor/course/new',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InstructorAssignmentsCoursesRoute =
+  InstructorAssignmentsCoursesRouteImport.update({
+    id: '/courses',
+    path: '/courses',
+    getParentRoute: () => InstructorAssignmentsRoute,
+  } as any)
 const InstructorQuizzesQuizIdEditRoute =
   InstructorQuizzesQuizIdEditRouteImport.update({
     id: '/$quizId/edit',
@@ -433,7 +440,7 @@ export interface FileRoutesByFullPath {
   '/bundles/$bundleId': typeof BundlesBundleIdRoute
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
-  '/instructor/assignments': typeof InstructorAssignmentsRoute
+  '/instructor/assignments': typeof InstructorAssignmentsRouteWithChildren
   '/instructor/bundles': typeof InstructorBundlesRoute
   '/instructor/comments': typeof InstructorCommentsRoute
   '/instructor/meetings': typeof InstructorMeetingsRoute
@@ -451,6 +458,7 @@ export interface FileRoutesByFullPath {
   '/instructor/': typeof InstructorIndexRoute
   '/store/': typeof StoreIndexRoute
   '/support/': typeof SupportIndexRoute
+  '/instructor/assignments/courses': typeof InstructorAssignmentsCoursesRoute
   '/instructor/course/new': typeof InstructorCourseNewRoute
   '/instructor/quizzes/new': typeof InstructorQuizzesNewRoute
   '/instructor/course/$courseId/edit': typeof InstructorCourseCourseIdEditRoute
@@ -498,7 +506,7 @@ export interface FileRoutesByTo {
   '/bundles/$bundleId': typeof BundlesBundleIdRoute
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
-  '/instructor/assignments': typeof InstructorAssignmentsRoute
+  '/instructor/assignments': typeof InstructorAssignmentsRouteWithChildren
   '/instructor/bundles': typeof InstructorBundlesRoute
   '/instructor/comments': typeof InstructorCommentsRoute
   '/instructor/meetings': typeof InstructorMeetingsRoute
@@ -516,6 +524,7 @@ export interface FileRoutesByTo {
   '/instructor': typeof InstructorIndexRoute
   '/store': typeof StoreIndexRoute
   '/support': typeof SupportIndexRoute
+  '/instructor/assignments/courses': typeof InstructorAssignmentsCoursesRoute
   '/instructor/course/new': typeof InstructorCourseNewRoute
   '/instructor/quizzes/new': typeof InstructorQuizzesNewRoute
   '/instructor/course/$courseId/edit': typeof InstructorCourseCourseIdEditRoute
@@ -564,7 +573,7 @@ export interface FileRoutesById {
   '/bundles/$bundleId': typeof BundlesBundleIdRoute
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
-  '/instructor/assignments': typeof InstructorAssignmentsRoute
+  '/instructor/assignments': typeof InstructorAssignmentsRouteWithChildren
   '/instructor/bundles': typeof InstructorBundlesRoute
   '/instructor/comments': typeof InstructorCommentsRoute
   '/instructor/meetings': typeof InstructorMeetingsRoute
@@ -582,6 +591,7 @@ export interface FileRoutesById {
   '/instructor/': typeof InstructorIndexRoute
   '/store/': typeof StoreIndexRoute
   '/support/': typeof SupportIndexRoute
+  '/instructor/assignments/courses': typeof InstructorAssignmentsCoursesRoute
   '/instructor/course/new': typeof InstructorCourseNewRoute
   '/instructor/quizzes/new': typeof InstructorQuizzesNewRoute
   '/instructor/course/$courseId/edit': typeof InstructorCourseCourseIdEditRoute
@@ -649,6 +659,7 @@ export interface FileRouteTypes {
     | '/instructor/'
     | '/store/'
     | '/support/'
+    | '/instructor/assignments/courses'
     | '/instructor/course/new'
     | '/instructor/quizzes/new'
     | '/instructor/course/$courseId/edit'
@@ -714,6 +725,7 @@ export interface FileRouteTypes {
     | '/instructor'
     | '/store'
     | '/support'
+    | '/instructor/assignments/courses'
     | '/instructor/course/new'
     | '/instructor/quizzes/new'
     | '/instructor/course/$courseId/edit'
@@ -779,6 +791,7 @@ export interface FileRouteTypes {
     | '/instructor/'
     | '/store/'
     | '/support/'
+    | '/instructor/assignments/courses'
     | '/instructor/course/new'
     | '/instructor/quizzes/new'
     | '/instructor/course/$courseId/edit'
@@ -827,7 +840,7 @@ export interface RootRouteChildren {
   BundlesBundleIdRoute: typeof BundlesBundleIdRoute
   CourseForumCourseIdRoute: typeof CourseForumCourseIdRoute
   CourseSlugRoute: typeof CourseSlugRoute
-  InstructorAssignmentsRoute: typeof InstructorAssignmentsRoute
+  InstructorAssignmentsRoute: typeof InstructorAssignmentsRouteWithChildren
   InstructorBundlesRoute: typeof InstructorBundlesRoute
   InstructorCommentsRoute: typeof InstructorCommentsRoute
   InstructorMeetingsRoute: typeof InstructorMeetingsRoute
@@ -1272,6 +1285,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InstructorCourseNewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/instructor/assignments/courses': {
+      id: '/instructor/assignments/courses'
+      path: '/courses'
+      fullPath: '/instructor/assignments/courses'
+      preLoaderRoute: typeof InstructorAssignmentsCoursesRouteImport
+      parentRoute: typeof InstructorAssignmentsRoute
+    }
     '/instructor/quizzes/$quizId/edit': {
       id: '/instructor/quizzes/$quizId/edit'
       path: '/$quizId/edit'
@@ -1295,6 +1315,19 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface InstructorAssignmentsRouteChildren {
+  InstructorAssignmentsCoursesRoute: typeof InstructorAssignmentsCoursesRoute
+}
+
+const InstructorAssignmentsRouteChildren: InstructorAssignmentsRouteChildren = {
+  InstructorAssignmentsCoursesRoute: InstructorAssignmentsCoursesRoute,
+}
+
+const InstructorAssignmentsRouteWithChildren =
+  InstructorAssignmentsRoute._addFileChildren(
+    InstructorAssignmentsRouteChildren,
+  )
 
 interface InstructorQuizzesRouteChildren {
   InstructorQuizzesNewRoute: typeof InstructorQuizzesNewRoute
@@ -1350,7 +1383,7 @@ const rootRouteChildren: RootRouteChildren = {
   BundlesBundleIdRoute: BundlesBundleIdRoute,
   CourseForumCourseIdRoute: CourseForumCourseIdRoute,
   CourseSlugRoute: CourseSlugRoute,
-  InstructorAssignmentsRoute: InstructorAssignmentsRoute,
+  InstructorAssignmentsRoute: InstructorAssignmentsRouteWithChildren,
   InstructorBundlesRoute: InstructorBundlesRoute,
   InstructorCommentsRoute: InstructorCommentsRoute,
   InstructorMeetingsRoute: InstructorMeetingsRoute,
