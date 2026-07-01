@@ -65,6 +65,7 @@ import { Route as AssignmentAssignmentIdRouteImport } from './routes/assignment.
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
 import { Route as AdminPaymentChannelsRouteImport } from './routes/admin.payment-channels'
+import { Route as AdminMarketingRouteImport } from './routes/admin.marketing'
 import { Route as AdminCoursesRouteImport } from './routes/admin.courses'
 import { Route as AdminBecomeInstructorsRouteImport } from './routes/admin.become-instructors'
 import { Route as InstructorQuizzesNewRouteImport } from './routes/instructor.quizzes.new'
@@ -353,6 +354,11 @@ const AdminPaymentChannelsRoute = AdminPaymentChannelsRouteImport.update({
   path: '/admin/payment-channels',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminMarketingRoute = AdminMarketingRouteImport.update({
+  id: '/admin/marketing',
+  path: '/admin/marketing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminCoursesRoute = AdminCoursesRouteImport.update({
   id: '/admin/courses',
   path: '/admin/courses',
@@ -424,6 +430,7 @@ export interface FileRoutesByFullPath {
   '/subscriptions': typeof SubscriptionsRoute
   '/admin/become-instructors': typeof AdminBecomeInstructorsRoute
   '/admin/courses': typeof AdminCoursesRoute
+  '/admin/marketing': typeof AdminMarketingRoute
   '/admin/payment-channels': typeof AdminPaymentChannelsRoute
   '/admin/reviews': typeof AdminReviewsRoute
   '/admin/users': typeof AdminUsersRoute
@@ -489,6 +496,7 @@ export interface FileRoutesByTo {
   '/subscriptions': typeof SubscriptionsRoute
   '/admin/become-instructors': typeof AdminBecomeInstructorsRoute
   '/admin/courses': typeof AdminCoursesRoute
+  '/admin/marketing': typeof AdminMarketingRoute
   '/admin/payment-channels': typeof AdminPaymentChannelsRoute
   '/admin/reviews': typeof AdminReviewsRoute
   '/admin/users': typeof AdminUsersRoute
@@ -555,6 +563,7 @@ export interface FileRoutesById {
   '/subscriptions': typeof SubscriptionsRoute
   '/admin/become-instructors': typeof AdminBecomeInstructorsRoute
   '/admin/courses': typeof AdminCoursesRoute
+  '/admin/marketing': typeof AdminMarketingRoute
   '/admin/payment-channels': typeof AdminPaymentChannelsRoute
   '/admin/reviews': typeof AdminReviewsRoute
   '/admin/users': typeof AdminUsersRoute
@@ -622,6 +631,7 @@ export interface FileRouteTypes {
     | '/subscriptions'
     | '/admin/become-instructors'
     | '/admin/courses'
+    | '/admin/marketing'
     | '/admin/payment-channels'
     | '/admin/reviews'
     | '/admin/users'
@@ -687,6 +697,7 @@ export interface FileRouteTypes {
     | '/subscriptions'
     | '/admin/become-instructors'
     | '/admin/courses'
+    | '/admin/marketing'
     | '/admin/payment-channels'
     | '/admin/reviews'
     | '/admin/users'
@@ -752,6 +763,7 @@ export interface FileRouteTypes {
     | '/subscriptions'
     | '/admin/become-instructors'
     | '/admin/courses'
+    | '/admin/marketing'
     | '/admin/payment-channels'
     | '/admin/reviews'
     | '/admin/users'
@@ -818,6 +830,7 @@ export interface RootRouteChildren {
   SubscriptionsRoute: typeof SubscriptionsRoute
   AdminBecomeInstructorsRoute: typeof AdminBecomeInstructorsRoute
   AdminCoursesRoute: typeof AdminCoursesRoute
+  AdminMarketingRoute: typeof AdminMarketingRoute
   AdminPaymentChannelsRoute: typeof AdminPaymentChannelsRoute
   AdminReviewsRoute: typeof AdminReviewsRoute
   AdminUsersRoute: typeof AdminUsersRoute
@@ -1244,6 +1257,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPaymentChannelsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/marketing': {
+      id: '/admin/marketing'
+      path: '/admin/marketing'
+      fullPath: '/admin/marketing'
+      preLoaderRoute: typeof AdminMarketingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/courses': {
       id: '/admin/courses'
       path: '/admin/courses'
@@ -1341,6 +1361,7 @@ const rootRouteChildren: RootRouteChildren = {
   SubscriptionsRoute: SubscriptionsRoute,
   AdminBecomeInstructorsRoute: AdminBecomeInstructorsRoute,
   AdminCoursesRoute: AdminCoursesRoute,
+  AdminMarketingRoute: AdminMarketingRoute,
   AdminPaymentChannelsRoute: AdminPaymentChannelsRoute,
   AdminReviewsRoute: AdminReviewsRoute,
   AdminUsersRoute: AdminUsersRoute,

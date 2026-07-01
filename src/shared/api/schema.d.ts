@@ -3438,6 +3438,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/admin/marketing": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Admin Marketing
+         * @description Admin marketing dashboard aggregates (legacy Admin\DashboardController@marketing).
+         */
+        get: operations["admin_marketing_api_v1_admin_marketing_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/admin/users": {
         parameters: {
             query?: never;
@@ -3690,6 +3710,19 @@ export interface components {
             /** Meeting Count */
             meeting_count?: number | null;
         };
+        /** ActiveStudentRow */
+        ActiveStudentRow: {
+            /** Id */
+            id: number;
+            /** Name */
+            name: string | null;
+            /** Purchased Classes */
+            purchased_classes: number;
+            /** Reserved Appointments */
+            reserved_appointments: number;
+            /** Total Cost */
+            total_cost: number;
+        };
         /** ActiveSubscription */
         ActiveSubscription: {
             /** Id */
@@ -3784,6 +3817,34 @@ export interface components {
             /** Recent Courses Pending */
             recent_courses_pending: number;
             users_chart: components["schemas"]["ChartData"];
+        };
+        /** AdminMarketing */
+        AdminMarketing: {
+            /** Users Without Purchases */
+            users_without_purchases: number;
+            /** Teachers Without Class */
+            teachers_without_class: number;
+            /** Featured Classes */
+            featured_classes: number;
+            /** Active Discounts */
+            active_discounts: number;
+            classes_statistics: components["schemas"]["ChartData"];
+            net_profit_chart_year: components["schemas"]["ChartData"];
+            net_profit_chart_month: components["schemas"]["ChartData"];
+            /** Net Profit Stats */
+            net_profit_stats: {
+                [key: string]: components["schemas"]["GrowStat"];
+            };
+            /** Top Selling Classes */
+            top_selling_classes: components["schemas"]["TopClassRow"][];
+            /** Top Selling Appointments */
+            top_selling_appointments: components["schemas"]["TopAppointmentRow"][];
+            /** Top Selling Teachers */
+            top_selling_teachers: components["schemas"]["TopSellerRow"][];
+            /** Top Selling Organizations */
+            top_selling_organizations: components["schemas"]["TopSellerRow"][];
+            /** Most Active Students */
+            most_active_students: components["schemas"]["ActiveStudentRow"][];
         };
         /** AdminPaymentChannelCreate */
         AdminPaymentChannelCreate: {
@@ -7525,6 +7586,41 @@ export interface components {
             start: string;
             /** End */
             end: string;
+        };
+        /** TopAppointmentRow */
+        TopAppointmentRow: {
+            /** Id */
+            id: number;
+            /** Consultant Name */
+            consultant_name: string | null;
+            /** Sales Count */
+            sales_count: number;
+            /** Sales Amount */
+            sales_amount: number;
+        };
+        /** TopClassRow */
+        TopClassRow: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Sales Count */
+            sales_count: number;
+            /** Sales Amount */
+            sales_amount: number;
+        };
+        /** TopSellerRow */
+        TopSellerRow: {
+            /** Id */
+            id: number;
+            /** Name */
+            name: string | null;
+            /** Classes Duration */
+            classes_duration: number;
+            /** Sales Count */
+            sales_count: number;
+            /** Sales Amount */
+            sales_amount: number;
         };
         /** TrendCategoryList */
         TrendCategoryList: {
@@ -16208,6 +16304,44 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["AdminDashboard"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    admin_marketing_api_v1_admin_marketing_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminMarketing"];
                 };
             };
             /** @description Unauthorized */

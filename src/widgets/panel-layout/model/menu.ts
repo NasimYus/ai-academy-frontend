@@ -17,6 +17,7 @@ import {
   ShoppingCart,
   Star,
   Store,
+  TrendingUp,
   User,
   UserCheck,
   Users,
@@ -140,6 +141,7 @@ export const MENU: MenuSection[] = [
     roles: ['admin'],
     groups: [
       { label: 'Панель управления', icon: LayoutDashboard, to: '/admin' },
+      { label: 'Маркетинговая панель', icon: TrendingUp, to: '/admin/marketing' },
       { label: 'Модерация курсов', icon: CheckCircle, to: '/admin/courses' },
       { label: 'Пользователи', icon: Users, to: '/admin/users' },
       { label: 'Заявки инструкторов', icon: UserCheck, to: '/admin/become-instructors' },
