@@ -3,7 +3,7 @@ import { BookOpen, MonitorPlay, PlayCircle } from 'lucide-react'
 import type { CourseMediaKind } from '#/features/manage-course/api/manage'
 import type { CourseType, WizardForm } from '#/features/manage-course/ui/wizard/config'
 import { useUploadCourseMedia } from '#/features/manage-course/model/use-manage'
-import { Field, FileUpload, Select, Textarea } from '#/shared/ui'
+import { Field, FileUpload, RichEditor, Select, Textarea } from '#/shared/ui'
 
 import type { StepProps } from '#/features/manage-course/ui/wizard/steps/types'
 
@@ -157,12 +157,12 @@ export function Step1Basic({ f, set }: StepProps) {
 
       <section className="space-y-3">
         <SectionTitle>Описание курса</SectionTitle>
-        <Textarea
+        <RichEditor
           label="Описание"
-          rows={8}
           value={f.description}
-          onChange={(e) => set('description', e.target.value)}
+          onChange={(html) => set('description', html)}
           placeholder="Минимум 300 слов. Поддерживаются HTML и изображения."
+          minHeight={220}
         />
       </section>
     </div>

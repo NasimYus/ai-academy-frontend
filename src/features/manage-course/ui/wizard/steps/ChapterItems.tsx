@@ -7,7 +7,7 @@ import type {
   ItemType,
 } from '#/features/manage-course/api/content'
 import { useItemMutations } from '#/features/manage-course/model/use-content'
-import { Button, Field, Select, Textarea } from '#/shared/ui'
+import { Button, Field, RichEditor, Select } from '#/shared/ui'
 
 const TYPE_META: Record<ItemType, { label: string; icon: typeof FileText }> = {
   session: { label: 'Сессия', icon: MonitorPlay },
@@ -173,7 +173,7 @@ export function ChapterItems({
           {type === 'text_lesson' && (
             <>
               <Field label="Время изучения (мин)" type="number" value={f.study_time} onChange={(e) => set('study_time', e.target.value)} />
-              <Textarea label="Содержание" rows={4} value={f.content} onChange={(e) => set('content', e.target.value)} />
+              <RichEditor label="Содержание" value={f.content} onChange={(html) => set('content', html)} minHeight={140} />
             </>
           )}
 
