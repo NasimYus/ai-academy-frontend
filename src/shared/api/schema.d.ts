@@ -3358,6 +3358,47 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/admin/courses/manage": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Manage Courses
+         * @description Course-management list by type (Курсы / Онлайн курсы / Текстовые курсы) —
+         *     headline stats + filtered, paginated rows with sales/income/students.
+         */
+        get: operations["manage_courses_api_v1_admin_courses_manage_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/courses/live-sessions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Live Sessions
+         * @description Live-sessions history (История живых сессий).
+         */
+        get: operations["live_sessions_api_v1_admin_courses_live_sessions_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/admin/courses/{course_id}/approve": {
         parameters: {
             query?: never;
@@ -3413,6 +3454,26 @@ export interface paths {
          */
         post: operations["unpublish_course_api_v1_admin_courses__course_id__unpublish_post"];
         delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/courses/{course_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Delete Course
+         * @description Delete a course (legacy WebinarController@destroy).
+         */
+        delete: operations["delete_course_api_v1_admin_courses__course_id__delete"];
         options?: never;
         head?: never;
         patch?: never;
@@ -3759,6 +3820,61 @@ export interface components {
             pending_count: number;
             /** Courses */
             courses: components["schemas"]["AdminCourseRead"][];
+        };
+        /** AdminCourseManageList */
+        AdminCourseManageList: {
+            /** Total Courses */
+            total_courses: number;
+            /** Total Pending */
+            total_pending: number;
+            /** Total Duration */
+            total_duration: number;
+            /** Total Sales */
+            total_sales: number;
+            /** Page */
+            page: number;
+            /** Per Page */
+            per_page: number;
+            /** Total */
+            total: number;
+            /** Courses */
+            courses: components["schemas"]["AdminCourseManageRow"][];
+        };
+        /** AdminCourseManageRow */
+        AdminCourseManageRow: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            type: components["schemas"]["CourseType"];
+            status: components["schemas"]["CourseStatus"];
+            /** Category Name */
+            category_name: string | null;
+            /** Teacher Id */
+            teacher_id: number | null;
+            /** Teacher Name */
+            teacher_name: string | null;
+            /** Price */
+            price: number;
+            /** Is Free */
+            is_free: boolean;
+            /** Capacity */
+            capacity: number | null;
+            /** Duration */
+            duration: number | null;
+            /** Sales Count */
+            sales_count: number;
+            /** Students Count */
+            students_count: number;
+            /** Income */
+            income: number;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Updated At */
+            updated_at: string | null;
         };
         /** AdminCourseRead */
         AdminCourseRead: {
@@ -5925,6 +6041,34 @@ export interface components {
             item_id: number;
             /** Learned */
             learned: boolean;
+        };
+        /** LiveSessionList */
+        LiveSessionList: {
+            /** Page */
+            page: number;
+            /** Per Page */
+            per_page: number;
+            /** Total */
+            total: number;
+            /** Sessions */
+            sessions: components["schemas"]["LiveSessionRow"][];
+        };
+        /** LiveSessionRow */
+        LiveSessionRow: {
+            /** Id */
+            id: number;
+            /** Course Title */
+            course_title: string | null;
+            /** Session Title */
+            session_title: string | null;
+            /** Session Duration */
+            session_duration: number | null;
+            /** Start Date */
+            start_date: string | null;
+            /** End Date */
+            end_date: string | null;
+            /** Meeting Duration */
+            meeting_duration: number | null;
         };
         /** LocationInput */
         LocationInput: {
@@ -16114,6 +16258,112 @@ export interface operations {
             };
         };
     };
+    manage_courses_api_v1_admin_courses_manage_get: {
+        parameters: {
+            query?: {
+                type?: components["schemas"]["CourseType"];
+                search?: string | null;
+                from?: string | null;
+                to?: string | null;
+                category_id?: number | null;
+                teacher_id?: number | null;
+                status?: components["schemas"]["CourseStatus"] | null;
+                sort?: string | null;
+                page?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminCourseManageList"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    live_sessions_api_v1_admin_courses_live_sessions_get: {
+        parameters: {
+            query?: {
+                page?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LiveSessionList"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     approve_course_api_v1_admin_courses__course_id__approve_post: {
         parameters: {
             query?: never;
@@ -16249,6 +16499,62 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["AdminCourseRead"];
                 };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_course_api_v1_admin_courses__course_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                course_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
             /** @description Unauthorized */
             401: {

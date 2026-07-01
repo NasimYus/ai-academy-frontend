@@ -63,9 +63,13 @@ import { Route as BundlesBundleIdRouteImport } from './routes/bundles.$bundleId'
 import { Route as BlogBlogIdRouteImport } from './routes/blog.$blogId'
 import { Route as AssignmentAssignmentIdRouteImport } from './routes/assignment.$assignmentId'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
+import { Route as AdminTextCoursesRouteImport } from './routes/admin.text-courses'
 import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
 import { Route as AdminPaymentChannelsRouteImport } from './routes/admin.payment-channels'
+import { Route as AdminOnlineCoursesRouteImport } from './routes/admin.online-courses'
 import { Route as AdminMarketingRouteImport } from './routes/admin.marketing'
+import { Route as AdminLiveSessionsRouteImport } from './routes/admin.live-sessions'
+import { Route as AdminCoursesListRouteImport } from './routes/admin.courses-list'
 import { Route as AdminCoursesRouteImport } from './routes/admin.courses'
 import { Route as AdminBecomeInstructorsRouteImport } from './routes/admin.become-instructors'
 import { Route as InstructorQuizzesNewRouteImport } from './routes/instructor.quizzes.new'
@@ -344,6 +348,11 @@ const AdminUsersRoute = AdminUsersRouteImport.update({
   path: '/admin/users',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminTextCoursesRoute = AdminTextCoursesRouteImport.update({
+  id: '/admin/text-courses',
+  path: '/admin/text-courses',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminReviewsRoute = AdminReviewsRouteImport.update({
   id: '/admin/reviews',
   path: '/admin/reviews',
@@ -354,9 +363,24 @@ const AdminPaymentChannelsRoute = AdminPaymentChannelsRouteImport.update({
   path: '/admin/payment-channels',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminOnlineCoursesRoute = AdminOnlineCoursesRouteImport.update({
+  id: '/admin/online-courses',
+  path: '/admin/online-courses',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminMarketingRoute = AdminMarketingRouteImport.update({
   id: '/admin/marketing',
   path: '/admin/marketing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLiveSessionsRoute = AdminLiveSessionsRouteImport.update({
+  id: '/admin/live-sessions',
+  path: '/admin/live-sessions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminCoursesListRoute = AdminCoursesListRouteImport.update({
+  id: '/admin/courses-list',
+  path: '/admin/courses-list',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminCoursesRoute = AdminCoursesRouteImport.update({
@@ -430,9 +454,13 @@ export interface FileRoutesByFullPath {
   '/subscriptions': typeof SubscriptionsRoute
   '/admin/become-instructors': typeof AdminBecomeInstructorsRoute
   '/admin/courses': typeof AdminCoursesRoute
+  '/admin/courses-list': typeof AdminCoursesListRoute
+  '/admin/live-sessions': typeof AdminLiveSessionsRoute
   '/admin/marketing': typeof AdminMarketingRoute
+  '/admin/online-courses': typeof AdminOnlineCoursesRoute
   '/admin/payment-channels': typeof AdminPaymentChannelsRoute
   '/admin/reviews': typeof AdminReviewsRoute
+  '/admin/text-courses': typeof AdminTextCoursesRoute
   '/admin/users': typeof AdminUsersRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
@@ -496,9 +524,13 @@ export interface FileRoutesByTo {
   '/subscriptions': typeof SubscriptionsRoute
   '/admin/become-instructors': typeof AdminBecomeInstructorsRoute
   '/admin/courses': typeof AdminCoursesRoute
+  '/admin/courses-list': typeof AdminCoursesListRoute
+  '/admin/live-sessions': typeof AdminLiveSessionsRoute
   '/admin/marketing': typeof AdminMarketingRoute
+  '/admin/online-courses': typeof AdminOnlineCoursesRoute
   '/admin/payment-channels': typeof AdminPaymentChannelsRoute
   '/admin/reviews': typeof AdminReviewsRoute
+  '/admin/text-courses': typeof AdminTextCoursesRoute
   '/admin/users': typeof AdminUsersRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
@@ -563,9 +595,13 @@ export interface FileRoutesById {
   '/subscriptions': typeof SubscriptionsRoute
   '/admin/become-instructors': typeof AdminBecomeInstructorsRoute
   '/admin/courses': typeof AdminCoursesRoute
+  '/admin/courses-list': typeof AdminCoursesListRoute
+  '/admin/live-sessions': typeof AdminLiveSessionsRoute
   '/admin/marketing': typeof AdminMarketingRoute
+  '/admin/online-courses': typeof AdminOnlineCoursesRoute
   '/admin/payment-channels': typeof AdminPaymentChannelsRoute
   '/admin/reviews': typeof AdminReviewsRoute
+  '/admin/text-courses': typeof AdminTextCoursesRoute
   '/admin/users': typeof AdminUsersRoute
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
@@ -631,9 +667,13 @@ export interface FileRouteTypes {
     | '/subscriptions'
     | '/admin/become-instructors'
     | '/admin/courses'
+    | '/admin/courses-list'
+    | '/admin/live-sessions'
     | '/admin/marketing'
+    | '/admin/online-courses'
     | '/admin/payment-channels'
     | '/admin/reviews'
+    | '/admin/text-courses'
     | '/admin/users'
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
@@ -697,9 +737,13 @@ export interface FileRouteTypes {
     | '/subscriptions'
     | '/admin/become-instructors'
     | '/admin/courses'
+    | '/admin/courses-list'
+    | '/admin/live-sessions'
     | '/admin/marketing'
+    | '/admin/online-courses'
     | '/admin/payment-channels'
     | '/admin/reviews'
+    | '/admin/text-courses'
     | '/admin/users'
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
@@ -763,9 +807,13 @@ export interface FileRouteTypes {
     | '/subscriptions'
     | '/admin/become-instructors'
     | '/admin/courses'
+    | '/admin/courses-list'
+    | '/admin/live-sessions'
     | '/admin/marketing'
+    | '/admin/online-courses'
     | '/admin/payment-channels'
     | '/admin/reviews'
+    | '/admin/text-courses'
     | '/admin/users'
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
@@ -830,9 +878,13 @@ export interface RootRouteChildren {
   SubscriptionsRoute: typeof SubscriptionsRoute
   AdminBecomeInstructorsRoute: typeof AdminBecomeInstructorsRoute
   AdminCoursesRoute: typeof AdminCoursesRoute
+  AdminCoursesListRoute: typeof AdminCoursesListRoute
+  AdminLiveSessionsRoute: typeof AdminLiveSessionsRoute
   AdminMarketingRoute: typeof AdminMarketingRoute
+  AdminOnlineCoursesRoute: typeof AdminOnlineCoursesRoute
   AdminPaymentChannelsRoute: typeof AdminPaymentChannelsRoute
   AdminReviewsRoute: typeof AdminReviewsRoute
+  AdminTextCoursesRoute: typeof AdminTextCoursesRoute
   AdminUsersRoute: typeof AdminUsersRoute
   AssignmentAssignmentIdRoute: typeof AssignmentAssignmentIdRoute
   BlogBlogIdRoute: typeof BlogBlogIdRoute
@@ -1243,6 +1295,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminUsersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/text-courses': {
+      id: '/admin/text-courses'
+      path: '/admin/text-courses'
+      fullPath: '/admin/text-courses'
+      preLoaderRoute: typeof AdminTextCoursesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/reviews': {
       id: '/admin/reviews'
       path: '/admin/reviews'
@@ -1257,11 +1316,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPaymentChannelsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/online-courses': {
+      id: '/admin/online-courses'
+      path: '/admin/online-courses'
+      fullPath: '/admin/online-courses'
+      preLoaderRoute: typeof AdminOnlineCoursesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/marketing': {
       id: '/admin/marketing'
       path: '/admin/marketing'
       fullPath: '/admin/marketing'
       preLoaderRoute: typeof AdminMarketingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/live-sessions': {
+      id: '/admin/live-sessions'
+      path: '/admin/live-sessions'
+      fullPath: '/admin/live-sessions'
+      preLoaderRoute: typeof AdminLiveSessionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/courses-list': {
+      id: '/admin/courses-list'
+      path: '/admin/courses-list'
+      fullPath: '/admin/courses-list'
+      preLoaderRoute: typeof AdminCoursesListRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/courses': {
@@ -1361,9 +1441,13 @@ const rootRouteChildren: RootRouteChildren = {
   SubscriptionsRoute: SubscriptionsRoute,
   AdminBecomeInstructorsRoute: AdminBecomeInstructorsRoute,
   AdminCoursesRoute: AdminCoursesRoute,
+  AdminCoursesListRoute: AdminCoursesListRoute,
+  AdminLiveSessionsRoute: AdminLiveSessionsRoute,
   AdminMarketingRoute: AdminMarketingRoute,
+  AdminOnlineCoursesRoute: AdminOnlineCoursesRoute,
   AdminPaymentChannelsRoute: AdminPaymentChannelsRoute,
   AdminReviewsRoute: AdminReviewsRoute,
+  AdminTextCoursesRoute: AdminTextCoursesRoute,
   AdminUsersRoute: AdminUsersRoute,
   AssignmentAssignmentIdRoute: AssignmentAssignmentIdRoute,
   BlogBlogIdRoute: BlogBlogIdRoute,

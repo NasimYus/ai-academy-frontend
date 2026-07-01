@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import {
   ADMIN_COURSES_KEY,
   approveCourse,
+  deleteCourse,
   rejectCourse,
   unpublishCourse,
 } from '#/features/moderate-courses/api/courses'
@@ -11,10 +12,14 @@ function useModerateMutation(fn: (id: number) => Promise<unknown>) {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: (courseId: number) => fn(courseId),
-    onSuccess: () => void qc.invalidateQueries({ queryKey: ADMIN_COURSES_KEY }),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: ADMIN_COURSES_KEY })
+      void qc.invalidateQueries({ queryKey: ['admin-courses-manage'] })
+    },
   })
 }
 
 export const useApproveCourse = () => useModerateMutation(approveCourse)
 export const useRejectCourse = () => useModerateMutation(rejectCourse)
 export const useUnpublishCourse = () => useModerateMutation(unpublishCourse)
+export const useDeleteCourse = () => useModerateMutation(deleteCourse)

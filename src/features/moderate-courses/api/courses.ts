@@ -40,3 +40,10 @@ export async function unpublishCourse(courseId: number) {
   if (error) throw new Error('Не удалось снять курс с публикации')
   return data
 }
+
+export async function deleteCourse(courseId: number) {
+  const { error } = await api.DELETE('/api/v1/admin/courses/{course_id}', {
+    params: { path: { course_id: courseId } },
+  })
+  if (error) throw new Error('Не удалось удалить курс')
+}

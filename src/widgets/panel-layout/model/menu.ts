@@ -3,7 +3,6 @@ import {
   Bell,
   BookOpen,
   CalendarDays,
-  CheckCircle,
   ClipboardCheck,
   ClipboardList,
   CreditCard,
@@ -142,7 +141,17 @@ export const MENU: MenuSection[] = [
     groups: [
       { label: 'Панель управления', icon: LayoutDashboard, to: '/admin' },
       { label: 'Маркетинговая панель', icon: TrendingUp, to: '/admin/marketing' },
-      { label: 'Модерация курсов', icon: CheckCircle, to: '/admin/courses' },
+      {
+        label: 'Курсы',
+        icon: GraduationCap,
+        items: [
+          { to: '/admin/courses-list', label: 'Курсы' },
+          { to: '/admin/online-courses', label: 'Онлайн курсы' },
+          { to: '/admin/text-courses', label: 'Текстовые курсы' },
+          { to: '/admin/live-sessions', label: 'История живых сессий' },
+          { to: '/admin/courses', label: 'Модерация курсов' },
+        ],
+      },
       { label: 'Пользователи', icon: Users, to: '/admin/users' },
       { label: 'Заявки инструкторов', icon: UserCheck, to: '/admin/become-instructors' },
       { label: 'Отзывы', icon: Star, to: '/admin/reviews' },
