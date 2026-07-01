@@ -1,0 +1,5 @@
+export { ForumsPage } from '#/pages/community-forum/ui/ForumsPage'
+export { ForumCategoryPage } from '#/pages/community-forum/ui/ForumCategoryPage'
+export { ForumTopicPage } from '#/pages/community-forum/ui/ForumTopicPage'
+export { NewTopicPage } from '#/pages/community-forum/ui/NewTopicPage'
+export { MyForumTopicsPage, MyForumPostsPage } from '#/pages/community-forum/ui/MyForumPage'

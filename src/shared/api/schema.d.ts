@@ -296,6 +296,131 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/forums": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Categories
+         * @description Active forum categories with topic counts (legacy ForumController@index).
+         */
+        get: operations["list_categories_api_v1_forums_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/forums/{forum_id}/topics": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Topics */
+        get: operations["list_topics_api_v1_forums__forum_id__topics_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/forum-topics/{slug}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Topic Detail */
+        get: operations["topic_detail_api_v1_forum_topics__slug__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/forum-topics": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Create Topic
+         * @description Start a new topic (legacy ForumController@createTopic).
+         */
+        post: operations["create_topic_api_v1_forum_topics_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/forum-topics/{topic_id}/posts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Create Post */
+        post: operations["create_post_api_v1_forum_topics__topic_id__posts_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/forums/topics": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** My Topics */
+        get: operations["my_topics_api_v1_panel_forums_topics_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/forums/posts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** My Posts */
+        get: operations["my_posts_api_v1_panel_forums_posts_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/contact": {
         parameters: {
             query?: never;
@@ -1111,6 +1236,46 @@ export interface paths {
          * @description Passed quizzes with their certificate, if issued (legacy achievements).
          */
         get: operations["achievements_api_v1_panel_certificates_achievements_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/certificates/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Instructor Certificates List
+         * @description Instructor's certificate-issuing quizzes + issued counts (legacy list).
+         */
+        get: operations["instructor_certificates_list_api_v1_panel_certificates_list_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/certificates/students": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Instructor Certificate Students
+         * @description Students who earned certificates on the instructor's quizzes (all_students).
+         */
+        get: operations["instructor_certificate_students_api_v1_panel_certificates_students_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1980,6 +2145,41 @@ export interface paths {
         post?: never;
         /** Delete Related */
         delete: operations["delete_related_api_v1_panel_related__row_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/webinar/{course_id}/tickets": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Tickets */
+        get: operations["list_tickets_api_v1_panel_webinar__course_id__tickets_get"];
+        put?: never;
+        /** Add Ticket */
+        post: operations["add_ticket_api_v1_panel_webinar__course_id__tickets_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/tickets/{ticket_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Delete Ticket */
+        delete: operations["delete_ticket_api_v1_panel_tickets__ticket_id__delete"];
         options?: never;
         head?: never;
         patch?: never;
@@ -3566,6 +3766,102 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/admin/categories": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Categories
+         * @description All categories (incl. sub-categories + disabled) for admin management.
+         */
+        get: operations["list_categories_api_v1_admin_categories_get"];
+        put?: never;
+        /** Create Category */
+        post: operations["create_category_api_v1_admin_categories_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/categories/{category_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Update Category */
+        put: operations["update_category_api_v1_admin_categories__category_id__put"];
+        post?: never;
+        /** Delete Category */
+        delete: operations["delete_category_api_v1_admin_categories__category_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/offline-payments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Offline Payments
+         * @description Offline top-up requests for review (defaults to all; filter by status).
+         */
+        get: operations["list_offline_payments_api_v1_admin_offline_payments_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/offline-payments/{payment_id}/approve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Approve Offline Payment
+         * @description Approve a top-up → credits the user's wallet (legacy approved → charge wallet).
+         */
+        post: operations["approve_offline_payment_api_v1_admin_offline_payments__payment_id__approve_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/offline-payments/{payment_id}/reject": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Reject Offline Payment */
+        post: operations["reject_offline_payment_api_v1_admin_offline_payments__payment_id__reject_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/admin/users": {
         parameters: {
             query?: never;
@@ -3859,6 +4155,29 @@ export interface components {
              */
             item_name: "webinar";
         };
+        /** AdminCategoryRead */
+        AdminCategoryRead: {
+            /** Id */
+            id: number;
+            /** Parent Id */
+            parent_id?: number | null;
+            /** Title */
+            title: string;
+            /** Slug */
+            slug?: string | null;
+            /** Icon */
+            icon?: string | null;
+            /**
+             * Order
+             * @default 0
+             */
+            order: number;
+            /**
+             * Enable
+             * @default true
+             */
+            enable: boolean;
+        };
         /** AdminCourseList */
         AdminCourseList: {
             /** Count */
@@ -4008,6 +4327,32 @@ export interface components {
             top_selling_organizations: components["schemas"]["TopSellerRow"][];
             /** Most Active Students */
             most_active_students: components["schemas"]["ActiveStudentRow"][];
+        };
+        /** AdminOfflinePaymentRead */
+        AdminOfflinePaymentRead: {
+            /** Id */
+            id: number;
+            /** User Id */
+            user_id: number;
+            /** User Name */
+            user_name?: string | null;
+            /** User Email */
+            user_email?: string | null;
+            /** Bank */
+            bank?: string | null;
+            /** Reference Number */
+            reference_number?: string | null;
+            /** Amount */
+            amount: number;
+            /** Status */
+            status: string;
+            /** Pay Date */
+            pay_date?: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
         };
         /** AdminPaymentChannelCreate */
         AdminPaymentChannelCreate: {
@@ -4829,6 +5174,25 @@ export interface components {
             items: components["schemas"]["CartItemRead"][];
             amounts: components["schemas"]["CartAmounts"];
         };
+        /** CategoryCreate */
+        CategoryCreate: {
+            /** Title */
+            title: string;
+            /** Parent Id */
+            parent_id?: number | null;
+            /** Icon */
+            icon?: string | null;
+            /**
+             * Order
+             * @default 0
+             */
+            order: number;
+            /**
+             * Enable
+             * @default true
+             */
+            enable: boolean;
+        };
         /** CategoryList */
         CategoryList: {
             /** Count */
@@ -4856,6 +5220,19 @@ export interface components {
              * @default 0
              */
             webinars_count: number;
+        };
+        /** CategoryUpdate */
+        CategoryUpdate: {
+            /** Title */
+            title?: string | null;
+            /** Parent Id */
+            parent_id?: number | null;
+            /** Icon */
+            icon?: string | null;
+            /** Order */
+            order?: number | null;
+            /** Enable */
+            enable?: boolean | null;
         };
         /** CertificateBrief */
         CertificateBrief: {
@@ -6007,6 +6384,15 @@ export interface components {
             created_at: string;
             can: components["schemas"]["ForumCan"];
         };
+        /** ForumAuthor */
+        ForumAuthor: {
+            /** Id */
+            id: number;
+            /** Full Name */
+            full_name?: string | null;
+            /** Avatar */
+            avatar?: string | null;
+        };
         /** ForumCan */
         ForumCan: {
             /**
@@ -6025,6 +6411,24 @@ export interface components {
              */
             resolve: boolean;
         };
+        /** ForumCategoryRead */
+        ForumCategoryRead: {
+            /** Id */
+            id: number;
+            /** Slug */
+            slug: string;
+            /** Title */
+            title: string;
+            /** Description */
+            description?: string | null;
+            /** Icon */
+            icon?: string | null;
+            /**
+             * Topics Count
+             * @default 0
+             */
+            topics_count: number;
+        };
         /** ForumListResponse */
         ForumListResponse: {
             /** Forums */
@@ -6039,6 +6443,37 @@ export interface components {
             comments_count: number;
             /** Active Users Count */
             active_users_count: number;
+        };
+        /** ForumPostCreate */
+        ForumPostCreate: {
+            /** Description */
+            description: string;
+            /** Parent Id */
+            parent_id?: number | null;
+            /** Attach */
+            attach?: string | null;
+        };
+        /** ForumPostRead */
+        ForumPostRead: {
+            /** Id */
+            id: number;
+            /** Description */
+            description: string;
+            /** Attach */
+            attach?: string | null;
+            /**
+             * Pin
+             * @default false
+             */
+            pin: boolean;
+            /** Parent Id */
+            parent_id?: number | null;
+            author?: components["schemas"]["ForumAuthor"] | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
         };
         /** ForumThreadRead */
         ForumThreadRead: {
@@ -6070,6 +6505,87 @@ export interface components {
             /** Last Activity */
             last_activity?: string | null;
             last_answer?: components["schemas"]["LastAnswer"] | null;
+        };
+        /** ForumTopicCreate */
+        ForumTopicCreate: {
+            /** Forum Id */
+            forum_id: number;
+            /** Title */
+            title: string;
+            /** Description */
+            description: string;
+            /** Cover */
+            cover?: string | null;
+        };
+        /** ForumTopicDetail */
+        ForumTopicDetail: {
+            /** Id */
+            id: number;
+            /** Slug */
+            slug: string;
+            /** Forum Id */
+            forum_id: number;
+            /** Title */
+            title: string;
+            /** Description */
+            description: string;
+            /** Cover */
+            cover?: string | null;
+            /**
+             * Pin
+             * @default false
+             */
+            pin: boolean;
+            /**
+             * Close
+             * @default false
+             */
+            close: boolean;
+            author?: components["schemas"]["ForumAuthor"] | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Posts
+             * @default []
+             */
+            posts: components["schemas"]["ForumPostRead"][];
+        };
+        /** ForumTopicRow */
+        ForumTopicRow: {
+            /** Id */
+            id: number;
+            /** Slug */
+            slug: string;
+            /** Forum Id */
+            forum_id: number;
+            /** Title */
+            title: string;
+            /** Cover */
+            cover?: string | null;
+            /**
+             * Pin
+             * @default false
+             */
+            pin: boolean;
+            /**
+             * Close
+             * @default false
+             */
+            close: boolean;
+            author?: components["schemas"]["ForumAuthor"] | null;
+            /**
+             * Posts Count
+             * @default 0
+             */
+            posts_count: number;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
         };
         /** GiftActionResponse */
         GiftActionResponse: {
@@ -6172,6 +6688,37 @@ export interface components {
             histories: components["schemas"]["AssignmentHistoryRow"][];
         };
         /**
+         * InstructorCertificateSource
+         * @description A certificate-issuing quiz of the instructor (legacy certificates list row).
+         */
+        InstructorCertificateSource: {
+            /** Quiz Id */
+            quiz_id: number;
+            /** Quiz Title */
+            quiz_title: string;
+            /** Course Id */
+            course_id?: number | null;
+            /** Course Title */
+            course_title?: string | null;
+            /**
+             * Certificates Count
+             * @default 0
+             */
+            certificates_count: number;
+        };
+        /** InstructorCertificatesList */
+        InstructorCertificatesList: {
+            /** Certificates Count */
+            certificates_count: number;
+            /** Students Count */
+            students_count: number;
+            /**
+             * Sources
+             * @default []
+             */
+            sources: components["schemas"]["InstructorCertificateSource"][];
+        };
+        /**
          * InstructorDashboard
          * @description Instructor panel home (legacy getInstructorDashboardData).
          */
@@ -6192,6 +6739,29 @@ export interface components {
             text_courses: number;
             /** Manage Courses */
             manage_courses: components["schemas"]["ManageCourseCard"][];
+        };
+        /**
+         * IssuedCertificate
+         * @description A certificate earned by a student on the instructor's quiz (all_students).
+         */
+        IssuedCertificate: {
+            /** Id */
+            id: number;
+            /** Student Name */
+            student_name?: string | null;
+            /** Quiz Title */
+            quiz_title?: string | null;
+            /** Course Title */
+            course_title?: string | null;
+            /** User Grade */
+            user_grade?: number | null;
+            /** File */
+            file?: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
         };
         /** LastAnswer */
         LastAnswer: {
@@ -6391,6 +6961,22 @@ export interface components {
              */
             created_at: string;
         };
+        /** MyForumPostRow */
+        MyForumPostRow: {
+            /** Id */
+            id: number;
+            /** Description */
+            description: string;
+            /** Topic Title */
+            topic_title: string;
+            /** Topic Slug */
+            topic_slug: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
         /**
          * MyQuizResultRead
          * @description A student's own quiz attempt for the panel `my-results` list.
@@ -6539,6 +7125,11 @@ export interface components {
              */
             created_at: string;
         };
+        /**
+         * OfflinePaymentStatus
+         * @enum {string}
+         */
+        OfflinePaymentStatus: "waiting" | "approved" | "reject";
         /**
          * OpenQuizRead
          * @description An active quiz the student hasn't completed (panel `not participated`).
@@ -7909,6 +8500,37 @@ export interface components {
          * @enum {string}
          */
         ThemeColorMode: "dark" | "light";
+        /** TicketInput */
+        TicketInput: {
+            /** Title */
+            title: string;
+            /**
+             * Discount
+             * @default 0
+             */
+            discount: number;
+            /** Capacity */
+            capacity?: number | null;
+            /** Start Date */
+            start_date?: string | null;
+            /** End Date */
+            end_date?: string | null;
+        };
+        /** TicketRead */
+        TicketRead: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Discount */
+            discount: number;
+            /** Capacity */
+            capacity?: number | null;
+            /** Start Date */
+            start_date?: string | null;
+            /** End Date */
+            end_date?: string | null;
+        };
         /** TimeRange */
         TimeRange: {
             /** Start */
@@ -8771,6 +9393,261 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_categories_api_v1_forums_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ForumCategoryRead"][];
+                };
+            };
+        };
+    };
+    list_topics_api_v1_forums__forum_id__topics_get: {
+        parameters: {
+            query?: {
+                search?: string | null;
+            };
+            header?: never;
+            path: {
+                forum_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ForumTopicRow"][];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    topic_detail_api_v1_forum_topics__slug__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ForumTopicDetail"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_topic_api_v1_forum_topics_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ForumTopicCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ForumTopicRow"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    create_post_api_v1_forum_topics__topic_id__posts_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                topic_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ForumPostCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ForumPostRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    my_topics_api_v1_panel_forums_topics_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ForumTopicRow"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    my_posts_api_v1_panel_forums_posts_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MyForumPostRow"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };
@@ -10580,6 +11457,82 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Achievement"][];
+                };
+            };
+        };
+    };
+    instructor_certificates_list_api_v1_panel_certificates_list_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["InstructorCertificatesList"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    instructor_certificate_students_api_v1_panel_certificates_students_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["IssuedCertificate"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };
@@ -12718,6 +13671,155 @@ export interface operations {
             header?: never;
             path: {
                 row_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_tickets_api_v1_panel_webinar__course_id__tickets_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                course_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TicketRead"][];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    add_ticket_api_v1_panel_webinar__course_id__tickets_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                course_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TicketInput"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TicketRead"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    delete_ticket_api_v1_panel_tickets__ticket_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                ticket_id: number;
             };
             cookie?: never;
         };
@@ -16973,6 +18075,378 @@ export interface operations {
             };
             /** @description Forbidden */
             403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    list_categories_api_v1_admin_categories_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminCategoryRead"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    create_category_api_v1_admin_categories_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CategoryCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminCategoryRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_category_api_v1_admin_categories__category_id__put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                category_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CategoryUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminCategoryRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_category_api_v1_admin_categories__category_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                category_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_offline_payments_api_v1_admin_offline_payments_get: {
+        parameters: {
+            query?: {
+                status?: components["schemas"]["OfflinePaymentStatus"] | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminOfflinePaymentRead"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    approve_offline_payment_api_v1_admin_offline_payments__payment_id__approve_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                payment_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminOfflinePaymentRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    reject_offline_payment_api_v1_admin_offline_payments__payment_id__reject_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                payment_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminOfflinePaymentRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
                 headers: {
                     [name: string]: unknown;
                 };

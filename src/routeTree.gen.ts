@@ -25,6 +25,7 @@ import { Route as MyCommentsRouteImport } from './routes/my-comments'
 import { Route as MeetingsRouteImport } from './routes/meetings'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as InstructorsRouteImport } from './routes/instructors'
+import { Route as ForumsRouteImport } from './routes/forums'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as FinanceRouteImport } from './routes/finance'
 import { Route as FavoritesRouteImport } from './routes/favorites'
@@ -57,8 +58,13 @@ import { Route as InstructorMeetingsRouteImport } from './routes/instructor.meet
 import { Route as InstructorCommentsRouteImport } from './routes/instructor.comments'
 import { Route as InstructorBundlesRouteImport } from './routes/instructor.bundles'
 import { Route as InstructorAssignmentsRouteImport } from './routes/instructor.assignments'
+import { Route as ForumsCreateTopicRouteImport } from './routes/forums.create-topic'
+import { Route as ForumsForumIdRouteImport } from './routes/forums.$forumId'
+import { Route as ForumTopicsSlugRouteImport } from './routes/forum-topics.$slug'
 import { Route as CourseSlugRouteImport } from './routes/course.$slug'
 import { Route as CourseForumCourseIdRouteImport } from './routes/course-forum.$courseId'
+import { Route as CertificatesStudentsRouteImport } from './routes/certificates.students'
+import { Route as CertificatesListRouteImport } from './routes/certificates.list'
 import { Route as BundlesBundleIdRouteImport } from './routes/bundles.$bundleId'
 import { Route as BlogBlogIdRouteImport } from './routes/blog.$blogId'
 import { Route as AssignmentAssignmentIdRouteImport } from './routes/assignment.$assignmentId'
@@ -67,14 +73,19 @@ import { Route as AdminTextCoursesRouteImport } from './routes/admin.text-course
 import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
 import { Route as AdminPaymentChannelsRouteImport } from './routes/admin.payment-channels'
 import { Route as AdminOnlineCoursesRouteImport } from './routes/admin.online-courses'
+import { Route as AdminOfflinePaymentsRouteImport } from './routes/admin.offline-payments'
 import { Route as AdminMarketingRouteImport } from './routes/admin.marketing'
 import { Route as AdminLiveSessionsRouteImport } from './routes/admin.live-sessions'
 import { Route as AdminCoursesListRouteImport } from './routes/admin.courses-list'
 import { Route as AdminCoursesRouteImport } from './routes/admin.courses'
+import { Route as AdminCategoriesRouteImport } from './routes/admin.categories'
 import { Route as AdminBundlesRouteImport } from './routes/admin.bundles'
 import { Route as AdminBecomeInstructorsRouteImport } from './routes/admin.become-instructors'
+import { Route as PanelForumsTopicsRouteImport } from './routes/panel.forums.topics'
+import { Route as PanelForumsPostsRouteImport } from './routes/panel.forums.posts'
 import { Route as InstructorQuizzesNewRouteImport } from './routes/instructor.quizzes.new'
 import { Route as InstructorCourseNewRouteImport } from './routes/instructor.course.new'
+import { Route as InstructorAssignmentsCoursesRouteImport } from './routes/instructor.assignments.courses'
 import { Route as AdminCourseNewRouteImport } from './routes/admin.course.new'
 import { Route as AdminBundleNewRouteImport } from './routes/admin.bundle.new'
 import { Route as InstructorQuizzesQuizIdEditRouteImport } from './routes/instructor.quizzes.$quizId.edit'
@@ -159,6 +170,11 @@ const LoginRoute = LoginRouteImport.update({
 const InstructorsRoute = InstructorsRouteImport.update({
   id: '/instructors',
   path: '/instructors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForumsRoute = ForumsRouteImport.update({
+  id: '/forums',
+  path: '/forums',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
@@ -321,6 +337,21 @@ const InstructorAssignmentsRoute = InstructorAssignmentsRouteImport.update({
   path: '/instructor/assignments',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ForumsCreateTopicRoute = ForumsCreateTopicRouteImport.update({
+  id: '/create-topic',
+  path: '/create-topic',
+  getParentRoute: () => ForumsRoute,
+} as any)
+const ForumsForumIdRoute = ForumsForumIdRouteImport.update({
+  id: '/$forumId',
+  path: '/$forumId',
+  getParentRoute: () => ForumsRoute,
+} as any)
+const ForumTopicsSlugRoute = ForumTopicsSlugRouteImport.update({
+  id: '/forum-topics/$slug',
+  path: '/forum-topics/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CourseSlugRoute = CourseSlugRouteImport.update({
   id: '/course/$slug',
   path: '/course/$slug',
@@ -330,6 +361,16 @@ const CourseForumCourseIdRoute = CourseForumCourseIdRouteImport.update({
   id: '/course-forum/$courseId',
   path: '/course-forum/$courseId',
   getParentRoute: () => rootRouteImport,
+} as any)
+const CertificatesStudentsRoute = CertificatesStudentsRouteImport.update({
+  id: '/students',
+  path: '/students',
+  getParentRoute: () => CertificatesRoute,
+} as any)
+const CertificatesListRoute = CertificatesListRouteImport.update({
+  id: '/list',
+  path: '/list',
+  getParentRoute: () => CertificatesRoute,
 } as any)
 const BundlesBundleIdRoute = BundlesBundleIdRouteImport.update({
   id: '/bundles/$bundleId',
@@ -371,6 +412,11 @@ const AdminOnlineCoursesRoute = AdminOnlineCoursesRouteImport.update({
   path: '/admin/online-courses',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminOfflinePaymentsRoute = AdminOfflinePaymentsRouteImport.update({
+  id: '/admin/offline-payments',
+  path: '/admin/offline-payments',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminMarketingRoute = AdminMarketingRouteImport.update({
   id: '/admin/marketing',
   path: '/admin/marketing',
@@ -391,6 +437,11 @@ const AdminCoursesRoute = AdminCoursesRouteImport.update({
   path: '/admin/courses',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminCategoriesRoute = AdminCategoriesRouteImport.update({
+  id: '/admin/categories',
+  path: '/admin/categories',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminBundlesRoute = AdminBundlesRouteImport.update({
   id: '/admin/bundles',
   path: '/admin/bundles',
@@ -400,6 +451,16 @@ const AdminBecomeInstructorsRoute = AdminBecomeInstructorsRouteImport.update({
   id: '/admin/become-instructors',
   path: '/admin/become-instructors',
   getParentRoute: () => rootRouteImport,
+} as any)
+const PanelForumsTopicsRoute = PanelForumsTopicsRouteImport.update({
+  id: '/forums/topics',
+  path: '/forums/topics',
+  getParentRoute: () => PanelRoute,
+} as any)
+const PanelForumsPostsRoute = PanelForumsPostsRouteImport.update({
+  id: '/forums/posts',
+  path: '/forums/posts',
+  getParentRoute: () => PanelRoute,
 } as any)
 const InstructorQuizzesNewRoute = InstructorQuizzesNewRouteImport.update({
   id: '/new',
@@ -411,6 +472,12 @@ const InstructorCourseNewRoute = InstructorCourseNewRouteImport.update({
   path: '/instructor/course/new',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InstructorAssignmentsCoursesRoute =
+  InstructorAssignmentsCoursesRouteImport.update({
+    id: '/courses',
+    path: '/courses',
+    getParentRoute: () => InstructorAssignmentsRoute,
+  } as any)
 const AdminCourseNewRoute = AdminCourseNewRouteImport.update({
   id: '/admin/course/new',
   path: '/admin/course/new',
@@ -447,13 +514,14 @@ export interface FileRoutesByFullPath {
   '/calendar': typeof CalendarRoute
   '/cart': typeof CartRoute
   '/certificate-validation': typeof CertificateValidationRoute
-  '/certificates': typeof CertificatesRoute
+  '/certificates': typeof CertificatesRouteWithChildren
   '/charge-account': typeof ChargeAccountRoute
   '/contact': typeof ContactRoute
   '/courses': typeof CoursesRoute
   '/favorites': typeof FavoritesRoute
   '/finance': typeof FinanceRoute
   '/forgot-password': typeof ForgotPasswordRoute
+  '/forums': typeof ForumsRouteWithChildren
   '/instructors': typeof InstructorsRoute
   '/login': typeof LoginRoute
   '/meetings': typeof MeetingsRoute
@@ -461,7 +529,7 @@ export interface FileRoutesByFullPath {
   '/my-courses': typeof MyCoursesRoute
   '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
-  '/panel': typeof PanelRoute
+  '/panel': typeof PanelRouteWithChildren
   '/profile': typeof ProfileRoute
   '/purchases': typeof PurchasesRoute
   '/quiz-opens': typeof QuizOpensRoute
@@ -472,10 +540,12 @@ export interface FileRoutesByFullPath {
   '/subscriptions': typeof SubscriptionsRoute
   '/admin/become-instructors': typeof AdminBecomeInstructorsRoute
   '/admin/bundles': typeof AdminBundlesRoute
+  '/admin/categories': typeof AdminCategoriesRoute
   '/admin/courses': typeof AdminCoursesRoute
   '/admin/courses-list': typeof AdminCoursesListRoute
   '/admin/live-sessions': typeof AdminLiveSessionsRoute
   '/admin/marketing': typeof AdminMarketingRoute
+  '/admin/offline-payments': typeof AdminOfflinePaymentsRoute
   '/admin/online-courses': typeof AdminOnlineCoursesRoute
   '/admin/payment-channels': typeof AdminPaymentChannelsRoute
   '/admin/reviews': typeof AdminReviewsRoute
@@ -484,9 +554,14 @@ export interface FileRoutesByFullPath {
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/bundles/$bundleId': typeof BundlesBundleIdRoute
+  '/certificates/list': typeof CertificatesListRoute
+  '/certificates/students': typeof CertificatesStudentsRoute
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
-  '/instructor/assignments': typeof InstructorAssignmentsRoute
+  '/forum-topics/$slug': typeof ForumTopicsSlugRoute
+  '/forums/$forumId': typeof ForumsForumIdRoute
+  '/forums/create-topic': typeof ForumsCreateTopicRoute
+  '/instructor/assignments': typeof InstructorAssignmentsRouteWithChildren
   '/instructor/bundles': typeof InstructorBundlesRoute
   '/instructor/comments': typeof InstructorCommentsRoute
   '/instructor/meetings': typeof InstructorMeetingsRoute
@@ -507,8 +582,11 @@ export interface FileRoutesByFullPath {
   '/support/': typeof SupportIndexRoute
   '/admin/bundle/new': typeof AdminBundleNewRoute
   '/admin/course/new': typeof AdminCourseNewRoute
+  '/instructor/assignments/courses': typeof InstructorAssignmentsCoursesRoute
   '/instructor/course/new': typeof InstructorCourseNewRoute
   '/instructor/quizzes/new': typeof InstructorQuizzesNewRoute
+  '/panel/forums/posts': typeof PanelForumsPostsRoute
+  '/panel/forums/topics': typeof PanelForumsTopicsRoute
   '/instructor/course/$courseId/edit': typeof InstructorCourseCourseIdEditRoute
   '/instructor/course/$courseId/statistics': typeof InstructorCourseCourseIdStatisticsRoute
   '/instructor/quizzes/$quizId/edit': typeof InstructorQuizzesQuizIdEditRoute
@@ -520,13 +598,14 @@ export interface FileRoutesByTo {
   '/calendar': typeof CalendarRoute
   '/cart': typeof CartRoute
   '/certificate-validation': typeof CertificateValidationRoute
-  '/certificates': typeof CertificatesRoute
+  '/certificates': typeof CertificatesRouteWithChildren
   '/charge-account': typeof ChargeAccountRoute
   '/contact': typeof ContactRoute
   '/courses': typeof CoursesRoute
   '/favorites': typeof FavoritesRoute
   '/finance': typeof FinanceRoute
   '/forgot-password': typeof ForgotPasswordRoute
+  '/forums': typeof ForumsRouteWithChildren
   '/instructors': typeof InstructorsRoute
   '/login': typeof LoginRoute
   '/meetings': typeof MeetingsRoute
@@ -534,7 +613,7 @@ export interface FileRoutesByTo {
   '/my-courses': typeof MyCoursesRoute
   '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
-  '/panel': typeof PanelRoute
+  '/panel': typeof PanelRouteWithChildren
   '/profile': typeof ProfileRoute
   '/purchases': typeof PurchasesRoute
   '/quiz-opens': typeof QuizOpensRoute
@@ -545,10 +624,12 @@ export interface FileRoutesByTo {
   '/subscriptions': typeof SubscriptionsRoute
   '/admin/become-instructors': typeof AdminBecomeInstructorsRoute
   '/admin/bundles': typeof AdminBundlesRoute
+  '/admin/categories': typeof AdminCategoriesRoute
   '/admin/courses': typeof AdminCoursesRoute
   '/admin/courses-list': typeof AdminCoursesListRoute
   '/admin/live-sessions': typeof AdminLiveSessionsRoute
   '/admin/marketing': typeof AdminMarketingRoute
+  '/admin/offline-payments': typeof AdminOfflinePaymentsRoute
   '/admin/online-courses': typeof AdminOnlineCoursesRoute
   '/admin/payment-channels': typeof AdminPaymentChannelsRoute
   '/admin/reviews': typeof AdminReviewsRoute
@@ -557,9 +638,14 @@ export interface FileRoutesByTo {
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/bundles/$bundleId': typeof BundlesBundleIdRoute
+  '/certificates/list': typeof CertificatesListRoute
+  '/certificates/students': typeof CertificatesStudentsRoute
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
-  '/instructor/assignments': typeof InstructorAssignmentsRoute
+  '/forum-topics/$slug': typeof ForumTopicsSlugRoute
+  '/forums/$forumId': typeof ForumsForumIdRoute
+  '/forums/create-topic': typeof ForumsCreateTopicRoute
+  '/instructor/assignments': typeof InstructorAssignmentsRouteWithChildren
   '/instructor/bundles': typeof InstructorBundlesRoute
   '/instructor/comments': typeof InstructorCommentsRoute
   '/instructor/meetings': typeof InstructorMeetingsRoute
@@ -580,8 +666,11 @@ export interface FileRoutesByTo {
   '/support': typeof SupportIndexRoute
   '/admin/bundle/new': typeof AdminBundleNewRoute
   '/admin/course/new': typeof AdminCourseNewRoute
+  '/instructor/assignments/courses': typeof InstructorAssignmentsCoursesRoute
   '/instructor/course/new': typeof InstructorCourseNewRoute
   '/instructor/quizzes/new': typeof InstructorQuizzesNewRoute
+  '/panel/forums/posts': typeof PanelForumsPostsRoute
+  '/panel/forums/topics': typeof PanelForumsTopicsRoute
   '/instructor/course/$courseId/edit': typeof InstructorCourseCourseIdEditRoute
   '/instructor/course/$courseId/statistics': typeof InstructorCourseCourseIdStatisticsRoute
   '/instructor/quizzes/$quizId/edit': typeof InstructorQuizzesQuizIdEditRoute
@@ -594,13 +683,14 @@ export interface FileRoutesById {
   '/calendar': typeof CalendarRoute
   '/cart': typeof CartRoute
   '/certificate-validation': typeof CertificateValidationRoute
-  '/certificates': typeof CertificatesRoute
+  '/certificates': typeof CertificatesRouteWithChildren
   '/charge-account': typeof ChargeAccountRoute
   '/contact': typeof ContactRoute
   '/courses': typeof CoursesRoute
   '/favorites': typeof FavoritesRoute
   '/finance': typeof FinanceRoute
   '/forgot-password': typeof ForgotPasswordRoute
+  '/forums': typeof ForumsRouteWithChildren
   '/instructors': typeof InstructorsRoute
   '/login': typeof LoginRoute
   '/meetings': typeof MeetingsRoute
@@ -608,7 +698,7 @@ export interface FileRoutesById {
   '/my-courses': typeof MyCoursesRoute
   '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
-  '/panel': typeof PanelRoute
+  '/panel': typeof PanelRouteWithChildren
   '/profile': typeof ProfileRoute
   '/purchases': typeof PurchasesRoute
   '/quiz-opens': typeof QuizOpensRoute
@@ -619,10 +709,12 @@ export interface FileRoutesById {
   '/subscriptions': typeof SubscriptionsRoute
   '/admin/become-instructors': typeof AdminBecomeInstructorsRoute
   '/admin/bundles': typeof AdminBundlesRoute
+  '/admin/categories': typeof AdminCategoriesRoute
   '/admin/courses': typeof AdminCoursesRoute
   '/admin/courses-list': typeof AdminCoursesListRoute
   '/admin/live-sessions': typeof AdminLiveSessionsRoute
   '/admin/marketing': typeof AdminMarketingRoute
+  '/admin/offline-payments': typeof AdminOfflinePaymentsRoute
   '/admin/online-courses': typeof AdminOnlineCoursesRoute
   '/admin/payment-channels': typeof AdminPaymentChannelsRoute
   '/admin/reviews': typeof AdminReviewsRoute
@@ -631,9 +723,14 @@ export interface FileRoutesById {
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/bundles/$bundleId': typeof BundlesBundleIdRoute
+  '/certificates/list': typeof CertificatesListRoute
+  '/certificates/students': typeof CertificatesStudentsRoute
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
-  '/instructor/assignments': typeof InstructorAssignmentsRoute
+  '/forum-topics/$slug': typeof ForumTopicsSlugRoute
+  '/forums/$forumId': typeof ForumsForumIdRoute
+  '/forums/create-topic': typeof ForumsCreateTopicRoute
+  '/instructor/assignments': typeof InstructorAssignmentsRouteWithChildren
   '/instructor/bundles': typeof InstructorBundlesRoute
   '/instructor/comments': typeof InstructorCommentsRoute
   '/instructor/meetings': typeof InstructorMeetingsRoute
@@ -654,8 +751,11 @@ export interface FileRoutesById {
   '/support/': typeof SupportIndexRoute
   '/admin/bundle/new': typeof AdminBundleNewRoute
   '/admin/course/new': typeof AdminCourseNewRoute
+  '/instructor/assignments/courses': typeof InstructorAssignmentsCoursesRoute
   '/instructor/course/new': typeof InstructorCourseNewRoute
   '/instructor/quizzes/new': typeof InstructorQuizzesNewRoute
+  '/panel/forums/posts': typeof PanelForumsPostsRoute
+  '/panel/forums/topics': typeof PanelForumsTopicsRoute
   '/instructor/course/$courseId/edit': typeof InstructorCourseCourseIdEditRoute
   '/instructor/course/$courseId/statistics': typeof InstructorCourseCourseIdStatisticsRoute
   '/instructor/quizzes/$quizId/edit': typeof InstructorQuizzesQuizIdEditRoute
@@ -676,6 +776,7 @@ export interface FileRouteTypes {
     | '/favorites'
     | '/finance'
     | '/forgot-password'
+    | '/forums'
     | '/instructors'
     | '/login'
     | '/meetings'
@@ -694,10 +795,12 @@ export interface FileRouteTypes {
     | '/subscriptions'
     | '/admin/become-instructors'
     | '/admin/bundles'
+    | '/admin/categories'
     | '/admin/courses'
     | '/admin/courses-list'
     | '/admin/live-sessions'
     | '/admin/marketing'
+    | '/admin/offline-payments'
     | '/admin/online-courses'
     | '/admin/payment-channels'
     | '/admin/reviews'
@@ -706,8 +809,13 @@ export interface FileRouteTypes {
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
     | '/bundles/$bundleId'
+    | '/certificates/list'
+    | '/certificates/students'
     | '/course-forum/$courseId'
     | '/course/$slug'
+    | '/forum-topics/$slug'
+    | '/forums/$forumId'
+    | '/forums/create-topic'
     | '/instructor/assignments'
     | '/instructor/bundles'
     | '/instructor/comments'
@@ -729,8 +837,11 @@ export interface FileRouteTypes {
     | '/support/'
     | '/admin/bundle/new'
     | '/admin/course/new'
+    | '/instructor/assignments/courses'
     | '/instructor/course/new'
     | '/instructor/quizzes/new'
+    | '/panel/forums/posts'
+    | '/panel/forums/topics'
     | '/instructor/course/$courseId/edit'
     | '/instructor/course/$courseId/statistics'
     | '/instructor/quizzes/$quizId/edit'
@@ -749,6 +860,7 @@ export interface FileRouteTypes {
     | '/favorites'
     | '/finance'
     | '/forgot-password'
+    | '/forums'
     | '/instructors'
     | '/login'
     | '/meetings'
@@ -767,10 +879,12 @@ export interface FileRouteTypes {
     | '/subscriptions'
     | '/admin/become-instructors'
     | '/admin/bundles'
+    | '/admin/categories'
     | '/admin/courses'
     | '/admin/courses-list'
     | '/admin/live-sessions'
     | '/admin/marketing'
+    | '/admin/offline-payments'
     | '/admin/online-courses'
     | '/admin/payment-channels'
     | '/admin/reviews'
@@ -779,8 +893,13 @@ export interface FileRouteTypes {
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
     | '/bundles/$bundleId'
+    | '/certificates/list'
+    | '/certificates/students'
     | '/course-forum/$courseId'
     | '/course/$slug'
+    | '/forum-topics/$slug'
+    | '/forums/$forumId'
+    | '/forums/create-topic'
     | '/instructor/assignments'
     | '/instructor/bundles'
     | '/instructor/comments'
@@ -802,8 +921,11 @@ export interface FileRouteTypes {
     | '/support'
     | '/admin/bundle/new'
     | '/admin/course/new'
+    | '/instructor/assignments/courses'
     | '/instructor/course/new'
     | '/instructor/quizzes/new'
+    | '/panel/forums/posts'
+    | '/panel/forums/topics'
     | '/instructor/course/$courseId/edit'
     | '/instructor/course/$courseId/statistics'
     | '/instructor/quizzes/$quizId/edit'
@@ -822,6 +944,7 @@ export interface FileRouteTypes {
     | '/favorites'
     | '/finance'
     | '/forgot-password'
+    | '/forums'
     | '/instructors'
     | '/login'
     | '/meetings'
@@ -840,10 +963,12 @@ export interface FileRouteTypes {
     | '/subscriptions'
     | '/admin/become-instructors'
     | '/admin/bundles'
+    | '/admin/categories'
     | '/admin/courses'
     | '/admin/courses-list'
     | '/admin/live-sessions'
     | '/admin/marketing'
+    | '/admin/offline-payments'
     | '/admin/online-courses'
     | '/admin/payment-channels'
     | '/admin/reviews'
@@ -852,8 +977,13 @@ export interface FileRouteTypes {
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
     | '/bundles/$bundleId'
+    | '/certificates/list'
+    | '/certificates/students'
     | '/course-forum/$courseId'
     | '/course/$slug'
+    | '/forum-topics/$slug'
+    | '/forums/$forumId'
+    | '/forums/create-topic'
     | '/instructor/assignments'
     | '/instructor/bundles'
     | '/instructor/comments'
@@ -875,8 +1005,11 @@ export interface FileRouteTypes {
     | '/support/'
     | '/admin/bundle/new'
     | '/admin/course/new'
+    | '/instructor/assignments/courses'
     | '/instructor/course/new'
     | '/instructor/quizzes/new'
+    | '/panel/forums/posts'
+    | '/panel/forums/topics'
     | '/instructor/course/$courseId/edit'
     | '/instructor/course/$courseId/statistics'
     | '/instructor/quizzes/$quizId/edit'
@@ -889,13 +1022,14 @@ export interface RootRouteChildren {
   CalendarRoute: typeof CalendarRoute
   CartRoute: typeof CartRoute
   CertificateValidationRoute: typeof CertificateValidationRoute
-  CertificatesRoute: typeof CertificatesRoute
+  CertificatesRoute: typeof CertificatesRouteWithChildren
   ChargeAccountRoute: typeof ChargeAccountRoute
   ContactRoute: typeof ContactRoute
   CoursesRoute: typeof CoursesRoute
   FavoritesRoute: typeof FavoritesRoute
   FinanceRoute: typeof FinanceRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
+  ForumsRoute: typeof ForumsRouteWithChildren
   InstructorsRoute: typeof InstructorsRoute
   LoginRoute: typeof LoginRoute
   MeetingsRoute: typeof MeetingsRoute
@@ -903,7 +1037,7 @@ export interface RootRouteChildren {
   MyCoursesRoute: typeof MyCoursesRoute
   NotificationsRoute: typeof NotificationsRoute
   OrdersRoute: typeof OrdersRoute
-  PanelRoute: typeof PanelRoute
+  PanelRoute: typeof PanelRouteWithChildren
   ProfileRoute: typeof ProfileRoute
   PurchasesRoute: typeof PurchasesRoute
   QuizOpensRoute: typeof QuizOpensRoute
@@ -914,10 +1048,12 @@ export interface RootRouteChildren {
   SubscriptionsRoute: typeof SubscriptionsRoute
   AdminBecomeInstructorsRoute: typeof AdminBecomeInstructorsRoute
   AdminBundlesRoute: typeof AdminBundlesRoute
+  AdminCategoriesRoute: typeof AdminCategoriesRoute
   AdminCoursesRoute: typeof AdminCoursesRoute
   AdminCoursesListRoute: typeof AdminCoursesListRoute
   AdminLiveSessionsRoute: typeof AdminLiveSessionsRoute
   AdminMarketingRoute: typeof AdminMarketingRoute
+  AdminOfflinePaymentsRoute: typeof AdminOfflinePaymentsRoute
   AdminOnlineCoursesRoute: typeof AdminOnlineCoursesRoute
   AdminPaymentChannelsRoute: typeof AdminPaymentChannelsRoute
   AdminReviewsRoute: typeof AdminReviewsRoute
@@ -928,7 +1064,8 @@ export interface RootRouteChildren {
   BundlesBundleIdRoute: typeof BundlesBundleIdRoute
   CourseForumCourseIdRoute: typeof CourseForumCourseIdRoute
   CourseSlugRoute: typeof CourseSlugRoute
-  InstructorAssignmentsRoute: typeof InstructorAssignmentsRoute
+  ForumTopicsSlugRoute: typeof ForumTopicsSlugRoute
+  InstructorAssignmentsRoute: typeof InstructorAssignmentsRouteWithChildren
   InstructorBundlesRoute: typeof InstructorBundlesRoute
   InstructorCommentsRoute: typeof InstructorCommentsRoute
   InstructorMeetingsRoute: typeof InstructorMeetingsRoute
@@ -1066,6 +1203,13 @@ declare module '@tanstack/react-router' {
       path: '/instructors'
       fullPath: '/instructors'
       preLoaderRoute: typeof InstructorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forums': {
+      id: '/forums'
+      path: '/forums'
+      fullPath: '/forums'
+      preLoaderRoute: typeof ForumsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/forgot-password': {
@@ -1292,6 +1436,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InstructorAssignmentsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/forums/create-topic': {
+      id: '/forums/create-topic'
+      path: '/create-topic'
+      fullPath: '/forums/create-topic'
+      preLoaderRoute: typeof ForumsCreateTopicRouteImport
+      parentRoute: typeof ForumsRoute
+    }
+    '/forums/$forumId': {
+      id: '/forums/$forumId'
+      path: '/$forumId'
+      fullPath: '/forums/$forumId'
+      preLoaderRoute: typeof ForumsForumIdRouteImport
+      parentRoute: typeof ForumsRoute
+    }
+    '/forum-topics/$slug': {
+      id: '/forum-topics/$slug'
+      path: '/forum-topics/$slug'
+      fullPath: '/forum-topics/$slug'
+      preLoaderRoute: typeof ForumTopicsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/course/$slug': {
       id: '/course/$slug'
       path: '/course/$slug'
@@ -1305,6 +1470,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/course-forum/$courseId'
       preLoaderRoute: typeof CourseForumCourseIdRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/certificates/students': {
+      id: '/certificates/students'
+      path: '/students'
+      fullPath: '/certificates/students'
+      preLoaderRoute: typeof CertificatesStudentsRouteImport
+      parentRoute: typeof CertificatesRoute
+    }
+    '/certificates/list': {
+      id: '/certificates/list'
+      path: '/list'
+      fullPath: '/certificates/list'
+      preLoaderRoute: typeof CertificatesListRouteImport
+      parentRoute: typeof CertificatesRoute
     }
     '/bundles/$bundleId': {
       id: '/bundles/$bundleId'
@@ -1362,6 +1541,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminOnlineCoursesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/offline-payments': {
+      id: '/admin/offline-payments'
+      path: '/admin/offline-payments'
+      fullPath: '/admin/offline-payments'
+      preLoaderRoute: typeof AdminOfflinePaymentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/marketing': {
       id: '/admin/marketing'
       path: '/admin/marketing'
@@ -1390,6 +1576,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminCoursesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/categories': {
+      id: '/admin/categories'
+      path: '/admin/categories'
+      fullPath: '/admin/categories'
+      preLoaderRoute: typeof AdminCategoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/bundles': {
       id: '/admin/bundles'
       path: '/admin/bundles'
@@ -1404,6 +1597,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminBecomeInstructorsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/panel/forums/topics': {
+      id: '/panel/forums/topics'
+      path: '/forums/topics'
+      fullPath: '/panel/forums/topics'
+      preLoaderRoute: typeof PanelForumsTopicsRouteImport
+      parentRoute: typeof PanelRoute
+    }
+    '/panel/forums/posts': {
+      id: '/panel/forums/posts'
+      path: '/forums/posts'
+      fullPath: '/panel/forums/posts'
+      preLoaderRoute: typeof PanelForumsPostsRouteImport
+      parentRoute: typeof PanelRoute
+    }
     '/instructor/quizzes/new': {
       id: '/instructor/quizzes/new'
       path: '/new'
@@ -1417,6 +1624,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/instructor/course/new'
       preLoaderRoute: typeof InstructorCourseNewRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/instructor/assignments/courses': {
+      id: '/instructor/assignments/courses'
+      path: '/courses'
+      fullPath: '/instructor/assignments/courses'
+      preLoaderRoute: typeof InstructorAssignmentsCoursesRouteImport
+      parentRoute: typeof InstructorAssignmentsRoute
     }
     '/admin/course/new': {
       id: '/admin/course/new'
@@ -1456,6 +1670,58 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface CertificatesRouteChildren {
+  CertificatesListRoute: typeof CertificatesListRoute
+  CertificatesStudentsRoute: typeof CertificatesStudentsRoute
+}
+
+const CertificatesRouteChildren: CertificatesRouteChildren = {
+  CertificatesListRoute: CertificatesListRoute,
+  CertificatesStudentsRoute: CertificatesStudentsRoute,
+}
+
+const CertificatesRouteWithChildren = CertificatesRoute._addFileChildren(
+  CertificatesRouteChildren,
+)
+
+interface ForumsRouteChildren {
+  ForumsForumIdRoute: typeof ForumsForumIdRoute
+  ForumsCreateTopicRoute: typeof ForumsCreateTopicRoute
+}
+
+const ForumsRouteChildren: ForumsRouteChildren = {
+  ForumsForumIdRoute: ForumsForumIdRoute,
+  ForumsCreateTopicRoute: ForumsCreateTopicRoute,
+}
+
+const ForumsRouteWithChildren =
+  ForumsRoute._addFileChildren(ForumsRouteChildren)
+
+interface PanelRouteChildren {
+  PanelForumsPostsRoute: typeof PanelForumsPostsRoute
+  PanelForumsTopicsRoute: typeof PanelForumsTopicsRoute
+}
+
+const PanelRouteChildren: PanelRouteChildren = {
+  PanelForumsPostsRoute: PanelForumsPostsRoute,
+  PanelForumsTopicsRoute: PanelForumsTopicsRoute,
+}
+
+const PanelRouteWithChildren = PanelRoute._addFileChildren(PanelRouteChildren)
+
+interface InstructorAssignmentsRouteChildren {
+  InstructorAssignmentsCoursesRoute: typeof InstructorAssignmentsCoursesRoute
+}
+
+const InstructorAssignmentsRouteChildren: InstructorAssignmentsRouteChildren = {
+  InstructorAssignmentsCoursesRoute: InstructorAssignmentsCoursesRoute,
+}
+
+const InstructorAssignmentsRouteWithChildren =
+  InstructorAssignmentsRoute._addFileChildren(
+    InstructorAssignmentsRouteChildren,
+  )
+
 interface InstructorQuizzesRouteChildren {
   InstructorQuizzesNewRoute: typeof InstructorQuizzesNewRoute
   InstructorQuizzesQuizIdEditRoute: typeof InstructorQuizzesQuizIdEditRoute
@@ -1476,13 +1742,14 @@ const rootRouteChildren: RootRouteChildren = {
   CalendarRoute: CalendarRoute,
   CartRoute: CartRoute,
   CertificateValidationRoute: CertificateValidationRoute,
-  CertificatesRoute: CertificatesRoute,
+  CertificatesRoute: CertificatesRouteWithChildren,
   ChargeAccountRoute: ChargeAccountRoute,
   ContactRoute: ContactRoute,
   CoursesRoute: CoursesRoute,
   FavoritesRoute: FavoritesRoute,
   FinanceRoute: FinanceRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
+  ForumsRoute: ForumsRouteWithChildren,
   InstructorsRoute: InstructorsRoute,
   LoginRoute: LoginRoute,
   MeetingsRoute: MeetingsRoute,
@@ -1490,7 +1757,7 @@ const rootRouteChildren: RootRouteChildren = {
   MyCoursesRoute: MyCoursesRoute,
   NotificationsRoute: NotificationsRoute,
   OrdersRoute: OrdersRoute,
-  PanelRoute: PanelRoute,
+  PanelRoute: PanelRouteWithChildren,
   ProfileRoute: ProfileRoute,
   PurchasesRoute: PurchasesRoute,
   QuizOpensRoute: QuizOpensRoute,
@@ -1501,10 +1768,12 @@ const rootRouteChildren: RootRouteChildren = {
   SubscriptionsRoute: SubscriptionsRoute,
   AdminBecomeInstructorsRoute: AdminBecomeInstructorsRoute,
   AdminBundlesRoute: AdminBundlesRoute,
+  AdminCategoriesRoute: AdminCategoriesRoute,
   AdminCoursesRoute: AdminCoursesRoute,
   AdminCoursesListRoute: AdminCoursesListRoute,
   AdminLiveSessionsRoute: AdminLiveSessionsRoute,
   AdminMarketingRoute: AdminMarketingRoute,
+  AdminOfflinePaymentsRoute: AdminOfflinePaymentsRoute,
   AdminOnlineCoursesRoute: AdminOnlineCoursesRoute,
   AdminPaymentChannelsRoute: AdminPaymentChannelsRoute,
   AdminReviewsRoute: AdminReviewsRoute,
@@ -1515,7 +1784,8 @@ const rootRouteChildren: RootRouteChildren = {
   BundlesBundleIdRoute: BundlesBundleIdRoute,
   CourseForumCourseIdRoute: CourseForumCourseIdRoute,
   CourseSlugRoute: CourseSlugRoute,
-  InstructorAssignmentsRoute: InstructorAssignmentsRoute,
+  ForumTopicsSlugRoute: ForumTopicsSlugRoute,
+  InstructorAssignmentsRoute: InstructorAssignmentsRouteWithChildren,
   InstructorBundlesRoute: InstructorBundlesRoute,
   InstructorCommentsRoute: InstructorCommentsRoute,
   InstructorMeetingsRoute: InstructorMeetingsRoute,

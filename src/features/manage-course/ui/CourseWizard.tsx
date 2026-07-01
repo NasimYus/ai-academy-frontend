@@ -17,8 +17,8 @@ import { Step3Pricing } from '#/features/manage-course/ui/wizard/steps/Step3Pric
 import { Step4Content } from '#/features/manage-course/ui/wizard/steps/Step4Content'
 import { Step5Relations } from '#/features/manage-course/ui/wizard/steps/Step5Relations'
 import { Step6Faq } from '#/features/manage-course/ui/wizard/steps/Step6Faq'
+import { Step7Quiz } from '#/features/manage-course/ui/wizard/steps/Step7Quiz'
 import { Step8Reviewer } from '#/features/manage-course/ui/wizard/steps/Step8Reviewer'
-import { StepSoon } from '#/features/manage-course/ui/wizard/steps/StepSoon'
 
 export function CourseWizard({ course, step }: { course?: CourseDetail; step: number }) {
   const navigate = useNavigate()
@@ -110,11 +110,11 @@ export function CourseWizard({ course, step }: { course?: CourseDetail; step: nu
       <div className="rounded-2xl bg-white p-6 shadow-sm sm:p-8">
         {step === 1 && <Step1Basic f={f} set={set} />}
         {step === 2 && <Step2Extra f={f} set={set} />}
-        {step === 3 && <Step3Pricing f={f} set={set} />}
+        {step === 3 && <Step3Pricing f={f} set={set} courseId={course?.id} />}
         {step === 4 && course && <Step4Content courseId={course.id} />}
         {step === 5 && course && <Step5Relations courseId={course.id} />}
         {step === 6 && course && <Step6Faq courseId={course.id} />}
-        {step === 7 && <StepSoon step={step} />}
+        {step === 7 && course && <Step7Quiz courseId={course.id} />}
         {step === 8 && <Step8Reviewer f={f} set={set} />}
       </div>
 

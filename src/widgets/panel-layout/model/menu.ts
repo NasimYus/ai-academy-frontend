@@ -6,10 +6,12 @@ import {
   ClipboardCheck,
   ClipboardList,
   CreditCard,
+  FolderTree,
   GraduationCap,
   LayoutDashboard,
   LifeBuoy,
   MessageSquare,
+  MessagesSquare,
   Package,
   Plus,
   Settings,
@@ -30,6 +32,7 @@ import type { LucideIcon } from 'lucide-react'
 export interface MenuLink {
   to: string
   label: string
+  roles?: string[] // visible only to these role_names; omit = everyone in the section
 }
 export interface MenuGroup {
   label: string
@@ -73,7 +76,19 @@ export const MENU: MenuSection[] = [
       {
         label: 'Домашние задания',
         icon: ClipboardList,
-        items: [{ to: '/assignments', label: 'Мои задания' }],
+        items: [
+          { to: '/assignments', label: 'Мои задания' },
+          {
+            to: '/instructor/assignments/courses',
+            label: 'Задания моих курсов',
+            roles: ['teacher', 'organization', 'admin'],
+          },
+          {
+            to: '/instructor/assignments',
+            label: 'Задания студентов',
+            roles: ['teacher', 'organization', 'admin'],
+          },
+        ],
       },
       {
         label: 'Тесты',
@@ -87,6 +102,16 @@ export const MENU: MenuSection[] = [
         label: 'Сертификаты',
         icon: Award,
         items: [
+          {
+            to: '/certificates/list',
+            label: 'Список',
+            roles: ['teacher', 'organization', 'admin'],
+          },
+          {
+            to: '/certificates/students',
+            label: 'Все студенты',
+            roles: ['teacher', 'organization', 'admin'],
+          },
           { to: '/certificates', label: 'Мои достижения' },
           { to: '/certificate-validation', label: 'Проверка сертификата' },
         ],
@@ -130,7 +155,6 @@ export const MENU: MenuSection[] = [
           { to: '/instructor/quizzes', label: 'Список' },
         ],
       },
-      { label: 'Задания', icon: ClipboardList, to: '/instructor/assignments' },
       { label: 'Комментарии', icon: MessageSquare, to: '/instructor/comments' },
       { label: 'Настройка консультаций', icon: Settings, to: '/instructor/meetings' },
     ],
@@ -160,10 +184,28 @@ export const MENU: MenuSection[] = [
           { to: '/admin/bundles', label: 'Список' },
         ],
       },
+      { label: 'Категории', icon: FolderTree, to: '/admin/categories' },
       { label: 'Пользователи', icon: Users, to: '/admin/users' },
       { label: 'Заявки инструкторов', icon: UserCheck, to: '/admin/become-instructors' },
       { label: 'Отзывы', icon: Star, to: '/admin/reviews' },
+      { label: 'Офлайн-платежи', icon: Wallet, to: '/admin/offline-payments' },
       { label: 'Платёжные шлюзы', icon: CreditCard, to: '/admin/payment-channels' },
+    ],
+  },
+  {
+    title: 'Сообщество',
+    groups: [
+      {
+        label: 'Форумы',
+        icon: MessagesSquare,
+        to: '/forums',
+        items: [
+          { to: '/forums', label: 'Все форумы' },
+          { to: '/forums/create-topic', label: 'Новая тема' },
+          { to: '/panel/forums/topics', label: 'Мои темы' },
+          { to: '/panel/forums/posts', label: 'Мои посты' },
+        ],
+      },
     ],
   },
   {

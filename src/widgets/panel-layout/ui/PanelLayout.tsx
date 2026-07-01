@@ -39,19 +39,25 @@ function SidebarCounters() {
 
 function SidebarGroup({
   group,
+  role,
   pathname,
   onNavigate,
 }: {
   group: MenuGroup
+  role?: string
   pathname: string
   onNavigate?: () => void
 }) {
-  const itemActive = (group.items ?? []).some((i) => isActive(pathname, i.to))
+  const items = (group.items ?? []).filter((i) => !i.roles || (role && i.roles.includes(role)))
+  const itemActive = items.some((i) => isActive(pathname, i.to))
   const groupActive = itemActive || (group.to ? isActive(pathname, group.to) : false)
   const [override, setOverride] = useState<boolean | null>(null)
 
+  // A group whose items are all role-gated away for this user is hidden.
+  if (group.items?.length && items.length === 0) return null
+
   // Plain link (no sub-items).
-  if (!group.items?.length) {
+  if (!items.length) {
     return (
       <Link
         to={group.to ?? '#'}
@@ -84,7 +90,7 @@ function SidebarGroup({
       </button>
       {expanded && (
         <ul className="mt-0.5 space-y-0.5 pl-7">
-          {group.items.map((item) => {
+          {items.map((item) => {
             const active = isActive(pathname, item.to)
             return (
               <li key={item.to}>
@@ -126,6 +132,7 @@ function SidebarNav({ pathname, onNavigate }: { pathname: string; onNavigate?: (
                 <SidebarGroup
                   key={group.label}
                   group={group}
+                  role={role}
                   pathname={pathname}
                   onNavigate={onNavigate}
                 />
