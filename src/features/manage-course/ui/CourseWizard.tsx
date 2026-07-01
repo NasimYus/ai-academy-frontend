@@ -110,7 +110,7 @@ export function CourseWizard({ course, step }: { course?: CourseDetail; step: nu
       <div className="rounded-2xl bg-white p-6 shadow-sm sm:p-8">
         {step === 1 && <Step1Basic f={f} set={set} />}
         {step === 2 && <Step2Extra f={f} set={set} />}
-        {step === 3 && <Step3Pricing f={f} set={set} />}
+        {step === 3 && <Step3Pricing f={f} set={set} courseId={course?.id} />}
         {step === 4 && course && <Step4Content courseId={course.id} />}
         {step === 5 && course && <Step5Relations courseId={course.id} />}
         {step === 6 && course && <Step6Faq courseId={course.id} />}

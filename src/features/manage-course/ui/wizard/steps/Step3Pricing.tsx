@@ -1,14 +1,13 @@
-import { Ticket } from 'lucide-react'
-
 import { Field, Switch } from '#/shared/ui'
 
+import { TariffPlans } from '#/features/manage-course/ui/wizard/steps/TariffPlans'
 import type { StepProps } from '#/features/manage-course/ui/wizard/steps/types'
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return <h2 className="text-sm font-bold text-ink">{children}</h2>
 }
 
-export function Step3Pricing({ f, set }: StepProps) {
+export function Step3Pricing({ f, set, courseId }: StepProps & { courseId?: number }) {
   return (
     <div className="space-y-8">
       <section className="space-y-4">
@@ -43,23 +42,13 @@ export function Step3Pricing({ f, set }: StepProps) {
         />
       </section>
 
-      <section className="space-y-3">
-        <div className="flex items-center gap-3 rounded-2xl border border-brand-100 bg-brand-50/40 p-4">
-          <span className="flex size-11 items-center justify-center rounded-xl bg-brand-100 text-brand-600">
-            <Ticket className="size-5" strokeWidth={1.8} />
-          </span>
-          <div>
-            <p className="text-sm font-bold text-ink">Тарифные планы</p>
-            <p className="text-xs text-ink/55">
-              Создавайте разные тарифы и предлагайте курс по разным ценам. Если план не создан,
-              используется базовая цена.
-            </p>
-          </div>
-        </div>
+      {courseId ? (
+        <TariffPlans courseId={courseId} />
+      ) : (
         <p className="rounded-xl border border-dashed border-brand-200 px-4 py-6 text-center text-sm text-ink/50">
-          Тарифные планы появятся в следующем обновлении мастера.
+          Тарифные планы станут доступны после сохранения курса.
         </p>
-      </section>
+      )}
     </div>
   )
 }
