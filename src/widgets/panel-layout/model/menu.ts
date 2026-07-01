@@ -152,6 +152,14 @@ export const MENU: MenuSection[] = [
           { to: '/admin/courses', label: 'Модерация курсов' },
         ],
       },
+      {
+        label: 'Пакеты курсов',
+        icon: Package,
+        items: [
+          { to: '/admin/bundle/new', label: 'Новый' },
+          { to: '/admin/bundles', label: 'Список' },
+        ],
+      },
       { label: 'Пользователи', icon: Users, to: '/admin/users' },
       { label: 'Заявки инструкторов', icon: UserCheck, to: '/admin/become-instructors' },
       { label: 'Отзывы', icon: Star, to: '/admin/reviews' },

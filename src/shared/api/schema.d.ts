@@ -2272,7 +2272,14 @@ export interface paths {
          */
         get: operations["my_bundles_api_v1_panel_bundles_get"];
         put?: never;
-        post?: never;
+        /**
+         * Create Bundle
+         * @description Create a bundle (legacy BundleController@store). Single-page form.
+         *
+         *     Admins may assign the owner instructor via `teacher_id`; the creator stays
+         *     the caller so it keeps edit access. Published (pending) unless saved as draft.
+         */
+        post: operations["create_bundle_api_v1_panel_bundles_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3332,6 +3339,26 @@ export interface paths {
          * @description Flip active/inactive (legacy toggleStatus).
          */
         post: operations["toggle_status_api_v1_admin_payment_channels__channel_id__toggle_status_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/bundles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Bundles
+         * @description All course bundles for the admin list (legacy Admin\BundleController@index).
+         */
+        get: operations["list_bundles_api_v1_admin_bundles_get"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -4525,6 +4552,76 @@ export interface components {
              */
             kind: string;
         };
+        /**
+         * BundleCreate
+         * @description Admin/instructor bundle create (legacy BundleController@store).
+         *
+         *     A single-page form; only title is strictly required so a draft can be saved.
+         */
+        BundleCreate: {
+            /** Title */
+            title: string;
+            /** Locale */
+            locale?: string | null;
+            /** Teacher Id */
+            teacher_id?: number | null;
+            /** Points */
+            points?: number | null;
+            /** Slug */
+            slug?: string | null;
+            /** Seo Description */
+            seo_description?: string | null;
+            /** Summary */
+            summary?: string | null;
+            /** Description */
+            description?: string | null;
+            /** Thumbnail */
+            thumbnail?: string | null;
+            /** Image Cover */
+            image_cover?: string | null;
+            /** Video Demo */
+            video_demo?: string | null;
+            /** Video Demo Source */
+            video_demo_source?: string | null;
+            /** Category Id */
+            category_id?: number | null;
+            /** Price */
+            price?: number | null;
+            /** Access Days */
+            access_days?: number | null;
+            /**
+             * Subscribe
+             * @default false
+             */
+            subscribe: boolean;
+            /**
+             * Private
+             * @default false
+             */
+            private: boolean;
+            /**
+             * Certificate
+             * @default false
+             */
+            certificate: boolean;
+            /**
+             * Only For Students
+             * @default false
+             */
+            only_for_students: boolean;
+            /** Message For Reviewer */
+            message_for_reviewer?: string | null;
+            /**
+             * Rules
+             * @default false
+             */
+            rules: boolean;
+            /**
+             * Draft
+             * @default false
+             */
+            draft: boolean;
+        };
         /** BundleDashboard */
         BundleDashboard: {
             /** Bundles */
@@ -4568,6 +4665,36 @@ export interface components {
              * @default []
              */
             courses: components["schemas"]["CourseRead"][];
+        };
+        /** BundleManageList */
+        BundleManageList: {
+            /** Total */
+            total: number;
+            /** Bundles */
+            bundles: components["schemas"]["BundleManageRow"][];
+        };
+        /** BundleManageRow */
+        BundleManageRow: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            status: components["schemas"]["BundleStatus"];
+            /** Teacher Id */
+            teacher_id: number | null;
+            /** Teacher Name */
+            teacher_name: string | null;
+            /** Category */
+            category: string | null;
+            /** Price */
+            price: number | null;
+            /** Webinars Count */
+            webinars_count: number;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
         };
         /**
          * BundlePublicRead
@@ -13566,6 +13693,57 @@ export interface operations {
             };
         };
     };
+    create_bundle_api_v1_panel_bundles_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["BundleCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BundleRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
     delete_bundle_api_v1_panel_bundles__bundle_id__delete: {
         parameters: {
             query?: never;
@@ -16263,6 +16441,44 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_bundles_api_v1_admin_bundles_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BundleManageList"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };

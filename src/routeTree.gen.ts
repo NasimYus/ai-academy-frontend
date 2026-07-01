@@ -71,10 +71,12 @@ import { Route as AdminMarketingRouteImport } from './routes/admin.marketing'
 import { Route as AdminLiveSessionsRouteImport } from './routes/admin.live-sessions'
 import { Route as AdminCoursesListRouteImport } from './routes/admin.courses-list'
 import { Route as AdminCoursesRouteImport } from './routes/admin.courses'
+import { Route as AdminBundlesRouteImport } from './routes/admin.bundles'
 import { Route as AdminBecomeInstructorsRouteImport } from './routes/admin.become-instructors'
 import { Route as InstructorQuizzesNewRouteImport } from './routes/instructor.quizzes.new'
 import { Route as InstructorCourseNewRouteImport } from './routes/instructor.course.new'
 import { Route as AdminCourseNewRouteImport } from './routes/admin.course.new'
+import { Route as AdminBundleNewRouteImport } from './routes/admin.bundle.new'
 import { Route as InstructorQuizzesQuizIdEditRouteImport } from './routes/instructor.quizzes.$quizId.edit'
 import { Route as InstructorCourseCourseIdStatisticsRouteImport } from './routes/instructor.course.$courseId.statistics'
 import { Route as InstructorCourseCourseIdEditRouteImport } from './routes/instructor.course.$courseId.edit'
@@ -389,6 +391,11 @@ const AdminCoursesRoute = AdminCoursesRouteImport.update({
   path: '/admin/courses',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminBundlesRoute = AdminBundlesRouteImport.update({
+  id: '/admin/bundles',
+  path: '/admin/bundles',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminBecomeInstructorsRoute = AdminBecomeInstructorsRouteImport.update({
   id: '/admin/become-instructors',
   path: '/admin/become-instructors',
@@ -407,6 +414,11 @@ const InstructorCourseNewRoute = InstructorCourseNewRouteImport.update({
 const AdminCourseNewRoute = AdminCourseNewRouteImport.update({
   id: '/admin/course/new',
   path: '/admin/course/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminBundleNewRoute = AdminBundleNewRouteImport.update({
+  id: '/admin/bundle/new',
+  path: '/admin/bundle/new',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InstructorQuizzesQuizIdEditRoute =
@@ -459,6 +471,7 @@ export interface FileRoutesByFullPath {
   '/rewards': typeof RewardsRoute
   '/subscriptions': typeof SubscriptionsRoute
   '/admin/become-instructors': typeof AdminBecomeInstructorsRoute
+  '/admin/bundles': typeof AdminBundlesRoute
   '/admin/courses': typeof AdminCoursesRoute
   '/admin/courses-list': typeof AdminCoursesListRoute
   '/admin/live-sessions': typeof AdminLiveSessionsRoute
@@ -492,6 +505,7 @@ export interface FileRoutesByFullPath {
   '/instructor/': typeof InstructorIndexRoute
   '/store/': typeof StoreIndexRoute
   '/support/': typeof SupportIndexRoute
+  '/admin/bundle/new': typeof AdminBundleNewRoute
   '/admin/course/new': typeof AdminCourseNewRoute
   '/instructor/course/new': typeof InstructorCourseNewRoute
   '/instructor/quizzes/new': typeof InstructorQuizzesNewRoute
@@ -530,6 +544,7 @@ export interface FileRoutesByTo {
   '/rewards': typeof RewardsRoute
   '/subscriptions': typeof SubscriptionsRoute
   '/admin/become-instructors': typeof AdminBecomeInstructorsRoute
+  '/admin/bundles': typeof AdminBundlesRoute
   '/admin/courses': typeof AdminCoursesRoute
   '/admin/courses-list': typeof AdminCoursesListRoute
   '/admin/live-sessions': typeof AdminLiveSessionsRoute
@@ -563,6 +578,7 @@ export interface FileRoutesByTo {
   '/instructor': typeof InstructorIndexRoute
   '/store': typeof StoreIndexRoute
   '/support': typeof SupportIndexRoute
+  '/admin/bundle/new': typeof AdminBundleNewRoute
   '/admin/course/new': typeof AdminCourseNewRoute
   '/instructor/course/new': typeof InstructorCourseNewRoute
   '/instructor/quizzes/new': typeof InstructorQuizzesNewRoute
@@ -602,6 +618,7 @@ export interface FileRoutesById {
   '/rewards': typeof RewardsRoute
   '/subscriptions': typeof SubscriptionsRoute
   '/admin/become-instructors': typeof AdminBecomeInstructorsRoute
+  '/admin/bundles': typeof AdminBundlesRoute
   '/admin/courses': typeof AdminCoursesRoute
   '/admin/courses-list': typeof AdminCoursesListRoute
   '/admin/live-sessions': typeof AdminLiveSessionsRoute
@@ -635,6 +652,7 @@ export interface FileRoutesById {
   '/instructor/': typeof InstructorIndexRoute
   '/store/': typeof StoreIndexRoute
   '/support/': typeof SupportIndexRoute
+  '/admin/bundle/new': typeof AdminBundleNewRoute
   '/admin/course/new': typeof AdminCourseNewRoute
   '/instructor/course/new': typeof InstructorCourseNewRoute
   '/instructor/quizzes/new': typeof InstructorQuizzesNewRoute
@@ -675,6 +693,7 @@ export interface FileRouteTypes {
     | '/rewards'
     | '/subscriptions'
     | '/admin/become-instructors'
+    | '/admin/bundles'
     | '/admin/courses'
     | '/admin/courses-list'
     | '/admin/live-sessions'
@@ -708,6 +727,7 @@ export interface FileRouteTypes {
     | '/instructor/'
     | '/store/'
     | '/support/'
+    | '/admin/bundle/new'
     | '/admin/course/new'
     | '/instructor/course/new'
     | '/instructor/quizzes/new'
@@ -746,6 +766,7 @@ export interface FileRouteTypes {
     | '/rewards'
     | '/subscriptions'
     | '/admin/become-instructors'
+    | '/admin/bundles'
     | '/admin/courses'
     | '/admin/courses-list'
     | '/admin/live-sessions'
@@ -779,6 +800,7 @@ export interface FileRouteTypes {
     | '/instructor'
     | '/store'
     | '/support'
+    | '/admin/bundle/new'
     | '/admin/course/new'
     | '/instructor/course/new'
     | '/instructor/quizzes/new'
@@ -817,6 +839,7 @@ export interface FileRouteTypes {
     | '/rewards'
     | '/subscriptions'
     | '/admin/become-instructors'
+    | '/admin/bundles'
     | '/admin/courses'
     | '/admin/courses-list'
     | '/admin/live-sessions'
@@ -850,6 +873,7 @@ export interface FileRouteTypes {
     | '/instructor/'
     | '/store/'
     | '/support/'
+    | '/admin/bundle/new'
     | '/admin/course/new'
     | '/instructor/course/new'
     | '/instructor/quizzes/new'
@@ -889,6 +913,7 @@ export interface RootRouteChildren {
   RewardsRoute: typeof RewardsRoute
   SubscriptionsRoute: typeof SubscriptionsRoute
   AdminBecomeInstructorsRoute: typeof AdminBecomeInstructorsRoute
+  AdminBundlesRoute: typeof AdminBundlesRoute
   AdminCoursesRoute: typeof AdminCoursesRoute
   AdminCoursesListRoute: typeof AdminCoursesListRoute
   AdminLiveSessionsRoute: typeof AdminLiveSessionsRoute
@@ -922,6 +947,7 @@ export interface RootRouteChildren {
   InstructorIndexRoute: typeof InstructorIndexRoute
   StoreIndexRoute: typeof StoreIndexRoute
   SupportIndexRoute: typeof SupportIndexRoute
+  AdminBundleNewRoute: typeof AdminBundleNewRoute
   AdminCourseNewRoute: typeof AdminCourseNewRoute
   InstructorCourseNewRoute: typeof InstructorCourseNewRoute
   InstructorCourseCourseIdEditRoute: typeof InstructorCourseCourseIdEditRoute
@@ -1364,6 +1390,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminCoursesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/bundles': {
+      id: '/admin/bundles'
+      path: '/admin/bundles'
+      fullPath: '/admin/bundles'
+      preLoaderRoute: typeof AdminBundlesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/become-instructors': {
       id: '/admin/become-instructors'
       path: '/admin/become-instructors'
@@ -1390,6 +1423,13 @@ declare module '@tanstack/react-router' {
       path: '/admin/course/new'
       fullPath: '/admin/course/new'
       preLoaderRoute: typeof AdminCourseNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/bundle/new': {
+      id: '/admin/bundle/new'
+      path: '/admin/bundle/new'
+      fullPath: '/admin/bundle/new'
+      preLoaderRoute: typeof AdminBundleNewRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/instructor/quizzes/$quizId/edit': {
@@ -1460,6 +1500,7 @@ const rootRouteChildren: RootRouteChildren = {
   RewardsRoute: RewardsRoute,
   SubscriptionsRoute: SubscriptionsRoute,
   AdminBecomeInstructorsRoute: AdminBecomeInstructorsRoute,
+  AdminBundlesRoute: AdminBundlesRoute,
   AdminCoursesRoute: AdminCoursesRoute,
   AdminCoursesListRoute: AdminCoursesListRoute,
   AdminLiveSessionsRoute: AdminLiveSessionsRoute,
@@ -1493,6 +1534,7 @@ const rootRouteChildren: RootRouteChildren = {
   InstructorIndexRoute: InstructorIndexRoute,
   StoreIndexRoute: StoreIndexRoute,
   SupportIndexRoute: SupportIndexRoute,
+  AdminBundleNewRoute: AdminBundleNewRoute,
   AdminCourseNewRoute: AdminCourseNewRoute,
   InstructorCourseNewRoute: InstructorCourseNewRoute,
   InstructorCourseCourseIdEditRoute: InstructorCourseCourseIdEditRoute,
