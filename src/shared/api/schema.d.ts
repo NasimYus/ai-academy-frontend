@@ -2472,7 +2472,14 @@ export interface paths {
          */
         get: operations["my_bundles_api_v1_panel_bundles_get"];
         put?: never;
-        post?: never;
+        /**
+         * Create Bundle
+         * @description Create a bundle (legacy BundleController@store). Single-page form.
+         *
+         *     Admins may assign the owner instructor via `teacher_id`; the creator stays
+         *     the caller so it keeps edit access. Published (pending) unless saved as draft.
+         */
+        post: operations["create_bundle_api_v1_panel_bundles_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3538,6 +3545,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/admin/bundles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Bundles
+         * @description All course bundles for the admin list (legacy Admin\BundleController@index).
+         */
+        get: operations["list_bundles_api_v1_admin_bundles_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/admin/courses": {
         parameters: {
             query?: never;
@@ -3550,6 +3577,67 @@ export interface paths {
          * @description All courses (optionally by status), newest first, + pending count.
          */
         get: operations["list_courses_api_v1_admin_courses_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/courses/manage": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Manage Courses
+         * @description Course-management list by type (Курсы / Онлайн курсы / Текстовые курсы) —
+         *     headline stats + filtered, paginated rows with sales/income/students.
+         */
+        get: operations["manage_courses_api_v1_admin_courses_manage_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/courses/teachers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Course Teachers
+         * @description Instructors selectable as a course owner (legacy admin create `teachers`).
+         */
+        get: operations["course_teachers_api_v1_admin_courses_teachers_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/courses/live-sessions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Live Sessions
+         * @description Live-sessions history (История живых сессий).
+         */
+        get: operations["live_sessions_api_v1_admin_courses_live_sessions_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3612,6 +3700,66 @@ export interface paths {
          * @description Send an active course back to moderation (legacy unpublish → pending).
          */
         post: operations["unpublish_course_api_v1_admin_courses__course_id__unpublish_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/courses/{course_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Delete Course
+         * @description Delete a course (legacy WebinarController@destroy).
+         */
+        delete: operations["delete_course_api_v1_admin_courses__course_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/dashboard": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Admin Dashboard
+         * @description Admin general dashboard aggregates (legacy Admin\DashboardController).
+         */
+        get: operations["admin_dashboard_api_v1_admin_dashboard_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/marketing": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Admin Marketing
+         * @description Admin marketing dashboard aggregates (legacy Admin\DashboardController@marketing).
+         */
+        get: operations["admin_marketing_api_v1_admin_marketing_get"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -3966,6 +4114,19 @@ export interface components {
             /** Meeting Count */
             meeting_count?: number | null;
         };
+        /** ActiveStudentRow */
+        ActiveStudentRow: {
+            /** Id */
+            id: number;
+            /** Name */
+            name: string | null;
+            /** Purchased Classes */
+            purchased_classes: number;
+            /** Reserved Appointments */
+            reserved_appointments: number;
+            /** Total Cost */
+            total_cost: number;
+        };
         /** ActiveSubscription */
         ActiveSubscription: {
             /** Id */
@@ -4026,6 +4187,61 @@ export interface components {
             /** Courses */
             courses: components["schemas"]["AdminCourseRead"][];
         };
+        /** AdminCourseManageList */
+        AdminCourseManageList: {
+            /** Total Courses */
+            total_courses: number;
+            /** Total Pending */
+            total_pending: number;
+            /** Total Duration */
+            total_duration: number;
+            /** Total Sales */
+            total_sales: number;
+            /** Page */
+            page: number;
+            /** Per Page */
+            per_page: number;
+            /** Total */
+            total: number;
+            /** Courses */
+            courses: components["schemas"]["AdminCourseManageRow"][];
+        };
+        /** AdminCourseManageRow */
+        AdminCourseManageRow: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            type: components["schemas"]["CourseType"];
+            status: components["schemas"]["CourseStatus"];
+            /** Category Name */
+            category_name: string | null;
+            /** Teacher Id */
+            teacher_id: number | null;
+            /** Teacher Name */
+            teacher_name: string | null;
+            /** Price */
+            price: number;
+            /** Is Free */
+            is_free: boolean;
+            /** Capacity */
+            capacity: number | null;
+            /** Duration */
+            duration: number | null;
+            /** Sales Count */
+            sales_count: number;
+            /** Students Count */
+            students_count: number;
+            /** Income */
+            income: number;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Updated At */
+            updated_at: string | null;
+        };
         /** AdminCourseRead */
         AdminCourseRead: {
             /** Id */
@@ -4045,6 +4261,72 @@ export interface components {
              * Format: date-time
              */
             created_at: string;
+        };
+        /**
+         * AdminDashboard
+         * @description Admin general dashboard (legacy Admin\DashboardController@index).
+         */
+        AdminDashboard: {
+            daily_sales_by_type: components["schemas"]["DailySalesByType"];
+            income: components["schemas"]["PeriodStats"];
+            sales_counts: components["schemas"]["PeriodStats"];
+            /** New Sales */
+            new_sales: number;
+            /** New Comments */
+            new_comments: number;
+            /** New Tickets */
+            new_tickets: number;
+            /** Pending Reviews */
+            pending_reviews: number;
+            sales_chart_year: components["schemas"]["ChartData"];
+            sales_chart_month: components["schemas"]["ChartData"];
+            /** Sales Stats */
+            sales_stats: {
+                [key: string]: components["schemas"]["GrowStat"];
+            };
+            /** Recent Comments */
+            recent_comments: components["schemas"]["RecentComment"][];
+            /** Recent Tickets */
+            recent_tickets: components["schemas"]["RecentTicket"][];
+            /** Recent Tickets Pending */
+            recent_tickets_pending: number;
+            /** Recent Webinars */
+            recent_webinars: components["schemas"]["RecentCourseRow"][];
+            /** Recent Webinars Pending */
+            recent_webinars_pending: number;
+            /** Recent Courses */
+            recent_courses: components["schemas"]["RecentCourseRow"][];
+            /** Recent Courses Pending */
+            recent_courses_pending: number;
+            users_chart: components["schemas"]["ChartData"];
+        };
+        /** AdminMarketing */
+        AdminMarketing: {
+            /** Users Without Purchases */
+            users_without_purchases: number;
+            /** Teachers Without Class */
+            teachers_without_class: number;
+            /** Featured Classes */
+            featured_classes: number;
+            /** Active Discounts */
+            active_discounts: number;
+            classes_statistics: components["schemas"]["ChartData"];
+            net_profit_chart_year: components["schemas"]["ChartData"];
+            net_profit_chart_month: components["schemas"]["ChartData"];
+            /** Net Profit Stats */
+            net_profit_stats: {
+                [key: string]: components["schemas"]["GrowStat"];
+            };
+            /** Top Selling Classes */
+            top_selling_classes: components["schemas"]["TopClassRow"][];
+            /** Top Selling Appointments */
+            top_selling_appointments: components["schemas"]["TopAppointmentRow"][];
+            /** Top Selling Teachers */
+            top_selling_teachers: components["schemas"]["TopSellerRow"][];
+            /** Top Selling Organizations */
+            top_selling_organizations: components["schemas"]["TopSellerRow"][];
+            /** Most Active Students */
+            most_active_students: components["schemas"]["ActiveStudentRow"][];
         };
         /** AdminOfflinePaymentRead */
         AdminOfflinePaymentRead: {
@@ -4615,6 +4897,76 @@ export interface components {
              */
             kind: string;
         };
+        /**
+         * BundleCreate
+         * @description Admin/instructor bundle create (legacy BundleController@store).
+         *
+         *     A single-page form; only title is strictly required so a draft can be saved.
+         */
+        BundleCreate: {
+            /** Title */
+            title: string;
+            /** Locale */
+            locale?: string | null;
+            /** Teacher Id */
+            teacher_id?: number | null;
+            /** Points */
+            points?: number | null;
+            /** Slug */
+            slug?: string | null;
+            /** Seo Description */
+            seo_description?: string | null;
+            /** Summary */
+            summary?: string | null;
+            /** Description */
+            description?: string | null;
+            /** Thumbnail */
+            thumbnail?: string | null;
+            /** Image Cover */
+            image_cover?: string | null;
+            /** Video Demo */
+            video_demo?: string | null;
+            /** Video Demo Source */
+            video_demo_source?: string | null;
+            /** Category Id */
+            category_id?: number | null;
+            /** Price */
+            price?: number | null;
+            /** Access Days */
+            access_days?: number | null;
+            /**
+             * Subscribe
+             * @default false
+             */
+            subscribe: boolean;
+            /**
+             * Private
+             * @default false
+             */
+            private: boolean;
+            /**
+             * Certificate
+             * @default false
+             */
+            certificate: boolean;
+            /**
+             * Only For Students
+             * @default false
+             */
+            only_for_students: boolean;
+            /** Message For Reviewer */
+            message_for_reviewer?: string | null;
+            /**
+             * Rules
+             * @default false
+             */
+            rules: boolean;
+            /**
+             * Draft
+             * @default false
+             */
+            draft: boolean;
+        };
         /** BundleDashboard */
         BundleDashboard: {
             /** Bundles */
@@ -4658,6 +5010,36 @@ export interface components {
              * @default []
              */
             courses: components["schemas"]["CourseRead"][];
+        };
+        /** BundleManageList */
+        BundleManageList: {
+            /** Total */
+            total: number;
+            /** Bundles */
+            bundles: components["schemas"]["BundleManageRow"][];
+        };
+        /** BundleManageRow */
+        BundleManageRow: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            status: components["schemas"]["BundleStatus"];
+            /** Teacher Id */
+            teacher_id: number | null;
+            /** Teacher Name */
+            teacher_name: string | null;
+            /** Category */
+            category: string | null;
+            /** Price */
+            price: number | null;
+            /** Webinars Count */
+            webinars_count: number;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
         };
         /**
          * BundlePublicRead
@@ -4928,6 +5310,13 @@ export interface components {
             /** Title */
             title: string;
         };
+        /** ChartData */
+        ChartData: {
+            /** Labels */
+            labels: string[];
+            /** Data */
+            data: number[];
+        };
         /** CheckoutRequest */
         CheckoutRequest: {
             /** Discount Id */
@@ -5155,6 +5544,8 @@ export interface components {
             start_date?: string | null;
             /** Capacity */
             capacity?: number | null;
+            /** Teacher Id */
+            teacher_id?: number | null;
             /**
              * Price
              * @default 0
@@ -5191,6 +5582,30 @@ export interface components {
              * @default false
              */
             subscribe: boolean;
+            /** Timezone */
+            timezone?: string | null;
+            /**
+             * Forum
+             * @default false
+             */
+            forum: boolean;
+            /**
+             * Certificate
+             * @default false
+             */
+            certificate: boolean;
+            /**
+             * Only For Students
+             * @default false
+             */
+            only_for_students: boolean;
+            /**
+             * Enable Waitlist
+             * @default false
+             */
+            enable_waitlist: boolean;
+            /** Message For Reviewer */
+            message_for_reviewer?: string | null;
             /**
              * Rules
              * @default false
@@ -5690,6 +6105,8 @@ export interface components {
             description?: string | null;
             /** Category Id */
             category_id?: number | null;
+            /** Teacher Id */
+            teacher_id?: number | null;
             /** Duration */
             duration?: number | null;
             /** Start Date */
@@ -5742,6 +6159,20 @@ export interface components {
             decimals: number;
             /** Exchange Rate */
             exchange_rate: number;
+        };
+        /**
+         * DailySalesByType
+         * @description Today's sales split by course type (legacy dailySalesTypeStatistics).
+         */
+        DailySalesByType: {
+            /** Webinars */
+            webinars: number;
+            /** Courses */
+            courses: number;
+            /** Appointments */
+            appointments: number;
+            /** Total */
+            total: number;
         };
         /**
          * DashboardSummary
@@ -6215,6 +6646,15 @@ export interface components {
             /** Grade */
             grade: number;
         };
+        /** GrowStat */
+        GrowStat: {
+            /** Amount */
+            amount: number;
+            /** Grow Percent */
+            grow_percent: string;
+            /** Grow Status */
+            grow_status: string;
+        };
         /** HTTPValidationError */
         HTTPValidationError: {
             /** Detail */
@@ -6346,6 +6786,34 @@ export interface components {
             item_id: number;
             /** Learned */
             learned: boolean;
+        };
+        /** LiveSessionList */
+        LiveSessionList: {
+            /** Page */
+            page: number;
+            /** Per Page */
+            per_page: number;
+            /** Total */
+            total: number;
+            /** Sessions */
+            sessions: components["schemas"]["LiveSessionRow"][];
+        };
+        /** LiveSessionRow */
+        LiveSessionRow: {
+            /** Id */
+            id: number;
+            /** Course Title */
+            course_title: string | null;
+            /** Session Title */
+            session_title: string | null;
+            /** Session Duration */
+            session_duration: number | null;
+            /** Start Date */
+            start_date: string | null;
+            /** End Date */
+            end_date: string | null;
+            /** Meeting Duration */
+            meeting_duration: number | null;
         };
         /** LocationInput */
         LocationInput: {
@@ -6838,6 +7306,17 @@ export interface components {
              * @enum {string}
              */
             status: "success" | "failed";
+        };
+        /** PeriodStats */
+        PeriodStats: {
+            /** Today */
+            today: number;
+            /** Month */
+            month: number;
+            /** Year */
+            year: number;
+            /** Total */
+            total: number;
         };
         /** PersonalNoteRead */
         PersonalNoteRead: {
@@ -7447,6 +7926,45 @@ export interface components {
              */
             certificate: boolean;
         };
+        /** RecentComment */
+        RecentComment: {
+            /** Id */
+            id: number;
+            /** User Name */
+            user_name?: string | null;
+            /** Comment */
+            comment?: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** RecentCourseRow */
+        RecentCourseRow: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Teacher Name */
+            teacher_name?: string | null;
+            /** Status */
+            status: string;
+        };
+        /** RecentTicket */
+        RecentTicket: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Status */
+            status: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
         /** RedeemResponse */
         RedeemResponse: {
             /** Message */
@@ -7954,6 +8472,16 @@ export interface components {
          * @enum {string}
          */
         SupportType: "course_support" | "platform_support";
+        /**
+         * TeacherOption
+         * @description Instructor picker option for admin course create (legacy `teachers` list).
+         */
+        TeacherOption: {
+            /** Id */
+            id: number;
+            /** Full Name */
+            full_name: string | null;
+        };
         /** TeachersGroup */
         TeachersGroup: {
             /**
@@ -8009,6 +8537,41 @@ export interface components {
             start: string;
             /** End */
             end: string;
+        };
+        /** TopAppointmentRow */
+        TopAppointmentRow: {
+            /** Id */
+            id: number;
+            /** Consultant Name */
+            consultant_name: string | null;
+            /** Sales Count */
+            sales_count: number;
+            /** Sales Amount */
+            sales_amount: number;
+        };
+        /** TopClassRow */
+        TopClassRow: {
+            /** Id */
+            id: number;
+            /** Title */
+            title: string;
+            /** Sales Count */
+            sales_count: number;
+            /** Sales Amount */
+            sales_amount: number;
+        };
+        /** TopSellerRow */
+        TopSellerRow: {
+            /** Id */
+            id: number;
+            /** Name */
+            name: string | null;
+            /** Classes Duration */
+            classes_duration: number;
+            /** Sales Count */
+            sales_count: number;
+            /** Sales Amount */
+            sales_amount: number;
         };
         /** TrendCategoryList */
         TrendCategoryList: {
@@ -8189,7 +8752,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -8231,7 +8794,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -8306,7 +8869,7 @@ export interface operations {
                     "application/json": components["schemas"]["VerificationResult"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -8348,7 +8911,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -8383,7 +8946,7 @@ export interface operations {
                     "application/json": components["schemas"]["ResetPasswordResult"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -8967,7 +9530,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -9020,7 +9583,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -9597,7 +10160,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -10576,7 +11139,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -11360,7 +11923,7 @@ export interface operations {
                     "application/json": components["schemas"]["NewsletterResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -11422,7 +11985,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -11567,7 +12130,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -11676,7 +12239,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -11725,7 +12288,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -11767,7 +12330,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -11931,7 +12494,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -12020,7 +12583,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -12129,7 +12692,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -12180,7 +12743,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -12282,7 +12845,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -12382,7 +12945,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -12738,7 +13301,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -12792,7 +13355,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -12840,7 +13403,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -12942,7 +13505,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -13091,7 +13654,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -13240,7 +13803,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -14232,6 +14795,57 @@ export interface operations {
             };
         };
     };
+    create_bundle_api_v1_panel_bundles_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["BundleCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BundleRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
     delete_bundle_api_v1_panel_bundles__bundle_id__delete: {
         parameters: {
             query?: never;
@@ -14595,7 +15209,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -15368,7 +15982,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -15408,7 +16022,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -15457,7 +16071,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -16048,7 +16662,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -16164,7 +16778,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -16933,6 +17547,44 @@ export interface operations {
             };
         };
     };
+    list_bundles_api_v1_admin_bundles_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BundleManageList"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
     list_courses_api_v1_admin_courses_get: {
         parameters: {
             query?: {
@@ -16951,6 +17603,150 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["AdminCourseList"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    manage_courses_api_v1_admin_courses_manage_get: {
+        parameters: {
+            query?: {
+                type?: components["schemas"]["CourseType"];
+                search?: string | null;
+                from?: string | null;
+                to?: string | null;
+                category_id?: number | null;
+                teacher_id?: number | null;
+                status?: components["schemas"]["CourseStatus"] | null;
+                sort?: string | null;
+                page?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminCourseManageList"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    course_teachers_api_v1_admin_courses_teachers_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TeacherOption"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    live_sessions_api_v1_admin_courses_live_sessions_get: {
+        parameters: {
+            query?: {
+                page?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LiveSessionList"];
                 };
             };
             /** @description Unauthorized */
@@ -17152,6 +17948,138 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_course_api_v1_admin_courses__course_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                course_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    admin_dashboard_api_v1_admin_dashboard_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminDashboard"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    admin_marketing_api_v1_admin_marketing_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminMarketing"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };
@@ -17459,7 +18387,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -17517,7 +18445,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -17630,7 +18558,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -17688,7 +18616,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -17750,7 +18678,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;

@@ -1,8 +1,11 @@
+import { useQuery } from '@tanstack/react-query'
 import { BookOpen, MonitorPlay, PlayCircle } from 'lucide-react'
 
 import type { CourseMediaKind } from '#/features/manage-course/api/manage'
+import { courseTeachersQueryOptions } from '#/features/manage-course/api/manage'
 import type { CourseType, WizardForm } from '#/features/manage-course/ui/wizard/config'
 import { useUploadCourseMedia } from '#/features/manage-course/model/use-manage'
+import { useSessionStore } from '#/entities/session'
 import { Field, FileUpload, RichEditor, Select, Textarea } from '#/shared/ui'
 
 import type { StepProps } from '#/features/manage-course/ui/wizard/steps/types'
@@ -37,6 +40,27 @@ function MediaField({
       onSelect={(file) => upload.mutate({ file, kind }, { onSuccess: onChange })}
       onClear={() => onChange('')}
     />
+  )
+}
+
+// Admin-only: assign the course to a specific instructor (legacy admin create).
+function InstructorField({ f, set }: StepProps) {
+  const role = useSessionStore((s) => s.user?.role_name)
+  const { data: teachers } = useQuery({ ...courseTeachersQueryOptions, enabled: role === 'admin' })
+  if (role !== 'admin') return null
+  return (
+    <Select
+      label="Инструктор *"
+      value={f.teacher_id}
+      onChange={(e) => set('teacher_id', e.target.value)}
+    >
+      <option value="">Выберите инструктора</option>
+      {(teachers ?? []).map((t) => (
+        <option key={t.id} value={t.id}>
+          {t.full_name ?? `#${t.id}`}
+        </option>
+      ))}
+    </Select>
   )
 }
 
@@ -86,6 +110,7 @@ export function Step1Basic({ f, set }: StepProps) {
           <option value="en">English</option>
           <option value="tg">Тоҷикӣ</option>
         </Select>
+        <InstructorField f={f} set={set} />
         <Field
           label="Название *"
           value={f.title}
