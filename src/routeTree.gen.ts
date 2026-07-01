@@ -43,6 +43,7 @@ import { Route as StoreIndexRouteImport } from './routes/store.index'
 import { Route as InstructorIndexRouteImport } from './routes/instructor.index'
 import { Route as BundlesIndexRouteImport } from './routes/bundles.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as UsersUserIdRouteImport } from './routes/users.$userId'
 import { Route as SupportSupportIdRouteImport } from './routes/support.$supportId'
 import { Route as StoreProductIdRouteImport } from './routes/store.$productId'
@@ -242,6 +243,11 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
   path: '/blog/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UsersUserIdRoute = UsersUserIdRouteImport.update({
   id: '/users/$userId',
   path: '/users/$userId',
@@ -439,6 +445,7 @@ export interface FileRoutesByFullPath {
   '/store/$productId': typeof StoreProductIdRoute
   '/support/$supportId': typeof SupportSupportIdRoute
   '/users/$userId': typeof UsersUserIdRoute
+  '/admin/': typeof AdminIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/bundles/': typeof BundlesIndexRoute
   '/instructor/': typeof InstructorIndexRoute
@@ -503,6 +510,7 @@ export interface FileRoutesByTo {
   '/store/$productId': typeof StoreProductIdRoute
   '/support/$supportId': typeof SupportSupportIdRoute
   '/users/$userId': typeof UsersUserIdRoute
+  '/admin': typeof AdminIndexRoute
   '/blog': typeof BlogIndexRoute
   '/bundles': typeof BundlesIndexRoute
   '/instructor': typeof InstructorIndexRoute
@@ -568,6 +576,7 @@ export interface FileRoutesById {
   '/store/$productId': typeof StoreProductIdRoute
   '/support/$supportId': typeof SupportSupportIdRoute
   '/users/$userId': typeof UsersUserIdRoute
+  '/admin/': typeof AdminIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/bundles/': typeof BundlesIndexRoute
   '/instructor/': typeof InstructorIndexRoute
@@ -634,6 +643,7 @@ export interface FileRouteTypes {
     | '/store/$productId'
     | '/support/$supportId'
     | '/users/$userId'
+    | '/admin/'
     | '/blog/'
     | '/bundles/'
     | '/instructor/'
@@ -698,6 +708,7 @@ export interface FileRouteTypes {
     | '/store/$productId'
     | '/support/$supportId'
     | '/users/$userId'
+    | '/admin'
     | '/blog'
     | '/bundles'
     | '/instructor'
@@ -762,6 +773,7 @@ export interface FileRouteTypes {
     | '/store/$productId'
     | '/support/$supportId'
     | '/users/$userId'
+    | '/admin/'
     | '/blog/'
     | '/bundles/'
     | '/instructor/'
@@ -827,6 +839,7 @@ export interface RootRouteChildren {
   StoreProductIdRoute: typeof StoreProductIdRoute
   SupportSupportIdRoute: typeof SupportSupportIdRoute
   UsersUserIdRoute: typeof UsersUserIdRoute
+  AdminIndexRoute: typeof AdminIndexRoute
   BlogIndexRoute: typeof BlogIndexRoute
   BundlesIndexRoute: typeof BundlesIndexRoute
   InstructorIndexRoute: typeof InstructorIndexRoute
@@ -1075,6 +1088,13 @@ declare module '@tanstack/react-router' {
       path: '/blog'
       fullPath: '/blog/'
       preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/users/$userId': {
@@ -1342,6 +1362,7 @@ const rootRouteChildren: RootRouteChildren = {
   StoreProductIdRoute: StoreProductIdRoute,
   SupportSupportIdRoute: SupportSupportIdRoute,
   UsersUserIdRoute: UsersUserIdRoute,
+  AdminIndexRoute: AdminIndexRoute,
   BlogIndexRoute: BlogIndexRoute,
   BundlesIndexRoute: BundlesIndexRoute,
   InstructorIndexRoute: InstructorIndexRoute,

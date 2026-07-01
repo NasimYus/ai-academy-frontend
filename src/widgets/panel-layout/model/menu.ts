@@ -139,6 +139,7 @@ export const MENU: MenuSection[] = [
     title: 'Администрирование',
     roles: ['admin'],
     groups: [
+      { label: 'Панель управления', icon: LayoutDashboard, to: '/admin' },
       { label: 'Модерация курсов', icon: CheckCircle, to: '/admin/courses' },
       { label: 'Пользователи', icon: Users, to: '/admin/users' },
       { label: 'Заявки инструкторов', icon: UserCheck, to: '/admin/become-instructors' },
