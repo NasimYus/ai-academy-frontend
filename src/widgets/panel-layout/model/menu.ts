@@ -7,6 +7,7 @@ import {
   ClipboardCheck,
   ClipboardList,
   CreditCard,
+  FolderTree,
   GraduationCap,
   LayoutDashboard,
   LifeBuoy,
@@ -140,6 +141,7 @@ export const MENU: MenuSection[] = [
     roles: ['admin'],
     groups: [
       { label: 'Модерация курсов', icon: CheckCircle, to: '/admin/courses' },
+      { label: 'Категории', icon: FolderTree, to: '/admin/categories' },
       { label: 'Пользователи', icon: Users, to: '/admin/users' },
       { label: 'Заявки инструкторов', icon: UserCheck, to: '/admin/become-instructors' },
       { label: 'Отзывы', icon: Star, to: '/admin/reviews' },

@@ -3453,6 +3453,45 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/admin/categories": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Categories
+         * @description All categories (incl. sub-categories + disabled) for admin management.
+         */
+        get: operations["list_categories_api_v1_admin_categories_get"];
+        put?: never;
+        /** Create Category */
+        post: operations["create_category_api_v1_admin_categories_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/categories/{category_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Update Category */
+        put: operations["update_category_api_v1_admin_categories__category_id__put"];
+        post?: never;
+        /** Delete Category */
+        delete: operations["delete_category_api_v1_admin_categories__category_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/admin/users": {
         parameters: {
             query?: never;
@@ -3732,6 +3771,29 @@ export interface components {
              * @constant
              */
             item_name: "webinar";
+        };
+        /** AdminCategoryRead */
+        AdminCategoryRead: {
+            /** Id */
+            id: number;
+            /** Parent Id */
+            parent_id?: number | null;
+            /** Title */
+            title: string;
+            /** Slug */
+            slug?: string | null;
+            /** Icon */
+            icon?: string | null;
+            /**
+             * Order
+             * @default 0
+             */
+            order: number;
+            /**
+             * Enable
+             * @default true
+             */
+            enable: boolean;
         };
         /** AdminCourseList */
         AdminCourseList: {
@@ -4482,6 +4544,25 @@ export interface components {
             items: components["schemas"]["CartItemRead"][];
             amounts: components["schemas"]["CartAmounts"];
         };
+        /** CategoryCreate */
+        CategoryCreate: {
+            /** Title */
+            title: string;
+            /** Parent Id */
+            parent_id?: number | null;
+            /** Icon */
+            icon?: string | null;
+            /**
+             * Order
+             * @default 0
+             */
+            order: number;
+            /**
+             * Enable
+             * @default true
+             */
+            enable: boolean;
+        };
         /** CategoryList */
         CategoryList: {
             /** Count */
@@ -4509,6 +4590,19 @@ export interface components {
              * @default 0
              */
             webinars_count: number;
+        };
+        /** CategoryUpdate */
+        CategoryUpdate: {
+            /** Title */
+            title?: string | null;
+            /** Parent Id */
+            parent_id?: number | null;
+            /** Icon */
+            icon?: string | null;
+            /** Order */
+            order?: number | null;
+            /** Enable */
+            enable?: boolean | null;
         };
         /** CertificateBrief */
         CertificateBrief: {
@@ -16230,6 +16324,213 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["AdminCourseRead"];
                 };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_categories_api_v1_admin_categories_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminCategoryRead"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    create_category_api_v1_admin_categories_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CategoryCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminCategoryRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_category_api_v1_admin_categories__category_id__put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                category_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CategoryUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminCategoryRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_category_api_v1_admin_categories__category_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                category_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
             /** @description Unauthorized */
             401: {

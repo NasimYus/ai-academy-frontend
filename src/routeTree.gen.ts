@@ -65,6 +65,7 @@ import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
 import { Route as AdminPaymentChannelsRouteImport } from './routes/admin.payment-channels'
 import { Route as AdminCoursesRouteImport } from './routes/admin.courses'
+import { Route as AdminCategoriesRouteImport } from './routes/admin.categories'
 import { Route as AdminBecomeInstructorsRouteImport } from './routes/admin.become-instructors'
 import { Route as InstructorQuizzesNewRouteImport } from './routes/instructor.quizzes.new'
 import { Route as InstructorCourseNewRouteImport } from './routes/instructor.course.new'
@@ -352,6 +353,11 @@ const AdminCoursesRoute = AdminCoursesRouteImport.update({
   path: '/admin/courses',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminCategoriesRoute = AdminCategoriesRouteImport.update({
+  id: '/admin/categories',
+  path: '/admin/categories',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminBecomeInstructorsRoute = AdminBecomeInstructorsRouteImport.update({
   id: '/admin/become-instructors',
   path: '/admin/become-instructors',
@@ -417,6 +423,7 @@ export interface FileRoutesByFullPath {
   '/rewards': typeof RewardsRoute
   '/subscriptions': typeof SubscriptionsRoute
   '/admin/become-instructors': typeof AdminBecomeInstructorsRoute
+  '/admin/categories': typeof AdminCategoriesRoute
   '/admin/courses': typeof AdminCoursesRoute
   '/admin/payment-channels': typeof AdminPaymentChannelsRoute
   '/admin/reviews': typeof AdminReviewsRoute
@@ -481,6 +488,7 @@ export interface FileRoutesByTo {
   '/rewards': typeof RewardsRoute
   '/subscriptions': typeof SubscriptionsRoute
   '/admin/become-instructors': typeof AdminBecomeInstructorsRoute
+  '/admin/categories': typeof AdminCategoriesRoute
   '/admin/courses': typeof AdminCoursesRoute
   '/admin/payment-channels': typeof AdminPaymentChannelsRoute
   '/admin/reviews': typeof AdminReviewsRoute
@@ -546,6 +554,7 @@ export interface FileRoutesById {
   '/rewards': typeof RewardsRoute
   '/subscriptions': typeof SubscriptionsRoute
   '/admin/become-instructors': typeof AdminBecomeInstructorsRoute
+  '/admin/categories': typeof AdminCategoriesRoute
   '/admin/courses': typeof AdminCoursesRoute
   '/admin/payment-channels': typeof AdminPaymentChannelsRoute
   '/admin/reviews': typeof AdminReviewsRoute
@@ -612,6 +621,7 @@ export interface FileRouteTypes {
     | '/rewards'
     | '/subscriptions'
     | '/admin/become-instructors'
+    | '/admin/categories'
     | '/admin/courses'
     | '/admin/payment-channels'
     | '/admin/reviews'
@@ -676,6 +686,7 @@ export interface FileRouteTypes {
     | '/rewards'
     | '/subscriptions'
     | '/admin/become-instructors'
+    | '/admin/categories'
     | '/admin/courses'
     | '/admin/payment-channels'
     | '/admin/reviews'
@@ -740,6 +751,7 @@ export interface FileRouteTypes {
     | '/rewards'
     | '/subscriptions'
     | '/admin/become-instructors'
+    | '/admin/categories'
     | '/admin/courses'
     | '/admin/payment-channels'
     | '/admin/reviews'
@@ -805,6 +817,7 @@ export interface RootRouteChildren {
   RewardsRoute: typeof RewardsRoute
   SubscriptionsRoute: typeof SubscriptionsRoute
   AdminBecomeInstructorsRoute: typeof AdminBecomeInstructorsRoute
+  AdminCategoriesRoute: typeof AdminCategoriesRoute
   AdminCoursesRoute: typeof AdminCoursesRoute
   AdminPaymentChannelsRoute: typeof AdminPaymentChannelsRoute
   AdminReviewsRoute: typeof AdminReviewsRoute
@@ -1231,6 +1244,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminCoursesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/categories': {
+      id: '/admin/categories'
+      path: '/admin/categories'
+      fullPath: '/admin/categories'
+      preLoaderRoute: typeof AdminCategoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/become-instructors': {
       id: '/admin/become-instructors'
       path: '/admin/become-instructors'
@@ -1320,6 +1340,7 @@ const rootRouteChildren: RootRouteChildren = {
   RewardsRoute: RewardsRoute,
   SubscriptionsRoute: SubscriptionsRoute,
   AdminBecomeInstructorsRoute: AdminBecomeInstructorsRoute,
+  AdminCategoriesRoute: AdminCategoriesRoute,
   AdminCoursesRoute: AdminCoursesRoute,
   AdminPaymentChannelsRoute: AdminPaymentChannelsRoute,
   AdminReviewsRoute: AdminReviewsRoute,
