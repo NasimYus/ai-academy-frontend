@@ -66,7 +66,9 @@ import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
 import { Route as AdminPaymentChannelsRouteImport } from './routes/admin.payment-channels'
 import { Route as AdminCoursesRouteImport } from './routes/admin.courses'
 import { Route as AdminBecomeInstructorsRouteImport } from './routes/admin.become-instructors'
+import { Route as InstructorQuizzesNewRouteImport } from './routes/instructor.quizzes.new'
 import { Route as InstructorCourseNewRouteImport } from './routes/instructor.course.new'
+import { Route as InstructorQuizzesQuizIdEditRouteImport } from './routes/instructor.quizzes.$quizId.edit'
 import { Route as InstructorCourseCourseIdStatisticsRouteImport } from './routes/instructor.course.$courseId.statistics'
 import { Route as InstructorCourseCourseIdEditRouteImport } from './routes/instructor.course.$courseId.edit'
 
@@ -355,11 +357,22 @@ const AdminBecomeInstructorsRoute = AdminBecomeInstructorsRouteImport.update({
   path: '/admin/become-instructors',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InstructorQuizzesNewRoute = InstructorQuizzesNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => InstructorQuizzesRoute,
+} as any)
 const InstructorCourseNewRoute = InstructorCourseNewRouteImport.update({
   id: '/instructor/course/new',
   path: '/instructor/course/new',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InstructorQuizzesQuizIdEditRoute =
+  InstructorQuizzesQuizIdEditRouteImport.update({
+    id: '/$quizId/edit',
+    path: '/$quizId/edit',
+    getParentRoute: () => InstructorQuizzesRoute,
+  } as any)
 const InstructorCourseCourseIdStatisticsRoute =
   InstructorCourseCourseIdStatisticsRouteImport.update({
     id: '/instructor/course/$courseId/statistics',
@@ -418,7 +431,7 @@ export interface FileRoutesByFullPath {
   '/instructor/comments': typeof InstructorCommentsRoute
   '/instructor/meetings': typeof InstructorMeetingsRoute
   '/instructor/packages': typeof InstructorPackagesRoute
-  '/instructor/quizzes': typeof InstructorQuizzesRoute
+  '/instructor/quizzes': typeof InstructorQuizzesRouteWithChildren
   '/instructor/sales': typeof InstructorSalesRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/payment/callback': typeof PaymentCallbackRoute
@@ -432,8 +445,10 @@ export interface FileRoutesByFullPath {
   '/store/': typeof StoreIndexRoute
   '/support/': typeof SupportIndexRoute
   '/instructor/course/new': typeof InstructorCourseNewRoute
+  '/instructor/quizzes/new': typeof InstructorQuizzesNewRoute
   '/instructor/course/$courseId/edit': typeof InstructorCourseCourseIdEditRoute
   '/instructor/course/$courseId/statistics': typeof InstructorCourseCourseIdStatisticsRoute
+  '/instructor/quizzes/$quizId/edit': typeof InstructorQuizzesQuizIdEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -480,7 +495,7 @@ export interface FileRoutesByTo {
   '/instructor/comments': typeof InstructorCommentsRoute
   '/instructor/meetings': typeof InstructorMeetingsRoute
   '/instructor/packages': typeof InstructorPackagesRoute
-  '/instructor/quizzes': typeof InstructorQuizzesRoute
+  '/instructor/quizzes': typeof InstructorQuizzesRouteWithChildren
   '/instructor/sales': typeof InstructorSalesRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/payment/callback': typeof PaymentCallbackRoute
@@ -494,8 +509,10 @@ export interface FileRoutesByTo {
   '/store': typeof StoreIndexRoute
   '/support': typeof SupportIndexRoute
   '/instructor/course/new': typeof InstructorCourseNewRoute
+  '/instructor/quizzes/new': typeof InstructorQuizzesNewRoute
   '/instructor/course/$courseId/edit': typeof InstructorCourseCourseIdEditRoute
   '/instructor/course/$courseId/statistics': typeof InstructorCourseCourseIdStatisticsRoute
+  '/instructor/quizzes/$quizId/edit': typeof InstructorQuizzesQuizIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -543,7 +560,7 @@ export interface FileRoutesById {
   '/instructor/comments': typeof InstructorCommentsRoute
   '/instructor/meetings': typeof InstructorMeetingsRoute
   '/instructor/packages': typeof InstructorPackagesRoute
-  '/instructor/quizzes': typeof InstructorQuizzesRoute
+  '/instructor/quizzes': typeof InstructorQuizzesRouteWithChildren
   '/instructor/sales': typeof InstructorSalesRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/payment/callback': typeof PaymentCallbackRoute
@@ -557,8 +574,10 @@ export interface FileRoutesById {
   '/store/': typeof StoreIndexRoute
   '/support/': typeof SupportIndexRoute
   '/instructor/course/new': typeof InstructorCourseNewRoute
+  '/instructor/quizzes/new': typeof InstructorQuizzesNewRoute
   '/instructor/course/$courseId/edit': typeof InstructorCourseCourseIdEditRoute
   '/instructor/course/$courseId/statistics': typeof InstructorCourseCourseIdStatisticsRoute
+  '/instructor/quizzes/$quizId/edit': typeof InstructorQuizzesQuizIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -621,8 +640,10 @@ export interface FileRouteTypes {
     | '/store/'
     | '/support/'
     | '/instructor/course/new'
+    | '/instructor/quizzes/new'
     | '/instructor/course/$courseId/edit'
     | '/instructor/course/$courseId/statistics'
+    | '/instructor/quizzes/$quizId/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -683,8 +704,10 @@ export interface FileRouteTypes {
     | '/store'
     | '/support'
     | '/instructor/course/new'
+    | '/instructor/quizzes/new'
     | '/instructor/course/$courseId/edit'
     | '/instructor/course/$courseId/statistics'
+    | '/instructor/quizzes/$quizId/edit'
   id:
     | '__root__'
     | '/'
@@ -745,8 +768,10 @@ export interface FileRouteTypes {
     | '/store/'
     | '/support/'
     | '/instructor/course/new'
+    | '/instructor/quizzes/new'
     | '/instructor/course/$courseId/edit'
     | '/instructor/course/$courseId/statistics'
+    | '/instructor/quizzes/$quizId/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -794,7 +819,7 @@ export interface RootRouteChildren {
   InstructorCommentsRoute: typeof InstructorCommentsRoute
   InstructorMeetingsRoute: typeof InstructorMeetingsRoute
   InstructorPackagesRoute: typeof InstructorPackagesRoute
-  InstructorQuizzesRoute: typeof InstructorQuizzesRoute
+  InstructorQuizzesRoute: typeof InstructorQuizzesRouteWithChildren
   InstructorSalesRoute: typeof InstructorSalesRoute
   LearnSlugRoute: typeof LearnSlugRoute
   PaymentCallbackRoute: typeof PaymentCallbackRoute
@@ -1213,12 +1238,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminBecomeInstructorsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/instructor/quizzes/new': {
+      id: '/instructor/quizzes/new'
+      path: '/new'
+      fullPath: '/instructor/quizzes/new'
+      preLoaderRoute: typeof InstructorQuizzesNewRouteImport
+      parentRoute: typeof InstructorQuizzesRoute
+    }
     '/instructor/course/new': {
       id: '/instructor/course/new'
       path: '/instructor/course/new'
       fullPath: '/instructor/course/new'
       preLoaderRoute: typeof InstructorCourseNewRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/instructor/quizzes/$quizId/edit': {
+      id: '/instructor/quizzes/$quizId/edit'
+      path: '/$quizId/edit'
+      fullPath: '/instructor/quizzes/$quizId/edit'
+      preLoaderRoute: typeof InstructorQuizzesQuizIdEditRouteImport
+      parentRoute: typeof InstructorQuizzesRoute
     }
     '/instructor/course/$courseId/statistics': {
       id: '/instructor/course/$courseId/statistics'
@@ -1236,6 +1275,19 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface InstructorQuizzesRouteChildren {
+  InstructorQuizzesNewRoute: typeof InstructorQuizzesNewRoute
+  InstructorQuizzesQuizIdEditRoute: typeof InstructorQuizzesQuizIdEditRoute
+}
+
+const InstructorQuizzesRouteChildren: InstructorQuizzesRouteChildren = {
+  InstructorQuizzesNewRoute: InstructorQuizzesNewRoute,
+  InstructorQuizzesQuizIdEditRoute: InstructorQuizzesQuizIdEditRoute,
+}
+
+const InstructorQuizzesRouteWithChildren =
+  InstructorQuizzesRoute._addFileChildren(InstructorQuizzesRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -1282,7 +1334,7 @@ const rootRouteChildren: RootRouteChildren = {
   InstructorCommentsRoute: InstructorCommentsRoute,
   InstructorMeetingsRoute: InstructorMeetingsRoute,
   InstructorPackagesRoute: InstructorPackagesRoute,
-  InstructorQuizzesRoute: InstructorQuizzesRoute,
+  InstructorQuizzesRoute: InstructorQuizzesRouteWithChildren,
   InstructorSalesRoute: InstructorSalesRoute,
   LearnSlugRoute: LearnSlugRoute,
   PaymentCallbackRoute: PaymentCallbackRoute,

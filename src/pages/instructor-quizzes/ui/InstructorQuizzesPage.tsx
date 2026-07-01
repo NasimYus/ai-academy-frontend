@@ -1,136 +1,204 @@
 import { useQuery } from '@tanstack/react-query'
-import { Link } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
+import { ClipboardCheck, MoreHorizontal, Plus, Users } from 'lucide-react'
 import { useState } from 'react'
 
 import { classesQueryOptions } from '#/features/manage-course'
-import { QuizForm, quizResultsQueryOptions, useDeleteQuiz } from '#/features/manage-quiz'
-import type { QuizManage } from '#/features/manage-quiz'
+import { quizResultsQueryOptions, useDeleteQuiz } from '#/features/manage-quiz'
+import { Badge, Button, PageHeader, Spinner } from '#/shared/ui'
+import { PanelLayout } from '#/widgets/panel-layout'
 
-const STATUS_RU: Record<string, string> = {
-  passed: 'Сдан',
-  failed: 'Не сдан',
-  waiting: 'На проверке',
+const fmtDate = (iso: string) =>
+  new Intl.DateTimeFormat('ru-RU', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(new Date(iso))
+
+function StatCard({
+  label,
+  value,
+  icon,
+  tone,
+}: {
+  label: string
+  value: number
+  icon: React.ReactNode
+  tone: string
+}) {
+  return (
+    <div className="flex items-center justify-between rounded-3xl bg-white p-5">
+      <div>
+        <span className="text-sm text-ink/50">{label}</span>
+        <span className="mt-2 block font-display text-3xl font-bold text-ink">{value}</span>
+      </div>
+      <span className={`flex size-11 items-center justify-center rounded-xl ${tone}`}>{icon}</span>
+    </div>
+  )
 }
 
 export function InstructorQuizzesPage() {
+  const navigate = useNavigate()
   const classes = useQuery(classesQueryOptions)
   const dashboard = useQuery(quizResultsQueryOptions)
   const del = useDeleteQuiz()
-  const [creating, setCreating] = useState(false)
-  const [editing, setEditing] = useState<QuizManage | null>(null)
+  const [menuId, setMenuId] = useState<number | null>(null)
 
-  const courses = (classes.data ?? []).map((c) => ({ id: c.id, title: c.title }))
+  if (dashboard.isPending) {
+    return (
+      <PanelLayout>
+        <Spinner />
+      </PanelLayout>
+    )
+  }
+  if (dashboard.isError) {
+    return (
+      <PanelLayout>
+        <p className="text-red-600">{dashboard.error.message}</p>
+      </PanelLayout>
+    )
+  }
 
-  if (dashboard.isPending) return <p className="mx-auto max-w-3xl px-6 py-8 text-ink/60">Загрузка…</p>
-  if (dashboard.isError)
-    return <p className="mx-auto max-w-3xl px-6 py-8 text-red-600">{dashboard.error.message}</p>
-
-  const { quizzes, results, quiz_results_count, passed_count, waiting_count, success_rate, avg_grade } =
-    dashboard.data
+  const { quizzes, results } = dashboard.data
+  const courseTitle = new Map((classes.data ?? []).map((c) => [c.id, c.title]))
+  const totalQuestions = quizzes.reduce((sum, q) => sum + q.question_count, 0)
+  const distinctStudents = new Set(results.map((r) => r.user?.id).filter(Boolean)).size
 
   return (
-    <div className="mx-auto max-w-3xl space-y-8 px-6 py-8">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-ink">Мои тесты</h1>
-        <Link to="/instructor" className="text-sm text-brand-600 hover:underline">
-          ← К курсам
-        </Link>
+    <PanelLayout>
+      <PageHeader title="Список тестов" />
+
+      {/* Stat cards */}
+      <div className="grid gap-4 sm:grid-cols-3">
+        <StatCard
+          label="Тесты"
+          value={quizzes.length}
+          icon={<ClipboardCheck className="size-5" />}
+          tone="bg-brand-50 text-brand-600"
+        />
+        <StatCard
+          label="Вопросы"
+          value={totalQuestions}
+          icon={<ClipboardCheck className="size-5" />}
+          tone="bg-red-50 text-red-500"
+        />
+        <StatCard
+          label="Студенты"
+          value={distinctStudents}
+          icon={<Users className="size-5" />}
+          tone="bg-amber-50 text-amber-500"
+        />
       </div>
 
-      <section className="space-y-3">
+      {/* Table */}
+      <div className="mt-6 rounded-3xl bg-white p-5">
         <div className="flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-ink/70">Тесты ({quizzes.length})</h2>
-          <button
-            type="button"
-            onClick={() => {
-              setCreating((v) => !v)
-              setEditing(null)
-            }}
-            className="rounded-lg bg-brand-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-700"
-          >
-            {creating ? 'Отмена' : 'Новый тест'}
-          </button>
+          <div>
+            <h3 className="font-display font-bold text-ink">Тесты</h3>
+            <p className="mt-1 text-sm text-ink/50">
+              Управляйте всеми тестами, отслеживайте статус и редактируйте их.
+            </p>
+          </div>
+          <Link to="/instructor/quizzes/new">
+            <Button size="sm" className="gap-1.5">
+              <Plus className="size-4" />
+              Новый тест
+            </Button>
+          </Link>
         </div>
 
-        {creating && <QuizForm courses={courses} onDone={() => setCreating(false)} />}
-
-        {quizzes.map((q) =>
-          editing?.id === q.id ? (
-            <QuizForm key={q.id} courses={courses} quiz={q} onDone={() => setEditing(null)} />
-          ) : (
-            <div
-              key={q.id}
-              className="flex items-center justify-between rounded-lg border border-brand-100 bg-white p-4"
-            >
-              <div>
-                <p className="font-medium text-ink">{q.title}</p>
-                <p className="text-xs text-ink/50">
-                  {q.status} · проходной {q.pass_mark}
-                  {q.certificate ? ' · сертификат' : ''}
-                </p>
-              </div>
-              <div className="flex items-center gap-3 text-sm">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEditing(q)
-                    setCreating(false)
-                  }}
-                  className="text-brand-600 hover:underline"
-                >
-                  Редактировать
-                </button>
-                <button
-                  type="button"
-                  onClick={() => del.mutate(q.id)}
-                  disabled={del.isPending}
-                  className="text-red-600 hover:underline disabled:opacity-50"
-                >
-                  Удалить
-                </button>
-              </div>
-            </div>
-          ),
-        )}
-        {quizzes.length === 0 && !creating && <p className="text-ink/60">Тестов пока нет.</p>}
-      </section>
-
-      <section className="space-y-3">
-        <h2 className="text-sm font-semibold text-ink/70">Результаты студентов</h2>
-        <div className="grid grid-cols-4 gap-3 text-center">
-          {[
-            ['Всего', quiz_results_count],
-            ['Сдали', passed_count],
-            ['На проверке', waiting_count],
-            ['Успех, %', success_rate],
-          ].map(([label, value]) => (
-            <div key={label} className="rounded-lg border border-brand-100 bg-white p-3">
-              <div className="text-lg font-bold text-ink">{value}</div>
-              <div className="text-xs text-ink/50">{label}</div>
-            </div>
-          ))}
-        </div>
-        <p className="text-xs text-ink/50">Средний балл: {avg_grade}</p>
-
-        {results.length === 0 ? (
-          <p className="text-ink/60">Пока нет попыток.</p>
+        {quizzes.length === 0 ? (
+          <div className="mt-6 flex flex-col items-center rounded-2xl border border-dashed border-brand-200 bg-brand-50/40 p-12 text-center">
+            <span className="flex size-12 items-center justify-center rounded-xl bg-brand-100 text-brand-600">
+              <ClipboardCheck className="size-6" />
+            </span>
+            <h5 className="mt-3 text-sm font-semibold text-ink">Тестов пока нет</h5>
+            <p className="mt-1 text-xs text-ink/50">Создайте первый тест для вашего курса.</p>
+          </div>
         ) : (
-          <ul className="space-y-2">
-            {results.map((r) => (
-              <li
-                key={r.id}
-                className="flex items-center justify-between rounded-lg border border-brand-100 bg-white px-4 py-2 text-sm"
-              >
-                <span className="text-ink">{r.user?.full_name ?? 'Студент'}</span>
-                <span className="text-ink/60">{r.quiz_title}</span>
-                <span className="text-ink/80">
-                  {r.user_grade ?? 0} · {STATUS_RU[r.status] ?? r.status}
-                </span>
-              </li>
-            ))}
-          </ul>
+          <div className="mt-5 overflow-x-auto">
+            <table className="w-full min-w-[820px] text-sm">
+              <thead>
+                <tr className="border-b border-brand-50 text-left text-xs font-bold uppercase tracking-wide text-ink/40">
+                  <th className="pb-3">Название</th>
+                  <th className="pb-3 text-center">Вопросы</th>
+                  <th className="pb-3 text-center">Время (мин)</th>
+                  <th className="pb-3 text-center">Общий балл</th>
+                  <th className="pb-3 text-center">Проходной</th>
+                  <th className="pb-3 text-center">Студенты</th>
+                  <th className="pb-3 text-center">Статус</th>
+                  <th className="pb-3">Дата создания</th>
+                  <th className="pb-3 text-right">Действия</th>
+                </tr>
+              </thead>
+              <tbody>
+                {quizzes.map((q) => (
+                  <tr key={q.id} className="border-b border-brand-50/60">
+                    <td className="py-3">
+                      <p className="font-medium text-ink">{q.title}</p>
+                      <p className="text-xs text-ink/45">{courseTitle.get(q.course_id) ?? '—'}</p>
+                    </td>
+                    <td className="py-3 text-center text-ink/70">{q.question_count}</td>
+                    <td className="py-3 text-center text-ink/70">{q.time || '—'}</td>
+                    <td className="py-3 text-center text-ink/70">{q.total_mark}</td>
+                    <td className="py-3 text-center text-ink/70">{q.pass_mark}</td>
+                    <td className="py-3 text-center text-ink/70">{q.students_count}</td>
+                    <td className="py-3 text-center">
+                      <Badge tone={q.status === 'active' ? 'success' : 'danger'}>
+                        {q.status === 'active' ? 'Активно' : 'Неактивно'}
+                      </Badge>
+                    </td>
+                    <td className="py-3 text-ink/50">{fmtDate(q.created_at)}</td>
+                    <td className="relative py-3 text-right">
+                      <button
+                        type="button"
+                        onClick={() => setMenuId(menuId === q.id ? null : q.id)}
+                        className="rounded-lg p-2 text-ink/50 transition hover:bg-brand-50"
+                        aria-label="Действия"
+                      >
+                        <MoreHorizontal className="size-4" />
+                      </button>
+                      {menuId === q.id && (
+                        <>
+                          <div className="fixed inset-0 z-10" onClick={() => setMenuId(null)} />
+                          <div className="absolute right-2 top-11 z-20 w-40 overflow-hidden rounded-xl border border-brand-100 bg-white py-1 text-left shadow-lg">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setMenuId(null)
+                                void navigate({
+                                  to: '/instructor/quizzes/$quizId/edit',
+                                  params: { quizId: String(q.id) },
+                                })
+                              }}
+                              className="block w-full px-4 py-2 text-sm text-ink transition hover:bg-brand-50"
+                            >
+                              Редактировать
+                            </button>
+                            <button
+                              type="button"
+                              disabled={del.isPending}
+                              onClick={() => {
+                                setMenuId(null)
+                                del.mutate(q.id)
+                              }}
+                              className="block w-full px-4 py-2 text-left text-sm text-red-600 transition hover:bg-red-50 disabled:opacity-50"
+                            >
+                              Удалить
+                            </button>
+                          </div>
+                        </>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
-      </section>
-    </div>
+      </div>
+    </PanelLayout>
   )
 }
