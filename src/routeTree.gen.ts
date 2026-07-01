@@ -58,6 +58,8 @@ import { Route as InstructorBundlesRouteImport } from './routes/instructor.bundl
 import { Route as InstructorAssignmentsRouteImport } from './routes/instructor.assignments'
 import { Route as CourseSlugRouteImport } from './routes/course.$slug'
 import { Route as CourseForumCourseIdRouteImport } from './routes/course-forum.$courseId'
+import { Route as CertificatesStudentsRouteImport } from './routes/certificates.students'
+import { Route as CertificatesListRouteImport } from './routes/certificates.list'
 import { Route as BundlesBundleIdRouteImport } from './routes/bundles.$bundleId'
 import { Route as BlogBlogIdRouteImport } from './routes/blog.$blogId'
 import { Route as AssignmentAssignmentIdRouteImport } from './routes/assignment.$assignmentId'
@@ -319,6 +321,16 @@ const CourseForumCourseIdRoute = CourseForumCourseIdRouteImport.update({
   path: '/course-forum/$courseId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CertificatesStudentsRoute = CertificatesStudentsRouteImport.update({
+  id: '/students',
+  path: '/students',
+  getParentRoute: () => CertificatesRoute,
+} as any)
+const CertificatesListRoute = CertificatesListRouteImport.update({
+  id: '/list',
+  path: '/list',
+  getParentRoute: () => CertificatesRoute,
+} as any)
 const BundlesBundleIdRoute = BundlesBundleIdRouteImport.update({
   id: '/bundles/$bundleId',
   path: '/bundles/$bundleId',
@@ -406,7 +418,7 @@ export interface FileRoutesByFullPath {
   '/calendar': typeof CalendarRoute
   '/cart': typeof CartRoute
   '/certificate-validation': typeof CertificateValidationRoute
-  '/certificates': typeof CertificatesRoute
+  '/certificates': typeof CertificatesRouteWithChildren
   '/charge-account': typeof ChargeAccountRoute
   '/contact': typeof ContactRoute
   '/courses': typeof CoursesRoute
@@ -438,6 +450,8 @@ export interface FileRoutesByFullPath {
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/bundles/$bundleId': typeof BundlesBundleIdRoute
+  '/certificates/list': typeof CertificatesListRoute
+  '/certificates/students': typeof CertificatesStudentsRoute
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
   '/instructor/assignments': typeof InstructorAssignmentsRouteWithChildren
@@ -472,7 +486,7 @@ export interface FileRoutesByTo {
   '/calendar': typeof CalendarRoute
   '/cart': typeof CartRoute
   '/certificate-validation': typeof CertificateValidationRoute
-  '/certificates': typeof CertificatesRoute
+  '/certificates': typeof CertificatesRouteWithChildren
   '/charge-account': typeof ChargeAccountRoute
   '/contact': typeof ContactRoute
   '/courses': typeof CoursesRoute
@@ -504,6 +518,8 @@ export interface FileRoutesByTo {
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/bundles/$bundleId': typeof BundlesBundleIdRoute
+  '/certificates/list': typeof CertificatesListRoute
+  '/certificates/students': typeof CertificatesStudentsRoute
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
   '/instructor/assignments': typeof InstructorAssignmentsRouteWithChildren
@@ -539,7 +555,7 @@ export interface FileRoutesById {
   '/calendar': typeof CalendarRoute
   '/cart': typeof CartRoute
   '/certificate-validation': typeof CertificateValidationRoute
-  '/certificates': typeof CertificatesRoute
+  '/certificates': typeof CertificatesRouteWithChildren
   '/charge-account': typeof ChargeAccountRoute
   '/contact': typeof ContactRoute
   '/courses': typeof CoursesRoute
@@ -571,6 +587,8 @@ export interface FileRoutesById {
   '/assignment/$assignmentId': typeof AssignmentAssignmentIdRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/bundles/$bundleId': typeof BundlesBundleIdRoute
+  '/certificates/list': typeof CertificatesListRoute
+  '/certificates/students': typeof CertificatesStudentsRoute
   '/course-forum/$courseId': typeof CourseForumCourseIdRoute
   '/course/$slug': typeof CourseSlugRoute
   '/instructor/assignments': typeof InstructorAssignmentsRouteWithChildren
@@ -639,6 +657,8 @@ export interface FileRouteTypes {
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
     | '/bundles/$bundleId'
+    | '/certificates/list'
+    | '/certificates/students'
     | '/course-forum/$courseId'
     | '/course/$slug'
     | '/instructor/assignments'
@@ -705,6 +725,8 @@ export interface FileRouteTypes {
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
     | '/bundles/$bundleId'
+    | '/certificates/list'
+    | '/certificates/students'
     | '/course-forum/$courseId'
     | '/course/$slug'
     | '/instructor/assignments'
@@ -771,6 +793,8 @@ export interface FileRouteTypes {
     | '/assignment/$assignmentId'
     | '/blog/$blogId'
     | '/bundles/$bundleId'
+    | '/certificates/list'
+    | '/certificates/students'
     | '/course-forum/$courseId'
     | '/course/$slug'
     | '/instructor/assignments'
@@ -806,7 +830,7 @@ export interface RootRouteChildren {
   CalendarRoute: typeof CalendarRoute
   CartRoute: typeof CartRoute
   CertificateValidationRoute: typeof CertificateValidationRoute
-  CertificatesRoute: typeof CertificatesRoute
+  CertificatesRoute: typeof CertificatesRouteWithChildren
   ChargeAccountRoute: typeof ChargeAccountRoute
   ContactRoute: typeof ContactRoute
   CoursesRoute: typeof CoursesRoute
@@ -1208,6 +1232,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CourseForumCourseIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/certificates/students': {
+      id: '/certificates/students'
+      path: '/students'
+      fullPath: '/certificates/students'
+      preLoaderRoute: typeof CertificatesStudentsRouteImport
+      parentRoute: typeof CertificatesRoute
+    }
+    '/certificates/list': {
+      id: '/certificates/list'
+      path: '/list'
+      fullPath: '/certificates/list'
+      preLoaderRoute: typeof CertificatesListRouteImport
+      parentRoute: typeof CertificatesRoute
+    }
     '/bundles/$bundleId': {
       id: '/bundles/$bundleId'
       path: '/bundles/$bundleId'
@@ -1316,6 +1354,20 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface CertificatesRouteChildren {
+  CertificatesListRoute: typeof CertificatesListRoute
+  CertificatesStudentsRoute: typeof CertificatesStudentsRoute
+}
+
+const CertificatesRouteChildren: CertificatesRouteChildren = {
+  CertificatesListRoute: CertificatesListRoute,
+  CertificatesStudentsRoute: CertificatesStudentsRoute,
+}
+
+const CertificatesRouteWithChildren = CertificatesRoute._addFileChildren(
+  CertificatesRouteChildren,
+)
+
 interface InstructorAssignmentsRouteChildren {
   InstructorAssignmentsCoursesRoute: typeof InstructorAssignmentsCoursesRoute
 }
@@ -1349,7 +1401,7 @@ const rootRouteChildren: RootRouteChildren = {
   CalendarRoute: CalendarRoute,
   CartRoute: CartRoute,
   CertificateValidationRoute: CertificateValidationRoute,
-  CertificatesRoute: CertificatesRoute,
+  CertificatesRoute: CertificatesRouteWithChildren,
   ChargeAccountRoute: ChargeAccountRoute,
   ContactRoute: ContactRoute,
   CoursesRoute: CoursesRoute,

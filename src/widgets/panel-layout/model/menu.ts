@@ -101,6 +101,16 @@ export const MENU: MenuSection[] = [
         label: 'Сертификаты',
         icon: Award,
         items: [
+          {
+            to: '/certificates/list',
+            label: 'Список',
+            roles: ['teacher', 'organization', 'admin'],
+          },
+          {
+            to: '/certificates/students',
+            label: 'Все студенты',
+            roles: ['teacher', 'organization', 'admin'],
+          },
           { to: '/certificates', label: 'Мои достижения' },
           { to: '/certificate-validation', label: 'Проверка сертификата' },
         ],

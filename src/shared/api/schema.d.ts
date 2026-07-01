@@ -1119,6 +1119,46 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/panel/certificates/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Instructor Certificates List
+         * @description Instructor's certificate-issuing quizzes + issued counts (legacy list).
+         */
+        get: operations["instructor_certificates_list_api_v1_panel_certificates_list_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/certificates/students": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Instructor Certificate Students
+         * @description Students who earned certificates on the instructor's quizzes (all_students).
+         */
+        get: operations["instructor_certificate_students_api_v1_panel_certificates_students_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/panel/quizzes/results/{quiz_result_id}/show": {
         parameters: {
             query?: never;
@@ -5861,6 +5901,37 @@ export interface components {
             histories: components["schemas"]["AssignmentHistoryRow"][];
         };
         /**
+         * InstructorCertificateSource
+         * @description A certificate-issuing quiz of the instructor (legacy certificates list row).
+         */
+        InstructorCertificateSource: {
+            /** Quiz Id */
+            quiz_id: number;
+            /** Quiz Title */
+            quiz_title: string;
+            /** Course Id */
+            course_id?: number | null;
+            /** Course Title */
+            course_title?: string | null;
+            /**
+             * Certificates Count
+             * @default 0
+             */
+            certificates_count: number;
+        };
+        /** InstructorCertificatesList */
+        InstructorCertificatesList: {
+            /** Certificates Count */
+            certificates_count: number;
+            /** Students Count */
+            students_count: number;
+            /**
+             * Sources
+             * @default []
+             */
+            sources: components["schemas"]["InstructorCertificateSource"][];
+        };
+        /**
          * InstructorDashboard
          * @description Instructor panel home (legacy getInstructorDashboardData).
          */
@@ -5881,6 +5952,29 @@ export interface components {
             text_courses: number;
             /** Manage Courses */
             manage_courses: components["schemas"]["ManageCourseCard"][];
+        };
+        /**
+         * IssuedCertificate
+         * @description A certificate earned by a student on the instructor's quiz (all_students).
+         */
+        IssuedCertificate: {
+            /** Id */
+            id: number;
+            /** Student Name */
+            student_name?: string | null;
+            /** Quiz Title */
+            quiz_title?: string | null;
+            /** Course Title */
+            course_title?: string | null;
+            /** User Grade */
+            user_grade?: number | null;
+            /** File */
+            file?: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
         };
         /** LastAnswer */
         LastAnswer: {
@@ -10177,6 +10271,82 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Achievement"][];
+                };
+            };
+        };
+    };
+    instructor_certificates_list_api_v1_panel_certificates_list_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["InstructorCertificatesList"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    instructor_certificate_students_api_v1_panel_certificates_students_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["IssuedCertificate"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };
