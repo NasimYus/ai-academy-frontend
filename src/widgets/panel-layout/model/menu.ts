@@ -12,6 +12,7 @@ import {
   LayoutDashboard,
   LifeBuoy,
   MessageSquare,
+  MessagesSquare,
   Package,
   Plus,
   Settings,
@@ -169,6 +170,22 @@ export const MENU: MenuSection[] = [
       { label: 'Отзывы', icon: Star, to: '/admin/reviews' },
       { label: 'Офлайн-платежи', icon: Wallet, to: '/admin/offline-payments' },
       { label: 'Платёжные шлюзы', icon: CreditCard, to: '/admin/payment-channels' },
+    ],
+  },
+  {
+    title: 'Сообщество',
+    groups: [
+      {
+        label: 'Форумы',
+        icon: MessagesSquare,
+        to: '/forums',
+        items: [
+          { to: '/forums', label: 'Все форумы' },
+          { to: '/forums/create-topic', label: 'Новая тема' },
+          { to: '/panel/forums/topics', label: 'Мои темы' },
+          { to: '/panel/forums/posts', label: 'Мои посты' },
+        ],
+      },
     ],
   },
   {

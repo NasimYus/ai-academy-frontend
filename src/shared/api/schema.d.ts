@@ -296,6 +296,131 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/forums": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Categories
+         * @description Active forum categories with topic counts (legacy ForumController@index).
+         */
+        get: operations["list_categories_api_v1_forums_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/forums/{forum_id}/topics": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Topics */
+        get: operations["list_topics_api_v1_forums__forum_id__topics_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/forum-topics/{slug}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Topic Detail */
+        get: operations["topic_detail_api_v1_forum_topics__slug__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/forum-topics": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Create Topic
+         * @description Start a new topic (legacy ForumController@createTopic).
+         */
+        post: operations["create_topic_api_v1_forum_topics_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/forum-topics/{topic_id}/posts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Create Post */
+        post: operations["create_post_api_v1_forum_topics__topic_id__posts_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/forums/topics": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** My Topics */
+        get: operations["my_topics_api_v1_panel_forums_topics_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/panel/forums/posts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** My Posts */
+        get: operations["my_posts_api_v1_panel_forums_posts_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/contact": {
         parameters: {
             query?: never;
@@ -5828,6 +5953,15 @@ export interface components {
             created_at: string;
             can: components["schemas"]["ForumCan"];
         };
+        /** ForumAuthor */
+        ForumAuthor: {
+            /** Id */
+            id: number;
+            /** Full Name */
+            full_name?: string | null;
+            /** Avatar */
+            avatar?: string | null;
+        };
         /** ForumCan */
         ForumCan: {
             /**
@@ -5846,6 +5980,24 @@ export interface components {
              */
             resolve: boolean;
         };
+        /** ForumCategoryRead */
+        ForumCategoryRead: {
+            /** Id */
+            id: number;
+            /** Slug */
+            slug: string;
+            /** Title */
+            title: string;
+            /** Description */
+            description?: string | null;
+            /** Icon */
+            icon?: string | null;
+            /**
+             * Topics Count
+             * @default 0
+             */
+            topics_count: number;
+        };
         /** ForumListResponse */
         ForumListResponse: {
             /** Forums */
@@ -5860,6 +6012,37 @@ export interface components {
             comments_count: number;
             /** Active Users Count */
             active_users_count: number;
+        };
+        /** ForumPostCreate */
+        ForumPostCreate: {
+            /** Description */
+            description: string;
+            /** Parent Id */
+            parent_id?: number | null;
+            /** Attach */
+            attach?: string | null;
+        };
+        /** ForumPostRead */
+        ForumPostRead: {
+            /** Id */
+            id: number;
+            /** Description */
+            description: string;
+            /** Attach */
+            attach?: string | null;
+            /**
+             * Pin
+             * @default false
+             */
+            pin: boolean;
+            /** Parent Id */
+            parent_id?: number | null;
+            author?: components["schemas"]["ForumAuthor"] | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
         };
         /** ForumThreadRead */
         ForumThreadRead: {
@@ -5891,6 +6074,87 @@ export interface components {
             /** Last Activity */
             last_activity?: string | null;
             last_answer?: components["schemas"]["LastAnswer"] | null;
+        };
+        /** ForumTopicCreate */
+        ForumTopicCreate: {
+            /** Forum Id */
+            forum_id: number;
+            /** Title */
+            title: string;
+            /** Description */
+            description: string;
+            /** Cover */
+            cover?: string | null;
+        };
+        /** ForumTopicDetail */
+        ForumTopicDetail: {
+            /** Id */
+            id: number;
+            /** Slug */
+            slug: string;
+            /** Forum Id */
+            forum_id: number;
+            /** Title */
+            title: string;
+            /** Description */
+            description: string;
+            /** Cover */
+            cover?: string | null;
+            /**
+             * Pin
+             * @default false
+             */
+            pin: boolean;
+            /**
+             * Close
+             * @default false
+             */
+            close: boolean;
+            author?: components["schemas"]["ForumAuthor"] | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Posts
+             * @default []
+             */
+            posts: components["schemas"]["ForumPostRead"][];
+        };
+        /** ForumTopicRow */
+        ForumTopicRow: {
+            /** Id */
+            id: number;
+            /** Slug */
+            slug: string;
+            /** Forum Id */
+            forum_id: number;
+            /** Title */
+            title: string;
+            /** Cover */
+            cover?: string | null;
+            /**
+             * Pin
+             * @default false
+             */
+            pin: boolean;
+            /**
+             * Close
+             * @default false
+             */
+            close: boolean;
+            author?: components["schemas"]["ForumAuthor"] | null;
+            /**
+             * Posts Count
+             * @default 0
+             */
+            posts_count: number;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
         };
         /** GiftActionResponse */
         GiftActionResponse: {
@@ -6223,6 +6487,22 @@ export interface components {
             course_id?: number | null;
             /** Blog Id */
             blog_id?: number | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** MyForumPostRow */
+        MyForumPostRow: {
+            /** Id */
+            id: number;
+            /** Description */
+            description: string;
+            /** Topic Title */
+            topic_title: string;
+            /** Topic Slug */
+            topic_slug: string;
             /**
              * Created At
              * Format: date-time
@@ -8550,6 +8830,261 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_categories_api_v1_forums_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ForumCategoryRead"][];
+                };
+            };
+        };
+    };
+    list_topics_api_v1_forums__forum_id__topics_get: {
+        parameters: {
+            query?: {
+                search?: string | null;
+            };
+            header?: never;
+            path: {
+                forum_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ForumTopicRow"][];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    topic_detail_api_v1_forum_topics__slug__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ForumTopicDetail"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_topic_api_v1_forum_topics_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ForumTopicCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ForumTopicRow"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    create_post_api_v1_forum_topics__topic_id__posts_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                topic_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ForumPostCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ForumPostRead"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    my_topics_api_v1_panel_forums_topics_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ForumTopicRow"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    my_posts_api_v1_panel_forums_posts_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MyForumPostRow"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };
