@@ -5,6 +5,7 @@ import { Check, ChevronDown, ChevronUp, LayoutGrid, Pencil, Plus, Trash2, X } fr
 import { contentQueryOptions } from '#/features/manage-course/api/content'
 import type { ChapterManage } from '#/features/manage-course/api/content'
 import { useChapterMutations } from '#/features/manage-course/model/use-content'
+import { ChapterItems } from '#/features/manage-course/ui/wizard/steps/ChapterItems'
 import { Button, EmptyState, Spinner } from '#/shared/ui'
 
 export function Step4Content({ courseId }: { courseId: number }) {
@@ -96,6 +97,7 @@ export function Step4Content({ courseId }: { courseId: number }) {
         {chapters.map((chapter, i) => (
           <ChapterRow
             key={chapter.id}
+            courseId={courseId}
             chapter={chapter}
             isFirst={i === 0}
             isLast={i === chapters.length - 1}
@@ -111,6 +113,7 @@ export function Step4Content({ courseId }: { courseId: number }) {
 }
 
 function ChapterRow({
+  courseId,
   chapter,
   isFirst,
   isLast,
@@ -119,6 +122,7 @@ function ChapterRow({
   onMoveUp,
   onMoveDown,
 }: {
+  courseId: number
   chapter: ChapterManage
   isFirst: boolean
   isLast: boolean
@@ -206,9 +210,7 @@ function ChapterRow({
         </div>
       </div>
 
-      <p className="mt-3 rounded-xl border border-dashed border-brand-100 px-4 py-4 text-center text-xs text-ink/45">
-        Добавление материалов (сессии, файлы, уроки, тесты) появится в следующем обновлении.
-      </p>
+      <ChapterItems courseId={courseId} chapterId={chapter.id} items={chapter.items} />
     </div>
   )
 }
