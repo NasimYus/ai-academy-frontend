@@ -122,7 +122,14 @@ export const MENU: MenuSection[] = [
       { label: 'Создать курс', icon: Plus, to: '/instructor/course/new' },
       { label: 'Продажи', icon: Wallet, to: '/instructor/sales' },
       { label: 'Наборы', icon: Package, to: '/instructor/bundles' },
-      { label: 'Тесты', icon: ClipboardCheck, to: '/instructor/quizzes' },
+      {
+        label: 'Тесты',
+        icon: ClipboardCheck,
+        items: [
+          { to: '/instructor/quizzes/new', label: 'Новый тест' },
+          { to: '/instructor/quizzes', label: 'Список' },
+        ],
+      },
       { label: 'Задания', icon: ClipboardList, to: '/instructor/assignments' },
       { label: 'Комментарии', icon: MessageSquare, to: '/instructor/comments' },
       { label: 'Настройка консультаций', icon: Settings, to: '/instructor/meetings' },
