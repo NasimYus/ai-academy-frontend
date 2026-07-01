@@ -13,6 +13,7 @@ import { Stepper } from '#/features/manage-course/ui/wizard/Stepper'
 import { Step1Basic } from '#/features/manage-course/ui/wizard/steps/Step1Basic'
 import { Step2Extra } from '#/features/manage-course/ui/wizard/steps/Step2Extra'
 import { Step3Pricing } from '#/features/manage-course/ui/wizard/steps/Step3Pricing'
+import { Step4Content } from '#/features/manage-course/ui/wizard/steps/Step4Content'
 import { StepSoon } from '#/features/manage-course/ui/wizard/steps/StepSoon'
 
 export function CourseWizard({ course, step }: { course?: CourseDetail; step: number }) {
@@ -96,7 +97,8 @@ export function CourseWizard({ course, step }: { course?: CourseDetail; step: nu
         {step === 1 && <Step1Basic f={f} set={set} />}
         {step === 2 && <Step2Extra f={f} set={set} />}
         {step === 3 && <Step3Pricing f={f} set={set} />}
-        {step > 3 && <StepSoon step={step} />}
+        {step === 4 && course && <Step4Content courseId={course.id} />}
+        {step > 4 && <StepSoon step={step} />}
       </div>
 
       {error && <p className="text-sm text-red-600">{error}</p>}
