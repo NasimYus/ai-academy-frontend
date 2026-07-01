@@ -355,7 +355,7 @@ export function AdminCoursesManagePage({
               Экспорт в Excel
             </button>
             <Link
-              to="/instructor/course/new"
+              to="/admin/course/new"
               className="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-brand-700"
             >
               <Plus className="size-4" />

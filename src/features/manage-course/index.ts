@@ -3,6 +3,7 @@ export {
   useCreateCourse,
   useDeleteCourse,
   useUpdateCourse,
+  useUploadCourseMedia,
 } from '#/features/manage-course/model/use-manage'
 export {
   classesQueryOptions,
@@ -10,3 +11,4 @@ export {
   courseTeachersQueryOptions,
   editCourseQueryOptions,
 } from '#/features/manage-course/api/manage'
+export type { CourseMediaKind } from '#/features/manage-course/api/manage'

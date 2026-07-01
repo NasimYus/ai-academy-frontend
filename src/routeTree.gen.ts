@@ -74,6 +74,7 @@ import { Route as AdminCoursesRouteImport } from './routes/admin.courses'
 import { Route as AdminBecomeInstructorsRouteImport } from './routes/admin.become-instructors'
 import { Route as InstructorQuizzesNewRouteImport } from './routes/instructor.quizzes.new'
 import { Route as InstructorCourseNewRouteImport } from './routes/instructor.course.new'
+import { Route as AdminCourseNewRouteImport } from './routes/admin.course.new'
 import { Route as InstructorQuizzesQuizIdEditRouteImport } from './routes/instructor.quizzes.$quizId.edit'
 import { Route as InstructorCourseCourseIdStatisticsRouteImport } from './routes/instructor.course.$courseId.statistics'
 import { Route as InstructorCourseCourseIdEditRouteImport } from './routes/instructor.course.$courseId.edit'
@@ -403,6 +404,11 @@ const InstructorCourseNewRoute = InstructorCourseNewRouteImport.update({
   path: '/instructor/course/new',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminCourseNewRoute = AdminCourseNewRouteImport.update({
+  id: '/admin/course/new',
+  path: '/admin/course/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InstructorQuizzesQuizIdEditRoute =
   InstructorQuizzesQuizIdEditRouteImport.update({
     id: '/$quizId/edit',
@@ -486,6 +492,7 @@ export interface FileRoutesByFullPath {
   '/instructor/': typeof InstructorIndexRoute
   '/store/': typeof StoreIndexRoute
   '/support/': typeof SupportIndexRoute
+  '/admin/course/new': typeof AdminCourseNewRoute
   '/instructor/course/new': typeof InstructorCourseNewRoute
   '/instructor/quizzes/new': typeof InstructorQuizzesNewRoute
   '/instructor/course/$courseId/edit': typeof InstructorCourseCourseIdEditRoute
@@ -556,6 +563,7 @@ export interface FileRoutesByTo {
   '/instructor': typeof InstructorIndexRoute
   '/store': typeof StoreIndexRoute
   '/support': typeof SupportIndexRoute
+  '/admin/course/new': typeof AdminCourseNewRoute
   '/instructor/course/new': typeof InstructorCourseNewRoute
   '/instructor/quizzes/new': typeof InstructorQuizzesNewRoute
   '/instructor/course/$courseId/edit': typeof InstructorCourseCourseIdEditRoute
@@ -627,6 +635,7 @@ export interface FileRoutesById {
   '/instructor/': typeof InstructorIndexRoute
   '/store/': typeof StoreIndexRoute
   '/support/': typeof SupportIndexRoute
+  '/admin/course/new': typeof AdminCourseNewRoute
   '/instructor/course/new': typeof InstructorCourseNewRoute
   '/instructor/quizzes/new': typeof InstructorQuizzesNewRoute
   '/instructor/course/$courseId/edit': typeof InstructorCourseCourseIdEditRoute
@@ -699,6 +708,7 @@ export interface FileRouteTypes {
     | '/instructor/'
     | '/store/'
     | '/support/'
+    | '/admin/course/new'
     | '/instructor/course/new'
     | '/instructor/quizzes/new'
     | '/instructor/course/$courseId/edit'
@@ -769,6 +779,7 @@ export interface FileRouteTypes {
     | '/instructor'
     | '/store'
     | '/support'
+    | '/admin/course/new'
     | '/instructor/course/new'
     | '/instructor/quizzes/new'
     | '/instructor/course/$courseId/edit'
@@ -839,6 +850,7 @@ export interface FileRouteTypes {
     | '/instructor/'
     | '/store/'
     | '/support/'
+    | '/admin/course/new'
     | '/instructor/course/new'
     | '/instructor/quizzes/new'
     | '/instructor/course/$courseId/edit'
@@ -910,6 +922,7 @@ export interface RootRouteChildren {
   InstructorIndexRoute: typeof InstructorIndexRoute
   StoreIndexRoute: typeof StoreIndexRoute
   SupportIndexRoute: typeof SupportIndexRoute
+  AdminCourseNewRoute: typeof AdminCourseNewRoute
   InstructorCourseNewRoute: typeof InstructorCourseNewRoute
   InstructorCourseCourseIdEditRoute: typeof InstructorCourseCourseIdEditRoute
   InstructorCourseCourseIdStatisticsRoute: typeof InstructorCourseCourseIdStatisticsRoute
@@ -1372,6 +1385,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InstructorCourseNewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/course/new': {
+      id: '/admin/course/new'
+      path: '/admin/course/new'
+      fullPath: '/admin/course/new'
+      preLoaderRoute: typeof AdminCourseNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/instructor/quizzes/$quizId/edit': {
       id: '/instructor/quizzes/$quizId/edit'
       path: '/$quizId/edit'
@@ -1473,6 +1493,7 @@ const rootRouteChildren: RootRouteChildren = {
   InstructorIndexRoute: InstructorIndexRoute,
   StoreIndexRoute: StoreIndexRoute,
   SupportIndexRoute: SupportIndexRoute,
+  AdminCourseNewRoute: AdminCourseNewRoute,
   InstructorCourseNewRoute: InstructorCourseNewRoute,
   InstructorCourseCourseIdEditRoute: InstructorCourseCourseIdEditRoute,
   InstructorCourseCourseIdStatisticsRoute:

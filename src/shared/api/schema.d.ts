@@ -5078,6 +5078,30 @@ export interface components {
              * @default false
              */
             subscribe: boolean;
+            /** Timezone */
+            timezone?: string | null;
+            /**
+             * Forum
+             * @default false
+             */
+            forum: boolean;
+            /**
+             * Certificate
+             * @default false
+             */
+            certificate: boolean;
+            /**
+             * Only For Students
+             * @default false
+             */
+            only_for_students: boolean;
+            /**
+             * Enable Waitlist
+             * @default false
+             */
+            enable_waitlist: boolean;
+            /** Message For Reviewer */
+            message_for_reviewer?: string | null;
             /**
              * Rules
              * @default false

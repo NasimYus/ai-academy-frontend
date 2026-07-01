@@ -129,6 +129,10 @@ export function buildCreateBody(f: WizardForm, draft: boolean) {
     downloadable: false,
     partner_instructor: false,
     subscribe: false,
+    forum: false,
+    certificate: false,
+    only_for_students: false,
+    enable_waitlist: false,
     rules: false,
     draft,
   }
