@@ -3379,6 +3379,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/admin/courses/teachers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Course Teachers
+         * @description Instructors selectable as a course owner (legacy admin create `teachers`).
+         */
+        get: operations["course_teachers_api_v1_admin_courses_teachers_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/admin/courses/live-sessions": {
         parameters: {
             query?: never;
@@ -5020,6 +5040,8 @@ export interface components {
             start_date?: string | null;
             /** Capacity */
             capacity?: number | null;
+            /** Teacher Id */
+            teacher_id?: number | null;
             /**
              * Price
              * @default 0
@@ -5555,6 +5577,8 @@ export interface components {
             description?: string | null;
             /** Category Id */
             category_id?: number | null;
+            /** Teacher Id */
+            teacher_id?: number | null;
             /** Duration */
             duration?: number | null;
             /** Start Date */
@@ -7706,6 +7730,16 @@ export interface components {
          * @enum {string}
          */
         SupportType: "course_support" | "platform_support";
+        /**
+         * TeacherOption
+         * @description Instructor picker option for admin course create (legacy `teachers` list).
+         */
+        TeacherOption: {
+            /** Id */
+            id: number;
+            /** Full Name */
+            full_name: string | null;
+        };
         /** TeachersGroup */
         TeachersGroup: {
             /**
@@ -16311,6 +16345,44 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    course_teachers_api_v1_admin_courses_teachers_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TeacherOption"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };

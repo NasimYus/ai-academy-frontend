@@ -7,5 +7,6 @@ export {
 export {
   classesQueryOptions,
   courseStatisticsQueryOptions,
+  courseTeachersQueryOptions,
   editCourseQueryOptions,
 } from '#/features/manage-course/api/manage'

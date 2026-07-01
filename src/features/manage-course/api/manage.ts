@@ -15,6 +15,17 @@ export function manageMessage(detail: unknown): string {
   return (typeof detail === 'string' && MANAGE_MESSAGE[detail]) || 'Не удалось сохранить курс'
 }
 
+// Instructors selectable as a course owner (admin course create). Admin-gated
+// endpoint — declares error responses, so guard with `if (error)`.
+export const courseTeachersQueryOptions = queryOptions({
+  queryKey: ['admin-course-teachers'],
+  queryFn: async () => {
+    const { data, error } = await api.GET('/api/v1/admin/courses/teachers', {})
+    if (error) throw new Error('Не удалось загрузить список инструкторов')
+    return data
+  },
+})
+
 // The instructor's own courses (legacy classes list; ungated error → data guard).
 export const classesQueryOptions = queryOptions({
   queryKey: ['instructor-classes'],

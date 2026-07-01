@@ -38,6 +38,7 @@ export interface WizardForm {
   // step 1 — basic
   type: CourseType
   locale: string
+  teacher_id: string // admin-only: assigned instructor
   title: string
   seo_description: string
   thumbnail: string
@@ -70,6 +71,7 @@ export function initialForm(course?: CourseDetail): WizardForm {
   return {
     type: course ? course.type : 'webinar',
     locale: course?.locale ?? 'ru',
+    teacher_id: course?.teacher?.id ? String(course.teacher.id) : '',
     title: course?.title ?? '',
     seo_description: course?.seo_description ?? '',
     thumbnail: course?.image ?? '',
@@ -112,6 +114,7 @@ export function buildCreateBody(f: WizardForm, draft: boolean) {
     type: f.type,
     title: f.title,
     locale: f.locale,
+    teacher_id: f.teacher_id ? Number(f.teacher_id) : null,
     summary: f.summary || null,
     description: f.description || null,
     seo_description: f.seo_description || null,
@@ -138,6 +141,7 @@ export function buildStepBody(step: number, f: WizardForm): Record<string, unkno
       type: f.type,
       title: f.title,
       locale: f.locale,
+      teacher_id: f.teacher_id ? Number(f.teacher_id) : null,
       summary: f.summary || null,
       description: f.description || null,
       seo_description: f.seo_description || null,
