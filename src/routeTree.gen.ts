@@ -75,6 +75,7 @@ import { Route as AdminPaymentChannelsRouteImport } from './routes/admin.payment
 import { Route as AdminOnlineCoursesRouteImport } from './routes/admin.online-courses'
 import { Route as AdminOfflinePaymentsRouteImport } from './routes/admin.offline-payments'
 import { Route as AdminMarketingRouteImport } from './routes/admin.marketing'
+import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminLiveSessionsRouteImport } from './routes/admin.live-sessions'
 import { Route as AdminCoursesListRouteImport } from './routes/admin.courses-list'
 import { Route as AdminCoursesRouteImport } from './routes/admin.courses'
@@ -422,6 +423,11 @@ const AdminMarketingRoute = AdminMarketingRouteImport.update({
   path: '/admin/marketing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminLiveSessionsRoute = AdminLiveSessionsRouteImport.update({
   id: '/admin/live-sessions',
   path: '/admin/live-sessions',
@@ -544,6 +550,7 @@ export interface FileRoutesByFullPath {
   '/admin/courses': typeof AdminCoursesRoute
   '/admin/courses-list': typeof AdminCoursesListRoute
   '/admin/live-sessions': typeof AdminLiveSessionsRoute
+  '/admin/login': typeof AdminLoginRoute
   '/admin/marketing': typeof AdminMarketingRoute
   '/admin/offline-payments': typeof AdminOfflinePaymentsRoute
   '/admin/online-courses': typeof AdminOnlineCoursesRoute
@@ -628,6 +635,7 @@ export interface FileRoutesByTo {
   '/admin/courses': typeof AdminCoursesRoute
   '/admin/courses-list': typeof AdminCoursesListRoute
   '/admin/live-sessions': typeof AdminLiveSessionsRoute
+  '/admin/login': typeof AdminLoginRoute
   '/admin/marketing': typeof AdminMarketingRoute
   '/admin/offline-payments': typeof AdminOfflinePaymentsRoute
   '/admin/online-courses': typeof AdminOnlineCoursesRoute
@@ -713,6 +721,7 @@ export interface FileRoutesById {
   '/admin/courses': typeof AdminCoursesRoute
   '/admin/courses-list': typeof AdminCoursesListRoute
   '/admin/live-sessions': typeof AdminLiveSessionsRoute
+  '/admin/login': typeof AdminLoginRoute
   '/admin/marketing': typeof AdminMarketingRoute
   '/admin/offline-payments': typeof AdminOfflinePaymentsRoute
   '/admin/online-courses': typeof AdminOnlineCoursesRoute
@@ -799,6 +808,7 @@ export interface FileRouteTypes {
     | '/admin/courses'
     | '/admin/courses-list'
     | '/admin/live-sessions'
+    | '/admin/login'
     | '/admin/marketing'
     | '/admin/offline-payments'
     | '/admin/online-courses'
@@ -883,6 +893,7 @@ export interface FileRouteTypes {
     | '/admin/courses'
     | '/admin/courses-list'
     | '/admin/live-sessions'
+    | '/admin/login'
     | '/admin/marketing'
     | '/admin/offline-payments'
     | '/admin/online-courses'
@@ -967,6 +978,7 @@ export interface FileRouteTypes {
     | '/admin/courses'
     | '/admin/courses-list'
     | '/admin/live-sessions'
+    | '/admin/login'
     | '/admin/marketing'
     | '/admin/offline-payments'
     | '/admin/online-courses'
@@ -1052,6 +1064,7 @@ export interface RootRouteChildren {
   AdminCoursesRoute: typeof AdminCoursesRoute
   AdminCoursesListRoute: typeof AdminCoursesListRoute
   AdminLiveSessionsRoute: typeof AdminLiveSessionsRoute
+  AdminLoginRoute: typeof AdminLoginRoute
   AdminMarketingRoute: typeof AdminMarketingRoute
   AdminOfflinePaymentsRoute: typeof AdminOfflinePaymentsRoute
   AdminOnlineCoursesRoute: typeof AdminOnlineCoursesRoute
@@ -1555,6 +1568,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminMarketingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/live-sessions': {
       id: '/admin/live-sessions'
       path: '/admin/live-sessions'
@@ -1772,6 +1792,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminCoursesRoute: AdminCoursesRoute,
   AdminCoursesListRoute: AdminCoursesListRoute,
   AdminLiveSessionsRoute: AdminLiveSessionsRoute,
+  AdminLoginRoute: AdminLoginRoute,
   AdminMarketingRoute: AdminMarketingRoute,
   AdminOfflinePaymentsRoute: AdminOfflinePaymentsRoute,
   AdminOnlineCoursesRoute: AdminOnlineCoursesRoute,

@@ -2,6 +2,7 @@ import {
   HeadContent,
   Scripts,
   createRootRouteWithContext,
+  useRouterState,
 } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
@@ -49,15 +50,25 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  // Standalone screens (own layout) — no global header/footer.
+  const pathname = useRouterState({ select: (s) => s.location.pathname })
+  const bare = pathname === '/admin/login'
+
   return (
     <html lang="ru">
       <head>
         <HeadContent />
       </head>
       <body className="flex min-h-screen flex-col">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        {bare ? (
+          children
+        ) : (
+          <>
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </>
+        )}
         <TanStackDevtools
           config={{
             position: 'bottom-right',
