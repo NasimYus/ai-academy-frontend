@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { CreditCard, Wallet } from 'lucide-react'
+import { Check, CreditCard, Wallet } from 'lucide-react'
 import { useState } from 'react'
 
 import { balanceQueryOptions, offlinePaymentsQueryOptions } from '#/entities/financial'
@@ -29,6 +29,10 @@ export function ChargeAccountPage() {
   const [amount, setAmount] = useState('')
   const [bank, setBank] = useState('')
   const [reference, setReference] = useState('')
+  // Payment method selector (legacy radios). Only offline is supported — online
+  // gateways for account top-up aren't ported yet — but the option is a real,
+  // clickable, selected control rather than a dead label.
+  const [method, setMethod] = useState<string>('offline')
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -70,9 +74,22 @@ export function ChargeAccountPage() {
         <p className="mt-1 text-sm text-ink/50">Пополните счёт для будущих покупок.</p>
 
         <p className="mt-5 text-sm font-bold text-ink">Выберите способ оплаты</p>
-        <div className="mt-2 inline-flex items-center gap-2 rounded-2xl border border-brand-200 bg-brand-50/40 px-5 py-4 text-sm font-medium text-ink">
-          <CreditCard className="size-5 text-brand-600" />
-          Офлайн-платёж
+        <div className="mt-2 flex flex-wrap gap-3">
+          <button
+            type="button"
+            role="radio"
+            aria-checked={method === 'offline'}
+            onClick={() => setMethod('offline')}
+            className={`inline-flex items-center gap-2 rounded-2xl border px-5 py-4 text-sm font-medium transition ${
+              method === 'offline'
+                ? 'border-brand-500 bg-brand-50 text-brand-700 ring-1 ring-brand-500'
+                : 'border-brand-200 text-ink/70 hover:bg-brand-50/60'
+            }`}
+          >
+            <CreditCard className="size-5 text-brand-600" />
+            Офлайн-платёж
+            {method === 'offline' && <Check className="size-4 text-brand-600" />}
+          </button>
         </div>
 
         <form onSubmit={onSubmit} className="mt-5 grid gap-4 sm:grid-cols-2">
