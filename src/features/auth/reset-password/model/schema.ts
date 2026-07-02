@@ -1,12 +1,14 @@
 import { z } from 'zod'
 
+import { passwordSchema } from '#/shared/lib'
+
 export const forgotPasswordSchema = z.object({
   email: z.string().email('Введите корректный e-mail'),
 })
 
 export const resetPasswordSchema = z
   .object({
-    password: z.string().min(6, 'Минимум 6 символов'),
+    password: passwordSchema,
     password_confirmation: z.string(),
   })
   .refine((v) => v.password === v.password_confirmation, {

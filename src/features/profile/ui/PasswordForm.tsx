@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query'
 
 import { useSessionStore } from '#/entities/session'
 import { changePassword } from '#/features/profile/api/profile'
+import { passwordSchema } from '#/shared/lib'
 import { Button, Field } from '#/shared/ui'
 
 export function PasswordForm() {
@@ -29,7 +30,8 @@ export function PasswordForm() {
     e.preventDefault()
     setFieldError(null)
     setDone(false)
-    if (next.length < 6) return setFieldError('Минимум 6 символов')
+    const parsed = passwordSchema.safeParse(next)
+    if (!parsed.success) return setFieldError(parsed.error.issues[0]?.message ?? 'Слабый пароль')
     change.mutate({ current_password: current, new_password: next })
   }
 

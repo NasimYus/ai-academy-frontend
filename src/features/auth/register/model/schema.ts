@@ -1,10 +1,12 @@
 import { z } from 'zod'
 
-// Step 1: credentials. Legacy enforces password min 6 + confirmation match.
+import { passwordSchema } from '#/shared/lib'
+
+// Step 1: credentials — strong password + confirmation match.
 export const registerStep1Schema = z
   .object({
     email: z.string().email('Введите корректный e-mail'),
-    password: z.string().min(6, 'Минимум 6 символов'),
+    password: passwordSchema,
     password_confirmation: z.string(),
   })
   .refine((v) => v.password === v.password_confirmation, {

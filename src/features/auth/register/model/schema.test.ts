@@ -6,11 +6,11 @@ import {
 } from '#/features/auth/register/model/schema'
 
 describe('registerStep1Schema', () => {
-  it('accepts matching passwords', () => {
+  it('accepts a strong matching password', () => {
     const r = registerStep1Schema.safeParse({
       email: 'a@b.tj',
-      password: 'secret6',
-      password_confirmation: 'secret6',
+      password: 'Secret123!',
+      password_confirmation: 'Secret123!',
     })
     expect(r.success).toBe(true)
   })
@@ -18,19 +18,27 @@ describe('registerStep1Schema', () => {
   it('rejects mismatched passwords', () => {
     const r = registerStep1Schema.safeParse({
       email: 'a@b.tj',
-      password: 'secret6',
-      password_confirmation: 'other6',
+      password: 'Secret123!',
+      password_confirmation: 'Other123!',
     })
     expect(r.success).toBe(false)
   })
 
-  it('rejects a short password', () => {
-    const r = registerStep1Schema.safeParse({
-      email: 'a@b.tj',
-      password: '12345',
-      password_confirmation: '12345',
-    })
-    expect(r.success).toBe(false)
+  it('rejects a weak password (no symbol / too short)', () => {
+    expect(
+      registerStep1Schema.safeParse({
+        email: 'a@b.tj',
+        password: 'secret12345',
+        password_confirmation: 'secret12345',
+      }).success,
+    ).toBe(false)
+    expect(
+      registerStep1Schema.safeParse({
+        email: 'a@b.tj',
+        password: '12345',
+        password_confirmation: '12345',
+      }).success,
+    ).toBe(false)
   })
 })
 
