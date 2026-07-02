@@ -15,9 +15,7 @@ import { Avatar, Button } from '#/shared/ui'
 const NAV = [
   { to: '/', label: 'Home' },
   { to: '/courses', label: 'Courses' },
-  // TODO(Forums): global forum is a separate subsystem (topics/posts/likes) —
-  // deferred; interim target is the catalog where per-course forums live.
-  { to: '/courses', label: 'Forums' },
+  { to: '/forums', label: 'Forums' },
   { to: '/blog', label: 'News' },
   { to: '/contact', label: 'Contact' },
 ] as const
@@ -162,11 +160,17 @@ function AuthedHeader() {
             <Link to="/instructors" className="transition hover:text-brand-600">
               Преподаватели
             </Link>
-            <Link to="/blog" className="transition hover:text-brand-600">
-              Блог
-            </Link>
             <Link to="/store" className="transition hover:text-brand-600">
               Магазин
+            </Link>
+            <Link to="/forums" className="transition hover:text-brand-600">
+              Форумы
+            </Link>
+            <Link to="/blog" className="transition hover:text-brand-600">
+              Новости
+            </Link>
+            <Link to="/contact" className="transition hover:text-brand-600">
+              Контакты
             </Link>
           </nav>
         </div>

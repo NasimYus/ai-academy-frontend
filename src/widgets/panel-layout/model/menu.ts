@@ -17,7 +17,6 @@ import {
   Settings,
   ShoppingCart,
   Star,
-  Store,
   TrendingUp,
   User,
   UserCheck,
@@ -67,7 +66,6 @@ export const MENU: MenuSection[] = [
           { to: '/favorites', label: 'Избранное' },
         ],
       },
-      { label: 'Встречи', icon: Users, to: '/meetings' },
     ],
   },
   {
@@ -121,7 +119,6 @@ export const MENU: MenuSection[] = [
   {
     title: 'Финансы и маркетинг',
     groups: [
-      { label: 'Магазин', icon: Store, to: '/store' },
       {
         label: 'Финансы',
         icon: Wallet,

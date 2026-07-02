@@ -1,14 +1,10 @@
-import { createFileRoute, redirect } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
-import { useSessionStore } from '#/entities/session'
 import { LandingPage } from '#/pages/landing'
 
+// The landing is the main screen for everyone — the header logo links here.
+// Signed-in users still land in /panel after login (LoginForm navigates there
+// explicitly); visiting "/" shows the public landing instead of redirecting.
 export const Route = createFileRoute('/')({
-  beforeLoad: () => {
-    // Signed-in users land in their cabinet; guests see the public landing.
-    if (useSessionStore.getState().token) {
-      throw redirect({ to: '/panel' })
-    }
-  },
   component: LandingPage,
 })
